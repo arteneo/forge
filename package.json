@@ -1,8 +1,10 @@
 {
-    "name": "forge",
+    "name": "@arteneo/forge",
     "version": "1.0.0",
     "description": "Forge",
     "license": "MIT",
+    "author": "Arteneo",
+    "private": false,
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "scripts": {
@@ -85,5 +87,16 @@
         "react-router-dom": "^5.2.0",
         "use-react-router": "^1.0.7",
         "yup": "^0.29.3"
-    }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/arteneo/forge.git"
+    },
+    "keywords": [
+        "Forge"
+    ],
+    "bugs": {
+        "url": "https://github.com/arteneo/forge/issues"
+    },
+    "homepage": "https://github.com/arteneo/forge#readme"
 }
