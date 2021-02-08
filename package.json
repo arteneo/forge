@@ -1,8 +1,8 @@
 {
-    "name": "forge-react",
-    "version": "1.0.44",
-    "description": "Forge React",
-    "license": "SEE LICENSE IN Arteneo",
+    "name": "forge",
+    "version": "1.0.0",
+    "description": "Forge",
+    "license": "MIT",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "scripts": {
@@ -85,8 +85,5 @@
         "react-router-dom": "^5.2.0",
         "use-react-router": "^1.0.7",
         "yup": "^0.29.3"
-    },
-    "publishConfig": {
-        "registry": "https://registry.arteneo.pl/repository/forge-react/"
     }
 }
