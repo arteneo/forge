@@ -1,0 +1,36 @@
+import React from "react";
+import { TableFooter, TableRow, TablePagination as MuiTablePagination } from "@material-ui/core";
+import { useTable } from "forge-react/components/Table/contexts/Table";
+import TablePaginationActions from "forge-react/components/Table/components/TablePaginationActions";
+import { useTranslation } from "react-i18next";
+
+const TablePagination: React.FC = () => {
+    const { t } = useTranslation();
+    const { page, rowCount, rowsPerPage, rowsPerPageOptions, onChangePage, onChangeRowsPerPage } = useTable();
+
+    return (
+        <TableFooter>
+            <TableRow>
+                <MuiTablePagination
+                    rowsPerPageOptions={rowsPerPageOptions}
+                    count={rowCount}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={onChangePage}
+                    onChangeRowsPerPage={onChangeRowsPerPage}
+                    labelDisplayedRows={({ from, to, count }) =>
+                        t("crud.displayedRows", {
+                            from: from,
+                            to: to === -1 ? count : to,
+                            count: count,
+                        })
+                    }
+                    labelRowsPerPage={t("crud.rowsPerPage")}
+                    ActionsComponent={TablePaginationActions}
+                />
+            </TableRow>
+        </TableFooter>
+    );
+};
+
+export default TablePagination;
