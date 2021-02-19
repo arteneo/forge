@@ -8,12 +8,12 @@ interface Props extends CurrencyProps {
 }
 
 // eslint-disable-next-line
-const CurrencyFilter: React.FC<Props> = ({ filterBy, filterType, ...props }: Props) => {
+const CurrencyToFilter: React.FC<Props> = ({ filterBy, filterType, ...props }: Props) => {
     return <Currency {...props} />;
 };
 
-CurrencyFilter.defaultProps = {
-    filterType: "equal",
+CurrencyToFilter.defaultProps = {
+    filterType: "lessThanOrEqual",
 };
 
-export default CurrencyFilter;
+export default CurrencyToFilter;
