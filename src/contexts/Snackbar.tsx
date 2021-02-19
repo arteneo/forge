@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.error.dark,
     },
     info: {
-        backgroundColor: theme.palette.primary.main,
+        backgroundColor: theme.palette.info.main,
     },
     warning: {
         backgroundColor: theme.palette.warning.main,
