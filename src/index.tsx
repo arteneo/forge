@@ -37,6 +37,7 @@ import FilterDefinition from "forge-react/components/Table/definitions/FilterDef
 import { TableContext, TableProvider, useTable } from "forge-react/components/Table/contexts/Table";
 import { TableQueryContext, TableQueryProvider, useTableQuery } from "forge-react/components/Table/contexts/TableQuery";
 import TextFilter from "forge-react/components/Table/filters/TextFilter";
+import CurrencyFilter from "forge-react/components/Table/filters/CurrencyFilter";
 import SelectFilter from "forge-react/components/Table/filters/SelectFilter";
 import SelectApiFilter from "forge-react/components/Table/filters/SelectApiFilter";
 import DateFromFilter from "forge-react/components/Table/filters/DateFromFilter";
@@ -121,6 +122,7 @@ export {
     TableQueryProvider,
     useTableQuery,
     TextFilter,
+    CurrencyFilter,
     SelectFilter,
     SelectApiFilter,
     DateFromFilter,
