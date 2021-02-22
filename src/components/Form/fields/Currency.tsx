@@ -1,10 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "forge-react/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "forge-react/utils/resolve";
+import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
+import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import CurrencyElement, { FieldProps } from "forge-react/components/Form/elements/Currency";
-import TextFieldInterface from "forge-react/components/Form/definitions/TextFieldInterface";
+import CurrencyElement, { FieldProps } from "@arteneo/forge/components/Form/elements/Currency";
+import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
 interface Props extends TextFieldInterface {
     onChange?: (

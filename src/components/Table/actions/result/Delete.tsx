@@ -2,13 +2,13 @@ import React from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core";
-import WrapperInterface from "forge-react/definitions/WrapperInterface";
-import Wrapper from "forge-react/components/Table/components/Wrapper";
-import { useTable } from "forge-react/components/Table/contexts/Table";
-import { useSnackbar } from "forge-react/contexts/Snackbar";
-import { useHandleCatch } from "forge-react/contexts/HandleCatch";
-import { useLoader } from "forge-react/contexts/Loader";
-import Button, { Props as ButtonProps } from "forge-react/components/Common/Button";
+import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
+import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
+import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
+import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
+import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
+import { useLoader } from "@arteneo/forge/contexts/Loader";
+import Button, { Props as ButtonProps } from "@arteneo/forge/components/Common/Button";
 
 interface Props extends WrapperInterface {
     // result is added to props by TableContent

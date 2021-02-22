@@ -1,5 +1,5 @@
 /* eslint-disable */
-import FieldsInterface from "forge-react/components/Form/definitions/FieldsInterface";
+import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import { FormikValues } from "formik";
 
 const isProd = (): boolean => {

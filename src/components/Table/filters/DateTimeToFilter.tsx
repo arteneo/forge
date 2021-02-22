@@ -1,6 +1,6 @@
 import React from "react";
-import DateTime, { Props as DateTimeProps } from "forge-react/components/Form/fields/DateTime";
-import FilterType from "forge-react/components/Table/definitions/FilterType";
+import DateTime, { Props as DateTimeProps } from "@arteneo/forge/components/Form/fields/DateTime";
+import FilterType from "@arteneo/forge/components/Table/definitions/FilterType";
 
 interface Props extends DateTimeProps {
     filterBy?: string;

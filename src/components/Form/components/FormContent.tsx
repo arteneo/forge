@@ -1,17 +1,17 @@
 import React from "react";
-import { useForm } from "forge-react/components/Form/contexts/Form";
+import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useHandleCatch } from "forge-react/contexts/HandleCatch";
+import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { Formik, FormikHelpers, FormikValues, Form } from "formik";
 import * as Yup from "yup";
-import { resolveStringOrFunction } from "forge-react/utils/resolve";
-import FormButtons from "forge-react/components/Form/components/FormButtons";
-import PromptIfDirty from "forge-react/components/Form/components/PromptIfDirty";
-import { useSnackbar } from "forge-react/contexts/Snackbar";
-import { useLoader } from "forge-react/contexts/Loader";
-import FieldsInterface from "forge-react/components/Form/definitions/FieldsInterface";
+import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
+import FormButtons from "@arteneo/forge/components/Form/components/FormButtons";
+import PromptIfDirty from "@arteneo/forge/components/Form/components/PromptIfDirty";
+import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
+import { useLoader } from "@arteneo/forge/contexts/Loader";
+import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import { makeStyles } from "@material-ui/core";
-import ValidationSchemaInterface from "forge-react/components/Form/definitions/ValidationSchemaInterface";
+import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 
 interface Props {
     fields?: FieldsInterface;

@@ -1,4 +1,4 @@
-import FilterDefinition from "forge-react/components/Table/definitions/FilterDefinition";
+import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
 
 interface FiltersInterface {
     [key: string]: FilterDefinition;

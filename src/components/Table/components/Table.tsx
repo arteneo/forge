@@ -1,11 +1,11 @@
 import React from "react";
-import { TableProvider } from "forge-react/components/Table/contexts/Table";
-import TableContent from "forge-react/components/Table/components/TableContent";
-import RowInterface from "forge-react/components/Table/definitions/RowInterface";
-import FieldsInterface from "forge-react/components/Form/definitions/FieldsInterface";
-import SortingInterface from "forge-react/components/Table/definitions/SortingInterface";
-import FiltersInterface from "forge-react/components/Table/definitions/FiltersInterface";
-import FilterValuesInterface from "forge-react/components/Table/definitions/FilterValuesInterface";
+import { TableProvider } from "@arteneo/forge/components/Table/contexts/Table";
+import TableContent from "@arteneo/forge/components/Table/components/TableContent";
+import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
+import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
+import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
+import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
 
 interface Props {
     row: RowInterface;

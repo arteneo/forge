@@ -2,12 +2,12 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { FormikValues, FormikTouched, FormikErrors, getIn, setIn } from "formik";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useHandleCatch } from "forge-react/contexts/HandleCatch";
-import { populate } from "forge-react/utils/common";
-import { resolveReactNodeOrFunction } from "forge-react/utils/resolve";
-import FieldsInterface from "forge-react/components/Form/definitions/FieldsInterface";
-import FieldHelpType from "forge-react/components/Form/definitions/FieldHelpType";
-import FieldLabelType from "forge-react/components/Form/definitions/FieldLabelType";
+import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
+import { populate } from "@arteneo/forge/utils/common";
+import { resolveReactNodeOrFunction } from "@arteneo/forge/utils/resolve";
+import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
+import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
 
 interface ContextProps {
     formikInitialValues: FormikValues;

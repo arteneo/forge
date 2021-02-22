@@ -1,5 +1,5 @@
 import React from "react";
-import WrapperInterface from "forge-react/definitions/WrapperInterface";
+import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 
 interface Props extends WrapperInterface {
     children: React.ReactNode;

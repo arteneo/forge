@@ -1,10 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "forge-react/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "forge-react/utils/resolve";
+import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
+import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TimeElement from "forge-react/components/Form/elements/Time";
-import TextFieldInterface from "forge-react/components/Form/definitions/TextFieldInterface";
+import TimeElement from "@arteneo/forge/components/Form/elements/Time";
+import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import { KeyboardTimePickerProps } from "@material-ui/pickers";
 
 interface Props extends TextFieldInterface {
