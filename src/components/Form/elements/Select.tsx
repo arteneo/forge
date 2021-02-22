@@ -10,14 +10,14 @@ import {
     AutocompleteProps,
     AutocompleteRenderInputParams,
 } from "@material-ui/lab";
-import OptionsType from "forge-react/components/Form/definitions/OptionsType";
-import OptionInterface from "forge-react/components/Form/definitions/OptionInterface";
+import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
+import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
 import {
     SelectValueType,
     Multiple,
     DisableClearable,
     FreeSolo,
-} from "forge-react/components/Form/definitions/AutocompleteTypes";
+} from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 
 type SelectAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
 type SelectAutocompletePartialProps<T> = {

@@ -16,7 +16,7 @@
         "types": ["node"],
         "rootDirs": ["src", "dist"],
         "paths": {
-            "forge-react/*": ["src/*", "dist/*"]
+            "@arteneo/forge/*": ["src/*", "dist/*"]
         },
         "plugins": [
             { "transform": "typescript-transform-paths", "useRootDirs": true },

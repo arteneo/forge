@@ -1,7 +1,7 @@
 import React from "react";
 import { TableFooter, TableRow, TablePagination as MuiTablePagination } from "@material-ui/core";
-import { useTable } from "forge-react/components/Table/contexts/Table";
-import TablePaginationActions from "forge-react/components/Table/components/TablePaginationActions";
+import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
+import TablePaginationActions from "@arteneo/forge/components/Table/components/TablePaginationActions";
 import { useTranslation } from "react-i18next";
 
 const TablePagination: React.FC = () => {

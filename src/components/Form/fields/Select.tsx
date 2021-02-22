@@ -1,14 +1,14 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "forge-react/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "forge-react/utils/resolve";
+import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
+import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectAutocompleteOptionalProps } from "forge-react/components/Form/elements/Select";
-import TextFieldInterface from "forge-react/components/Form/definitions/TextFieldInterface";
+import SelectElement, { SelectAutocompleteOptionalProps } from "@arteneo/forge/components/Form/elements/Select";
+import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
-import OptionsType from "forge-react/components/Form/definitions/OptionsType";
-import OptionInterface from "forge-react/components/Form/definitions/OptionInterface";
-import { SelectValueType } from "forge-react/components/Form/definitions/AutocompleteTypes";
+import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
+import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
+import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import { FormControlProps } from "@material-ui/core";
 
 interface Props extends TextFieldInterface {

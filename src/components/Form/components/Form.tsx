@@ -1,7 +1,7 @@
 import React from "react";
 import { FormikValues } from "formik";
-import FormContent, { Props as FormContentProps } from "forge-react/components/Form/components/FormContent";
-import { FormProvider } from "forge-react/components/Form/contexts/Form";
+import FormContent, { Props as FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
+import { FormProvider } from "@arteneo/forge/components/Form/contexts/Form";
 
 interface Props extends FormContentProps {
     initialValues?: FormikValues;

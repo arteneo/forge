@@ -1,4 +1,4 @@
-import SortingDirection from "forge-react/components/Table/definitions/SortingDirection";
+import SortingDirection from "@arteneo/forge/components/Table/definitions/SortingDirection";
 
 interface QuerySortingDefinitionInterface {
     field: string;

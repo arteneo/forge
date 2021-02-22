@@ -1,8 +1,8 @@
 import React from "react";
 import clsx from "clsx";
-import Form from "forge-react/components/Form/components/Form";
-import TableFiltersButtons from "forge-react/components/Table/components/TableFiltersButtons";
-import { useTable } from "forge-react/components/Table/contexts/Table";
+import Form from "@arteneo/forge/components/Form/components/Form";
+import TableFiltersButtons from "@arteneo/forge/components/Table/components/TableFiltersButtons";
+import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     Accordion,
     AccordionDetails,
@@ -15,7 +15,7 @@ import {
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { ExpandMore, FilterList } from "@material-ui/icons";
-import FieldsInterface from "forge-react/components/Form/definitions/FieldsInterface";
+import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 
 interface Props {
     filters: FieldsInterface;

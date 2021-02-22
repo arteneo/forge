@@ -1,8 +1,8 @@
 import React from "react";
-import SortingInterface from "forge-react/components/Table/definitions/SortingInterface";
-import FilterValuesInterface from "forge-react/components/Table/definitions/FilterValuesInterface";
-import TableQueryInterface from "forge-react/components/Table/definitions/TableQueryInterface";
-import TableQueriesInterface from "forge-react/components/Table/definitions/TableQueriesInterface";
+import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
+import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
+import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
+import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
 
 interface ContextProps {
     setQuery: (

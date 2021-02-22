@@ -1,6 +1,6 @@
 import React from "react";
-import Select, { Props as SelectProps } from "forge-react/components/Form/fields/Select";
-import FilterType from "forge-react/components/Table/definitions/FilterType";
+import Select, { Props as SelectProps } from "@arteneo/forge/components/Form/fields/Select";
+import FilterType from "@arteneo/forge/components/Table/definitions/FilterType";
 
 interface Props extends SelectProps {
     filterBy?: string;

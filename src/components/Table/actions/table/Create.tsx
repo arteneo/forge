@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button, ButtonProps } from "@material-ui/core";
-import WrapperInterface from "forge-react/definitions/WrapperInterface";
-import Wrapper from "forge-react/components/Table/components/Wrapper";
-import { useTable } from "forge-react/components/Table/contexts/Table";
+import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
+import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
+import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import { Link } from "react-router-dom";
 
 interface Props extends WrapperInterface {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useTable } from "forge-react/components/Table/contexts/Table";
+import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     Box,
     Paper,
@@ -14,10 +14,10 @@ import {
 } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import { useTranslation } from "react-i18next";
-import RowInterface from "forge-react/components/Table/definitions/RowInterface";
-import TablePagination from "forge-react/components/Table/components/TablePagination";
-import TableFilters from "forge-react/components/Table/components/TableFilters";
-import FieldsInterface from "forge-react/components/Form/definitions/FieldsInterface";
+import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
+import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
+import TableFilters from "@arteneo/forge/components/Table/components/TableFilters";
+import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 
 interface Props {
     row: RowInterface;

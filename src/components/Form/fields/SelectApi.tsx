@@ -1,16 +1,16 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "forge-react/components/Form/contexts/Form";
+import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "forge-react/utils/resolve";
+import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectAutocompleteOptionalProps } from "forge-react/components/Form/elements/Select";
-import TextFieldInterface from "forge-react/components/Form/definitions/TextFieldInterface";
+import SelectElement, { SelectAutocompleteOptionalProps } from "@arteneo/forge/components/Form/elements/Select";
+import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
-import OptionsType from "forge-react/components/Form/definitions/OptionsType";
-import OptionInterface from "forge-react/components/Form/definitions/OptionInterface";
-import { SelectValueType } from "forge-react/components/Form/definitions/AutocompleteTypes";
-import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "forge-react/contexts/HandleCatch";
+import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
+import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
+import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
+import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 import { FormControlProps } from "@material-ui/core";
 
 interface Props extends TextFieldInterface {
