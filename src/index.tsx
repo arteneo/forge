@@ -29,6 +29,7 @@ import Edit, { EditProps } from "@arteneo/forge/components/Table/actions/result/
 import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/result/Delete";
 import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
 import ExportCsv, { ExportCsvProps } from "@arteneo/forge/components/Table/actions/table/ExportCsv";
+import ExportExcel, { ExportExcelProps } from "@arteneo/forge/components/Table/actions/table/ExportExcel";
 import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
 import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
@@ -123,6 +124,7 @@ export {
     ExportCsv,
     ExportCsvProps,
     ExportExcel,
+    ExportExcelProps,
     RowInterface,
     ExportQueryInterface,
     TableContext,

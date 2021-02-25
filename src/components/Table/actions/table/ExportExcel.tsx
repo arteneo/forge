@@ -1,107 +1,86 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
-import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import axios from "axios";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
-import Button, { Props as ButtonProps } from "@arteneo/forge/components/Common/Button";
+import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
+import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
+import { AxiosRequestConfig } from "axios";
 
-interface Props extends WrapperInterface {
+interface ExportExcelInterface {
+    // eslint-disable-next-line
+    endpoint?: string;
+    fileName?: string;
+    sheetName?: string;
     changeQuery?: (query: ExportQueryInterface) => ExportQueryInterface;
-    buttonProps?: ButtonProps;
 }
 
-const ExportExcel: React.FC<Props> = ({
-    buttonProps = {
-        variant: "contained",
-        color: "primary",
-    },
-    changeQuery,
-    wrapperComponent,
-    wrapperComponentProps,
-}: Props) => {
+type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
+type ExportExcelProps = Optional<ExportExcelInterface & ButtonDownloadProps & ColumnInterface, "requestConfig">;
+
+const ExportExcel = ({ endpoint, fileName, sheetName, changeQuery, ...props }: ExportExcelProps) => {
     const { t } = useTranslation();
     const { custom, row, query } = useTable();
-    const { showLoader, hideLoader } = useLoader();
-    const handleCatch = useHandleCatch();
 
-    if (typeof custom?.endpoints?.exportExcel === "undefined") {
+    if (typeof endpoint === "undefined" && typeof custom?.endpoints?.exportExcel === "undefined") {
         throw new Error(
-            "ExportExcel component: Missing required endpoints.exportExcel definition in custom variable used by Table context"
+            "ExportExcel component: Missing required endpoint prop or endpoints.exportExcel definition in custom variable used by Table context"
         );
     }
 
-    if (typeof custom?.export?.excelFileName === "undefined") {
+    if (typeof fileName === "undefined" && typeof custom?.export?.excelFileName === "undefined") {
         throw new Error(
-            "ExportExcel component: Missing required export.excelFileName definition in custom variable used by Table context"
+            "ExportExcel component: Missing required fileName prop or export.excelFileName definition in custom variable used by Table context"
         );
     }
 
-    if (typeof custom?.export?.excelSheetName === "undefined") {
+    if (typeof sheetName === "undefined" && typeof custom?.export?.excelSheetName === "undefined") {
         throw new Error(
-            "ExportExcel component: Missing required export.excelSheetName definition in custom variable used by Table context"
+            "ExportExcel component: Missing required sheetName prop or export.excelSheetName definition in custom variable used by Table context"
         );
     }
 
-    const onClick = () => {
-        showLoader();
+    const resolvedEndpoint = endpoint ? endpoint : custom.endpoints.exportExcel;
+    const resolvedFileName = fileName ? fileName : custom.export.excelFileName;
+    const resolvedSheetName = sheetName ? sheetName : custom.export.excelSheetName;
 
-        let exportQuery: ExportQueryInterface = {
-            sorting: query.sorting,
-            filters: query.filters,
-            fields: [],
-            fileName: custom.export.excelFileName,
-            sheetName: custom.export.excelSheetName,
-        };
-
-        Object.keys(row).map((field) => {
-            exportQuery.fields.push({
-                field,
-                label: t("label." + field),
-            });
-        });
-
-        if (changeQuery) {
-            exportQuery = changeQuery(exportQuery);
-        }
-
-        axios
-            .post(custom.endpoints.exportExcel, exportQuery, { responseType: "blob" })
-            .then((response) => {
-                hideLoader();
-
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement("a");
-                link.href = url;
-                link.setAttribute("download", response.headers["content-type-filename"]);
-                link.setAttribute("target", "_blank");
-                document.body.appendChild(link);
-                link.click();
-            })
-            .catch((error) => handleCatch(error));
+    let exportQuery: ExportQueryInterface = {
+        sorting: query.sorting,
+        filters: query.filters,
+        fields: [],
+        fileName: resolvedFileName,
+        sheetName: resolvedSheetName,
     };
 
-    const button = (
-        // eslint-disable-next-line
-        // @ts-ignore: see https://github.com/mui-org/material-ui/issues/7877
-        <Button onClick={onClick} {...buttonProps}>
-            {t("action.exportExcel")}
-        </Button>
-    );
+    Object.keys(row).map((field) => {
+        exportQuery.fields.push({
+            field,
+            label: t("label." + field),
+        });
+    });
+
+    if (changeQuery) {
+        exportQuery = changeQuery(exportQuery);
+    }
+
+    const requestConfig: AxiosRequestConfig = {
+        method: "post",
+        url: resolvedEndpoint,
+        data: exportQuery,
+        responseType: "blob",
+    };
 
     return (
-        <Wrapper
+        <ButtonDownload
             {...{
-                wrapperComponent,
-                wrapperComponentProps,
+                requestConfig,
+                label: "action.exportExcel",
+                color: "primary",
+                variant: "contained",
+                ...props,
             }}
-        >
-            {button}
-        </Wrapper>
+        />
     );
 };
 
 export default ExportExcel;
+export { ExportExcelProps };
