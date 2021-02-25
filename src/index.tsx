@@ -1,5 +1,6 @@
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
 import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
+import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
 import { FormContext, FormProvider, useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { ErrorContext, ErrorProvider, useError } from "@arteneo/forge/contexts/Error";
 import {
@@ -95,6 +96,8 @@ export {
     ButtonProps,
     ButtonLink,
     ButtonLinkProps,
+    ButtonDownload,
+    ButtonDownloadProps,
     AppDateFnsUtils,
     Wrapper,
     WrapperInterface,
