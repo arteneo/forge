@@ -35,6 +35,7 @@ import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/Ex
 import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
 import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
+import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 import { TableContext, TableProvider, useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     TableQueryContext,
