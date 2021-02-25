@@ -77,8 +77,12 @@ const SelectApi: React.FC<Props> = ({
             return;
         }
 
-        if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.string().required("validation.required"));
+        if (!validationSchema) {
+            if (resolvedRequired) {
+                setValidationSchema(name, Yup.string().required("validation.required"));
+            } else {
+                setValidationSchema(name, Yup.string().notRequired());
+            }
             return;
         }
 
@@ -88,7 +92,8 @@ const SelectApi: React.FC<Props> = ({
 
         if (resolvedRequired) {
             setValidationSchema(name, validationSchema.required("validation.required"));
-            return;
+        } else {
+            setValidationSchema(name, validationSchema.notRequired());
         }
     };
 
