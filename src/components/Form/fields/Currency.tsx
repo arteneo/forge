@@ -18,6 +18,7 @@ interface Props extends TextFieldInterface {
         values: FormikValues
     ) => void;
     fieldProps?: FieldProps;
+    currencySymbolAtRightSide?: boolean;
 }
 
 const Currency: React.FC<Props> = ({
@@ -31,6 +32,7 @@ const Currency: React.FC<Props> = ({
     required = false,
     hidden = false,
     disabled = false,
+    currencySymbolAtRightSide = false,
     validationSchema,
     fieldProps,
 }: Props) => {
@@ -85,6 +87,7 @@ const Currency: React.FC<Props> = ({
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
+                currencySymbolAtRightSide: currencySymbolAtRightSide,
                 onChange,
                 fieldProps,
             }}
