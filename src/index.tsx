@@ -83,6 +83,9 @@ import Time from "@arteneo/forge/components/Form/fields/Time";
 import TimeElement from "@arteneo/forge/components/Form/elements/Time";
 import Checkbox from "@arteneo/forge/components/Form/fields/Checkbox";
 import CheckboxElement from "@arteneo/forge/components/Form/elements/Checkbox";
+import Upload, { UploadProps } from "@arteneo/forge/components/Form/fields/Upload";
+import UploadElement, { UploadElementProps } from "@arteneo/forge/components/Form/elements/Upload";
+import UppyDragDrop from "@arteneo/forge/components/Form/components/UppyDragDrop";
 import Collection from "@arteneo/forge/components/Form/fields/Collection";
 import {
     resolveAnyOrFunction,
@@ -194,6 +197,11 @@ export {
     TimeElement,
     Checkbox,
     CheckboxElement,
+    Upload,
+    UploadProps,
+    UploadElement,
+    UploadElementProps,
+    UppyDragDrop,
     Collection,
     resolveAnyOrFunction,
     resolveBooleanOrFunction,
