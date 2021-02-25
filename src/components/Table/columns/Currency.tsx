@@ -1,5 +1,5 @@
 import React from "react";
-import { resolveStringOrFunction } from "forge-react/utils/resolve";
+import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormattedNumber } from "react-intl";
 
 interface Props {

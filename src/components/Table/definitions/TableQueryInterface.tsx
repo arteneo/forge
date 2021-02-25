@@ -1,5 +1,5 @@
-import FiltersInterface from "forge-react/components/Table/definitions/FiltersInterface";
-import SortingInterface from "forge-react/components/Table/definitions/SortingInterface";
+import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
+import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
 
 interface TableQueryInterface {
     page: undefined | number;

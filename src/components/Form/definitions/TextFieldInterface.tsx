@@ -1,5 +1,5 @@
 import { FormikValues, FormikTouched, FormikErrors } from "formik";
-import FieldInterface from "forge-react/components/Form/definitions/FieldInterface";
+import FieldInterface from "@arteneo/forge/components/Form/definitions/FieldInterface";
 
 interface TextFieldInterface extends FieldInterface {
     required?:

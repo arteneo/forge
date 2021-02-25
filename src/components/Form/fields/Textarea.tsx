@@ -1,11 +1,11 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "forge-react/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "forge-react/utils/resolve";
+import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
+import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextareaElement from "forge-react/components/Form/elements/Textarea";
+import TextareaElement from "@arteneo/forge/components/Form/elements/Textarea";
 import { TextFieldProps } from "@material-ui/core";
-import TextFieldInterface from "forge-react/components/Form/definitions/TextFieldInterface";
+import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
 interface Props extends TextFieldInterface {
     onChange?: (

@@ -1,5 +1,5 @@
 import React from "react";
-import { useTable } from "forge-react/components/Table/contexts/Table";
+import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import { IconButton, makeStyles, useTheme } from "@material-ui/core";
 import { FirstPage, LastPage, KeyboardArrowRight, KeyboardArrowLeft } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";

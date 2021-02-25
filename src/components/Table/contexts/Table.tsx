@@ -1,18 +1,18 @@
 import React from "react";
 import axios from "axios";
 import { FormikHelpers, FormikValues } from "formik";
-import { useHandleCatch } from "forge-react/contexts/HandleCatch";
-import { useLoader } from "forge-react/contexts/Loader";
-import FieldsInterface from "forge-react/components/Form/definitions/FieldsInterface";
-import RowInterface from "forge-react/components/Table/definitions/RowInterface";
-import QueryInterface from "forge-react/components/Table/definitions/QueryInterface";
-import QuerySortingInterface from "forge-react/components/Table/definitions/QuerySortingInterface";
-import SortingDirection from "forge-react/components/Table/definitions/SortingDirection";
-import FilterDefinition from "forge-react/components/Table/definitions/FilterDefinition";
-import SortingInterface from "forge-react/components/Table/definitions/SortingInterface";
-import FiltersInterface from "forge-react/components/Table/definitions/FiltersInterface";
-import FilterValuesInterface from "forge-react/components/Table/definitions/FilterValuesInterface";
-import { useTableQuery } from "forge-react/components/Table/contexts/TableQuery";
+import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
+import { useLoader } from "@arteneo/forge/contexts/Loader";
+import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
+import QueryInterface from "@arteneo/forge/components/Table/definitions/QueryInterface";
+import QuerySortingInterface from "@arteneo/forge/components/Table/definitions/QuerySortingInterface";
+import SortingDirection from "@arteneo/forge/components/Table/definitions/SortingDirection";
+import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
+import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
+import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
+import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
+import { useTableQuery } from "@arteneo/forge/components/Table/contexts/TableQuery";
 import { useLocation } from "react-router-dom";
 
 interface ContextProps {

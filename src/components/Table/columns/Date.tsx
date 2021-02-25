@@ -16,7 +16,7 @@ const Date: React.FC<Props> = ({ result, field }: Props) => {
     }
 
     // We force TS to think this is any object to silence issue with missing function formatDate
-    // utils is class from forge-react/utils/AppDateFnsUtils. Can be extended in specific projects
+    // utils is class from @arteneo/forge/utils/AppDateFnsUtils. Can be extended in specific projects
     // eslint-disable-next-line
     const utils: any = useUtils();
 

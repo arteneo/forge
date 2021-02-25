@@ -23,7 +23,7 @@ const config: webpack.Configuration = {
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
         alias: {
-            "forge-react": path.resolve(__dirname, "src"),
+            "@arteneo/forge": path.resolve(__dirname, "src"),
         },
     },
     optimization: {

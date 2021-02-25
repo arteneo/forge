@@ -2,8 +2,8 @@ import React from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
-import { useTable } from "forge-react/components/Table/contexts/Table";
-import { useLoader } from "forge-react/contexts/Loader";
+import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
+import { useLoader } from "@arteneo/forge/contexts/Loader";
 
 const useStyles = makeStyles((theme) => ({
     buttons: {
