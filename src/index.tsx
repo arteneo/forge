@@ -1,4 +1,4 @@
-import Button, { Props as ButtonProps } from "@arteneo/forge/components/Common/Button";
+import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
 import { FormContext, FormProvider, useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { ErrorContext, ErrorProvider, useError } from "@arteneo/forge/contexts/Error";
 import {
