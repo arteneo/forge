@@ -128,6 +128,7 @@ export {
     TableQueryInterface,
     TableQueriesInterface,
     FilterDefinition,
+    ColumnInterface,
     TableQueryContext,
     TableQueryProvider,
     useTableQuery,
