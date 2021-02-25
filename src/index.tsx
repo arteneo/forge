@@ -25,11 +25,7 @@ import DateColumn from "@arteneo/forge/components/Table/columns/Date";
 import DateTimeColumn from "@arteneo/forge/components/Table/columns/DateTime";
 import TimeColumn from "@arteneo/forge/components/Table/columns/Time";
 import Actions from "@arteneo/forge/components/Table/columns/Actions";
-import Edit from "@arteneo/forge/components/Table/actions/result/Edit";
-import Delete from "@arteneo/forge/components/Table/actions/result/Delete";
-import Create from "@arteneo/forge/components/Table/actions/table/Create";
-import ExportCsv from "@arteneo/forge/components/Table/actions/table/ExportCsv";
-import ExportExcel from "@arteneo/forge/components/Table/actions/table/ExportExcel";
+import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
 import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
 import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
@@ -117,6 +113,7 @@ export {
     Edit,
     Delete,
     Create,
+    CreateProps,
     ExportCsv,
     ExportExcel,
     RowInterface,
