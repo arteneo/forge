@@ -31,6 +31,7 @@ interface Props extends TextFieldInterface {
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
     disableTranslateGroupBy?: boolean;
+    disableTranslateOption?: boolean;
     autocompleteProps?: SelectAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
@@ -43,6 +44,7 @@ const SelectApi: React.FC<Props> = ({
     disableTranslateLabel = false,
     help,
     disableTranslateHelp = false,
+    disableTranslateOption = true,
     onChange,
     required = false,
     hidden = false,
@@ -98,6 +100,11 @@ const SelectApi: React.FC<Props> = ({
     };
 
     const load = () => {
+        if (!resolvedEndpoint || resolvedEndpoint == "") {
+            setOptions([]);
+            return;
+        }
+
         const axiosSource = axios.CancelToken.source();
 
         axios
@@ -130,7 +137,7 @@ const SelectApi: React.FC<Props> = ({
             {...{
                 name,
                 options,
-                disableTranslateOption: true,
+                disableTranslateOption: disableTranslateOption,
                 label: resolvedLabel,
                 error: resolvedError,
                 help: resolvedHelp,
