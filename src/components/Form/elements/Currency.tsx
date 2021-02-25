@@ -26,7 +26,8 @@ interface Props {
         event: React.ChangeEvent<HTMLInputElement>,
         // eslint-disable-next-line
         value: any,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     required: boolean;
     disabled: boolean;
@@ -56,7 +57,7 @@ const Currency: React.FC<Props> = ({ name, label, error, help, required, disable
     // eslint-disable-next-line
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>, value: any) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, value, () => defaultOnChange(event, value));
+            onChange(name, setFieldValue, event, value, () => defaultOnChange(event, value), values);
             return;
         }
 

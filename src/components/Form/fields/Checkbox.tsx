@@ -15,7 +15,8 @@ interface Props extends TextFieldInterface {
         // eslint-disable-next-line
         event: React.ChangeEvent<{}>,
         checked: boolean,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     formControlLabelProps?: FormControlLabelProps;
     formControlProps?: FormControlProps;

@@ -14,7 +14,8 @@ interface Props extends TextFieldInterface {
         event: React.ChangeEvent<HTMLInputElement>,
         // eslint-disable-next-line
         value: any,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     fieldProps?: FieldProps;
 }

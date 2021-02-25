@@ -15,6 +15,7 @@ interface Props {
         // eslint-disable-next-line
         date: any,
         onChange: () => void,
+        values: FormikValues,
         value?: string | null
     ) => void;
     required: boolean;
@@ -39,7 +40,7 @@ const DateTime: React.FC<Props> = ({ name, label, error, help, required, disable
     const callableOnChange = (date: any, value?: string | null) => {
         if (onChange) {
             // Parameters are swapped for convenience
-            onChange(name, setFieldValue, date, () => defaultOnChange(date, value), value);
+            onChange(name, setFieldValue, date, () => defaultOnChange(date, value), values, value);
             return;
         }
 
