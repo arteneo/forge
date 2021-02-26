@@ -1,19 +1,19 @@
 import React from "react";
 import SelectApi, { Props as SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
-import FilterType from "@arteneo/forge/components/Table/definitions/FilterType";
+import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
-interface Props extends SelectApiProps {
-    filterBy?: string;
-    filterType?: FilterType;
-}
+type SelectApiFilterProps = FilterFieldInterface & SelectApiProps;
 
+// filterBy and filterType are destructed to avoid passing them deeper
 // eslint-disable-next-line
-const SelectApiFilter: React.FC<Props> = ({ filterBy, filterType, ...props }: Props) => {
+const SelectApiFilter = ({ filterBy, filterType, ...props }: SelectApiFilterProps) => {
     return <SelectApi {...props} />;
 };
 
+// * It has to be done via .defaultProps so filterType is passed openly to this component and can be read by Table context
 SelectApiFilter.defaultProps = {
     filterType: "equal",
 };
 
 export default SelectApiFilter;
+export { SelectApiFilterProps };
