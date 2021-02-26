@@ -21,7 +21,8 @@ interface Props {
         // eslint-disable-next-line
         event: React.ChangeEvent<{}>,
         checked: boolean,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     required: boolean;
     disabled: boolean;
@@ -50,7 +51,7 @@ const Checkbox: React.FC<Props> = ({
     // eslint-disable-next-line
     const callableOnChange = (event: React.ChangeEvent<{}>, checked: boolean) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, checked, () => defaultOnChange(event, checked));
+            onChange(name, setFieldValue, event, checked, () => defaultOnChange(event, checked), values);
             return;
         }
 

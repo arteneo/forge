@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import CurrencyElement, { FieldProps } from "@arteneo/forge/components/Form/elements/Currency";
+import CurrencyElement, { FieldProps, CurrencySymbolPosition } from "@arteneo/forge/components/Form/elements/Currency";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
 interface Props extends TextFieldInterface {
@@ -14,9 +14,11 @@ interface Props extends TextFieldInterface {
         event: React.ChangeEvent<HTMLInputElement>,
         // eslint-disable-next-line
         value: any,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     fieldProps?: FieldProps;
+    currencySymbolPosition?: CurrencySymbolPosition;
 }
 
 const Currency: React.FC<Props> = ({
@@ -32,6 +34,7 @@ const Currency: React.FC<Props> = ({
     disabled = false,
     validationSchema,
     fieldProps,
+    currencySymbolPosition,
 }: Props) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
@@ -85,6 +88,7 @@ const Currency: React.FC<Props> = ({
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
                 onChange,
+                currencySymbolPosition,
                 fieldProps,
             }}
         />

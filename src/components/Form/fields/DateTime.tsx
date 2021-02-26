@@ -13,7 +13,8 @@ interface Props extends TextFieldInterface {
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     fieldProps?: KeyboardDateTimePickerProps;
 }

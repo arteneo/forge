@@ -12,7 +12,8 @@ interface Props {
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     required: boolean;
     disabled: boolean;
@@ -28,7 +29,7 @@ const Email: React.FC<Props> = ({ name, label, error, help, required, disabled, 
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, () => defaultOnChange(event));
+            onChange(name, setFieldValue, event, () => defaultOnChange(event), values);
             return;
         }
 
