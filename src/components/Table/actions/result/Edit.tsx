@@ -1,62 +1,35 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { Button, ButtonProps } from "@material-ui/core";
-import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
-import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import { Link } from "react-router-dom";
+import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
+import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
+import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
 
-interface Props extends WrapperInterface {
-    // result is added to props by TableContent
-    // eslint-disable-next-line
-    result?: any;
-    // field is added to props by TableContent
-    field?: string;
-    disableSorting?: boolean;
-    buttonProps?: ButtonProps;
-}
+type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
+type EditProps = Optional<ButtonLinkProps & ColumnInterface, "to">;
 
-const Edit: React.FC<Props> = ({
-    result,
-    field,
-    buttonProps = {
-        variant: "contained",
-        color: "primary",
-    },
-    wrapperComponent,
-    wrapperComponentProps,
-}: Props) => {
-    if (typeof field === "undefined") {
-        return null;
-    }
-
-    const { t } = useTranslation();
+const Edit = ({ result, to, ...props }: EditProps) => {
     const { custom } = useTable();
 
-    if (typeof custom?.paths?.edit === "undefined") {
+    if (typeof to === "undefined" && typeof custom?.paths?.edit === "undefined") {
         throw new Error(
-            "Edit component: Missing required paths.edit definition in custom variable used by Table context"
+            "Edit component: Missing required to prop or paths.edit definition in custom variable used by Table context"
         );
     }
 
-    const button = (
-        // eslint-disable-next-line
-        // @ts-ignore: see https://github.com/mui-org/material-ui/issues/7877
-        <Button component={Link} to={() => custom.paths.edit(result)} {...buttonProps}>
-            {t("action.edit")}
-        </Button>
-    );
+    const resolvedTo = to ? resolveAnyOrFunction(to, result) : custom.paths.edit(result);
 
     return (
-        <Wrapper
+        <ButtonLink
             {...{
-                wrapperComponent,
-                wrapperComponentProps,
+                label: "action.edit",
+                to: resolvedTo,
+                color: "primary",
+                variant: "contained",
+                ...props,
             }}
-        >
-            {button}
-        </Wrapper>
+        />
     );
 };
 
 export default Edit;
+export { EditProps };
