@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { FormikValues, FormikTouched, FormikErrors, getIn, setIn } from "formik";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
+import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { populate } from "@arteneo/forge/utils/common";
 import { resolveReactNodeOrFunction } from "@arteneo/forge/utils/resolve";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
@@ -111,7 +111,7 @@ const FormProvider: React.FC<ProviderProps> = ({
 
     React.useEffect(() => initializeValues(), [initializeEndpoint, initialValues]);
 
-    const initializeValues = (): void => {
+    const initializeValues = () => {
         if (typeof initializeEndpoint === "undefined" && typeof initialValues === "undefined") {
             return;
         }
@@ -129,8 +129,12 @@ const FormProvider: React.FC<ProviderProps> = ({
             return;
         }
 
+        const axiosSource = axios.CancelToken.source();
+
         axios
-            .get(initializeEndpoint)
+            .get(initializeEndpoint, {
+                cancelToken: axiosSource.token,
+            })
             .then((response: AxiosResponse) => {
                 setObject(response.data);
                 setFormikInitialValues(() => ({
@@ -138,6 +142,10 @@ const FormProvider: React.FC<ProviderProps> = ({
                 }));
             })
             .catch((error: AxiosError) => handleCatch(error));
+
+        return () => {
+            axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
+        };
     };
 
     // eslint-disable-next-line
