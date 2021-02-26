@@ -16,15 +16,8 @@ import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
 import Table, { Props as TableProps } from "@arteneo/forge/components/Table/components/Table";
 import TableActions from "@arteneo/forge/components/Table/components/TableActions";
-import String from "@arteneo/forge/components/Table/columns/String";
-import CurrencyColumn from "@arteneo/forge/components/Table/columns/Currency";
-import Boolean from "@arteneo/forge/components/Table/columns/Boolean";
-import Const from "@arteneo/forge/components/Table/columns/Const";
-import Representation from "@arteneo/forge/components/Table/columns/Representation";
-import DateColumn from "@arteneo/forge/components/Table/columns/Date";
-import DateTimeColumn from "@arteneo/forge/components/Table/columns/DateTime";
-import TimeColumn from "@arteneo/forge/components/Table/columns/Time";
-import Actions from "@arteneo/forge/components/Table/columns/Actions";
+import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
+import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
 import Edit, { EditProps } from "@arteneo/forge/components/Table/actions/result/Edit";
 import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/result/Delete";
 import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
@@ -134,6 +127,7 @@ export {
     TableQueriesInterface,
     FilterDefinition,
     ColumnInterface,
+    ColumnPathInterface,
     TableQueryContext,
     TableQueryProvider,
     useTableQuery,
