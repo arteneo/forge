@@ -1,18 +1,13 @@
 import React from "react";
 import { Grid, GridProps } from "@material-ui/core";
+import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 
-interface Props {
+interface ActionsColumnProps extends ColumnInterface {
     children: React.ReactNode;
-    // result is added to props by TableContent
-    // eslint-disable-next-line
-    result?: any;
-    // field is added to props by TableContent
-    field?: string;
-    disableSorting?: boolean;
     gridContainerProps?: GridProps;
 }
 
-const Actions: React.FC<Props> = ({ children, result, field, gridContainerProps }: Props) => {
+const ActionsColumn = ({ children, result, field, gridContainerProps }: ActionsColumnProps) => {
     if (typeof field === "undefined") {
         return null;
     }
@@ -36,8 +31,10 @@ const Actions: React.FC<Props> = ({ children, result, field, gridContainerProps 
     );
 };
 
-Actions.defaultProps = {
+// * It has to be done via .defaultProps so disableSorting is passed openly to this component and can be read by TableContent
+ActionsColumn.defaultProps = {
     disableSorting: true,
 };
 
-export default Actions;
+export default ActionsColumn;
+export { ActionsColumnProps };

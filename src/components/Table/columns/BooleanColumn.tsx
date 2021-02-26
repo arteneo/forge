@@ -1,15 +1,8 @@
 import React from "react";
 import { Chip, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-
-interface Props {
-    // result is added to props by TableContent
-    // eslint-disable-next-line
-    result?: any;
-    // field is added to props by TableContent
-    field?: string;
-    disableSorting?: boolean;
-}
+import { getIn } from "formik";
+import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
 
 const useStyles = makeStyles((theme) => ({
     yes: {
@@ -22,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Boolean: React.FC<Props> = ({ result, field }: Props) => {
+const BooleanColumn = ({ result, field, path }: ColumnPathInterface) => {
     if (typeof field === "undefined") {
         return null;
     }
@@ -30,9 +23,11 @@ const Boolean: React.FC<Props> = ({ result, field }: Props) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
+    const value = getIn(result, path ? path : field);
+
     return (
         <>
-            {result[field] ? (
+            {value ? (
                 <Chip variant="outlined" size="small" label={t("label.yes")} className={classes.yes} />
             ) : (
                 <Chip variant="outlined" size="small" label={t("label.no")} className={classes.no} />
@@ -41,4 +36,5 @@ const Boolean: React.FC<Props> = ({ result, field }: Props) => {
     );
 };
 
-export default Boolean;
+export default BooleanColumn;
+export { ColumnPathInterface as BooleanColumnProps };

@@ -16,15 +16,19 @@ import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
 import Table, { Props as TableProps } from "@arteneo/forge/components/Table/components/Table";
 import TableActions from "@arteneo/forge/components/Table/components/TableActions";
-import String from "@arteneo/forge/components/Table/columns/String";
-import CurrencyColumn from "@arteneo/forge/components/Table/columns/Currency";
-import Boolean from "@arteneo/forge/components/Table/columns/Boolean";
-import Const from "@arteneo/forge/components/Table/columns/Const";
-import Representation from "@arteneo/forge/components/Table/columns/Representation";
-import DateColumn from "@arteneo/forge/components/Table/columns/Date";
-import DateTimeColumn from "@arteneo/forge/components/Table/columns/DateTime";
-import TimeColumn from "@arteneo/forge/components/Table/columns/Time";
-import Actions from "@arteneo/forge/components/Table/columns/Actions";
+import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
+import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
+import TextColumn, { TextColumnProps } from "@arteneo/forge/components/Table/columns/TextColumn";
+import CurrencyColumn, { CurrencyColumnProps } from "@arteneo/forge/components/Table/columns/CurrencyColumn";
+import BooleanColumn, { BooleanColumnProps } from "@arteneo/forge/components/Table/columns/BooleanColumn";
+import ConstColumn, { ConstColumnProps } from "@arteneo/forge/components/Table/columns/ConstColumn";
+import RepresentationColumn, {
+    RepresentationColumnProps,
+} from "@arteneo/forge/components/Table/columns/RepresentationColumn";
+import DateColumn, { DateColumnProps } from "@arteneo/forge/components/Table/columns/DateColumn";
+import DateTimeColumn, { DateTimeColumnProps } from "@arteneo/forge/components/Table/columns/DateTimeColumn";
+import TimeColumn, { TimeColumnProps } from "@arteneo/forge/components/Table/columns/TimeColumn";
+import ActionsColumn, { ActionsColumnProps } from "@arteneo/forge/components/Table/columns/ActionsColumn";
 import Edit, { EditProps } from "@arteneo/forge/components/Table/actions/result/Edit";
 import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/result/Delete";
 import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
@@ -36,7 +40,6 @@ import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/Ex
 import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
 import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
-import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 import { TableContext, TableProvider, useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     TableQueryContext,
@@ -106,15 +109,24 @@ export {
     TableProps,
     TableActions,
     ResultInterface,
-    String,
+    TextColumn,
+    TextColumnProps,
     CurrencyColumn,
-    Boolean,
-    Const,
-    Representation,
+    CurrencyColumnProps,
+    BooleanColumn,
+    BooleanColumnProps,
+    ConstColumn,
+    ConstColumnProps,
+    RepresentationColumn,
+    RepresentationColumnProps,
     DateColumn,
+    DateColumnProps,
     DateTimeColumn,
+    DateTimeColumnProps,
     TimeColumn,
-    Actions,
+    TimeColumnProps,
+    ActionsColumn,
+    ActionsColumnProps,
     Edit,
     EditProps,
     Delete,
@@ -134,6 +146,7 @@ export {
     TableQueriesInterface,
     FilterDefinition,
     ColumnInterface,
+    ColumnPathInterface,
     TableQueryContext,
     TableQueryProvider,
     useTableQuery,
