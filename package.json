@@ -46,6 +46,7 @@
         "eslint-plugin-prettier": "^3.1.4",
         "eslint-plugin-react": "^7.21.5",
         "formik": "^2.2.5",
+        "gatsby-remark-vscode": "^3.2.0",
         "i18next": "^19.8.3",
         "i18next-browser-languagedetector": "^6.0.1",
         "prettier": "^2.1.2",

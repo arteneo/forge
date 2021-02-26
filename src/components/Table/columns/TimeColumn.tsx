@@ -1,16 +1,9 @@
 import React from "react";
 import { useUtils } from "@material-ui/pickers";
+import { getIn } from "formik";
+import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
 
-interface Props {
-    // result is added to props by TableContent
-    // eslint-disable-next-line
-    result?: any;
-    // field is added to props by TableContent
-    field?: string;
-    disableSorting?: boolean;
-}
-
-const Time: React.FC<Props> = ({ result, field }: Props) => {
+const TimeColumn = ({ result, field, path }: ColumnPathInterface) => {
     if (typeof field === "undefined") {
         return null;
     }
@@ -20,7 +13,9 @@ const Time: React.FC<Props> = ({ result, field }: Props) => {
     // eslint-disable-next-line
     const utils: any = useUtils();
 
-    return <>{utils.formatTime(result[field])}</>;
+    const value = getIn(result, path ? path : field);
+    return <>{utils.formatTime(value)}</>;
 };
 
-export default Time;
+export default TimeColumn;
+export { ColumnPathInterface as TimeColumnProps };
