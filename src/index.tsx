@@ -39,6 +39,7 @@ import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterfa
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
 import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
+import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
 import { TableContext, TableProvider, useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
@@ -46,15 +47,22 @@ import {
     TableQueryProvider,
     useTableQuery,
 } from "@arteneo/forge/components/Table/contexts/TableQuery";
-import TextFilter from "@arteneo/forge/components/Table/filters/TextFilter";
-import SelectFilter from "@arteneo/forge/components/Table/filters/SelectFilter";
-import SelectApiFilter from "@arteneo/forge/components/Table/filters/SelectApiFilter";
-import DateFromFilter from "@arteneo/forge/components/Table/filters/DateFromFilter";
-import DateToFilter from "@arteneo/forge/components/Table/filters/DateToFilter";
-import DateTimeFromFilter from "@arteneo/forge/components/Table/filters/DateTimeFromFilter";
-import DateTimeToFilter from "@arteneo/forge/components/Table/filters/DateTimeToFilter";
-import TimeFromFilter from "@arteneo/forge/components/Table/filters/TimeFromFilter";
-import TimeToFilter from "@arteneo/forge/components/Table/filters/TimeToFilter";
+import TextFilter, { TextFilterProps } from "@arteneo/forge/components/Table/filters/TextFilter";
+import CurrencyFilter, { CurrencyFilterProps } from "@arteneo/forge/components/Table/filters/CurrencyFilter";
+import CurrencyFromFilter, {
+    CurrencyFromFilterProps,
+} from "@arteneo/forge/components/Table/filters/CurrencyFromFilter";
+import CurrencyToFilter, { CurrencyToFilterProps } from "@arteneo/forge/components/Table/filters/CurrencyToFilter";
+import SelectFilter, { SelectFilterProps } from "@arteneo/forge/components/Table/filters/SelectFilter";
+import SelectApiFilter, { SelectApiFilterProps } from "@arteneo/forge/components/Table/filters/SelectApiFilter";
+import DateFromFilter, { DateFromFilterProps } from "@arteneo/forge/components/Table/filters/DateFromFilter";
+import DateToFilter, { DateToFilterProps } from "@arteneo/forge/components/Table/filters/DateToFilter";
+import DateTimeFromFilter, {
+    DateTimeFromFilterProps,
+} from "@arteneo/forge/components/Table/filters/DateTimeFromFilter";
+import DateTimeToFilter, { DateTimeToFilterProps } from "@arteneo/forge/components/Table/filters/DateTimeToFilter";
+import TimeFromFilter, { TimeFromFilterProps } from "@arteneo/forge/components/Table/filters/TimeFromFilter";
+import TimeToFilter, { TimeToFilterProps } from "@arteneo/forge/components/Table/filters/TimeToFilter";
 import FieldInterface from "@arteneo/forge/components/Form/definitions/FieldInterface";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
@@ -145,20 +153,36 @@ export {
     TableQueryInterface,
     TableQueriesInterface,
     FilterDefinition,
+    FilterFieldInterface,
     ColumnInterface,
     ColumnPathInterface,
     TableQueryContext,
     TableQueryProvider,
     useTableQuery,
     TextFilter,
+    TextFilterProps,
+    CurrencyFilter,
+    CurrencyFilterProps,
+    CurrencyFromFilter,
+    CurrencyFromFilterProps,
+    CurrencyToFilter,
+    CurrencyToFilterProps,
     SelectFilter,
+    SelectFilterProps,
     SelectApiFilter,
+    SelectApiFilterProps,
     DateFromFilter,
+    DateFromFilterProps,
     DateToFilter,
+    DateToFilterProps,
     DateTimeFromFilter,
+    DateTimeFromFilterProps,
     DateTimeToFilter,
+    DateTimeToFilterProps,
     TimeFromFilter,
+    TimeFromFilterProps,
     TimeToFilter,
+    TimeToFilterProps,
     FormContext,
     FormProvider,
     useForm,
