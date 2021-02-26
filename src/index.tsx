@@ -21,6 +21,7 @@ import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/Col
 import CurrencyColumn, { CurrencyColumnProps } from "@arteneo/forge/components/Table/columns/CurrencyColumn";
 import BooleanColumn, { BooleanColumnProps } from "@arteneo/forge/components/Table/columns/BooleanColumn";
 import ConstColumn, { ConstColumnProps } from "@arteneo/forge/components/Table/columns/ConstColumn";
+import DateColumn, { DateColumnProps } from "@arteneo/forge/components/Table/columns/DateColumn";
 import ActionsColumn, { ActionsColumnProps } from "@arteneo/forge/components/Table/columns/ActionsColumn";
 import Edit, { EditProps } from "@arteneo/forge/components/Table/actions/result/Edit";
 import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/result/Delete";
@@ -111,6 +112,7 @@ export {
     ConstColumn,
     ConstColumnProps,
     DateColumn,
+    DateColumnProps,
     DateTimeColumn,
     TimeColumn,
     ActionsColumn,
