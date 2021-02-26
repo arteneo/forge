@@ -1,4 +1,6 @@
-import Button, { Props as ButtonProps } from "@arteneo/forge/components/Common/Button";
+import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
+import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
+import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
 import { FormContext, FormProvider, useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { ErrorContext, ErrorProvider, useError } from "@arteneo/forge/contexts/Error";
 import {
@@ -23,17 +25,18 @@ import DateColumn from "@arteneo/forge/components/Table/columns/Date";
 import DateTimeColumn from "@arteneo/forge/components/Table/columns/DateTime";
 import TimeColumn from "@arteneo/forge/components/Table/columns/Time";
 import Actions from "@arteneo/forge/components/Table/columns/Actions";
-import Edit from "@arteneo/forge/components/Table/actions/result/Edit";
-import Delete from "@arteneo/forge/components/Table/actions/result/Delete";
-import Create from "@arteneo/forge/components/Table/actions/table/Create";
-import ExportCsv from "@arteneo/forge/components/Table/actions/table/ExportCsv";
-import ExportExcel from "@arteneo/forge/components/Table/actions/table/ExportExcel";
+import Edit, { EditProps } from "@arteneo/forge/components/Table/actions/result/Edit";
+import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/result/Delete";
+import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
+import ExportCsv, { ExportCsvProps } from "@arteneo/forge/components/Table/actions/table/ExportCsv";
+import ExportExcel, { ExportExcelProps } from "@arteneo/forge/components/Table/actions/table/ExportExcel";
 import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
 import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
 import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
 import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
+import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 import { TableContext, TableProvider, useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     TableQueryContext,
@@ -92,6 +95,10 @@ import { isDev, isProd, populate } from "@arteneo/forge/utils/common";
 export {
     Button,
     ButtonProps,
+    ButtonLink,
+    ButtonLinkProps,
+    ButtonDownload,
+    ButtonDownloadProps,
     AppDateFnsUtils,
     Wrapper,
     WrapperInterface,
@@ -109,10 +116,15 @@ export {
     TimeColumn,
     Actions,
     Edit,
+    EditProps,
     Delete,
+    DeleteProps,
     Create,
+    CreateProps,
     ExportCsv,
+    ExportCsvProps,
     ExportExcel,
+    ExportExcelProps,
     RowInterface,
     ExportQueryInterface,
     TableContext,
@@ -121,6 +133,7 @@ export {
     TableQueryInterface,
     TableQueriesInterface,
     FilterDefinition,
+    ColumnInterface,
     TableQueryContext,
     TableQueryProvider,
     useTableQuery,
