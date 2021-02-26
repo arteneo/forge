@@ -13,6 +13,7 @@ interface CurrencyFieldProps {
 }
 
 type FieldProps = TextFieldProps | CurrencyFieldProps;
+type CurrencySymbolPosition = "start" | "end";
 
 interface Props {
     name: string;
@@ -31,7 +32,7 @@ interface Props {
     ) => void;
     required: boolean;
     disabled: boolean;
-    currencySymbolAtRightSide: boolean;
+    currencySymbolPosition?: CurrencySymbolPosition;
     fieldProps?: FieldProps;
 }
 
@@ -44,7 +45,7 @@ const Currency: React.FC<Props> = ({
     disabled,
     onChange,
     fieldProps,
-    currencySymbolAtRightSide,
+    currencySymbolPosition = "end",
 }: Props) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
@@ -102,7 +103,7 @@ const Currency: React.FC<Props> = ({
         helperText: undefined,
     };
 
-    if (currencySymbolAtRightSide) {
+    if (currencySymbolPosition === "end") {
         internalFieldProps.textAlign = "right";
         internalFieldProps.InputProps = {};
         internalFieldProps.InputProps.startAdornment = <InputAdornment position="start">&nbsp;</InputAdornment>;
@@ -127,4 +128,4 @@ const Currency: React.FC<Props> = ({
 };
 
 export default Currency;
-export { FieldProps };
+export { FieldProps, CurrencySymbolPosition };
