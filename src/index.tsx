@@ -18,6 +18,7 @@ import Table, { Props as TableProps } from "@arteneo/forge/components/Table/comp
 import TableActions from "@arteneo/forge/components/Table/components/TableActions";
 import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
+import TextColumn, { TextColumnProps } from "@arteneo/forge/components/Table/columns/TextColumn";
 import CurrencyColumn, { CurrencyColumnProps } from "@arteneo/forge/components/Table/columns/CurrencyColumn";
 import BooleanColumn, { BooleanColumnProps } from "@arteneo/forge/components/Table/columns/BooleanColumn";
 import ConstColumn, { ConstColumnProps } from "@arteneo/forge/components/Table/columns/ConstColumn";
@@ -108,7 +109,8 @@ export {
     TableProps,
     TableActions,
     ResultInterface,
-    String,
+    TextColumn,
+    TextColumnProps,
     CurrencyColumn,
     CurrencyColumnProps,
     BooleanColumn,
