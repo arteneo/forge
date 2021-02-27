@@ -15,7 +15,7 @@ import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/F
 import { useTableQuery } from "@arteneo/forge/components/Table/contexts/TableQuery";
 import { useLocation } from "react-router-dom";
 
-interface ContextProps {
+interface TableContextProps {
     row: RowInterface;
     // eslint-disable-next-line
     results: any[];
@@ -50,7 +50,7 @@ interface ContextProps {
     custom?: any;
 }
 
-interface ProviderProps {
+interface TableProviderProps {
     row: RowInterface;
     children: React.ReactNode;
     endpoint: string;
@@ -117,9 +117,9 @@ const contextInitial = {
     },
 };
 
-const TableContext = React.createContext<ContextProps>(contextInitial);
+const TableContext = React.createContext<TableContextProps>(contextInitial);
 
-const TableProvider: React.FC<ProviderProps> = ({
+const TableProvider = ({
     children,
     row,
     endpoint,
@@ -133,7 +133,7 @@ const TableProvider: React.FC<ProviderProps> = ({
     queryKey: _queryKey,
     enableMultipleColumnsSorting,
     custom,
-}: ProviderProps) => {
+}: TableProviderProps) => {
     const location = useLocation();
     const queryKey = typeof _queryKey !== "undefined" ? _queryKey : location.pathname;
     const { setQuery, getQueryPage, getQueryRowsPerPage, getQueryFilters, getQuerySorting } = useTableQuery();
@@ -362,6 +362,6 @@ const TableProvider: React.FC<ProviderProps> = ({
     );
 };
 
-const useTable = (): ContextProps => React.useContext(TableContext);
+const useTable = (): TableContextProps => React.useContext(TableContext);
 
-export { TableContext, TableProvider, useTable };
+export { TableContext, TableContextProps, TableProvider, TableProviderProps, useTable };

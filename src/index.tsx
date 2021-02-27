@@ -52,7 +52,13 @@ import TableQueryInterface from "@arteneo/forge/components/Table/definitions/Tab
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
-import { TableContext, TableProvider, useTable } from "@arteneo/forge/components/Table/contexts/Table";
+import {
+    TableContext,
+    TableContextProps,
+    TableProvider,
+    TableProviderProps,
+    useTable,
+} from "@arteneo/forge/components/Table/contexts/Table";
 import {
     TableQueryContext,
     TableQueryProvider,
@@ -176,7 +182,9 @@ export {
     RowInterface,
     ExportQueryInterface,
     TableContext,
+    TableContextProps,
     TableProvider,
+    TableProviderProps,
     useTable,
     TableQueryInterface,
     TableQueriesInterface,
