@@ -104,8 +104,8 @@ import Date, { DateProps } from "@arteneo/forge/components/Form/fields/Date";
 import DateElement, { DateElementProps } from "@arteneo/forge/components/Form/elements/DateElement";
 import DateTime, { DateTimeProps } from "@arteneo/forge/components/Form/fields/DateTime";
 import DateTimeElement, { DateTimeElementProps } from "@arteneo/forge/components/Form/elements/DateTimeElement";
-import Time from "@arteneo/forge/components/Form/fields/Time";
-import TimeElement from "@arteneo/forge/components/Form/elements/Time";
+import Time, { TimeProps } from "@arteneo/forge/components/Form/fields/Time";
+import TimeElement, { TimeElementProps } from "@arteneo/forge/components/Form/elements/TimeElement";
 import Checkbox, { CheckboxProps } from "@arteneo/forge/components/Form/fields/Checkbox";
 import CheckboxElement, { CheckboxElementProps } from "@arteneo/forge/components/Form/elements/CheckboxElement";
 import Collection, { CollectionProps } from "@arteneo/forge/components/Form/fields/Collection";
@@ -268,7 +268,9 @@ export {
     DateTimeElement,
     DateTimeElementProps,
     Time,
+    TimeProps,
     TimeElement,
+    TimeElementProps,
     Checkbox,
     CheckboxProps,
     CheckboxElement,
