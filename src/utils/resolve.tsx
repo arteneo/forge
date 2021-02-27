@@ -36,4 +36,26 @@ const resolveReactNodeOrFunction = (
     return parameter;
 };
 
-export { resolveAnyOrFunction, resolveBooleanOrFunction, resolveStringOrFunction, resolveReactNodeOrFunction };
+const resolveUpdatedValidationSchema = (
+    validationSchema: any | (() => any),
+    resolvedHidden: boolean,
+    resolvedRequired: boolean
+): any | (() => any) => {
+    if (resolvedHidden) {
+        return null;
+    }
+
+    if (resolvedRequired) {
+        validationSchema.required("validation.required");
+    } else {
+        validationSchema.notRequired();
+    }
+};
+
+export {
+    resolveAnyOrFunction,
+    resolveBooleanOrFunction,
+    resolveStringOrFunction,
+    resolveReactNodeOrFunction,
+    resolveUpdatedValidationSchema,
+};

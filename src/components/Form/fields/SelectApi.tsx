@@ -2,7 +2,11 @@ import React from "react";
 import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
+import {
+    resolveBooleanOrFunction,
+    resolveStringOrFunction,
+    resolveUpdatedValidationSchema,
+} from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import SelectElement, { SelectAutocompleteOptionalProps } from "@arteneo/forge/components/Form/elements/Select";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
@@ -48,7 +52,7 @@ const SelectApi: React.FC<Props> = ({
     required = false,
     hidden = false,
     disabled = false,
-    validationSchema,
+    validationSchema = Yup.string(),
     groupBy,
     loadUseEffectDependency,
     disableTranslateGroupBy,
@@ -70,29 +74,16 @@ const SelectApi: React.FC<Props> = ({
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 
-    React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
+    React.useEffect(
+        () =>
+            setValidationSchema(
+                name,
+                resolveUpdatedValidationSchema(validationSchema, resolvedHidden, resolvedRequired)
+            ),
+        [resolvedRequired, resolvedHidden]
+    );
+    
     React.useEffect(() => load(), [resolvedEndpoint, loadUseEffectDependency]);
-
-    const updateValidationSchema = () => {
-        if (resolvedHidden) {
-            setValidationSchema(name, null);
-            return;
-        }
-
-        if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.string().required("validation.required"));
-            return;
-        }
-
-        if (!validationSchema) {
-            return;
-        }
-
-        if (resolvedRequired) {
-            setValidationSchema(name, validationSchema.required("validation.required"));
-            return;
-        }
-    };
 
     const load = () => {
         if (!resolvedEndpoint || resolvedEndpoint == "") {

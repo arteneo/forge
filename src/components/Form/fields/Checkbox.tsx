@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
+import { resolveBooleanOrFunction, resolveUpdatedValidationSchema } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import CheckboxElement from "@arteneo/forge/components/Form/elements/Checkbox";
 import { FormControlProps, FormControlLabelProps } from "@material-ui/core";
@@ -33,7 +33,7 @@ const Checkbox: React.FC<Props> = ({
     required = false,
     hidden = false,
     disabled = false,
-    validationSchema,
+    validationSchema = Yup.boolean(),
     formControlLabelProps,
     formControlProps,
 }: Props) => {
@@ -47,29 +47,14 @@ const Checkbox: React.FC<Props> = ({
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
 
-    React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
-
-    const updateValidationSchema = () => {
-        if (resolvedHidden) {
-            setValidationSchema(name, null);
-            return;
-        }
-
-        if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.boolean().oneOf([true], "validation.required"));
-            return;
-        }
-
-        if (!validationSchema) {
-            setValidationSchema(name, Yup.boolean());
-            return;
-        }
-
-        if (resolvedRequired) {
-            setValidationSchema(name, validationSchema.oneOf([true], "validation.required"));
-            return;
-        }
-    };
+    React.useEffect(
+        () =>
+            setValidationSchema(
+                name,
+                resolveUpdatedValidationSchema(validationSchema, resolvedHidden, resolvedRequired)
+            ),
+        [resolvedRequired, resolvedHidden]
+    );
 
     if (resolvedHidden || !isReady(name)) {
         return null;

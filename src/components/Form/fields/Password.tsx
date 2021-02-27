@@ -1,7 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
+import { resolveBooleanOrFunction, resolveUpdatedValidationSchema } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import PasswordElement from "@arteneo/forge/components/Form/elements/Password";
 import { TextFieldProps } from "@material-ui/core";
@@ -30,7 +30,7 @@ const Password: React.FC<Props> = ({
     required = false,
     hidden = false,
     disabled = false,
-    validationSchema,
+    validationSchema = Yup.string(),
     fieldProps,
 }: Props) => {
     if (typeof name === "undefined") {
@@ -43,28 +43,14 @@ const Password: React.FC<Props> = ({
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
 
-    React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
-
-    const updateValidationSchema = () => {
-        if (resolvedHidden) {
-            setValidationSchema(name, null);
-            return;
-        }
-
-        if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.string().required("validation.required"));
-            return;
-        }
-
-        if (!validationSchema) {
-            return;
-        }
-
-        if (resolvedRequired) {
-            setValidationSchema(name, validationSchema.required("validation.required"));
-            return;
-        }
-    };
+    React.useEffect(
+        () =>
+            setValidationSchema(
+                name,
+                resolveUpdatedValidationSchema(validationSchema, resolvedHidden, resolvedRequired)
+            ),
+        [resolvedRequired, resolvedHidden]
+    );
 
     if (resolvedHidden || !isReady(name)) {
         return null;
