@@ -1,5 +1,5 @@
 import React from "react";
-import SelectApi, { Props as SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
+import SelectApi, { SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
 type SelectApiFilterProps = FilterFieldInterface & SelectApiProps;

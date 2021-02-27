@@ -78,9 +78,13 @@ import FormButtons, { FormButtonsProps } from "@arteneo/forge/components/Form/co
 import PromptIfDirty, { PromptIfDirtyProps } from "@arteneo/forge/components/Form/components/PromptIfDirty";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
-import Select from "@arteneo/forge/components/Form/fields/Select";
-import SelectApi from "@arteneo/forge/components/Form/fields/SelectApi";
-import SelectElement from "@arteneo/forge/components/Form/elements/Select";
+import Select, { SelectProps } from "@arteneo/forge/components/Form/fields/Select";
+import SelectApi, { SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
+import SelectElement, {
+    SelectElementProps,
+    SelectElementAutocompleteProps,
+    SelectElementAutocompleteOptionalProps,
+} from "@arteneo/forge/components/Form/elements/SelectElement";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import Currency, { CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
 import CurrencyElement, {
@@ -225,8 +229,13 @@ export {
     OptionsType,
     OptionInterface,
     Select,
+    SelectProps,
     SelectApi,
+    SelectApiProps,
     SelectElement,
+    SelectElementProps,
+    SelectElementAutocompleteProps,
+    SelectElementAutocompleteOptionalProps,
     SelectValueType,
     Currency,
     CurrencyProps,
