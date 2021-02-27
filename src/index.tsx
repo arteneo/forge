@@ -82,8 +82,12 @@ import Select from "@arteneo/forge/components/Form/fields/Select";
 import SelectApi from "@arteneo/forge/components/Form/fields/SelectApi";
 import SelectElement from "@arteneo/forge/components/Form/elements/Select";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
-import Currency from "@arteneo/forge/components/Form/fields/Currency";
-import CurrencyElement from "@arteneo/forge/components/Form/elements/Currency";
+import Currency, { CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
+import CurrencyElement, {
+    CurrencyElementProps,
+    CurrencyElementFieldProps,
+    CurrencyElementSymbolPosition,
+} from "@arteneo/forge/components/Form/elements/CurrencyElement";
 import Textarea from "@arteneo/forge/components/Form/fields/Textarea";
 import TextareaElement from "@arteneo/forge/components/Form/elements/Textarea";
 import Text from "@arteneo/forge/components/Form/fields/Text";
@@ -225,7 +229,11 @@ export {
     SelectElement,
     SelectValueType,
     Currency,
+    CurrencyProps,
     CurrencyElement,
+    CurrencyElementProps,
+    CurrencyElementFieldProps,
+    CurrencyElementSymbolPosition,
     Textarea,
     TextareaElement,
     Text,
