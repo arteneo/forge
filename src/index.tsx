@@ -66,7 +66,7 @@ import TimeToFilter, { TimeToFilterProps } from "@arteneo/forge/components/Table
 import FieldInterface from "@arteneo/forge/components/Form/definitions/FieldInterface";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
-import Form, { Props as FormProps } from "@arteneo/forge/components/Form/components/Form";
+import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
 import FormContent, { FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
 import FormButtons from "@arteneo/forge/components/Form/components/FormButtons";
 import PromptIfDirty from "@arteneo/forge/components/Form/components/PromptIfDirty";

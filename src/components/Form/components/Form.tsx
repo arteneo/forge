@@ -1,15 +1,15 @@
 import React from "react";
 import { FormikValues } from "formik";
-import FormContent, { Props as FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
+import FormContent, { FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
 import { FormProvider } from "@arteneo/forge/components/Form/contexts/Form";
 
-interface Props extends FormContentProps {
+interface FormProps extends FormContentProps {
     initialValues?: FormikValues;
     initializeEndpoint?: string;
     isReady?: (name: string) => boolean;
 }
 
-const Form: React.FC<Props> = ({
+const Form = ({
     fields,
     children,
     endpoint,
@@ -21,7 +21,7 @@ const Form: React.FC<Props> = ({
     onSubmit,
     isReady,
     buttons,
-}: Props) => {
+}: FormProps) => {
     if (!children && !fields) {
         throw new Error("Form component: children or fields prop is required.");
     }
@@ -38,4 +38,4 @@ const Form: React.FC<Props> = ({
 };
 
 export default Form;
-export { Props };
+export { FormProps };
