@@ -92,8 +92,8 @@ import Textarea from "@arteneo/forge/components/Form/fields/Textarea";
 import TextareaElement from "@arteneo/forge/components/Form/elements/Textarea";
 import Text from "@arteneo/forge/components/Form/fields/Text";
 import TextElement from "@arteneo/forge/components/Form/elements/Text";
-import Email from "@arteneo/forge/components/Form/fields/Email";
-import EmailElement from "@arteneo/forge/components/Form/elements/Email";
+import Email, { EmailProps } from "@arteneo/forge/components/Form/fields/Email";
+import EmailElement, { EmailElementProps } from "@arteneo/forge/components/Form/elements/EmailElement";
 import Password from "@arteneo/forge/components/Form/fields/Password";
 import PasswordElement from "@arteneo/forge/components/Form/elements/Password";
 import Date, { DateProps } from "@arteneo/forge/components/Form/fields/Date";
@@ -239,7 +239,9 @@ export {
     Text,
     TextElement,
     Email,
+    EmailProps,
     EmailElement,
+    EmailElementProps,
     Password,
     PasswordElement,
     Date,

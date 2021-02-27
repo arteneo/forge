@@ -2,7 +2,7 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 
-interface Props {
+interface EmailElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -20,7 +20,7 @@ interface Props {
     fieldProps?: TextFieldProps;
 }
 
-const Email: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const EmailElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: EmailElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,4 +65,5 @@ const Email: React.FC<Props> = ({ name, label, error, help, required, disabled, 
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Email;
+export default EmailElement;
+export { EmailElementProps };
