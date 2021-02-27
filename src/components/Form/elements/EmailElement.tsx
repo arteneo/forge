@@ -2,7 +2,7 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 
-interface Props {
+interface EmailElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -12,14 +12,15 @@ interface Props {
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     required: boolean;
     disabled: boolean;
     fieldProps?: TextFieldProps;
 }
 
-const Email: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const EmailElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: EmailElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +29,7 @@ const Email: React.FC<Props> = ({ name, label, error, help, required, disabled, 
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, () => defaultOnChange(event));
+            onChange(name, setFieldValue, event, () => defaultOnChange(event), values);
             return;
         }
 
@@ -64,4 +65,5 @@ const Email: React.FC<Props> = ({ name, label, error, help, required, disabled, 
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Email;
+export default EmailElement;
+export { EmailElementProps };

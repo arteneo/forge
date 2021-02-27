@@ -3,22 +3,23 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TimeElement from "@arteneo/forge/components/Form/elements/Time";
+import TimeElement from "@arteneo/forge/components/Form/elements/TimeElement";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import { KeyboardTimePickerProps } from "@material-ui/pickers";
 
-interface Props extends TextFieldInterface {
+interface TimeProps extends TextFieldInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     fieldProps?: KeyboardTimePickerProps;
 }
 
-const Time: React.FC<Props> = ({
+const Time = ({
     name,
     label,
     disableAutoLabel = false,
@@ -31,7 +32,7 @@ const Time: React.FC<Props> = ({
     disabled = false,
     validationSchema,
     fieldProps,
-}: Props) => {
+}: TimeProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
@@ -91,4 +92,4 @@ const Time: React.FC<Props> = ({
 };
 
 export default Time;
-export { Props };
+export { TimeProps };

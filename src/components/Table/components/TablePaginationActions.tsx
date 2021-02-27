@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TablePaginationActions: React.FC = () => {
+const TablePaginationActions = () => {
     const { t } = useTranslation();
     const { page, rowCount, rowsPerPage, onChangePage } = useTable();
 

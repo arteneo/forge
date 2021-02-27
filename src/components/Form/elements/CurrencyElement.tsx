@@ -1,6 +1,6 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { TextFieldProps } from "@material-ui/core";
+import { TextFieldProps, InputAdornment } from "@material-ui/core";
 import CurrencyTextField from "@unicef/material-ui-currency-textfield";
 
 /**
@@ -8,13 +8,14 @@ import CurrencyTextField from "@unicef/material-ui-currency-textfield";
  * https://unicef.github.io/material-ui-currency-textfield/
  * Maybye it is worth forking the package and adding TS with proper definitions
  */
-interface CurrencyFieldProps {
+interface CurrencySymbolFieldProps {
     currencySymbol: string;
 }
 
-type FieldProps = TextFieldProps | CurrencyFieldProps;
+type CurrencyElementFieldProps = TextFieldProps | CurrencySymbolFieldProps;
+type CurrencyElementSymbolPosition = "start" | "end";
 
-interface Props {
+interface CurrencyElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -26,14 +27,26 @@ interface Props {
         event: React.ChangeEvent<HTMLInputElement>,
         // eslint-disable-next-line
         value: any,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     required: boolean;
     disabled: boolean;
-    fieldProps?: FieldProps;
+    currencySymbolPosition?: CurrencyElementSymbolPosition;
+    fieldProps?: CurrencyElementFieldProps;
 }
 
-const Currency: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const Currency = ({
+    name,
+    label,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+    currencySymbolPosition = "end",
+}: CurrencyElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     // eslint-disable-next-line
@@ -56,7 +69,7 @@ const Currency: React.FC<Props> = ({ name, label, error, help, required, disable
     // eslint-disable-next-line
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>, value: any) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, value, () => defaultOnChange(event, value));
+            onChange(name, setFieldValue, event, value, () => defaultOnChange(event, value), values);
             return;
         }
 
@@ -69,7 +82,7 @@ const Currency: React.FC<Props> = ({ name, label, error, help, required, disable
 
     // We cannot use TextFieldProps. Best would be CurrencyTextField definitions, but we do not have them
     // eslint-disable-next-line
-    const internalFieldProps: any = {
+    let internalFieldProps: any = {
         // This is wierd. 0 (as a number) is treated as empty value (not converted to 0,00)
         value: resolvedValue === 0 ? "0" : resolvedValue,
         onChange: callableOnChange,
@@ -90,6 +103,15 @@ const Currency: React.FC<Props> = ({ name, label, error, help, required, disable
         helperText: undefined,
     };
 
+    if (currencySymbolPosition === "end") {
+        internalFieldProps.textAlign = "right";
+        internalFieldProps.InputProps = {};
+        internalFieldProps.InputProps.startAdornment = <InputAdornment position="start">&nbsp;</InputAdornment>;
+        internalFieldProps.InputProps.endAdornment = (
+            <InputAdornment position="end">{internalFieldProps.currencySymbol}</InputAdornment>
+        );
+    }
+
     if (hasError || help) {
         internalFieldProps.helperText = (
             <>
@@ -106,4 +128,4 @@ const Currency: React.FC<Props> = ({ name, label, error, help, required, disable
 };
 
 export default Currency;
-export { FieldProps };
+export { CurrencyElementProps, CurrencyElementFieldProps, CurrencyElementSymbolPosition };

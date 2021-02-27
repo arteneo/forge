@@ -2,7 +2,7 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 
-interface Props {
+interface PasswordElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -12,14 +12,24 @@ interface Props {
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     required: boolean;
     disabled: boolean;
     fieldProps?: TextFieldProps;
 }
 
-const Password: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const PasswordElement = ({
+    name,
+    label,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+}: PasswordElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +38,7 @@ const Password: React.FC<Props> = ({ name, label, error, help, required, disable
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, () => defaultOnChange(event));
+            onChange(name, setFieldValue, event, () => defaultOnChange(event), values);
             return;
         }
 
@@ -64,4 +74,5 @@ const Password: React.FC<Props> = ({ name, label, error, help, required, disable
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Password;
+export default PasswordElement;
+export { PasswordElementProps };

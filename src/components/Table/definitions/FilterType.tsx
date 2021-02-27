@@ -1,4 +1,5 @@
 type FilterType =
+    | "boolean"
     | "like"
     | "equal"
     | "equalMultiple"

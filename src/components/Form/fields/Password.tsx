@@ -3,22 +3,23 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import PasswordElement from "@arteneo/forge/components/Form/elements/Password";
+import PasswordElement from "@arteneo/forge/components/Form/elements/PasswordElement";
 import { TextFieldProps } from "@material-ui/core";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
-interface Props extends TextFieldInterface {
+interface PasswordProps extends TextFieldInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     fieldProps?: TextFieldProps;
 }
 
-const Password: React.FC<Props> = ({
+const Password = ({
     name,
     label,
     disableAutoLabel = false,
@@ -31,7 +32,7 @@ const Password: React.FC<Props> = ({
     disabled = false,
     validationSchema,
     fieldProps,
-}: Props) => {
+}: PasswordProps) => {
     if (typeof name === "undefined") {
         throw new Error("Password component: name is required prop. By default it is injected by FormContent.");
     }
@@ -91,3 +92,4 @@ const Password: React.FC<Props> = ({
 };
 
 export default Password;
+export { PasswordProps };

@@ -1,19 +1,19 @@
 import React from "react";
-import Date, { Props as DateProps } from "@arteneo/forge/components/Form/fields/Date";
-import FilterType from "@arteneo/forge/components/Table/definitions/FilterType";
+import Date, { DateProps } from "@arteneo/forge/components/Form/fields/Date";
+import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
-interface Props extends DateProps {
-    filterBy?: string;
-    filterType?: FilterType;
-}
+type DateToFilterProps = FilterFieldInterface & DateProps;
 
+// filterBy and filterType are destructed to avoid passing them deeper
 // eslint-disable-next-line
-const DateToFilter: React.FC<Props> = ({ filterBy, filterType, ...props }: Props) => {
+const DateToFilter = ({ filterBy, filterType, ...props }: DateToFilterProps) => {
     return <Date {...props} />;
 };
 
+// * It has to be done via .defaultProps so filterType is passed openly to this component and can be read by Table context
 DateToFilter.defaultProps = {
     filterType: "dateLessThanOrEqual",
 };
 
 export default DateToFilter;
+export { DateToFilterProps };

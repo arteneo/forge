@@ -1,8 +1,8 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import { makeStyles, TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 
-interface Props {
+interface TextareaElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -12,14 +12,35 @@ interface Props {
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     required: boolean;
     disabled: boolean;
+    disableResize?: boolean;
     fieldProps?: TextFieldProps;
 }
 
-const Text: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const useStyles = makeStyles(() => ({
+    resize: {
+        "& .MuiInputBase-inputMultiline": {
+            resize: "vertical",
+        },
+    },
+}));
+
+const TextareaElement = ({
+    name,
+    label,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    disableResize,
+    fieldProps,
+}: TextareaElementProps) => {
+    const classes = useStyles();
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +49,7 @@ const Text: React.FC<Props> = ({ name, label, error, help, required, disabled, o
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, () => defaultOnChange(event));
+            onChange(name, setFieldValue, event, () => defaultOnChange(event), values);
             return;
         }
 
@@ -39,10 +60,14 @@ const Text: React.FC<Props> = ({ name, label, error, help, required, disabled, o
     const internalFieldProps: TextFieldProps = {
         value: getIn(values, name, ""),
         onChange: callableOnChange,
+        className: disableResize ? undefined : classes.resize,
         error: hasError,
         label,
         required,
         disabled,
+        multiline: true,
+        rows: 3,
+        rowsMax: 6,
         fullWidth: true,
         margin: "normal",
         helperText: undefined,
@@ -63,4 +88,5 @@ const Text: React.FC<Props> = ({ name, label, error, help, required, disabled, o
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Text;
+export default TextareaElement;
+export { TextareaElementProps };

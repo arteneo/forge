@@ -3,22 +3,23 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextElement from "@arteneo/forge/components/Form/elements/Text";
+import TextElement from "@arteneo/forge/components/Form/elements/TextElement";
 import { TextFieldProps } from "@material-ui/core";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
-interface Props extends TextFieldInterface {
+interface TextProps extends TextFieldInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
     fieldProps?: TextFieldProps;
 }
 
-const Text: React.FC<Props> = ({
+const Text = ({
     name,
     label,
     disableAutoLabel = false,
@@ -31,7 +32,7 @@ const Text: React.FC<Props> = ({
     disabled = false,
     validationSchema,
     fieldProps,
-}: Props) => {
+}: TextProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
@@ -91,4 +92,4 @@ const Text: React.FC<Props> = ({
 };
 
 export default Text;
-export { Props };
+export { TextProps };

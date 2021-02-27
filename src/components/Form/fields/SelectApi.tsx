@@ -4,7 +4,9 @@ import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectAutocompleteOptionalProps } from "@arteneo/forge/components/Form/elements/Select";
+import SelectElement, {
+    SelectElementAutocompleteOptionalProps,
+} from "@arteneo/forge/components/Form/elements/SelectElement";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
@@ -13,7 +15,7 @@ import { SelectValueType } from "@arteneo/forge/components/Form/definitions/Auto
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 import { FormControlProps } from "@material-ui/core";
 
-interface Props extends TextFieldInterface {
+interface SelectApiProps extends TextFieldInterface {
     endpoint: string | ((values: FormikValues) => string);
     onChange?: (
         name: string,
@@ -31,11 +33,11 @@ interface Props extends TextFieldInterface {
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
     disableTranslateGroupBy?: boolean;
-    autocompleteProps?: SelectAutocompleteOptionalProps;
+    autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
 
-const SelectApi: React.FC<Props> = ({
+const SelectApi = ({
     name,
     endpoint,
     label,
@@ -53,7 +55,7 @@ const SelectApi: React.FC<Props> = ({
     disableTranslateGroupBy,
     autocompleteProps,
     formControlProps,
-}: Props) => {
+}: SelectApiProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
@@ -154,4 +156,4 @@ SelectApi.defaultProps = {
 };
 
 export default SelectApi;
-export { Props };
+export { SelectApiProps };

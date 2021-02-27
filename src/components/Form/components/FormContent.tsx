@@ -13,7 +13,7 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 import { makeStyles } from "@material-ui/core";
 import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 
-interface Props {
+interface FormContentProps {
     fields?: FieldsInterface;
     children?: React.ReactNode;
     buttons?: React.ReactNode;
@@ -46,10 +46,10 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const FormContent: React.FC<Props> = ({
+const FormContent = ({
     fields,
     children,
-    buttons,
+    buttons = <FormButtons />,
     changeSubmitValues,
     onSubmitSuccess,
     endpoint,
@@ -57,7 +57,7 @@ const FormContent: React.FC<Props> = ({
     validationSchema,
     disablePromptIfDirty,
     promptIfDirtyLabel,
-}: Props) => {
+}: FormContentProps) => {
     const classes = useStyles();
     const { formikInitialValues, formikValidationSchema, setObject, submitAction } = useForm();
     const handleCatch = useHandleCatch();
@@ -158,9 +158,5 @@ const FormContent: React.FC<Props> = ({
     );
 };
 
-FormContent.defaultProps = {
-    buttons: <FormButtons />,
-};
-
 export default FormContent;
-export { Props };
+export { FormContentProps };

@@ -3,10 +3,13 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import CurrencyElement, { FieldProps } from "@arteneo/forge/components/Form/elements/Currency";
+import CurrencyElement, {
+    CurrencyElementFieldProps,
+    CurrencyElementSymbolPosition,
+} from "@arteneo/forge/components/Form/elements/CurrencyElement";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
-interface Props extends TextFieldInterface {
+interface CurrencyProps extends TextFieldInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -14,12 +17,14 @@ interface Props extends TextFieldInterface {
         event: React.ChangeEvent<HTMLInputElement>,
         // eslint-disable-next-line
         value: any,
-        onChange: () => void
+        onChange: () => void,
+        values: FormikValues
     ) => void;
-    fieldProps?: FieldProps;
+    fieldProps?: CurrencyElementFieldProps;
+    currencySymbolPosition?: CurrencyElementSymbolPosition;
 }
 
-const Currency: React.FC<Props> = ({
+const Currency = ({
     name,
     label,
     disableAutoLabel = false,
@@ -32,7 +37,8 @@ const Currency: React.FC<Props> = ({
     disabled = false,
     validationSchema,
     fieldProps,
-}: Props) => {
+    currencySymbolPosition,
+}: CurrencyProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
@@ -85,6 +91,7 @@ const Currency: React.FC<Props> = ({
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
                 onChange,
+                currencySymbolPosition,
                 fieldProps,
             }}
         />
@@ -92,4 +99,4 @@ const Currency: React.FC<Props> = ({
 };
 
 export default Currency;
-export { Props };
+export { CurrencyProps };

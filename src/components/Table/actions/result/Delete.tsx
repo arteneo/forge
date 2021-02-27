@@ -1,39 +1,23 @@
 import React from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core";
-import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
-import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
-import Button, { Props as ButtonProps } from "@arteneo/forge/components/Common/Button";
+import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
+import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 
-interface Props extends WrapperInterface {
-    // result is added to props by TableContent
+interface DeleteInterface {
     // eslint-disable-next-line
-    result?: any;
-    // field is added to props by TableContent
-    field?: string;
-    disableSorting?: boolean;
-    buttonProps?: ButtonProps;
+    endpoint?: string | ((result: any) => string);
+    confirmationLabel?: string;
 }
+type DeleteProps = DeleteInterface & ButtonProps & ColumnInterface;
 
-const Delete: React.FC<Props> = ({
-    result,
-    field,
-    buttonProps = {
-        variant: "contained",
-        color: "error",
-    },
-    wrapperComponent,
-    wrapperComponentProps,
-}: Props) => {
-    if (typeof field === "undefined") {
-        return null;
-    }
-
+const Delete = ({ endpoint, result, confirmationLabel = "crud.confirmation.delete", ...props }: DeleteProps) => {
     const { t } = useTranslation();
     const { reload, custom } = useTable();
     const { showSuccess } = useSnackbar();
@@ -41,17 +25,19 @@ const Delete: React.FC<Props> = ({
     const { showLoader } = useLoader();
     const [showConfirmation, setShowConfirmation] = React.useState(false);
 
-    if (typeof custom?.endpoints?.delete === "undefined") {
+    if (typeof endpoint === "undefined" && typeof custom?.endpoints?.delete === "undefined") {
         throw new Error(
-            "Delete component: Missing required endpoints.delete definition in custom variable used by Table context"
+            "Delete component: Missing required to prop or endpoints.delete definition in custom variable used by Table context"
         );
     }
 
     const deleteResult = (): void => {
         showLoader();
 
+        const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, result) : custom.endpoints.delete(result);
+
         axios
-            .delete(custom.endpoints.delete(result))
+            .delete(resolvedEndpoint)
             .then(() => {
                 showSuccess("snackbar.deleted");
 
@@ -62,28 +48,23 @@ const Delete: React.FC<Props> = ({
             .catch((error) => handleCatch(error));
     };
 
-    const button = (
-        <Button onClick={() => setShowConfirmation(true)} {...buttonProps}>
-            {t("action.delete")}
-        </Button>
-    );
-
     return (
         <>
-            <Wrapper
+            <Button
                 {...{
-                    wrapperComponent,
-                    wrapperComponentProps,
+                    label: "action.delete",
+                    color: "error",
+                    variant: "contained",
+                    onClick: () => setShowConfirmation(true),
+                    ...props,
                 }}
-            >
-                {button}
-            </Wrapper>
+            />
 
             <Dialog open={showConfirmation} onClose={() => setShowConfirmation(false)} fullWidth maxWidth="sm">
                 <DialogTitle>{t("crud.confirmation.title")}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {t("crud.confirmation.delete", {
+                        {t(confirmationLabel, {
                             name: result.representation,
                         })}
                     </DialogContentText>
@@ -93,7 +74,7 @@ const Delete: React.FC<Props> = ({
                         <Button onClick={() => setShowConfirmation(false)} variant="contained">
                             {t("action.cancel")}
                         </Button>
-                        <Button onClick={() => deleteResult()} {...buttonProps}>
+                        <Button variant="contained" color="error" onClick={() => deleteResult()}>
                             {t("action.delete")}
                         </Button>
                     </Box>
@@ -104,3 +85,4 @@ const Delete: React.FC<Props> = ({
 };
 
 export default Delete;
+export { DeleteProps };

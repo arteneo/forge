@@ -1,19 +1,19 @@
 import React from "react";
-import Time, { Props as TimeProps } from "@arteneo/forge/components/Form/fields/Time";
-import FilterType from "@arteneo/forge/components/Table/definitions/FilterType";
+import Time, { TimeProps } from "@arteneo/forge/components/Form/fields/Time";
+import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
-interface Props extends TimeProps {
-    filterBy?: string;
-    filterType?: FilterType;
-}
+type TimeToFilterProps = FilterFieldInterface & TimeProps;
 
+// filterBy and filterType are destructed to avoid passing them deeper
 // eslint-disable-next-line
-const TimeToFilter: React.FC<Props> = ({ filterBy, filterType, ...props }: Props) => {
+const TimeToFilter = ({ filterBy, filterType, ...props }: TimeToFilterProps) => {
     return <Time {...props} />;
 };
 
+// * It has to be done via .defaultProps so filterType is passed openly to this component and can be read by Table context
 TimeToFilter.defaultProps = {
     filterType: "timeLessThanOrEqual",
 };
 
 export default TimeToFilter;
+export { TimeToFilterProps };

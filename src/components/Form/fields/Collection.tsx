@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
 
-interface Props extends FieldInterface {
+interface CollectionProps extends FieldInterface {
     fields: FieldsInterface;
     disableAddRow?:
         | ((
@@ -43,7 +43,8 @@ interface Props extends FieldInterface {
         values: FormikValues,
         name: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>
+        errors: FormikErrors<FormikValues>,
+        defaultAddRow: () => void
     ) => void;
     onDeleteRow?: (
         key: number,
@@ -52,7 +53,8 @@ interface Props extends FieldInterface {
         values: FormikValues,
         name: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>
+        errors: FormikErrors<FormikValues>,
+        defaultDeleteRow: () => void
     ) => void;
     initialValues?:
         | ((
@@ -76,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Collection: React.FC<Props> = ({
+const Collection = ({
     fields,
     name,
     label,
@@ -91,7 +93,7 @@ const Collection: React.FC<Props> = ({
     onAddRow,
     onDeleteRow,
     initialValues = {},
-}: Props) => {
+}: CollectionProps) => {
     if (typeof name === "undefined") {
         throw new Error("Collection component: name is required prop. By default it is injected by FormContent.");
     }
@@ -110,20 +112,27 @@ const Collection: React.FC<Props> = ({
 
     const addRow = () => {
         if (onAddRow) {
-            onAddRow(setFieldValue, values, name, touched, errors);
+            onAddRow(setFieldValue, values, name, touched, errors, () => defaultAddRow());
             return;
         }
 
+        defaultAddRow();
+    };
+
+    const defaultAddRow = () => {
         collectionRows.push(resolveAnyOrFunction(initialValues, values, name, touched, errors));
         setFieldValue(name, collectionRows);
     };
 
     const deleteRow = (key: number) => {
         if (onDeleteRow) {
-            onDeleteRow(key, setFieldValue, values, name, touched, errors);
+            onDeleteRow(key, setFieldValue, values, name, touched, errors, () => defaultDeleteRow(key));
             return;
         }
+        defaultDeleteRow(key);
+    };
 
+    const defaultDeleteRow = (key: number) => {
         collectionRows.splice(key, 1);
         setFieldValue(name, collectionRows);
     };
@@ -228,3 +237,4 @@ const Collection: React.FC<Props> = ({
 };
 
 export default Collection;
+export { CollectionProps };

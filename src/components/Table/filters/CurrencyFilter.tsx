@@ -1,19 +1,19 @@
 import React from "react";
-import Select, { SelectProps } from "@arteneo/forge/components/Form/fields/Select";
+import Currency, { CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
-type SelectFilterProps = FilterFieldInterface & SelectProps;
+type CurrencyFilterProps = FilterFieldInterface & CurrencyProps;
 
 // filterBy and filterType are destructed to avoid passing them deeper
 // eslint-disable-next-line
-const SelectFilter = ({ filterBy, filterType, ...props }: SelectFilterProps) => {
-    return <Select {...props} />;
+const CurrencyFilter = ({ filterBy, filterType, ...props }: CurrencyFilterProps) => {
+    return <Currency {...props} />;
 };
 
 // * It has to be done via .defaultProps so filterType is passed openly to this component and can be read by Table context
-SelectFilter.defaultProps = {
+CurrencyFilter.defaultProps = {
     filterType: "equal",
 };
 
-export default SelectFilter;
-export { SelectFilterProps };
+export default CurrencyFilter;
+export { CurrencyFilterProps };

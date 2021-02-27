@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { ExpandMore, FilterList } from "@material-ui/icons";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 
-interface Props {
+interface TableFiltersProps {
     filters: FieldsInterface;
 }
 
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TableFilters: React.FC<Props> = ({ filters }: Props) => {
+const TableFilters = ({ filters }: TableFiltersProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const { filters: filterValues, filtersExpanded, setFiltersExpanded, onSubmitFilters, isFiltersActive } = useTable();
@@ -123,4 +123,4 @@ const TableFilters: React.FC<Props> = ({ filters }: Props) => {
 };
 
 export default TableFilters;
-export { Props };
+export { TableFiltersProps };

@@ -1,19 +1,19 @@
 import React from "react";
-import Text, { Props as TextProps } from "@arteneo/forge/components/Form/fields/Text";
-import FilterType from "@arteneo/forge/components/Table/definitions/FilterType";
+import Text, { TextProps } from "@arteneo/forge/components/Form/fields/Text";
+import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
-interface Props extends TextProps {
-    filterBy?: string;
-    filterType?: FilterType;
-}
+type TextFilterProps = FilterFieldInterface & TextProps;
 
+// filterBy and filterType are destructed to avoid passing them deeper
 // eslint-disable-next-line
-const TextFilter: React.FC<Props> = ({ filterBy, filterType, ...props }: Props) => {
+const TextFilter = ({ filterBy, filterType, ...props }: TextFilterProps) => {
     return <Text {...props} />;
 };
 
+// * It has to be done via .defaultProps so filterType is passed openly to this component and can be read by Table context
 TextFilter.defaultProps = {
     filterType: "like",
 };
 
 export default TextFilter;
+export { TextFilterProps };

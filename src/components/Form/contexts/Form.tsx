@@ -2,14 +2,14 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { FormikValues, FormikTouched, FormikErrors, getIn, setIn } from "formik";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
+import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { populate } from "@arteneo/forge/utils/common";
 import { resolveReactNodeOrFunction } from "@arteneo/forge/utils/resolve";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
 
-interface ContextProps {
+interface FormContextProps {
     formikInitialValues: FormikValues;
     // eslint-disable-next-line
     formikValidationSchema: any;
@@ -49,7 +49,7 @@ interface ContextProps {
     setSubmitAction: (submitAction: any) => void;
 }
 
-interface ProviderProps {
+interface FormProviderProps {
     children: React.ReactNode;
     fields?: FieldsInterface;
     initialValues?: FormikValues;
@@ -92,15 +92,15 @@ const contextInitial = {
     },
 };
 
-const FormContext = React.createContext<ContextProps>(contextInitial);
+const FormContext = React.createContext<FormContextProps>(contextInitial);
 
-const FormProvider: React.FC<ProviderProps> = ({
+const FormProvider = ({
     children,
     fields,
     initialValues,
     initializeEndpoint,
-    isReady,
-}: ProviderProps) => {
+    isReady = () => true,
+}: FormProviderProps) => {
     const { t } = useTranslation();
 
     const [formikValidationSchema, setFormikValidationSchema] = React.useState({});
@@ -111,7 +111,7 @@ const FormProvider: React.FC<ProviderProps> = ({
 
     React.useEffect(() => initializeValues(), [initializeEndpoint, initialValues]);
 
-    const initializeValues = (): void => {
+    const initializeValues = () => {
         if (typeof initializeEndpoint === "undefined" && typeof initialValues === "undefined") {
             return;
         }
@@ -129,8 +129,12 @@ const FormProvider: React.FC<ProviderProps> = ({
             return;
         }
 
+        const axiosSource = axios.CancelToken.source();
+
         axios
-            .get(initializeEndpoint)
+            .get(initializeEndpoint, {
+                cancelToken: axiosSource.token,
+            })
             .then((response: AxiosResponse) => {
                 setObject(response.data);
                 setFormikInitialValues(() => ({
@@ -138,6 +142,10 @@ const FormProvider: React.FC<ProviderProps> = ({
                 }));
             })
             .catch((error: AxiosError) => handleCatch(error));
+
+        return () => {
+            axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
+        };
     };
 
     // eslint-disable-next-line
@@ -246,10 +254,6 @@ const FormProvider: React.FC<ProviderProps> = ({
     );
 };
 
-FormProvider.defaultProps = {
-    isReady: () => true,
-};
+const useForm = (): FormContextProps => React.useContext(FormContext);
 
-const useForm = (): ContextProps => React.useContext(FormContext);
-
-export { FormContext, FormProvider, useForm };
+export { FormContext, FormContextProps, FormProvider, FormProviderProps, useForm };

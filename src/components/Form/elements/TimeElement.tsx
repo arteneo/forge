@@ -3,7 +3,7 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { KeyboardTimePicker, KeyboardTimePickerProps } from "@material-ui/pickers";
 import { formatRFC3339, isValid } from "date-fns";
 
-interface Props {
+interface TimeElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -15,6 +15,7 @@ interface Props {
         // eslint-disable-next-line
         date: any,
         onChange: () => void,
+        values: FormikValues,
         value?: string | null
     ) => void;
     required: boolean;
@@ -22,7 +23,7 @@ interface Props {
     fieldProps?: KeyboardTimePickerProps;
 }
 
-const Time: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const TimeElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: TimeElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     // eslint-disable-next-line
@@ -39,7 +40,7 @@ const Time: React.FC<Props> = ({ name, label, error, help, required, disabled, o
     const callableOnChange = (date: any, value?: string | null) => {
         if (onChange) {
             // Parameters are swapped for convenience
-            onChange(name, setFieldValue, date, () => defaultOnChange(date, value), value);
+            onChange(name, setFieldValue, date, () => defaultOnChange(date, value), values, value);
             return;
         }
 
@@ -78,4 +79,5 @@ const Time: React.FC<Props> = ({ name, label, error, help, required, disabled, o
     return <KeyboardTimePicker {...mergedFieldProps} />;
 };
 
-export default Time;
+export default TimeElement;
+export { TimeElementProps };

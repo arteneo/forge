@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 
-interface Props {
+interface TableActionsProps {
     children?: React.ReactNode;
 }
 
-const TableActions: React.FC<Props> = ({ children }: Props) => {
+const TableActions = ({ children }: TableActionsProps) => {
     if (typeof children === "undefined") {
         return null;
     }
@@ -33,4 +33,4 @@ const TableActions: React.FC<Props> = ({ children }: Props) => {
 };
 
 export default TableActions;
-export { Props };
+export { TableActionsProps };
