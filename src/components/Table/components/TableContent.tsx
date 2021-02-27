@@ -2,6 +2,7 @@ import React from "react";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     Box,
+    Checkbox,
     Paper,
     Table,
     TableBody,
@@ -30,7 +31,19 @@ const TableContent = ({ row, filters, actions, disablePagination }: TableContent
     const { t } = useTranslation();
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
-    const { rowCount, results, isSortingActive, getSortingDirection, onClickSorting } = useTable();
+    const {
+        rowCount,
+        results,
+        isSortingActive,
+        getSortingDirection,
+        onClickSorting,
+        enableBatchSelect,
+        selected,
+        isSelected,
+        selectAll,
+        deselectAll,
+        toggleSelected,
+    } = useTable();
 
     const getHeadTableCell = (field: string) => {
         if (row[field]?.props?.disableSorting) {
@@ -60,6 +73,17 @@ const TableContent = ({ row, filters, actions, disablePagination }: TableContent
                         <Table>
                             <TableHead>
                                 <TableRow>
+                                    {enableBatchSelect && (
+                                        <TableCell padding="checkbox">
+                                            <Checkbox
+                                                indeterminate={selected.length > 0 && selected.length < results.length}
+                                                checked={results.length > 0 && selected.length === results.length}
+                                                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                                    event.target.checked ? selectAll() : deselectAll()
+                                                }
+                                            />
+                                        </TableCell>
+                                    )}
                                     {Object.keys(row).map((field) => {
                                         return <TableCell key={field}>{getHeadTableCell(field)}</TableCell>;
                                     })}
@@ -67,7 +91,13 @@ const TableContent = ({ row, filters, actions, disablePagination }: TableContent
                             </TableHead>
                             <TableBody>
                                 {results.map((result, key) => (
-                                    <TableRow key={key}>
+                                    <TableRow key={key} hover={true} selected={isSelected(result.id)}>
+                                        {enableBatchSelect && (
+                                            <TableCell padding="checkbox" onClick={() => toggleSelected(result.id)}>
+                                                <Checkbox checked={isSelected(result.id)} />
+                                            </TableCell>
+                                        )}
+
                                         {Object.keys(row).map((field) => {
                                             return (
                                                 <TableCell key={field}>
