@@ -19,7 +19,7 @@ import { SnackbarContext, SnackbarProvider, useSnackbar } from "@arteneo/forge/c
 import { LoaderContext, LoaderProvider, useLoader } from "@arteneo/forge/contexts/Loader";
 import AppDateFnsUtils from "@arteneo/forge/utils/AppDateFnsUtils";
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
-import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
+import Wrapper, { WrapperProps } from "@arteneo/forge/components/Table/components/Wrapper";
 import Table, { TableProps } from "@arteneo/forge/components/Table/components/Table";
 import TableActions, { TableActionsProps } from "@arteneo/forge/components/Table/components/TableActions";
 import TableContent, { TableContentProps } from "@arteneo/forge/components/Table/components/TableContent";
@@ -131,6 +131,7 @@ export {
     ButtonDownloadProps,
     AppDateFnsUtils,
     Wrapper,
+    WrapperProps,
     WrapperInterface,
     Table,
     TableProps,
