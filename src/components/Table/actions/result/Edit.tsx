@@ -19,7 +19,7 @@ const Edit = ({ result, to, ...props }: EditProps) => {
     const resolvedTo = to ? resolveAnyOrFunction(to, result) : custom.paths.edit(result);
 
     return (
-        <ButtonLink
+        <ButtonLink //ResultActionLink
             {...{
                 label: "action.edit",
                 to: resolvedTo,

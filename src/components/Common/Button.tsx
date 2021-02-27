@@ -88,6 +88,7 @@ const Button = ({
         resolvedClassName = clsx(resolvedClassName, classes.error);
     }
 
+    //todo add visible as simple span
     const button = (
         <MuiButton {...{ children, color: resolvedColor, className: resolvedClassName, ...muiButtonProps }} />
     );
