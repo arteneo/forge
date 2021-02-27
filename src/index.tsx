@@ -24,7 +24,13 @@ import {
     AXIOS_CANCELLED_UNMOUNTED,
 } from "@arteneo/forge/contexts/HandleCatch";
 import { SnackbarContext, SnackbarProvider, useSnackbar } from "@arteneo/forge/contexts/Snackbar";
-import { LoaderContext, LoaderProvider, useLoader } from "@arteneo/forge/contexts/Loader";
+import {
+    LoaderContext,
+    LoaderContextProps,
+    LoaderProvider,
+    LoaderProviderProps,
+    useLoader,
+} from "@arteneo/forge/contexts/Loader";
 import AppDateFnsUtils from "@arteneo/forge/utils/AppDateFnsUtils";
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 import Wrapper, { WrapperProps } from "@arteneo/forge/components/Table/components/Wrapper";
@@ -251,7 +257,9 @@ export {
     SnackbarProvider,
     useSnackbar,
     LoaderContext,
+    LoaderContextProps,
     LoaderProvider,
+    LoaderProviderProps,
     useLoader,
     FieldInterface,
     FieldsInterface,

@@ -1,6 +1,6 @@
 import React from "react";
 
-interface ContextProps {
+interface LoaderContextProps {
     visibleLoader: boolean;
     showLoader: () => void;
     hideLoader: () => void;
@@ -12,7 +12,7 @@ interface ContextProps {
     hideLocalLoader: () => void;
 }
 
-interface ProviderProps {
+interface LoaderProviderProps {
     children: React.ReactNode;
     hasLocalLoader?: boolean;
 }
@@ -41,9 +41,9 @@ const contextInitial = {
     },
 };
 
-const LoaderContext = React.createContext<ContextProps>(contextInitial);
+const LoaderContext = React.createContext<LoaderContextProps>(contextInitial);
 
-const LoaderProvider: React.FC<ProviderProps> = ({ children, hasLocalLoader }: ProviderProps) => {
+const LoaderProvider = ({ children, hasLocalLoader }: LoaderProviderProps) => {
     const [visibleGlobalLoader, setVisibleGlobalLoader] = React.useState(false);
     const [visibleLocalLoader, setVisibleLocalLoader] = React.useState(false);
 
@@ -100,6 +100,6 @@ LoaderProvider.defaultProps = {
     hasLocalLoader: false,
 };
 
-const useLoader = (): ContextProps => React.useContext(LoaderContext);
+const useLoader = (): LoaderContextProps => React.useContext(LoaderContext);
 
-export { LoaderContext, LoaderProvider, useLoader };
+export { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader };
