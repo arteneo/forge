@@ -98,9 +98,8 @@ import DateTime from "@arteneo/forge/components/Form/fields/DateTime";
 import DateTimeElement from "@arteneo/forge/components/Form/elements/DateTime";
 import Time from "@arteneo/forge/components/Form/fields/Time";
 import TimeElement from "@arteneo/forge/components/Form/elements/Time";
-import Checkbox from "@arteneo/forge/components/Form/fields/Checkbox";
-import CheckboxElement from "@arteneo/forge/components/Form/elements/Checkbox";
-import Collection from "@arteneo/forge/components/Form/fields/Collection";
+import Checkbox, { CheckboxProps } from "@arteneo/forge/components/Form/fields/Checkbox";
+import CheckboxElement, { CheckboxElementProps } from "@arteneo/forge/components/Form/elements/CheckboxElement";
 import {
     resolveAnyOrFunction,
     resolveBooleanOrFunction,
@@ -241,7 +240,9 @@ export {
     Time,
     TimeElement,
     Checkbox,
+    CheckboxProps,
     CheckboxElement,
+    CheckboxElementProps,
     Collection,
     resolveAnyOrFunction,
     resolveBooleanOrFunction,
