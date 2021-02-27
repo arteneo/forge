@@ -26,6 +26,7 @@ import TableContent, { TableContentProps } from "@arteneo/forge/components/Table
 import TableFilters, { TableFiltersProps } from "@arteneo/forge/components/Table/components/TableFilters";
 import TableFiltersButtons from "@arteneo/forge/components/Table/components/TableFiltersButtons";
 import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
+import TablePaginationActions from "@arteneo/forge/components/Table/components/TablePaginationActions";
 import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
 import TextColumn, { TextColumnProps } from "@arteneo/forge/components/Table/columns/TextColumn";
@@ -141,6 +142,7 @@ export {
     TableFiltersProps,
     TableFiltersButtons,
     TablePagination,
+    TablePaginationActions,
     ResultInterface,
     TextColumn,
     TextColumnProps,
