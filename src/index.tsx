@@ -69,7 +69,7 @@ import ValidationSchemaInterface from "@arteneo/forge/components/Form/definition
 import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
 import FormContent, { FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
 import FormButtons, { FormButtonsProps } from "@arteneo/forge/components/Form/components/FormButtons";
-import PromptIfDirty from "@arteneo/forge/components/Form/components/PromptIfDirty";
+import PromptIfDirty, { PromptIfDirtyProps } from "@arteneo/forge/components/Form/components/PromptIfDirty";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
 import Select from "@arteneo/forge/components/Form/fields/Select";
@@ -209,6 +209,7 @@ export {
     FormButtons,
     FormButtonsProps,
     PromptIfDirty,
+    PromptIfDirtyProps,
     OptionsType,
     OptionInterface,
     Select,
