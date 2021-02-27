@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
-import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 import { AxiosRequestConfig } from "axios";
 
 interface ExportExcelInterface {
@@ -15,7 +14,7 @@ interface ExportExcelInterface {
 }
 
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
-type ExportExcelProps = Optional<ExportExcelInterface & ButtonDownloadProps & ColumnInterface, "requestConfig">;
+type ExportExcelProps = Optional<ExportExcelInterface & ButtonDownloadProps, "requestConfig">;
 
 const ExportExcel = ({ endpoint, fileName, sheetName, changeQuery, ...props }: ExportExcelProps) => {
     const { t } = useTranslation();

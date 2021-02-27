@@ -39,6 +39,7 @@ import {
 } from "@arteneo/forge/contexts/Loader";
 import AppDateFnsUtils from "@arteneo/forge/utils/AppDateFnsUtils";
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
+import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
 import Wrapper, { WrapperProps } from "@arteneo/forge/components/Table/components/Wrapper";
 import Table, { TableProps } from "@arteneo/forge/components/Table/components/Table";
 import TableActions, { TableActionsProps } from "@arteneo/forge/components/Table/components/TableActions";
@@ -65,8 +66,20 @@ import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/res
 import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
 import ExportCsv, { ExportCsvProps } from "@arteneo/forge/components/Table/actions/table/ExportCsv";
 import ExportExcel, { ExportExcelProps } from "@arteneo/forge/components/Table/actions/table/ExportExcel";
+import Batch, { BatchProps } from "@arteneo/forge/components/Table/actions/table/Batch";
+import BatchDelete, { BatchDeleteProps } from "@arteneo/forge/components/Table/actions/table/BatchDelete";
+import BatchQueryInterface from "@arteneo/forge/components/Table/definitions/BatchQueryInterface";
+import BatchSelectedType from "@arteneo/forge/components/Table/definitions/BatchSelectedType";
+import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
+import FilterType from "@arteneo/forge/components/Table/definitions/FilterType";
+import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
 import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
 import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
+import QueryInterface from "@arteneo/forge/components/Table/definitions/QueryInterface";
+import QuerySortingDefinitionInterface from "@arteneo/forge/components/Table/definitions/QuerySortingDefinitionInterface";
+import QuerySortingInterface from "@arteneo/forge/components/Table/definitions/QuerySortingInterface";
+import SortingDirection from "@arteneo/forge/components/Table/definitions/SortingDirection";
+import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
 import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
@@ -161,6 +174,7 @@ export {
     Wrapper,
     WrapperProps,
     WrapperInterface,
+    TranslateVariablesInterface,
     Table,
     TableProps,
     TableActions,
@@ -172,7 +186,17 @@ export {
     TableFiltersButtons,
     TablePagination,
     TablePaginationActions,
+    BatchQueryInterface,
+    BatchSelectedType,
+    FiltersInterface,
+    FilterType,
+    FilterValuesInterface,
     ResultInterface,
+    QueryInterface,
+    QuerySortingDefinitionInterface,
+    QuerySortingInterface,
+    SortingDirection,
+    SortingInterface,
     TextColumn,
     TextColumnProps,
     CurrencyColumn,
@@ -201,6 +225,10 @@ export {
     ExportCsvProps,
     ExportExcel,
     ExportExcelProps,
+    Batch,
+    BatchProps,
+    BatchDelete,
+    BatchDeleteProps,
     RowInterface,
     ExportQueryInterface,
     TableContext,
