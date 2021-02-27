@@ -94,8 +94,8 @@ import CurrencyElement, {
 } from "@arteneo/forge/components/Form/elements/CurrencyElement";
 import Textarea from "@arteneo/forge/components/Form/fields/Textarea";
 import TextareaElement from "@arteneo/forge/components/Form/elements/Textarea";
-import Text from "@arteneo/forge/components/Form/fields/Text";
-import TextElement from "@arteneo/forge/components/Form/elements/Text";
+import Text, { TextProps } from "@arteneo/forge/components/Form/fields/Text";
+import TextElement, { TextElementProps } from "@arteneo/forge/components/Form/elements/TextElement";
 import Email, { EmailProps } from "@arteneo/forge/components/Form/fields/Email";
 import EmailElement, { EmailElementProps } from "@arteneo/forge/components/Form/elements/EmailElement";
 import Password, { PasswordProps } from "@arteneo/forge/components/Form/fields/Password";
@@ -246,7 +246,9 @@ export {
     Textarea,
     TextareaElement,
     Text,
+    TextProps,
     TextElement,
+    TextElementProps,
     Email,
     EmailProps,
     EmailElement,
