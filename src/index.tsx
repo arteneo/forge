@@ -61,7 +61,9 @@ import {
 } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     TableQueryContext,
+    TableQueryContextProps,
     TableQueryProvider,
+    TableQueryProviderProps,
     useTableQuery,
 } from "@arteneo/forge/components/Table/contexts/TableQuery";
 import TextFilter, { TextFilterProps } from "@arteneo/forge/components/Table/filters/TextFilter";
@@ -193,7 +195,9 @@ export {
     ColumnInterface,
     ColumnPathInterface,
     TableQueryContext,
+    TableQueryContextProps,
     TableQueryProvider,
+    TableQueryProviderProps,
     useTableQuery,
     TextFilter,
     TextFilterProps,
