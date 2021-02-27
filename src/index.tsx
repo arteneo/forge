@@ -39,6 +39,7 @@ import {
 } from "@arteneo/forge/contexts/Loader";
 import AppDateFnsUtils from "@arteneo/forge/utils/AppDateFnsUtils";
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
+import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
 import Wrapper, { WrapperProps } from "@arteneo/forge/components/Table/components/Wrapper";
 import Table, { TableProps } from "@arteneo/forge/components/Table/components/Table";
 import TableActions, { TableActionsProps } from "@arteneo/forge/components/Table/components/TableActions";
