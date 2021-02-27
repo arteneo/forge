@@ -5,11 +5,11 @@ import { AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 
-interface ContextProps {
+interface HandleCatchContextProps {
     (error: AxiosError, helpers?: FormikHelpers<FormikValues>): void;
 }
 
-interface ProviderProps {
+interface HandleCatchProviderProps {
     children: React.ReactNode;
 }
 
@@ -28,9 +28,9 @@ const contextInitial = () => {
 
 const AXIOS_CANCELLED_UNMOUNTED = "unmounted";
 
-const HandleCatchContext = React.createContext<ContextProps>(contextInitial);
+const HandleCatchContext = React.createContext<HandleCatchContextProps>(contextInitial);
 
-const HandleCatchProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) => {
+const HandleCatchProvider = ({ children }: HandleCatchProviderProps) => {
     const { setError } = useError();
     const { showError } = useSnackbar();
 
@@ -112,6 +112,13 @@ const HandleCatchProvider: React.FC<ProviderProps> = ({ children }: ProviderProp
     return <HandleCatchContext.Provider value={handleCatch}>{children}</HandleCatchContext.Provider>;
 };
 
-const useHandleCatch = (): ContextProps => React.useContext(HandleCatchContext);
+const useHandleCatch = (): HandleCatchContextProps => React.useContext(HandleCatchContext);
 
-export { HandleCatchContext, HandleCatchProvider, useHandleCatch, AXIOS_CANCELLED_UNMOUNTED };
+export {
+    HandleCatchContext,
+    HandleCatchContextProps,
+    HandleCatchProvider,
+    HandleCatchProviderProps,
+    useHandleCatch,
+    AXIOS_CANCELLED_UNMOUNTED,
+};

@@ -17,7 +17,9 @@ import {
 } from "@arteneo/forge/contexts/Error";
 import {
     HandleCatchContext,
+    HandleCatchContextProps,
     HandleCatchProvider,
+    HandleCatchProviderProps,
     useHandleCatch,
     AXIOS_CANCELLED_UNMOUNTED,
 } from "@arteneo/forge/contexts/HandleCatch";
@@ -240,7 +242,9 @@ export {
     ErrorProviderProps,
     useError,
     HandleCatchContext,
+    HandleCatchContextProps,
     HandleCatchProvider,
+    HandleCatchProviderProps,
     useHandleCatch,
     AXIOS_CANCELLED_UNMOUNTED,
     SnackbarContext,
