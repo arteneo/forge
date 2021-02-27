@@ -23,7 +23,13 @@ import {
     useHandleCatch,
     AXIOS_CANCELLED_UNMOUNTED,
 } from "@arteneo/forge/contexts/HandleCatch";
-import { SnackbarContext, SnackbarProvider, useSnackbar } from "@arteneo/forge/contexts/Snackbar";
+import {
+    SnackbarContext,
+    SnackbarContextProps,
+    SnackbarProvider,
+    SnackbarProviderProps,
+    useSnackbar,
+} from "@arteneo/forge/contexts/Snackbar";
 import {
     LoaderContext,
     LoaderContextProps,
@@ -254,7 +260,9 @@ export {
     useHandleCatch,
     AXIOS_CANCELLED_UNMOUNTED,
     SnackbarContext,
+    SnackbarContextProps,
     SnackbarProvider,
+    SnackbarProviderProps,
     useSnackbar,
     LoaderContext,
     LoaderContextProps,
