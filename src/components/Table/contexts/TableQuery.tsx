@@ -4,7 +4,7 @@ import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/F
 import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
 
-interface ContextProps {
+interface TableQueryContextProps {
     setQuery: (
         queryKey: string,
         page: number,
@@ -22,7 +22,7 @@ interface ContextProps {
     setQuerySorting: (queryKey: string, sorting: SortingInterface, overrideQuery?: boolean) => void;
 }
 
-interface ProviderProps {
+interface TableQueryProviderProps {
     children: React.ReactNode;
 }
 
@@ -48,9 +48,9 @@ const contextInitial = {
     },
 };
 
-const TableQueryContext = React.createContext<ContextProps>(contextInitial);
+const TableQueryContext = React.createContext<TableQueryContextProps>(contextInitial);
 
-const TableQueryProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) => {
+const TableQueryProvider = ({ children }: TableQueryProviderProps) => {
     const [queries, setQueries] = React.useState<TableQueriesInterface>({});
 
     const setQuery = (
@@ -195,6 +195,6 @@ const TableQueryProvider: React.FC<ProviderProps> = ({ children }: ProviderProps
     );
 };
 
-const useTableQuery = (): ContextProps => React.useContext(TableQueryContext);
+const useTableQuery = (): TableQueryContextProps => React.useContext(TableQueryContext);
 
-export { TableQueryContext, TableQueryProvider, useTableQuery };
+export { TableQueryContext, TableQueryContextProps, TableQueryProvider, TableQueryProviderProps, useTableQuery };

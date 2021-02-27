@@ -9,7 +9,7 @@ import {
     FormControlLabelProps,
 } from "@material-ui/core";
 
-interface Props {
+interface CheckboxElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -30,7 +30,7 @@ interface Props {
     formControlProps?: FormControlProps;
 }
 
-const Checkbox: React.FC<Props> = ({
+const CheckboxElement = ({
     name,
     label,
     error,
@@ -40,7 +40,7 @@ const Checkbox: React.FC<Props> = ({
     onChange,
     formControlLabelProps,
     formControlProps,
-}: Props) => {
+}: CheckboxElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     // eslint-disable-next-line
@@ -95,4 +95,5 @@ const Checkbox: React.FC<Props> = ({
     );
 };
 
-export default Checkbox;
+export default CheckboxElement;
+export { CheckboxElementProps };

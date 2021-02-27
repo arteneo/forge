@@ -19,14 +19,14 @@ import {
     FreeSolo,
 } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 
-type SelectAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
-type SelectAutocompletePartialProps<T> = {
+type SelectElementAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
+type SelectElementAutocompletePartialProps<T> = {
     [P in keyof T]?: T[P];
 };
 // We need to allow passing autocomplete props without required ones. They are filled by component.
-type SelectAutocompleteOptionalProps = SelectAutocompletePartialProps<SelectAutocompleteProps>;
+type SelectElementAutocompleteOptionalProps = SelectElementAutocompletePartialProps<SelectElementAutocompleteProps>;
 
-interface Props {
+interface SelectElementProps {
     name: string;
     options: OptionsType;
     disableTranslateOption?: boolean;
@@ -49,11 +49,11 @@ interface Props {
     disabled: boolean;
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
-    autocompleteProps?: SelectAutocompleteOptionalProps;
+    autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
 
-const Select: React.FC<Props> = ({
+const SelectElement = ({
     name,
     options,
     label,
@@ -67,7 +67,7 @@ const Select: React.FC<Props> = ({
     disableTranslateGroupBy,
     autocompleteProps,
     formControlProps,
-}: Props) => {
+}: SelectElementProps) => {
     const { t } = useTranslation();
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
@@ -133,7 +133,7 @@ const Select: React.FC<Props> = ({
             }}
         />
     );
-    const internalAutocompleteProps: SelectAutocompleteProps = {
+    const internalAutocompleteProps: SelectElementAutocompleteProps = {
         renderInput: renderInput,
         options: options,
         value: null,
@@ -182,5 +182,5 @@ const Select: React.FC<Props> = ({
     );
 };
 
-export default Select;
-export { SelectAutocompleteProps, SelectAutocompleteOptionalProps };
+export default SelectElement;
+export { SelectElementProps, SelectElementAutocompleteProps, SelectElementAutocompleteOptionalProps };

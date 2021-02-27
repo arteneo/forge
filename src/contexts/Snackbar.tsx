@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Close } from "@material-ui/icons";
 import { Snackbar, SnackbarContent, SnackbarCloseReason, IconButton, makeStyles } from "@material-ui/core";
 
-interface ContextProps {
+interface SnackbarContextProps {
     show: (message: string, variant: "success" | "info" | "warning" | "error") => void;
     showSuccess: (message: string) => void;
     showInfo: (message: string) => void;
@@ -11,7 +11,7 @@ interface ContextProps {
     showError: (message: string) => void;
 }
 
-interface ProviderProps {
+interface SnackbarProviderProps {
     children: React.ReactNode;
 }
 
@@ -33,7 +33,7 @@ const contextInitial = {
     },
 };
 
-const SnackbarContext = React.createContext<ContextProps>(contextInitial);
+const SnackbarContext = React.createContext<SnackbarContextProps>(contextInitial);
 
 const useStyles = makeStyles((theme) => ({
     success: {
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SnackbarProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) => {
+const SnackbarProvider = ({ children }: SnackbarProviderProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -158,6 +158,6 @@ const SnackbarProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) 
     );
 };
 
-const useSnackbar = (): ContextProps => React.useContext(SnackbarContext);
+const useSnackbar = (): SnackbarContextProps => React.useContext(SnackbarContext);
 
-export { SnackbarContext, SnackbarProvider, useSnackbar };
+export { SnackbarContext, SnackbarContextProps, SnackbarProvider, SnackbarProviderProps, useSnackbar };

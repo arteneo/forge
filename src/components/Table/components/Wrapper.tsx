@@ -1,11 +1,11 @@
 import React from "react";
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 
-interface Props extends WrapperInterface {
+interface WrapperProps extends WrapperInterface {
     children: React.ReactNode;
 }
 
-const Wrapper: React.FC<Props> = ({ children, wrapperComponent, wrapperComponentProps }: Props) => {
+const Wrapper = ({ children, wrapperComponent, wrapperComponentProps }: WrapperProps) => {
     if (typeof wrapperComponent === "undefined") {
         return <>{children}</>;
     }
@@ -15,3 +15,4 @@ const Wrapper: React.FC<Props> = ({ children, wrapperComponent, wrapperComponent
 };
 
 export default Wrapper;
+export { WrapperProps };

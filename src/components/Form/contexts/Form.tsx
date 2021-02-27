@@ -9,7 +9,7 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
 
-interface ContextProps {
+interface FormContextProps {
     formikInitialValues: FormikValues;
     // eslint-disable-next-line
     formikValidationSchema: any;
@@ -49,7 +49,7 @@ interface ContextProps {
     setSubmitAction: (submitAction: any) => void;
 }
 
-interface ProviderProps {
+interface FormProviderProps {
     children: React.ReactNode;
     fields?: FieldsInterface;
     initialValues?: FormikValues;
@@ -92,15 +92,15 @@ const contextInitial = {
     },
 };
 
-const FormContext = React.createContext<ContextProps>(contextInitial);
+const FormContext = React.createContext<FormContextProps>(contextInitial);
 
-const FormProvider: React.FC<ProviderProps> = ({
+const FormProvider = ({
     children,
     fields,
     initialValues,
     initializeEndpoint,
-    isReady,
-}: ProviderProps) => {
+    isReady = () => true,
+}: FormProviderProps) => {
     const { t } = useTranslation();
 
     const [formikValidationSchema, setFormikValidationSchema] = React.useState({});
@@ -254,10 +254,6 @@ const FormProvider: React.FC<ProviderProps> = ({
     );
 };
 
-FormProvider.defaultProps = {
-    isReady: () => true,
-};
+const useForm = (): FormContextProps => React.useContext(FormContext);
 
-const useForm = (): ContextProps => React.useContext(FormContext);
-
-export { FormContext, FormProvider, useForm };
+export { FormContext, FormContextProps, FormProvider, FormProviderProps, useForm };

@@ -19,14 +19,14 @@ import TablePagination from "@arteneo/forge/components/Table/components/TablePag
 import TableFilters from "@arteneo/forge/components/Table/components/TableFilters";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 
-interface Props {
+interface TableContentProps {
     row: RowInterface;
     filters?: FieldsInterface;
     actions?: React.ReactNode;
     disablePagination?: boolean;
 }
 
-const TableContent: React.FC<Props> = ({ row, filters, actions, disablePagination }: Props) => {
+const TableContent = ({ row, filters, actions, disablePagination }: TableContentProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -93,4 +93,4 @@ const TableContent: React.FC<Props> = ({ row, filters, actions, disablePaginatio
 };
 
 export default TableContent;
-export { Props };
+export { TableContentProps };

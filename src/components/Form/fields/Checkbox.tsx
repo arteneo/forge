@@ -3,11 +3,11 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import CheckboxElement from "@arteneo/forge/components/Form/elements/Checkbox";
+import CheckboxElement from "@arteneo/forge/components/Form/elements/CheckboxElement";
 import { FormControlProps, FormControlLabelProps } from "@material-ui/core";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
-interface Props extends TextFieldInterface {
+interface CheckboxProps extends TextFieldInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -22,7 +22,7 @@ interface Props extends TextFieldInterface {
     formControlProps?: FormControlProps;
 }
 
-const Checkbox: React.FC<Props> = ({
+const Checkbox = ({
     name,
     label,
     disableAutoLabel = false,
@@ -36,7 +36,7 @@ const Checkbox: React.FC<Props> = ({
     validationSchema,
     formControlLabelProps,
     formControlProps,
-}: Props) => {
+}: CheckboxProps) => {
     if (typeof name === "undefined") {
         throw new Error("Email component: name is required prop. By default it is injected by FormContent.");
     }
@@ -98,3 +98,4 @@ const Checkbox: React.FC<Props> = ({
 };
 
 export default Checkbox;
+export { CheckboxProps };

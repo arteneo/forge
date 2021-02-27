@@ -3,11 +3,11 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import DateTimeElement from "@arteneo/forge/components/Form/elements/DateTime";
+import DateTimeElement from "@arteneo/forge/components/Form/elements/DateTimeElement";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import { KeyboardDateTimePickerProps } from "@material-ui/pickers";
 
-interface Props extends TextFieldInterface {
+interface DateTimeProps extends TextFieldInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -19,7 +19,7 @@ interface Props extends TextFieldInterface {
     fieldProps?: KeyboardDateTimePickerProps;
 }
 
-const DateTime: React.FC<Props> = ({
+const DateTime = ({
     name,
     label,
     disableAutoLabel = false,
@@ -32,7 +32,7 @@ const DateTime: React.FC<Props> = ({
     disabled = false,
     validationSchema,
     fieldProps,
-}: Props) => {
+}: DateTimeProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
@@ -92,4 +92,4 @@ const DateTime: React.FC<Props> = ({
 };
 
 export default DateTime;
-export { Props };
+export { DateTimeProps };

@@ -1,9 +1,9 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { KeyboardDateTimePicker, KeyboardDateTimePickerProps } from "@material-ui/pickers";
+import { KeyboardDatePicker, KeyboardDatePickerProps } from "@material-ui/pickers";
 import { formatRFC3339, isValid } from "date-fns";
 
-interface Props {
+interface DateElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -20,10 +20,10 @@ interface Props {
     ) => void;
     required: boolean;
     disabled: boolean;
-    fieldProps?: KeyboardDateTimePickerProps;
+    fieldProps?: KeyboardDatePickerProps;
 }
 
-const DateTime: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const DateElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: DateElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     // eslint-disable-next-line
@@ -48,14 +48,13 @@ const DateTime: React.FC<Props> = ({ name, label, error, help, required, disable
     };
 
     const hasError = error ? true : false;
-    const internalFieldProps: KeyboardDateTimePickerProps = {
+    const internalFieldProps: KeyboardDatePickerProps = {
         value: getIn(values, name, null),
         onChange: callableOnChange,
         error: hasError,
         label,
         required,
         disabled,
-        ampm: false,
         disableToolbar: true,
         autoOk: true,
         fullWidth: true,
@@ -76,7 +75,8 @@ const DateTime: React.FC<Props> = ({ name, label, error, help, required, disable
 
     const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);
 
-    return <KeyboardDateTimePicker {...mergedFieldProps} />;
+    return <KeyboardDatePicker {...mergedFieldProps} />;
 };
 
-export default DateTime;
+export default DateElement;
+export { DateElementProps };

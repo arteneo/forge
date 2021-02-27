@@ -3,11 +3,11 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import EmailElement from "@arteneo/forge/components/Form/elements/Email";
+import EmailElement from "@arteneo/forge/components/Form/elements/EmailElement";
 import { TextFieldProps } from "@material-ui/core";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
-interface Props extends TextFieldInterface {
+interface EmailProps extends TextFieldInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -19,7 +19,7 @@ interface Props extends TextFieldInterface {
     fieldProps?: TextFieldProps;
 }
 
-const Email: React.FC<Props> = ({
+const Email = ({
     name,
     label,
     disableAutoLabel = false,
@@ -32,7 +32,7 @@ const Email: React.FC<Props> = ({
     disabled = false,
     validationSchema,
     fieldProps,
-}: Props) => {
+}: EmailProps) => {
     if (typeof name === "undefined") {
         throw new Error("Email component: name is required prop. By default it is injected by FormContent.");
     }
@@ -93,3 +93,4 @@ const Email: React.FC<Props> = ({
 };
 
 export default Email;
+export { EmailProps };
