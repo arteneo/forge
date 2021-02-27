@@ -3,11 +3,11 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextareaElement from "@arteneo/forge/components/Form/elements/Textarea";
+import TextareaElement from "@arteneo/forge/components/Form/elements/TextareaElement";
 import { TextFieldProps } from "@material-ui/core";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
-interface Props extends TextFieldInterface {
+interface TextareaProps extends TextFieldInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -20,7 +20,7 @@ interface Props extends TextFieldInterface {
     fieldProps?: TextFieldProps;
 }
 
-const Textarea: React.FC<Props> = ({
+const Textarea = ({
     name,
     label,
     disableAutoLabel = false,
@@ -34,7 +34,7 @@ const Textarea: React.FC<Props> = ({
     validationSchema,
     disableResize = false,
     fieldProps,
-}: Props) => {
+}: TextareaProps) => {
     if (typeof name === "undefined") {
         throw new Error("Textarea component: name is required prop. By default it is injected by FormContent.");
     }
@@ -95,4 +95,4 @@ const Textarea: React.FC<Props> = ({
 };
 
 export default Textarea;
-export { Props };
+export { TextareaProps };

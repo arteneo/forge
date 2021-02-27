@@ -2,7 +2,7 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { makeStyles, TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 
-interface Props {
+interface TextareaElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Textarea: React.FC<Props> = ({
+const TextareaElement = ({
     name,
     label,
     error,
@@ -39,7 +39,7 @@ const Textarea: React.FC<Props> = ({
     onChange,
     disableResize,
     fieldProps,
-}: Props) => {
+}: TextareaElementProps) => {
     const classes = useStyles();
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
@@ -88,4 +88,5 @@ const Textarea: React.FC<Props> = ({
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Textarea;
+export default TextareaElement;
+export { TextareaElementProps };
