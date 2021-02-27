@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { Button as MuiButton, ButtonProps as MuiButtonProps, makeStyles } from "@material-ui/core";
+import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
 
@@ -13,6 +14,7 @@ type InternalWrapperMuiButtonProps = InternalMuiButtonProps & WrapperInterface;
 
 interface LabelChildrenProps {
     label?: string;
+    labelVariables?: TranslateVariablesInterface;
     children?: React.ReactNode;
 }
 
@@ -44,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Button = ({
     label,
+    labelVariables = {},
     children,
     color,
     className,
@@ -66,7 +69,7 @@ const Button = ({
     }
 
     if (children === undefined && label !== undefined) {
-        children = t(label);
+        children = t(label, labelVariables);
     }
 
     let resolvedClassName = className;

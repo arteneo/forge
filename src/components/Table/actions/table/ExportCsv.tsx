@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
-import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 import { AxiosRequestConfig } from "axios";
 
 interface ExportCsvInterface {
@@ -15,7 +14,7 @@ interface ExportCsvInterface {
 }
 
 type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
-type ExportCsvProps = Optional<ExportCsvInterface & ButtonDownloadProps & ColumnInterface, "requestConfig">;
+type ExportCsvProps = Optional<ExportCsvInterface & ButtonDownloadProps, "requestConfig">;
 
 const ExportCsv = ({ endpoint, fileName, sheetName, changeQuery, ...props }: ExportCsvProps) => {
     const { t } = useTranslation();
