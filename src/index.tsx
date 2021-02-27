@@ -98,8 +98,8 @@ import Password from "@arteneo/forge/components/Form/fields/Password";
 import PasswordElement from "@arteneo/forge/components/Form/elements/Password";
 import Date, { DateProps } from "@arteneo/forge/components/Form/fields/Date";
 import DateElement, { DateElementProps } from "@arteneo/forge/components/Form/elements/DateElement";
-import DateTime from "@arteneo/forge/components/Form/fields/DateTime";
-import DateTimeElement from "@arteneo/forge/components/Form/elements/DateTime";
+import DateTime, { DateTimeProps } from "@arteneo/forge/components/Form/fields/DateTime";
+import DateTimeElement, { DateTimeElementProps } from "@arteneo/forge/components/Form/elements/DateTimeElement";
 import Time from "@arteneo/forge/components/Form/fields/Time";
 import TimeElement from "@arteneo/forge/components/Form/elements/Time";
 import Checkbox, { CheckboxProps } from "@arteneo/forge/components/Form/fields/Checkbox";
@@ -247,7 +247,9 @@ export {
     DateElement,
     DateElementProps,
     DateTime,
+    DateTimeProps,
     DateTimeElement,
+    DateTimeElementProps,
     Time,
     TimeElement,
     Checkbox,
