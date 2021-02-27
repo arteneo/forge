@@ -22,6 +22,7 @@ import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
 import Table, { TableProps } from "@arteneo/forge/components/Table/components/Table";
 import TableActions, { TableActionsProps } from "@arteneo/forge/components/Table/components/TableActions";
+import TableContent, { TableContentProps } from "@arteneo/forge/components/Table/components/TableContent";
 import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
 import TextColumn, { TextColumnProps } from "@arteneo/forge/components/Table/columns/TextColumn";
@@ -131,6 +132,8 @@ export {
     TableProps,
     TableActions,
     TableActionsProps,
+    TableContent,
+    TableContentProps,
     ResultInterface,
     TextColumn,
     TextColumnProps,
