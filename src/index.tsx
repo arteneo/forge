@@ -8,7 +8,13 @@ import {
     FormProviderProps,
     useForm,
 } from "@arteneo/forge/components/Form/contexts/Form";
-import { ErrorContext, ErrorProvider, useError } from "@arteneo/forge/contexts/Error";
+import {
+    ErrorContext,
+    ErrorContextProps,
+    ErrorProvider,
+    ErrorProviderProps,
+    useError,
+} from "@arteneo/forge/contexts/Error";
 import {
     HandleCatchContext,
     HandleCatchProvider,
@@ -229,7 +235,9 @@ export {
     FormProviderProps,
     useForm,
     ErrorContext,
+    ErrorContextProps,
     ErrorProvider,
+    ErrorProviderProps,
     useError,
     HandleCatchContext,
     HandleCatchProvider,
