@@ -10,15 +10,25 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 import Form from "@arteneo/forge/components/Form/components/Form";
 import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
 import { FormikContext, FormikHelpers, FormikValues } from "formik";
+import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
 
 interface BatchFormProps extends ButtonProps {
     fields: FieldsInterface;
     confirmationLabel: string;
     snackbarLabel: string;
     endpoint: string;
+    resultRepresentation?: (result: ResultInterface) => React.ReactNode;
 }
 
-const BatchForm = ({ fields, label, confirmationLabel, snackbarLabel, endpoint, ...props }: BatchFormProps) => {
+const BatchForm = ({
+    fields,
+    label,
+    confirmationLabel,
+    snackbarLabel,
+    resultRepresentation = (result: ResultInterface) => result.representation,
+    endpoint,
+    ...props
+}: BatchFormProps) => {
     const { t } = useTranslation();
     const { results, selected, reload, batchQuery } = useTable();
     const { showSuccess } = useSnackbar();
@@ -75,7 +85,7 @@ const BatchForm = ({ fields, label, confirmationLabel, snackbarLabel, endpoint, 
                             {results
                                 .filter((result) => selected.includes(result.id))
                                 .map((result, key) => (
-                                    <li key={key}>{result.representation}</li>
+                                    <li key={key}>{resultRepresentation(result)}</li>
                                 ))}
                         </ul>
                         <FormContentFields {...{ fields, validationSchema: {} }} />

@@ -9,14 +9,23 @@ import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { Alert } from "@material-ui/lab";
+import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
 
 interface BatchProps extends ButtonProps {
     confirmationLabel: string;
     snackbarLabel: string;
     endpoint: string;
+    resultRepresentation?: (result: ResultInterface) => React.ReactNode;
 }
 
-const Batch = ({ label, confirmationLabel, snackbarLabel, endpoint, ...props }: BatchProps) => {
+const Batch = ({
+    label,
+    confirmationLabel,
+    snackbarLabel,
+    endpoint,
+    resultRepresentation = (result: ResultInterface) => result.representation,
+    ...props
+}: BatchProps) => {
     const { t } = useTranslation();
     const { results, selected, reload, batchQuery } = useTable();
     const { showSuccess } = useSnackbar();
@@ -65,7 +74,7 @@ const Batch = ({ label, confirmationLabel, snackbarLabel, endpoint, ...props }: 
                         {results
                             .filter((result) => selected.includes(result.id))
                             .map((result, key) => (
-                                <li key={key}>{result.representation}</li>
+                                <li key={key}>{resultRepresentation(result)}</li>
                             ))}
                     </ul>
                 </DialogContent>
