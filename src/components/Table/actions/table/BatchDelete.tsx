@@ -1,9 +1,9 @@
 import React from "react";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import Batch, { BatchProps } from "@arteneo/forge/components/Table/actions/table/Batch";
+import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 
-type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
-type BatchDeleteProps = Optional<Optional<BatchProps, "endpoint">, "confirmationLabel">;
+type BatchDeleteProps = Optional<BatchProps, "endpoint" | "confirmationLabel" | "snackbarLabel">;
 
 const BatchDelete = ({ endpoint, ...props }: BatchDeleteProps) => {
     const { custom } = useTable();
@@ -19,6 +19,7 @@ const BatchDelete = ({ endpoint, ...props }: BatchDeleteProps) => {
             {...{
                 label: "action.batchDelete",
                 confirmationLabel: "crud.confirmation.batchDelete",
+                snackbarLabel: "snackbar.batch.deleted",
                 endpoint: endpoint ? endpoint : custom.endpoints.batchDelete,
                 ...props,
             }}

@@ -68,6 +68,7 @@ import ExportCsv, { ExportCsvProps } from "@arteneo/forge/components/Table/actio
 import ExportExcel, { ExportExcelProps } from "@arteneo/forge/components/Table/actions/table/ExportExcel";
 import Batch, { BatchProps } from "@arteneo/forge/components/Table/actions/table/Batch";
 import BatchDelete, { BatchDeleteProps } from "@arteneo/forge/components/Table/actions/table/BatchDelete";
+import BatchForm, { BatchFormProps } from "@arteneo/forge/components/Table/actions/table/BatchForm";
 import BatchQueryInterface from "@arteneo/forge/components/Table/definitions/BatchQueryInterface";
 import BatchSelectedType from "@arteneo/forge/components/Table/definitions/BatchSelectedType";
 import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
@@ -120,6 +121,7 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
 import FormContent, { FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
+import FormContentFields, { FormContentFieldsProps } from "@arteneo/forge/components/Form/components/FormContentFields";
 import FormButtons, { FormButtonsProps } from "@arteneo/forge/components/Form/components/FormButtons";
 import PromptIfDirty, { PromptIfDirtyProps } from "@arteneo/forge/components/Form/components/PromptIfDirty";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
@@ -162,6 +164,7 @@ import {
     resolveReactNodeOrFunction,
 } from "@arteneo/forge/utils/resolve";
 import { isDev, isProd, populate } from "@arteneo/forge/utils/common";
+import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 
 export {
     Button,
@@ -229,6 +232,8 @@ export {
     BatchProps,
     BatchDelete,
     BatchDeleteProps,
+    BatchForm,
+    BatchFormProps,
     RowInterface,
     ExportQueryInterface,
     TableContext,
@@ -304,6 +309,8 @@ export {
     FormProps,
     FormContent,
     FormContentProps,
+    FormContentFields,
+    FormContentFieldsProps,
     FormButtons,
     FormButtonsProps,
     PromptIfDirty,
@@ -366,4 +373,5 @@ export {
     isDev,
     isProd,
     populate,
+    Optional,
 };

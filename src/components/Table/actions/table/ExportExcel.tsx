@@ -4,6 +4,7 @@ import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/Ex
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
 import { AxiosRequestConfig } from "axios";
+import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 
 interface ExportExcelInterface {
     // eslint-disable-next-line
@@ -13,7 +14,6 @@ interface ExportExcelInterface {
     changeQuery?: (query: ExportQueryInterface) => ExportQueryInterface;
 }
 
-type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
 type ExportExcelProps = Optional<ExportExcelInterface & ButtonDownloadProps, "requestConfig">;
 
 const ExportExcel = ({ endpoint, fileName, sheetName, changeQuery, ...props }: ExportExcelProps) => {
