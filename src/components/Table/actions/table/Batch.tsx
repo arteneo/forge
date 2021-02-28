@@ -12,10 +12,11 @@ import { Alert } from "@material-ui/lab";
 
 interface BatchProps extends ButtonProps {
     confirmationLabel: string;
+    snackbarLabel: string;
     endpoint: string;
 }
 
-const Batch = ({ label, confirmationLabel, endpoint, ...props }: BatchProps) => {
+const Batch = ({ label, confirmationLabel, snackbarLabel, endpoint, ...props }: BatchProps) => {
     const { t } = useTranslation();
     const { results, selected, reload, batchQuery } = useTable();
     const { showSuccess } = useSnackbar();
@@ -29,7 +30,7 @@ const Batch = ({ label, confirmationLabel, endpoint, ...props }: BatchProps) => 
         axios
             .post(endpoint, batchQuery)
             .then(() => {
-                showSuccess("snackbar.batch.deleted");
+                showSuccess(snackbarLabel);
 
                 setShowConfirmation(false);
 

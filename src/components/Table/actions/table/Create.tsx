@@ -1,8 +1,8 @@
 import React from "react";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
+import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 
-type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
 type CreateProps = Optional<ButtonLinkProps, "to">;
 
 const Create = ({ to, ...props }: CreateProps) => {
