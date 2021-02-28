@@ -68,6 +68,7 @@ import ExportCsv, { ExportCsvProps } from "@arteneo/forge/components/Table/actio
 import ExportExcel, { ExportExcelProps } from "@arteneo/forge/components/Table/actions/table/ExportExcel";
 import Batch, { BatchProps } from "@arteneo/forge/components/Table/actions/table/Batch";
 import BatchDelete, { BatchDeleteProps } from "@arteneo/forge/components/Table/actions/table/BatchDelete";
+import BatchForm, { BatchFormProps } from "@arteneo/forge/components/Table/actions/table/BatchForm";
 import BatchQueryInterface from "@arteneo/forge/components/Table/definitions/BatchQueryInterface";
 import BatchSelectedType from "@arteneo/forge/components/Table/definitions/BatchSelectedType";
 import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
@@ -231,6 +232,8 @@ export {
     BatchProps,
     BatchDelete,
     BatchDeleteProps,
+    BatchForm,
+    BatchFormProps,
     RowInterface,
     ExportQueryInterface,
     TableContext,
