@@ -3,8 +3,8 @@ import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
 import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
 import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
+import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 
-type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
 type EditProps = Optional<ButtonLinkProps & ColumnInterface, "to">;
 
 const Edit = ({ result, to, ...props }: EditProps) => {
