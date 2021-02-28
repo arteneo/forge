@@ -29,6 +29,7 @@ import {
     SnackbarProvider,
     SnackbarProviderProps,
     useSnackbar,
+    SnackbarVariant,
 } from "@arteneo/forge/contexts/Snackbar";
 import {
     LoaderContext,
@@ -297,6 +298,7 @@ export {
     SnackbarProvider,
     SnackbarProviderProps,
     useSnackbar,
+    SnackbarVariant,
     LoaderContext,
     LoaderContextProps,
     LoaderProvider,
