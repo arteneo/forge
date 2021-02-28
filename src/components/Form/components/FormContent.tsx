@@ -12,6 +12,7 @@ import { useLoader } from "@arteneo/forge/contexts/Loader";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import { makeStyles } from "@material-ui/core";
 import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
+import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
 
 interface FormContentProps {
     fields?: FieldsInterface;
@@ -142,16 +143,7 @@ const FormContent = ({
                 {!disablePromptIfDirty && <PromptIfDirty label={promptIfDirtyLabel} />}
 
                 {children && children}
-                {!children &&
-                    fields &&
-                    Object.keys(fields).map((field) => (
-                        <React.Fragment key={field}>
-                            {React.cloneElement(fields[field], {
-                                validationSchema: validationSchema?.[field],
-                                name: fields[field].props.name || field,
-                            })}
-                        </React.Fragment>
-                    ))}
+                {!children && fields && <FormContentFields {...{ fields, validationSchema }} />}
                 {buttons}
             </Form>
         </Formik>
