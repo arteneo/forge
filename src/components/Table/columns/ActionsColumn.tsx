@@ -13,7 +13,7 @@ const ActionsColumn = ({ children, result, field, gridContainerProps }: ActionsC
     }
 
     return (
-        <Grid container spacing={1} justify="center" wrap="nowrap" {...gridContainerProps}>
+        <Grid container spacing={1} justify="center" alignItems="center" wrap="nowrap" {...gridContainerProps}>
             {React.Children.map(children, (child, key) => (
                 <React.Fragment key={key}>
                     {React.isValidElement(child) &&
