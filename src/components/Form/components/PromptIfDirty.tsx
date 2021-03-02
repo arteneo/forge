@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next";
 import { Prompt } from "react-router-dom";
 import * as beforeunload from "react-beforeunload";
 
-interface Props {
+interface PromptIfDirtyProps {
     label?: string;
 }
 
-const PromptIfDirty: React.FC<Props> = ({ label = "crud.formPromptDirty" }: Props) => {
+const PromptIfDirty = ({ label = "crud.formPromptDirty" }: PromptIfDirtyProps) => {
     const formik = useFormikContext();
     const { t } = useTranslation();
 
@@ -24,3 +24,4 @@ const PromptIfDirty: React.FC<Props> = ({ label = "crud.formPromptDirty" }: Prop
 };
 
 export default PromptIfDirty;
+export { PromptIfDirtyProps };

@@ -2,16 +2,19 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Close } from "@material-ui/icons";
 import { Snackbar, SnackbarContent, SnackbarCloseReason, IconButton, makeStyles } from "@material-ui/core";
+import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
 
-interface ContextProps {
-    show: (message: string, variant: "success" | "info" | "warning" | "error") => void;
-    showSuccess: (message: string) => void;
-    showInfo: (message: string) => void;
-    showWarning: (message: string) => void;
-    showError: (message: string) => void;
+type SnackbarVariant = "success" | "info" | "warning" | "error";
+
+interface SnackbarContextProps {
+    show: (message: string, variant: SnackbarVariant, messageVariables?: TranslateVariablesInterface) => void;
+    showSuccess: (message: string, messageVariables?: TranslateVariablesInterface) => void;
+    showInfo: (message: string, messageVariables?: TranslateVariablesInterface) => void;
+    showWarning: (message: string, messageVariables?: TranslateVariablesInterface) => void;
+    showError: (message: string, messageVariables?: TranslateVariablesInterface) => void;
 }
 
-interface ProviderProps {
+interface SnackbarProviderProps {
     children: React.ReactNode;
 }
 
@@ -33,7 +36,7 @@ const contextInitial = {
     },
 };
 
-const SnackbarContext = React.createContext<ContextProps>(contextInitial);
+const SnackbarContext = React.createContext<SnackbarContextProps>(contextInitial);
 
 const useStyles = makeStyles((theme) => ({
     success: {
@@ -71,15 +74,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SnackbarProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) => {
+const SnackbarProvider = ({ children }: SnackbarProviderProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [message, setMessage] = React.useState("");
-    const [variant, setVariant] = React.useState<"success" | "info" | "warning" | "error">("success");
+    const [variant, setVariant] = React.useState<SnackbarVariant>("success");
 
-    const show = (message: string, variant: "success" | "info" | "warning" | "error"): void => {
-        setMessage(t(message));
+    const show = (
+        message: string,
+        variant: SnackbarVariant,
+        messageVariables: TranslateVariablesInterface = {}
+    ): void => {
+        setMessage(t(message, messageVariables));
         setVariant(variant);
         setOpen(true);
     };
@@ -93,20 +100,20 @@ const SnackbarProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) 
         setOpen(false);
     };
 
-    const showSuccess = (message: string): void => {
-        show(message, "success");
+    const showSuccess = (message: string, messageVariables: TranslateVariablesInterface = {}): void => {
+        show(message, "success", messageVariables);
     };
 
-    const showInfo = (message: string): void => {
-        show(message, "info");
+    const showInfo = (message: string, messageVariables: TranslateVariablesInterface = {}): void => {
+        show(message, "info", messageVariables);
     };
 
-    const showWarning = (message: string): void => {
-        show(message, "warning");
+    const showWarning = (message: string, messageVariables: TranslateVariablesInterface = {}): void => {
+        show(message, "warning", messageVariables);
     };
 
-    const showError = (message: string): void => {
-        show(message, "error");
+    const showError = (message: string, messageVariables: TranslateVariablesInterface = {}): void => {
+        show(message, "error", messageVariables);
     };
 
     return (
@@ -158,6 +165,6 @@ const SnackbarProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) 
     );
 };
 
-const useSnackbar = (): ContextProps => React.useContext(SnackbarContext);
+const useSnackbar = (): SnackbarContextProps => React.useContext(SnackbarContext);
 
-export { SnackbarContext, SnackbarProvider, useSnackbar };
+export { SnackbarContext, SnackbarContextProps, SnackbarProvider, SnackbarProviderProps, useSnackbar, SnackbarVariant };

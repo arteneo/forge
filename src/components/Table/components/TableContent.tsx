@@ -2,6 +2,7 @@ import React from "react";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     Box,
+    Checkbox,
     Paper,
     Table,
     TableBody,
@@ -19,18 +20,30 @@ import TablePagination from "@arteneo/forge/components/Table/components/TablePag
 import TableFilters from "@arteneo/forge/components/Table/components/TableFilters";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 
-interface Props {
+interface TableContentProps {
     row: RowInterface;
     filters?: FieldsInterface;
     actions?: React.ReactNode;
     disablePagination?: boolean;
 }
 
-const TableContent: React.FC<Props> = ({ row, filters, actions, disablePagination }: Props) => {
+const TableContent = ({ row, filters, actions, disablePagination }: TableContentProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
-    const { rowCount, results, isSortingActive, getSortingDirection, onClickSorting } = useTable();
+    const {
+        rowCount,
+        results,
+        isSortingActive,
+        getSortingDirection,
+        onClickSorting,
+        enableBatchSelect,
+        selected,
+        isSelected,
+        selectAll,
+        deselectAll,
+        toggleSelected,
+    } = useTable();
 
     const getHeadTableCell = (field: string) => {
         if (row[field]?.props?.disableSorting) {
@@ -60,6 +73,17 @@ const TableContent: React.FC<Props> = ({ row, filters, actions, disablePaginatio
                         <Table>
                             <TableHead>
                                 <TableRow>
+                                    {enableBatchSelect && (
+                                        <TableCell padding="checkbox">
+                                            <Checkbox
+                                                indeterminate={selected.length > 0 && selected.length < results.length}
+                                                checked={results.length > 0 && selected.length === results.length}
+                                                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                                    event.target.checked ? selectAll() : deselectAll()
+                                                }
+                                            />
+                                        </TableCell>
+                                    )}
                                     {Object.keys(row).map((field) => {
                                         return <TableCell key={field}>{getHeadTableCell(field)}</TableCell>;
                                     })}
@@ -67,7 +91,13 @@ const TableContent: React.FC<Props> = ({ row, filters, actions, disablePaginatio
                             </TableHead>
                             <TableBody>
                                 {results.map((result, key) => (
-                                    <TableRow key={key}>
+                                    <TableRow key={key} hover={true} selected={isSelected(result.id)}>
+                                        {enableBatchSelect && (
+                                            <TableCell padding="checkbox" onClick={() => toggleSelected(result.id)}>
+                                                <Checkbox checked={isSelected(result.id)} />
+                                            </TableCell>
+                                        )}
+
                                         {Object.keys(row).map((field) => {
                                             return (
                                                 <TableCell key={field}>
@@ -93,4 +123,4 @@ const TableContent: React.FC<Props> = ({ row, filters, actions, disablePaginatio
 };
 
 export default TableContent;
-export { Props };
+export { TableContentProps };

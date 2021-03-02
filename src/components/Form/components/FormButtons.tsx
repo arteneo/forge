@@ -1,52 +1,32 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
-import { makeStyles } from "@material-ui/core/styles";
-import { Box, Button, ButtonProps } from "@material-ui/core";
+import { Box } from "@material-ui/core";
+import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
 
-interface Props {
-    submitLabel?: string;
-    submitProps?: ButtonProps;
-}
-
-const useStyles = makeStyles((theme) => ({
-    buttons: {
-        marginTop: theme.spacing(4),
-        display: "flex",
-        justifyContent: "space-between",
-    },
-    buttonsSave: {
-        display: "flex",
-        flexGrow: 1,
-    },
-    buttonSave: {
-        order: 1,
-        marginLeft: theme.spacing(1),
-    },
-    buttonSaveAndBack: {
-        order: 2,
-        marginLeft: theme.spacing(1),
-    },
-}));
-
-const FormButtons: React.FC<Props> = ({
-    submitLabel = "action.form.submit",
-    submitProps = {
-        variant: "contained",
-        color: "primary",
-    },
-}: Props) => {
+const FormButtons = ({
+    label = "action.form.submit",
+    variant = "contained",
+    color = "primary",
+    type = "submit",
+    ...props
+}: ButtonProps) => {
     const { isSubmitting } = useFormikContext();
-    const { t } = useTranslation();
-    const classes = useStyles();
 
     return (
         <Box mt={4}>
-            <Button type="submit" disabled={isSubmitting} className={classes.buttonSave} {...submitProps}>
-                {t(submitLabel)}
-            </Button>
+            <Button
+                {...{
+                    disabled: isSubmitting,
+                    label,
+                    variant,
+                    color,
+                    type,
+                    ...props,
+                }}
+            />
         </Box>
     );
 };
 
 export default FormButtons;
+export { ButtonProps as FormButtonsProps };

@@ -1,5 +1,5 @@
 import React from "react";
-import Currency, { Props as CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
+import Currency, { CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
 type CurrencyFilterProps = FilterFieldInterface & CurrencyProps;

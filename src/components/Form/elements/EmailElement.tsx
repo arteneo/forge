@@ -1,8 +1,8 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { makeStyles, TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 
-interface Props {
+interface EmailElementProps {
     name: string;
     label?: React.ReactNode;
     error?: string;
@@ -17,30 +17,10 @@ interface Props {
     ) => void;
     required: boolean;
     disabled: boolean;
-    disableResize?: boolean;
     fieldProps?: TextFieldProps;
 }
 
-const useStyles = makeStyles(() => ({
-    resize: {
-        "& .MuiInputBase-inputMultiline": {
-            resize: "vertical",
-        },
-    },
-}));
-
-const Textarea: React.FC<Props> = ({
-    name,
-    label,
-    error,
-    help,
-    required,
-    disabled,
-    onChange,
-    disableResize,
-    fieldProps,
-}: Props) => {
-    const classes = useStyles();
+const EmailElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: EmailElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,16 +38,13 @@ const Textarea: React.FC<Props> = ({
 
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
+        type: "email",
         value: getIn(values, name, ""),
         onChange: callableOnChange,
-        className: disableResize ? undefined : classes.resize,
         error: hasError,
         label,
         required,
         disabled,
-        multiline: true,
-        rows: 3,
-        rowsMax: 6,
         fullWidth: true,
         margin: "normal",
         helperText: undefined,
@@ -88,4 +65,5 @@ const Textarea: React.FC<Props> = ({
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Textarea;
+export default EmailElement;
+export { EmailElementProps };

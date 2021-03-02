@@ -1,10 +1,9 @@
 import React from "react";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
-import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
+import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 
-type Optional<T, K extends keyof T> = Omit<T, K> & Partial<T>;
-type CreateProps = Optional<ButtonLinkProps & ColumnInterface, "to">;
+type CreateProps = Optional<ButtonLinkProps, "to">;
 
 const Create = ({ to, ...props }: CreateProps) => {
     const { custom } = useTable();

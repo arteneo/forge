@@ -3,7 +3,9 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectAutocompleteOptionalProps } from "@arteneo/forge/components/Form/elements/Select";
+import SelectElement, {
+    SelectElementAutocompleteOptionalProps,
+} from "@arteneo/forge/components/Form/elements/SelectElement";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
@@ -11,7 +13,7 @@ import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionIn
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import { FormControlProps } from "@material-ui/core";
 
-interface Props extends TextFieldInterface {
+interface SelectProps extends TextFieldInterface {
     options: OptionsType;
     disableTranslateOption?: boolean;
     onChange?: (
@@ -26,11 +28,11 @@ interface Props extends TextFieldInterface {
         reason: AutocompleteChangeReason,
         details?: AutocompleteChangeDetails<OptionInterface>
     ) => void;
-    autocompleteProps?: SelectAutocompleteOptionalProps;
+    autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
 
-const Select: React.FC<Props> = ({
+const Select = ({
     name,
     options,
     disableTranslateOption = false,
@@ -46,7 +48,7 @@ const Select: React.FC<Props> = ({
     validationSchema,
     autocompleteProps,
     formControlProps,
-}: Props) => {
+}: SelectProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
@@ -109,4 +111,4 @@ const Select: React.FC<Props> = ({
 };
 
 export default Select;
-export { Props };
+export { SelectProps };

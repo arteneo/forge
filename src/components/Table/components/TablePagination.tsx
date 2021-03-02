@@ -4,7 +4,7 @@ import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import TablePaginationActions from "@arteneo/forge/components/Table/components/TablePaginationActions";
 import { useTranslation } from "react-i18next";
 
-const TablePagination: React.FC = () => {
+const TablePagination = () => {
     const { t } = useTranslation();
     const { page, rowCount, rowsPerPage, rowsPerPageOptions, onChangePage, onChangeRowsPerPage } = useTable();
 

@@ -1,5 +1,5 @@
 import React from "react";
-import Text, { Props as TextProps } from "@arteneo/forge/components/Form/fields/Text";
+import Text, { TextProps } from "@arteneo/forge/components/Form/fields/Text";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
 type TextFilterProps = FilterFieldInterface & TextProps;
