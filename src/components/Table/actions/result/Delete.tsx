@@ -12,6 +12,7 @@ interface DeleteInterface {
     endpoint?: TableResultActionResolveType<string>;
     confirmationLabel?: string;
 }
+
 type DeleteProps = DeleteInterface & Optional<ResultButtonEndpointConfirmationProps, "requestConfig">;
 
 const Delete = ({ endpoint, confirmationLabel = "crud.confirmation.delete", ...props }: DeleteProps) => {

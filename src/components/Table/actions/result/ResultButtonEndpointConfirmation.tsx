@@ -8,6 +8,7 @@ import TableResultActionResolveType from "@arteneo/forge/components/Table/defini
 import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
 import { getIn } from "formik";
 import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
+import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 
 interface EndpointConfirmationProps {
     requestConfig: TableResultActionResolveType<AxiosRequestConfig>;
@@ -21,9 +22,11 @@ interface EndpointConfirmationProps {
     ) => void;
 }
 
+// Wrapper interface props are passed directly by ActionsColumn. We need to pass the further to buttonProps
 type ResultButtonEndpointConfirmationProps = Omit<ButtonEndpointConfirmationProps, "requestConfig" | "onSuccess"> &
     TableResultActionPathInterface &
-    EndpointConfirmationProps;
+    EndpointConfirmationProps &
+    WrapperInterface;
 
 const ResultButtonEndpointConfirmation = ({
     requestConfig,
@@ -31,6 +34,9 @@ const ResultButtonEndpointConfirmation = ({
     result,
     field,
     path,
+    buttonProps,
+    wrapperComponent,
+    wrapperComponentProps,
     ...props
 }: ResultButtonEndpointConfirmationProps) => {
     if (typeof field === "undefined") {
@@ -56,6 +62,11 @@ const ResultButtonEndpointConfirmation = ({
             {...{
                 requestConfig: resolvedRequestConfig,
                 onSuccess: resolvedOnSuccess,
+                buttonProps: {
+                    wrapperComponent,
+                    wrapperComponentProps,
+                    ...buttonProps,
+                },
                 confirmationLabelVariables: {
                     name: result.representation,
                 },
