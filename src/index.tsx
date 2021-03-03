@@ -165,6 +165,8 @@ import Textarea, { TextareaProps } from "@arteneo/forge/components/Form/fields/T
 import TextareaElement, { TextareaElementProps } from "@arteneo/forge/components/Form/elements/TextareaElement";
 import Text, { TextProps } from "@arteneo/forge/components/Form/fields/Text";
 import TextElement, { TextElementProps } from "@arteneo/forge/components/Form/elements/TextElement";
+import Link from "@arteneo/forge/components/Form/fields/Link";
+import LinkElement from "@arteneo/forge/components/Form/elements/Link";
 import Email, { EmailProps } from "@arteneo/forge/components/Form/fields/Email";
 import EmailElement, { EmailElementProps } from "@arteneo/forge/components/Form/elements/EmailElement";
 import Password, { PasswordProps } from "@arteneo/forge/components/Form/fields/Password";
@@ -378,6 +380,8 @@ export {
     TextProps,
     TextElement,
     TextElementProps,
+    Link,
+    LinkElement,
     Email,
     EmailProps,
     EmailElement,
