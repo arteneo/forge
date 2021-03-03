@@ -7,7 +7,7 @@ import ResultButtonLink, {
 
 type EditProps = Optional<ResultButtonLinkProps, "to">;
 
-const Edit = ({ to, ...props }: EditProps) => {
+const Edit = ({ to, accessKey = "edit", ...props }: EditProps) => {
     const { custom } = useTable();
 
     if (typeof to === "undefined" && typeof custom?.paths?.edit === "undefined") {
@@ -23,6 +23,7 @@ const Edit = ({ to, ...props }: EditProps) => {
                 to: to ? to : custom.paths.edit,
                 color: "primary",
                 variant: "contained",
+                accessKey,
                 ...props,
             }}
         />
