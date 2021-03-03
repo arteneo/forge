@@ -2,7 +2,7 @@ import React from "react";
 import { Chip, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
-import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
+import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 
 const useStyles = makeStyles((theme) => ({
     yes: {
@@ -15,9 +15,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BooleanColumn = ({ result, field, path }: ColumnPathInterface) => {
+const BooleanColumn = ({ result, field, path }: TableColumnPathType) => {
     if (typeof field === "undefined") {
-        return null;
+        throw new Error("BooleanColumn component: Missing required field prop");
+    }
+
+    if (typeof result === "undefined") {
+        throw new Error("BooleanColumn component: Missing required result prop");
     }
 
     const { t } = useTranslation();
@@ -37,4 +41,4 @@ const BooleanColumn = ({ result, field, path }: ColumnPathInterface) => {
 };
 
 export default BooleanColumn;
-export { ColumnPathInterface as BooleanColumnProps };
+export { TableColumnPathType as BooleanColumnProps };

@@ -52,8 +52,6 @@ import TableFilters, { TableFiltersProps } from "@arteneo/forge/components/Table
 import TableFiltersButtons from "@arteneo/forge/components/Table/components/TableFiltersButtons";
 import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
 import TablePaginationActions from "@arteneo/forge/components/Table/components/TablePaginationActions";
-import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
-import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
 import TextColumn, { TextColumnProps } from "@arteneo/forge/components/Table/columns/TextColumn";
 import CurrencyColumn, { CurrencyColumnProps } from "@arteneo/forge/components/Table/columns/CurrencyColumn";
 import BooleanColumn, { BooleanColumnProps } from "@arteneo/forge/components/Table/columns/BooleanColumn";
@@ -86,8 +84,14 @@ import QuerySortingInterface from "@arteneo/forge/components/Table/definitions/Q
 import SortingDirection from "@arteneo/forge/components/Table/definitions/SortingDirection";
 import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
-import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
+import TableColumnDisableSortingInterface from "@arteneo/forge/components/Table/definitions/TableColumnDisableSortingInterface";
+import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
+import TableColumnType from "@arteneo/forge/components/Table/definitions/TableColumnType";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
+import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
+import TableResultActionInterface from "@arteneo/forge/components/Table/definitions/TableResultActionInterface";
+import TableResultActionPathInterface from "@arteneo/forge/components/Table/definitions/TableResultActionPathInterface";
+import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
 import {
@@ -247,12 +251,16 @@ export {
     TableProvider,
     TableProviderProps,
     useTable,
-    TableQueryInterface,
+    TableColumnDisableSortingInterface,
+    TableColumnPathType,
+    TableColumnType,
     TableQueriesInterface,
+    TableQueryInterface,
+    TableResultActionInterface,
+    TableResultActionPathInterface,
+    TableResultActionResolveType,
     FilterDefinition,
     FilterFieldInterface,
-    ColumnInterface,
-    ColumnPathInterface,
     TableQueryContext,
     TableQueryContextProps,
     TableQueryProvider,
