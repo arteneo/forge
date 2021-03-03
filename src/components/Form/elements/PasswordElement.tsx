@@ -1,6 +1,7 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 interface PasswordElementProps {
     name: string;
@@ -18,6 +19,7 @@ interface PasswordElementProps {
     required: boolean;
     disabled: boolean;
     fieldProps?: TextFieldProps;
+    placeholder?: string;
 }
 
 const PasswordElement = ({
@@ -29,8 +31,11 @@ const PasswordElement = ({
     disabled,
     onChange,
     fieldProps,
+    placeholder,
 }: PasswordElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
+
+    const { t } = useTranslation();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFieldValue(name, event.currentTarget.value);
@@ -45,6 +50,8 @@ const PasswordElement = ({
         defaultOnChange(event);
     };
 
+    const placeholderText = placeholder ? t(placeholder) : "";
+
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
         type: "password",
@@ -57,6 +64,7 @@ const PasswordElement = ({
         fullWidth: true,
         margin: "normal",
         helperText: undefined,
+        placeholder: placeholderText,
     };
 
     if (hasError || help) {

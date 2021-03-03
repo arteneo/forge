@@ -28,6 +28,8 @@ interface FieldInterface {
         | boolean;
     // eslint-disable-next-line
     transformInitialValue?: (value: any) => any;
+    placeholder?: string;
+    disableUnderline?: boolean;
 }
 
 export default FieldInterface;

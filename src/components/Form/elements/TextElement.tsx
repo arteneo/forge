@@ -1,6 +1,7 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
 
 interface TextElementProps {
     name: string;
@@ -18,10 +19,24 @@ interface TextElementProps {
     required: boolean;
     disabled: boolean;
     fieldProps?: TextFieldProps;
+    placeholder?: string;
+    disableUnderline?: boolean;
 }
 
-const TextElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: TextElementProps) => {
+const TextElement = ({
+    name,
+    label,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+    placeholder,
+}: TextElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
+
+    const { t } = useTranslation();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFieldValue(name, event.currentTarget.value);
@@ -36,6 +51,7 @@ const TextElement = ({ name, label, error, help, required, disabled, onChange, f
         defaultOnChange(event);
     };
 
+    const placeholderText = placeholder ? t(placeholder) : "";
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
         value: getIn(values, name, ""),
@@ -47,6 +63,7 @@ const TextElement = ({ name, label, error, help, required, disabled, onChange, f
         fullWidth: true,
         margin: "normal",
         helperText: undefined,
+        placeholder: placeholderText,
     };
 
     if (hasError || help) {

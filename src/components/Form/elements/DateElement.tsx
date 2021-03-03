@@ -2,6 +2,7 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { KeyboardDatePicker, KeyboardDatePickerProps } from "@material-ui/pickers";
 import { formatRFC3339, isValid } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 interface DateElementProps {
     name: string;
@@ -20,11 +21,24 @@ interface DateElementProps {
     ) => void;
     required: boolean;
     disabled: boolean;
+    placeholder?: string;
     fieldProps?: KeyboardDatePickerProps;
 }
 
-const DateElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: DateElementProps) => {
+const DateElement = ({
+    name,
+    label,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+    placeholder,
+}: DateElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
+    const { t } = useTranslation();
+    const placeholderText = placeholder ? t(placeholder) : "";
 
     // eslint-disable-next-line
     const defaultOnChange = (date: any, value?: string | null) => {
@@ -61,6 +75,7 @@ const DateElement = ({ name, label, error, help, required, disabled, onChange, f
         variant: "inline",
         margin: "normal",
         helperText: undefined,
+        placeholder: placeholderText,
     };
 
     if (hasError || help) {

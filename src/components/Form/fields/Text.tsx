@@ -32,6 +32,8 @@ const Text = ({
     disabled = false,
     validationSchema,
     fieldProps,
+    placeholder = "",
+    disableUnderline = false,
 }: TextProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
@@ -86,6 +88,8 @@ const Text = ({
                 disabled: resolvedDisabled,
                 onChange,
                 fieldProps,
+                placeholder: placeholder,
+                disableUnderline,
             }}
         />
     );

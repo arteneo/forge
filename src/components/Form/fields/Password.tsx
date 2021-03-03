@@ -32,6 +32,7 @@ const Password = ({
     disabled = false,
     validationSchema,
     fieldProps,
+    placeholder = "",
 }: PasswordProps) => {
     if (typeof name === "undefined") {
         throw new Error("Password component: name is required prop. By default it is injected by FormContent.");
@@ -86,6 +87,7 @@ const Password = ({
                 disabled: resolvedDisabled,
                 onChange,
                 fieldProps,
+                placeholder: placeholder,
             }}
         />
     );

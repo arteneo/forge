@@ -31,6 +31,7 @@ const Date = ({
     hidden = false,
     disabled = false,
     validationSchema,
+    placeholder = "",
     fieldProps,
 }: DateProps) => {
     if (typeof name === "undefined") {
@@ -85,6 +86,7 @@ const Date = ({
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
                 onChange,
+                placeholder,
                 fieldProps,
             }}
         />
