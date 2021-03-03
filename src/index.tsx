@@ -64,6 +64,9 @@ import DateTimeColumn, { DateTimeColumnProps } from "@arteneo/forge/components/T
 import TimeColumn, { TimeColumnProps } from "@arteneo/forge/components/Table/columns/TimeColumn";
 import ActionsColumn, { ActionsColumnProps } from "@arteneo/forge/components/Table/columns/ActionsColumn";
 import ResultButton, { ResultButtonProps } from "@arteneo/forge/components/Table/actions/result/ResultButton";
+import ResultButtonOnClick, {
+    ResultButtonOnClickProps,
+} from "@arteneo/forge/components/Table/actions/result/ResultButtonOnClick";
 import Edit, { EditProps } from "@arteneo/forge/components/Table/actions/result/Edit";
 import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/result/Delete";
 import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
@@ -231,6 +234,8 @@ export {
     ActionsColumnProps,
     ResultButton,
     ResultButtonProps,
+    ResultButtonOnClick,
+    ResultButtonOnClickProps,
     Edit,
     EditProps,
     Delete,
