@@ -16,7 +16,8 @@ import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contex
 import { FormControlProps } from "@material-ui/core";
 
 interface SelectApiProps extends TextFieldInterface {
-    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
+    //todo rm comment dodanie undefined w endpoinbt powoduje inne problemy - moim zdaniem nie warto
+    endpoint: string | ((values: FormikValues) => undefined | string);
     onChange?: (
         name: string,
         // eslint-disable-next-line
