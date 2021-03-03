@@ -67,6 +67,9 @@ import ResultButton, { ResultButtonProps } from "@arteneo/forge/components/Table
 import ResultButtonOnClick, {
     ResultButtonOnClickProps,
 } from "@arteneo/forge/components/Table/actions/result/ResultButtonOnClick";
+import ResultButtonDownload, {
+    ResultButtonDownloadProps,
+} from "@arteneo/forge/components/Table/actions/result/ResultButtonDownload";
 import Edit, { EditProps } from "@arteneo/forge/components/Table/actions/result/Edit";
 import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/result/Delete";
 import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
@@ -236,6 +239,8 @@ export {
     ResultButtonProps,
     ResultButtonOnClick,
     ResultButtonOnClickProps,
+    ResultButtonDownload,
+    ResultButtonDownloadProps,
     Edit,
     EditProps,
     Delete,
