@@ -16,7 +16,7 @@ import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contex
 import { FormControlProps } from "@material-ui/core";
 
 interface SelectApiProps extends TextFieldInterface {
-    endpoint: string | ((values: FormikValues) => string | undefined);
+    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -97,10 +97,11 @@ const SelectApi = ({
     };
 
     const load = () => {
-        if (!resolvedEndpoint || resolvedEndpoint == "") {
+        if (!resolvedEndpoint) {
             setOptions([]);
             return;
         }
+
         const axiosSource = axios.CancelToken.source();
 
         axios
