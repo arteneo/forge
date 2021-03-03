@@ -1,11 +1,15 @@
 import React from "react";
 import { useUtils } from "@material-ui/pickers";
 import { getIn } from "formik";
-import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
+import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 
-const DateTimeColumn = ({ result, field, path }: ColumnPathInterface) => {
+const DateTimeColumn = ({ result, field, path }: TableColumnPathType) => {
     if (typeof field === "undefined") {
-        return null;
+        throw new Error("DateTimeColumn component: Missing required field prop");
+    }
+
+    if (typeof result === "undefined") {
+        throw new Error("DateTimeColumn component: Missing required result prop");
     }
 
     // We force TS to think this is any object to silence issue with missing function formatDateTime
@@ -18,4 +22,4 @@ const DateTimeColumn = ({ result, field, path }: ColumnPathInterface) => {
 };
 
 export default DateTimeColumn;
-export { ColumnPathInterface as DateTimeColumnProps };
+export { TableColumnPathType as DateTimeColumnProps };

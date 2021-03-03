@@ -1,35 +1,39 @@
 import React from "react";
-import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import ButtonEndpointConfirmation, {
-    ButtonEndpointConfirmationProps,
-} from "@arteneo/forge/components/Common/ButtonEndpointConfirmation";
-import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
+import ResultButtonEndpointConfirmation, {
+    ResultButtonEndpointConfirmationProps,
+} from "@arteneo/forge/components/Table/actions/result/ResultButtonEndpointConfirmation";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
+import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
+import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
+import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
 
 interface DeleteInterface {
-    // eslint-disable-next-line
-    endpoint?: string | ((result: any) => string);
+    endpoint?: TableResultActionResolveType<string>;
     confirmationLabel?: string;
 }
-type DeleteProps = DeleteInterface & Optional<ButtonEndpointConfirmationProps, "requestConfig"> & ColumnInterface;
 
-const Delete = ({ endpoint, result, confirmationLabel = "crud.confirmation.delete", ...props }: DeleteProps) => {
+type DeleteProps = DeleteInterface & Optional<ResultButtonEndpointConfirmationProps, "requestConfig">;
+
+const Delete = ({ endpoint, confirmationLabel = "crud.confirmation.delete", ...props }: DeleteProps) => {
     const { reload, custom } = useTable();
 
     if (typeof endpoint === "undefined" && typeof custom?.endpoints?.delete === "undefined") {
         throw new Error(
-            "Delete component: Missing required to prop or endpoints.delete definition in custom variable used by Table context"
+            "Delete component: Missing required endpoint prop or endpoints.delete definition in custom variable used by Table context"
         );
     }
 
     return (
-        <ButtonEndpointConfirmation
+        <ResultButtonEndpointConfirmation
             {...{
-                requestConfig: {
+                // eslint-disable-next-line
+                requestConfig: (value: any, result: ResultInterface, field: string) => ({
                     method: "delete",
-                    url: endpoint ? resolveStringOrFunction(endpoint, result) : custom.endpoints.delete(result),
-                },
+                    url: endpoint
+                        ? resolveAnyOrFunction(endpoint, value, result, field)
+                        : custom.endpoints.delete(value),
+                }),
                 onSuccess: (defaultOnSuccess: () => void) => {
                     defaultOnSuccess();
                     reload();
@@ -46,9 +50,6 @@ const Delete = ({ endpoint, result, confirmationLabel = "crud.confirmation.delet
                 },
                 snackbarLabel: "snackbar.deleted",
                 confirmationLabel,
-                confirmationLabelVariables: {
-                    name: result.representation,
-                },
                 ...props,
             }}
         />

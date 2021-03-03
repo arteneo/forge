@@ -1,15 +1,19 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
-import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
+import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 
-interface ConstColumnProps extends ColumnPathInterface {
+interface ConstColumnProps extends TableColumnPathType {
     getLabel: (constKey: string) => string;
 }
 
 const ConstColumn = ({ getLabel, result, field, path }: ConstColumnProps) => {
     if (typeof field === "undefined") {
-        return null;
+        throw new Error("ConstColumn component: Missing required field prop");
+    }
+
+    if (typeof result === "undefined") {
+        throw new Error("ConstColumn component: Missing required result prop");
     }
 
     const { t } = useTranslation();
