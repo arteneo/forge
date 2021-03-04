@@ -1,8 +1,6 @@
 import React from "react";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import ButtonEndpointConfirmation, {
-    ButtonEndpointConfirmationProps,
-} from "@arteneo/forge/components/Common/ButtonEndpointConfirmation";
+import ButtonEndpoint, { ButtonEndpointProps } from "@arteneo/forge/components/Common/ButtonEndpoint";
 import TableResultActionPathInterface from "@arteneo/forge/components/Table/definitions/TableResultActionPathInterface";
 import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
 import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
@@ -11,7 +9,7 @@ import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultI
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 
-interface EndpointConfirmationProps {
+interface EndpointProps {
     requestConfig: TableResultActionResolveType<AxiosRequestConfig>;
     disableOnSuccessReload?: boolean;
     onSuccess?: (
@@ -25,29 +23,26 @@ interface EndpointConfirmationProps {
 }
 
 // Wrapper interface props are passed directly by ActionsColumn. We need to pass the further to buttonProps
-type ResultButtonEndpointConfirmationProps = Omit<ButtonEndpointConfirmationProps, "requestConfig" | "onSuccess"> &
+type ResultButtonEndpointProps = Omit<ButtonEndpointProps, "requestConfig" | "onSuccess"> &
     TableResultActionPathInterface &
-    EndpointConfirmationProps &
+    EndpointProps &
     WrapperInterface;
 
-const ResultButtonEndpointConfirmation = ({
+const ResultButtonEndpoint = ({
     requestConfig,
     disableOnSuccessReload,
     onSuccess,
     result,
     field,
     path,
-    buttonProps,
-    wrapperComponent,
-    wrapperComponentProps,
     ...props
-}: ResultButtonEndpointConfirmationProps) => {
+}: ResultButtonEndpointProps) => {
     if (typeof field === "undefined") {
-        throw new Error("ResultButtonEndpointConfirmation component: Missing required field prop");
+        throw new Error("ResultButtonEndpoint component: Missing required field prop");
     }
 
     if (typeof result === "undefined") {
-        throw new Error("ResultButtonEndpointConfirmation component: Missing required result prop");
+        throw new Error("ResultButtonEndpoint component: Missing required result prop");
     }
 
     const { reload } = useTable();
@@ -72,24 +67,16 @@ const ResultButtonEndpointConfirmation = ({
     }
 
     return (
-        <ButtonEndpointConfirmation
+        <ButtonEndpoint
             {...{
                 requestConfig: resolvedRequestConfig,
                 onSuccess: resolvedOnSuccess,
-                buttonProps: {
-                    deniedAccessList: result?.deniedAccessList,
-                    wrapperComponent,
-                    wrapperComponentProps,
-                    ...buttonProps,
-                },
-                confirmationLabelVariables: {
-                    name: result.representation,
-                },
+                deniedAccessList: result?.deniedAccessList,
                 ...props,
             }}
         />
     );
 };
 
-export default ResultButtonEndpointConfirmation;
-export { ResultButtonEndpointConfirmationProps };
+export default ResultButtonEndpoint;
+export { ResultButtonEndpointProps };
