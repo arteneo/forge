@@ -5,6 +5,7 @@ import { makeStyles, TextField as MuiTextField, TextFieldProps } from "@material
 interface TextareaElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -32,6 +33,7 @@ const useStyles = makeStyles(() => ({
 const TextareaElement = ({
     name,
     label,
+    placeholder,
     error,
     help,
     required,
@@ -63,6 +65,7 @@ const TextareaElement = ({
         className: disableResize ? undefined : classes.resize,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         multiline: true,

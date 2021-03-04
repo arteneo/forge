@@ -31,6 +31,7 @@ interface SelectElementProps {
     options: OptionsType;
     disableTranslateOption?: boolean;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -57,6 +58,7 @@ const SelectElement = ({
     name,
     options,
     label,
+    placeholder,
     error,
     help,
     required = false,
@@ -129,6 +131,7 @@ const SelectElement = ({
             {...{
                 label,
                 required,
+                placeholder,
                 ...params,
             }}
         />

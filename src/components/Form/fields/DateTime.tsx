@@ -4,10 +4,10 @@ import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import DateTimeElement from "@arteneo/forge/components/Form/elements/DateTimeElement";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import { KeyboardDateTimePickerProps } from "@material-ui/pickers";
 
-interface DateTimeProps extends TextFieldInterface {
+interface DateTimeProps extends TextFieldPlaceholderInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -22,9 +22,11 @@ interface DateTimeProps extends TextFieldInterface {
 const DateTime = ({
     name,
     label,
+    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
     enableAutoPlaceholder = false,
+    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     onChange,
@@ -75,7 +77,15 @@ const DateTime = ({
     const resolvedError = getError(name, touched, errors);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
-    const resolvedPlaceholder = getPlaceholder(name, enableAutoPlaceholder);
+    const resolvedPlaceholder = getPlaceholder(
+        placeholder,
+        values,
+        touched,
+        errors,
+        name,
+        enableAutoPlaceholder,
+        disableTranslatePlaceholder
+    );
 
     return (
         <DateTimeElement
