@@ -12,6 +12,7 @@ interface TextFieldInterface extends FieldInterface {
         | boolean;
     // eslint-disable-next-line
     validationSchema?: any | (() => any);
+    enableAutoPlaceholder?: boolean;
 }
 
 export default TextFieldInterface;

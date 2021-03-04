@@ -31,6 +31,7 @@ interface FormContextProps {
         disableAutoLabel?: boolean,
         disableTranslateLabel?: boolean
     ) => undefined | React.ReactNode;
+    getPlaceholder: (name: string, enableAutoPlaceholder: boolean) => string | undefined;
     getHelp: (
         values: FormikValues,
         touched: FormikTouched<FormikValues>,
@@ -77,6 +78,9 @@ const contextInitial = {
         return undefined;
     },
     getLabel: () => {
+        return undefined;
+    },
+    getPlaceholder: () => {
         return undefined;
     },
     getHelp: () => {
@@ -199,6 +203,10 @@ const FormProvider = ({
         return resolvedLabel;
     };
 
+    const getPlaceholder = (name: string, enableAutoPlaceholder: boolean) => {
+        return enableAutoPlaceholder ? t(`label.${name}`) : "";
+    };
+
     const getHelp = (
         values: FormikValues,
         touched: FormikTouched<FormikValues>,
@@ -242,6 +250,7 @@ const FormProvider = ({
                 hasError,
                 getError,
                 getLabel,
+                getPlaceholder,
                 getHelp,
                 object,
                 setObject,
