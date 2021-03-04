@@ -16,7 +16,7 @@ import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contex
 import { FormControlProps } from "@material-ui/core";
 
 interface SelectApiProps extends TextFieldInterface {
-    endpoint: string | ((values: FormikValues) => string);
+    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -33,6 +33,7 @@ interface SelectApiProps extends TextFieldInterface {
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
     disableTranslateGroupBy?: boolean;
+    disableTranslateOption?: boolean;
     autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
@@ -53,6 +54,7 @@ const SelectApi = ({
     groupBy,
     loadUseEffectDependency,
     disableTranslateGroupBy,
+    disableTranslateOption = true,
     autocompleteProps,
     formControlProps,
 }: SelectApiProps) => {
@@ -66,7 +68,7 @@ const SelectApi = ({
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    const resolvedEndpoint = resolveStringOrFunction(endpoint, values);
+    const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 
@@ -95,6 +97,11 @@ const SelectApi = ({
     };
 
     const load = () => {
+        if (!resolvedEndpoint) {
+            setOptions([]);
+            return;
+        }
+
         const axiosSource = axios.CancelToken.source();
 
         axios
@@ -127,7 +134,7 @@ const SelectApi = ({
             {...{
                 name,
                 options,
-                disableTranslateOption: true,
+                disableTranslateOption,
                 label: resolvedLabel,
                 error: resolvedError,
                 help: resolvedHelp,

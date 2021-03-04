@@ -16,6 +16,7 @@ const ResultButton = ({ result, field, ...props }: ResultButtonProps) => {
     return (
         <Button
             {...{
+                deniedAccessList: result?.deniedAccessList,
                 ...props,
             }}
         />

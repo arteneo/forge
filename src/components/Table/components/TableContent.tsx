@@ -10,6 +10,7 @@ import {
     TableHead,
     TableRow,
     TableSortLabel,
+    Typography,
     useMediaQuery,
     useTheme,
 } from "@material-ui/core";
@@ -25,9 +26,11 @@ interface TableContentProps {
     filters?: FieldsInterface;
     actions?: React.ReactNode;
     disablePagination?: boolean;
+    title?: string;
+    icon?: React.ReactElement;
 }
 
-const TableContent = ({ row, filters, actions, disablePagination }: TableContentProps) => {
+const TableContent = ({ row, filters, actions, disablePagination, title, icon }: TableContentProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -63,9 +66,20 @@ const TableContent = ({ row, filters, actions, disablePagination }: TableContent
 
     return (
         <>
-            {filters && <TableFilters filters={filters} />}
+            {filters && (
+                <Paper>
+                    <TableFilters filters={filters} />
+                </Paper>
+            )}
 
             <Paper>
+                {(icon || title) && (
+                    <Typography>
+                        {icon !== undefined ? icon : ""}
+                        {title !== undefined ? t(title) : ""}
+                    </Typography>
+                )}
+
                 <Box p={isSm ? 2 : 4}>
                     {actions}
 

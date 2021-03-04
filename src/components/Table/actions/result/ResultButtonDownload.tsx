@@ -30,6 +30,7 @@ const ResultButtonDownload = ({ requestConfig, result, field, path, ...props }: 
         <ButtonDownload
             {...{
                 requestConfig: resolvedRequestConfig,
+                deniedAccessList: result?.deniedAccessList,
                 ...props,
             }}
         />
