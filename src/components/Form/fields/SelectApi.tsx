@@ -7,7 +7,7 @@ import { FormikValues, FormikProps, useFormikContext } from "formik";
 import SelectElement, {
     SelectElementAutocompleteOptionalProps,
 } from "@arteneo/forge/components/Form/elements/SelectElement";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
@@ -15,8 +15,8 @@ import { SelectValueType } from "@arteneo/forge/components/Form/definitions/Auto
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 import { FormControlProps } from "@material-ui/core";
 
-interface SelectApiProps extends TextFieldInterface {
-    endpoint: string | ((values: FormikValues) => string);
+interface SelectApiProps extends TextFieldPlaceholderInterface {
+    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -33,6 +33,7 @@ interface SelectApiProps extends TextFieldInterface {
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
     disableTranslateGroupBy?: boolean;
+    disableTranslateOption?: boolean;
     autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
@@ -41,8 +42,11 @@ const SelectApi = ({
     name,
     endpoint,
     label,
+    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
+    enableAutoPlaceholder = false,
+    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     onChange,
@@ -53,6 +57,7 @@ const SelectApi = ({
     groupBy,
     loadUseEffectDependency,
     disableTranslateGroupBy,
+    disableTranslateOption = true,
     autocompleteProps,
     formControlProps,
 }: SelectApiProps) => {
@@ -60,13 +65,13 @@ const SelectApi = ({
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
+    const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    const resolvedEndpoint = resolveStringOrFunction(endpoint, values);
+    const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 
@@ -95,6 +100,11 @@ const SelectApi = ({
     };
 
     const load = () => {
+        if (!resolvedEndpoint) {
+            setOptions([]);
+            return;
+        }
+
         const axiosSource = axios.CancelToken.source();
 
         axios
@@ -121,14 +131,24 @@ const SelectApi = ({
     const resolvedError = getError(name, touched, errors);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const resolvedPlaceholder = getPlaceholder(
+        placeholder,
+        values,
+        touched,
+        errors,
+        name,
+        enableAutoPlaceholder,
+        disableTranslatePlaceholder
+    );
 
     return (
         <SelectElement
             {...{
                 name,
                 options,
-                disableTranslateOption: true,
+                disableTranslateOption,
                 label: resolvedLabel,
+                placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,

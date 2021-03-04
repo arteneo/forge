@@ -18,6 +18,7 @@ type CurrencyElementSymbolPosition = "start" | "end";
 interface CurrencyElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -39,6 +40,7 @@ interface CurrencyElementProps {
 const Currency = ({
     name,
     label,
+    placeholder,
     error,
     help,
     required,
@@ -90,6 +92,7 @@ const Currency = ({
         onBlur: onBlur,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         // * This does not work properly. When input is autoselected and you remove value using backspace onChange event is not fired

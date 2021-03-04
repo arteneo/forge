@@ -1,19 +1,23 @@
 import React from "react";
 import { Grid, GridProps } from "@material-ui/core";
-import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
+import TableColumnType from "@arteneo/forge/components/Table/definitions/TableColumnType";
 
-interface ActionsColumnProps extends ColumnInterface {
+interface ActionsColumnProps extends TableColumnType {
     children: React.ReactNode;
     gridContainerProps?: GridProps;
 }
 
 const ActionsColumn = ({ children, result, field, gridContainerProps }: ActionsColumnProps) => {
     if (typeof field === "undefined") {
-        return null;
+        throw new Error("ActionsColumn component: Missing required field prop");
+    }
+
+    if (typeof result === "undefined") {
+        throw new Error("ActionsColumn component: Missing required result prop");
     }
 
     return (
-        <Grid container spacing={1} justify="center" wrap="nowrap" {...gridContainerProps}>
+        <Grid container spacing={1} justify="center" alignItems="center" wrap="nowrap" {...gridContainerProps}>
             {React.Children.map(children, (child, key) => (
                 <React.Fragment key={key}>
                     {React.isValidElement(child) &&

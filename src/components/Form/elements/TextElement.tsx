@@ -5,6 +5,7 @@ import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 interface TextElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -20,7 +21,17 @@ interface TextElementProps {
     fieldProps?: TextFieldProps;
 }
 
-const TextElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: TextElementProps) => {
+const TextElement = ({
+    name,
+    label,
+    placeholder,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+}: TextElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +53,7 @@ const TextElement = ({ name, label, error, help, required, disabled, onChange, f
         onChange: callableOnChange,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         fullWidth: true,

@@ -1,10 +1,14 @@
 import React from "react";
 import { getIn } from "formik";
-import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
+import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 
-const RepresentationColumn = ({ result, field, path }: ColumnPathInterface) => {
+const RepresentationColumn = ({ result, field, path }: TableColumnPathType) => {
     if (typeof field === "undefined") {
-        return null;
+        throw new Error("RepresentationColumn component: Missing required field prop");
+    }
+
+    if (typeof result === "undefined") {
+        throw new Error("RepresentationColumn component: Missing required result prop");
     }
 
     const value = getIn(result, path ? path : field);
@@ -12,4 +16,4 @@ const RepresentationColumn = ({ result, field, path }: ColumnPathInterface) => {
 };
 
 export default RepresentationColumn;
-export { ColumnPathInterface as RepresentationColumnProps };
+export { TableColumnPathType as RepresentationColumnProps };

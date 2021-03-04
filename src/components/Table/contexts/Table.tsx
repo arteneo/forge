@@ -20,8 +20,7 @@ import BatchQueryInterface from "@arteneo/forge/components/Table/definitions/Bat
 
 interface TableContextProps {
     row: RowInterface;
-    // eslint-disable-next-line
-    results: any[];
+    results: ResultInterface[];
     page: number;
     rowCount: number;
     rowsPerPage: number;

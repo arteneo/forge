@@ -1,6 +1,10 @@
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
 import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
 import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
+import ButtonEndpoint, { ButtonEndpointProps } from "@arteneo/forge/components/Common/ButtonEndpoint";
+import ButtonEndpointConfirmation, {
+    ButtonEndpointConfirmationProps,
+} from "@arteneo/forge/components/Common/ButtonEndpointConfirmation";
 import {
     FormContext,
     FormContextProps,
@@ -29,6 +33,7 @@ import {
     SnackbarProvider,
     SnackbarProviderProps,
     useSnackbar,
+    SnackbarVariant,
 } from "@arteneo/forge/contexts/Snackbar";
 import {
     LoaderContext,
@@ -48,8 +53,6 @@ import TableFilters, { TableFiltersProps } from "@arteneo/forge/components/Table
 import TableFiltersButtons from "@arteneo/forge/components/Table/components/TableFiltersButtons";
 import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
 import TablePaginationActions from "@arteneo/forge/components/Table/components/TablePaginationActions";
-import ColumnInterface from "@arteneo/forge/components/Table/definitions/ColumnInterface";
-import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
 import TextColumn, { TextColumnProps } from "@arteneo/forge/components/Table/columns/TextColumn";
 import CurrencyColumn, { CurrencyColumnProps } from "@arteneo/forge/components/Table/columns/CurrencyColumn";
 import BooleanColumn, { BooleanColumnProps } from "@arteneo/forge/components/Table/columns/BooleanColumn";
@@ -61,6 +64,22 @@ import DateColumn, { DateColumnProps } from "@arteneo/forge/components/Table/col
 import DateTimeColumn, { DateTimeColumnProps } from "@arteneo/forge/components/Table/columns/DateTimeColumn";
 import TimeColumn, { TimeColumnProps } from "@arteneo/forge/components/Table/columns/TimeColumn";
 import ActionsColumn, { ActionsColumnProps } from "@arteneo/forge/components/Table/columns/ActionsColumn";
+import ResultButton, { ResultButtonProps } from "@arteneo/forge/components/Table/actions/result/ResultButton";
+import ResultButtonOnClick, {
+    ResultButtonOnClickProps,
+} from "@arteneo/forge/components/Table/actions/result/ResultButtonOnClick";
+import ResultButtonLink, {
+    ResultButtonLinkProps,
+} from "@arteneo/forge/components/Table/actions/result/ResultButtonLink";
+import ResultButtonDownload, {
+    ResultButtonDownloadProps,
+} from "@arteneo/forge/components/Table/actions/result/ResultButtonDownload";
+import ResultButtonEndpoint, {
+    ResultButtonEndpointProps,
+} from "@arteneo/forge/components/Table/actions/result/ResultButtonEndpoint";
+import ResultButtonEndpointConfirmation, {
+    ResultButtonEndpointConfirmationProps,
+} from "@arteneo/forge/components/Table/actions/result/ResultButtonEndpointConfirmation";
 import Edit, { EditProps } from "@arteneo/forge/components/Table/actions/result/Edit";
 import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/result/Delete";
 import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
@@ -82,8 +101,14 @@ import QuerySortingInterface from "@arteneo/forge/components/Table/definitions/Q
 import SortingDirection from "@arteneo/forge/components/Table/definitions/SortingDirection";
 import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
 import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
-import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
+import TableColumnDisableSortingInterface from "@arteneo/forge/components/Table/definitions/TableColumnDisableSortingInterface";
+import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
+import TableColumnType from "@arteneo/forge/components/Table/definitions/TableColumnType";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
+import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
+import TableResultActionInterface from "@arteneo/forge/components/Table/definitions/TableResultActionInterface";
+import TableResultActionPathInterface from "@arteneo/forge/components/Table/definitions/TableResultActionPathInterface";
+import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
 import {
@@ -117,6 +142,8 @@ import DateTimeToFilter, { DateTimeToFilterProps } from "@arteneo/forge/componen
 import TimeFromFilter, { TimeFromFilterProps } from "@arteneo/forge/components/Table/filters/TimeFromFilter";
 import TimeToFilter, { TimeToFilterProps } from "@arteneo/forge/components/Table/filters/TimeToFilter";
 import FieldInterface from "@arteneo/forge/components/Form/definitions/FieldInterface";
+import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
+import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
@@ -126,6 +153,8 @@ import FormButtons, { FormButtonsProps } from "@arteneo/forge/components/Form/co
 import PromptIfDirty, { PromptIfDirtyProps } from "@arteneo/forge/components/Form/components/PromptIfDirty";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
+import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import Select, { SelectProps } from "@arteneo/forge/components/Form/fields/Select";
 import SelectApi, { SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
 import SelectElement, {
@@ -134,6 +163,7 @@ import SelectElement, {
     SelectElementAutocompleteOptionalProps,
 } from "@arteneo/forge/components/Form/elements/SelectElement";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
+import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import Currency, { CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
 import CurrencyElement, {
     CurrencyElementProps,
@@ -173,6 +203,10 @@ export {
     ButtonLinkProps,
     ButtonDownload,
     ButtonDownloadProps,
+    ButtonEndpoint,
+    ButtonEndpointProps,
+    ButtonEndpointConfirmation,
+    ButtonEndpointConfirmationProps,
     AppDateFnsUtils,
     Wrapper,
     WrapperProps,
@@ -218,6 +252,18 @@ export {
     TimeColumnProps,
     ActionsColumn,
     ActionsColumnProps,
+    ResultButton,
+    ResultButtonProps,
+    ResultButtonOnClick,
+    ResultButtonOnClickProps,
+    ResultButtonLink,
+    ResultButtonLinkProps,
+    ResultButtonDownload,
+    ResultButtonDownloadProps,
+    ResultButtonEndpoint,
+    ResultButtonEndpointProps,
+    ResultButtonEndpointConfirmation,
+    ResultButtonEndpointConfirmationProps,
     Edit,
     EditProps,
     Delete,
@@ -241,12 +287,16 @@ export {
     TableProvider,
     TableProviderProps,
     useTable,
-    TableQueryInterface,
+    TableColumnDisableSortingInterface,
+    TableColumnPathType,
+    TableColumnType,
     TableQueriesInterface,
+    TableQueryInterface,
+    TableResultActionInterface,
+    TableResultActionPathInterface,
+    TableResultActionResolveType,
     FilterDefinition,
     FilterFieldInterface,
-    ColumnInterface,
-    ColumnPathInterface,
     TableQueryContext,
     TableQueryContextProps,
     TableQueryProvider,
@@ -297,12 +347,15 @@ export {
     SnackbarProvider,
     SnackbarProviderProps,
     useSnackbar,
+    SnackbarVariant,
     LoaderContext,
     LoaderContextProps,
     LoaderProvider,
     LoaderProviderProps,
     useLoader,
     FieldInterface,
+    FieldLabelType,
+    FieldPlaceholderType,
     FieldsInterface,
     ValidationSchemaInterface,
     Form,
@@ -317,6 +370,9 @@ export {
     PromptIfDirtyProps,
     OptionsType,
     OptionInterface,
+    TextFieldInterface,
+    TextFieldPlaceholderInterface,
+    FieldHelpType,
     Select,
     SelectProps,
     SelectApi,

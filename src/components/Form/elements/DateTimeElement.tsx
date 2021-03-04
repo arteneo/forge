@@ -6,6 +6,7 @@ import { formatRFC3339, isValid } from "date-fns";
 interface DateTimeElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -26,6 +27,7 @@ interface DateTimeElementProps {
 const DateTimeElement = ({
     name,
     label,
+    placeholder,
     error,
     help,
     required,
@@ -62,6 +64,7 @@ const DateTimeElement = ({
         onChange: callableOnChange,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         ampm: false,
