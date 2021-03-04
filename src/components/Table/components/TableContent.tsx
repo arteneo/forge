@@ -26,8 +26,8 @@ interface TableContentProps {
     filters?: FieldsInterface;
     actions?: React.ReactNode;
     disablePagination?: boolean;
-    title: string | undefined;
-    icon: React.ReactElement | undefined;
+    title?: string;
+    icon?: React.ReactElement;
 }
 
 const TableContent = ({ row, filters, actions, disablePagination, title, icon }: TableContentProps) => {
