@@ -1,6 +1,7 @@
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
 import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
 import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
+import ButtonEndpoint, { ButtonEndpointProps } from "@arteneo/forge/components/Common/ButtonEndpoint";
 import ButtonEndpointConfirmation, {
     ButtonEndpointConfirmationProps,
 } from "@arteneo/forge/components/Common/ButtonEndpointConfirmation";
@@ -194,6 +195,8 @@ export {
     ButtonLinkProps,
     ButtonDownload,
     ButtonDownloadProps,
+    ButtonEndpoint,
+    ButtonEndpointProps,
     ButtonEndpointConfirmation,
     ButtonEndpointConfirmationProps,
     AppDateFnsUtils,
