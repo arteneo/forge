@@ -4,10 +4,10 @@ import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import DateElement from "@arteneo/forge/components/Form/elements/DateElement";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import { KeyboardDatePickerProps } from "@material-ui/pickers";
 
-interface DateProps extends TextFieldInterface {
+interface DateProps extends TextFieldPlaceholderInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -22,8 +22,11 @@ interface DateProps extends TextFieldInterface {
 const Date = ({
     name,
     label,
+    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
+    enableAutoPlaceholder = false,
+    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     onChange,
@@ -37,7 +40,7 @@ const Date = ({
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
+    const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
@@ -74,12 +77,22 @@ const Date = ({
     const resolvedError = getError(name, touched, errors);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const resolvedPlaceholder = getPlaceholder(
+        placeholder,
+        values,
+        touched,
+        errors,
+        name,
+        enableAutoPlaceholder,
+        disableTranslatePlaceholder
+    );
 
     return (
         <DateElement
             {...{
                 name,
                 label: resolvedLabel,
+                placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,

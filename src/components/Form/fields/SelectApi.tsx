@@ -7,7 +7,7 @@ import { FormikValues, FormikProps, useFormikContext } from "formik";
 import SelectElement, {
     SelectElementAutocompleteOptionalProps,
 } from "@arteneo/forge/components/Form/elements/SelectElement";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
@@ -15,7 +15,7 @@ import { SelectValueType } from "@arteneo/forge/components/Form/definitions/Auto
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 import { FormControlProps } from "@material-ui/core";
 
-interface SelectApiProps extends TextFieldInterface {
+interface SelectApiProps extends TextFieldPlaceholderInterface {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     onChange?: (
         name: string,
@@ -42,8 +42,11 @@ const SelectApi = ({
     name,
     endpoint,
     label,
+    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
+    enableAutoPlaceholder = false,
+    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     onChange,
@@ -62,7 +65,7 @@ const SelectApi = ({
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
+    const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
 
@@ -128,6 +131,15 @@ const SelectApi = ({
     const resolvedError = getError(name, touched, errors);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const resolvedPlaceholder = getPlaceholder(
+        placeholder,
+        values,
+        touched,
+        errors,
+        name,
+        enableAutoPlaceholder,
+        disableTranslatePlaceholder
+    );
 
     return (
         <SelectElement
@@ -136,6 +148,7 @@ const SelectApi = ({
                 options,
                 disableTranslateOption,
                 label: resolvedLabel,
+                placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,

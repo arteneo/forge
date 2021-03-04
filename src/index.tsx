@@ -142,6 +142,8 @@ import DateTimeToFilter, { DateTimeToFilterProps } from "@arteneo/forge/componen
 import TimeFromFilter, { TimeFromFilterProps } from "@arteneo/forge/components/Table/filters/TimeFromFilter";
 import TimeToFilter, { TimeToFilterProps } from "@arteneo/forge/components/Table/filters/TimeToFilter";
 import FieldInterface from "@arteneo/forge/components/Form/definitions/FieldInterface";
+import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
+import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
@@ -151,6 +153,8 @@ import FormButtons, { FormButtonsProps } from "@arteneo/forge/components/Form/co
 import PromptIfDirty, { PromptIfDirtyProps } from "@arteneo/forge/components/Form/components/PromptIfDirty";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
+import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import Select, { SelectProps } from "@arteneo/forge/components/Form/fields/Select";
 import SelectApi, { SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
 import SelectElement, {
@@ -159,6 +163,7 @@ import SelectElement, {
     SelectElementAutocompleteOptionalProps,
 } from "@arteneo/forge/components/Form/elements/SelectElement";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
+import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import Currency, { CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
 import CurrencyElement, {
     CurrencyElementProps,
@@ -349,6 +354,8 @@ export {
     LoaderProviderProps,
     useLoader,
     FieldInterface,
+    FieldLabelType,
+    FieldPlaceholderType,
     FieldsInterface,
     ValidationSchemaInterface,
     Form,
@@ -363,6 +370,9 @@ export {
     PromptIfDirtyProps,
     OptionsType,
     OptionInterface,
+    TextFieldInterface,
+    TextFieldPlaceholderInterface,
+    FieldHelpType,
     Select,
     SelectProps,
     SelectApi,

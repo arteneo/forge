@@ -6,6 +6,7 @@ import { formatRFC3339, isValid } from "date-fns";
 interface DateElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -23,7 +24,17 @@ interface DateElementProps {
     fieldProps?: KeyboardDatePickerProps;
 }
 
-const DateElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: DateElementProps) => {
+const DateElement = ({
+    name,
+    label,
+    placeholder,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+}: DateElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     // eslint-disable-next-line
@@ -53,6 +64,7 @@ const DateElement = ({ name, label, error, help, required, disabled, onChange, f
         onChange: callableOnChange,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         disableToolbar: true,

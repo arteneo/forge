@@ -5,6 +5,7 @@ import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 interface PasswordElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -23,6 +24,7 @@ interface PasswordElementProps {
 const PasswordElement = ({
     name,
     label,
+    placeholder,
     error,
     help,
     required,
@@ -52,6 +54,7 @@ const PasswordElement = ({
         onChange: callableOnChange,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         fullWidth: true,
