@@ -8,7 +8,7 @@ import { Link as MuiLink } from "@material-ui/core";
 interface Props {
     url: string;
     linkText: string;
-    style: CSS.Properties | undefined;
+    style?: CSS.Properties;
 }
 
 const Link: React.FC<Props> = ({ url, linkText, style }: Props) => {
