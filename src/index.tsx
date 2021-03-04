@@ -143,6 +143,7 @@ import TimeFromFilter, { TimeFromFilterProps } from "@arteneo/forge/components/T
 import TimeToFilter, { TimeToFilterProps } from "@arteneo/forge/components/Table/filters/TimeToFilter";
 import FieldInterface from "@arteneo/forge/components/Form/definitions/FieldInterface";
 import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
+import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
@@ -354,6 +355,7 @@ export {
     useLoader,
     FieldInterface,
     FieldLabelType,
+    FieldPlaceholderType,
     FieldsInterface,
     ValidationSchemaInterface,
     Form,

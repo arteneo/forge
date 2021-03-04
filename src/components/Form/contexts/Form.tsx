@@ -4,10 +4,11 @@ import { FormikValues, FormikTouched, FormikErrors, getIn, setIn } from "formik"
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { populate } from "@arteneo/forge/utils/common";
-import { resolveReactNodeOrFunction } from "@arteneo/forge/utils/resolve";
+import { resolveReactNodeOrFunction, resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
+import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
 
 interface FormContextProps {
     formikInitialValues: FormikValues;
@@ -31,7 +32,15 @@ interface FormContextProps {
         disableAutoLabel?: boolean,
         disableTranslateLabel?: boolean
     ) => undefined | React.ReactNode;
-    getPlaceholder: (name: string, enableAutoPlaceholder: boolean) => string | undefined;
+    getPlaceholder: (
+        placeholder: FieldPlaceholderType,
+        values: FormikValues,
+        touched: FormikTouched<FormikValues>,
+        errors: FormikErrors<FormikValues>,
+        name: string,
+        enableAutoPlaceholder?: boolean,
+        disableTranslatePlaceholder?: boolean
+    ) => string | undefined;
     getHelp: (
         values: FormikValues,
         touched: FormikTouched<FormikValues>,
@@ -203,8 +212,30 @@ const FormProvider = ({
         return resolvedLabel;
     };
 
-    const getPlaceholder = (name: string, enableAutoPlaceholder: boolean) => {
-        return enableAutoPlaceholder ? t(`label.${name}`) : "";
+    const getPlaceholder = (
+        placeholder: FieldPlaceholderType,
+        values: FormikValues,
+        touched: FormikTouched<FormikValues>,
+        errors: FormikErrors<FormikValues>,
+        name: string,
+        enableAutoPlaceholder?: boolean,
+        disableTranslatePlaceholder?: boolean
+    ) => {
+        let resolvedPlaceholder = resolveAnyOrFunction(placeholder, values, touched, errors, name);
+
+        if (typeof resolvedPlaceholder === "undefined" && enableAutoPlaceholder) {
+            resolvedPlaceholder = name;
+
+            if (!disableTranslatePlaceholder) {
+                return t("label." + resolvedPlaceholder);
+            }
+        }
+
+        if (typeof resolvedPlaceholder === "string" && !disableTranslatePlaceholder) {
+            return t("placeholder." + resolvedPlaceholder);
+        }
+
+        return resolvedPlaceholder;
     };
 
     const getHelp = (
