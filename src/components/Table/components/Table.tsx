@@ -22,6 +22,8 @@ interface TableProps {
     queryKey?: string;
     enableMultipleColumnsSorting?: boolean;
     enableBatchSelect?: boolean;
+    title?: string;
+    icon?: React.ReactElement;
     // eslint-disable-next-line
     custom?: any;
 }
@@ -41,6 +43,8 @@ const Table = ({
     queryKey,
     enableMultipleColumnsSorting,
     enableBatchSelect,
+    title,
+    icon,
     custom,
 }: TableProps) => {
     return (
@@ -59,9 +63,11 @@ const Table = ({
                 enableMultipleColumnsSorting,
                 enableBatchSelect,
                 custom,
+                title,
+                icon,
             }}
         >
-            <TableContent {...{ row, filters, actions, disablePagination }} />
+            <TableContent {...{ row, filters, actions, disablePagination, title, icon }} />
         </TableProvider>
     );
 };
