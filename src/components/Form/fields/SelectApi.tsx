@@ -16,8 +16,7 @@ import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contex
 import { FormControlProps } from "@material-ui/core";
 
 interface SelectApiProps extends TextFieldInterface {
-    //todo rm comment dodanie undefined w endpoinbt powoduje inne problemy - moim zdaniem nie warto
-    endpoint: string | ((values: FormikValues) => undefined | string);
+    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -69,7 +68,7 @@ const SelectApi = ({
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    const resolvedEndpoint = resolveStringOrFunction(endpoint, values);
+    const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 
