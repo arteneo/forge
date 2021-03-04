@@ -74,6 +74,9 @@ import ResultButtonLink, {
 import ResultButtonDownload, {
     ResultButtonDownloadProps,
 } from "@arteneo/forge/components/Table/actions/result/ResultButtonDownload";
+import ResultButtonEndpoint, {
+    ResultButtonEndpointProps,
+} from "@arteneo/forge/components/Table/actions/result/ResultButtonEndpoint";
 import ResultButtonEndpointConfirmation, {
     ResultButtonEndpointConfirmationProps,
 } from "@arteneo/forge/components/Table/actions/result/ResultButtonEndpointConfirmation";
@@ -252,6 +255,8 @@ export {
     ResultButtonLinkProps,
     ResultButtonDownload,
     ResultButtonDownloadProps,
+    ResultButtonEndpoint,
+    ResultButtonEndpointProps,
     ResultButtonEndpointConfirmation,
     ResultButtonEndpointConfirmationProps,
     Edit,
