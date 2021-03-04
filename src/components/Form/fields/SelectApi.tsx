@@ -68,7 +68,7 @@ const SelectApi = ({
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    const resolvedEndpoint = resolveStringOrFunction(endpoint, values);
+    const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 

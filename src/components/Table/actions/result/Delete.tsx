@@ -40,6 +40,7 @@ const Delete = ({ endpoint, confirmationLabel = "crud.confirmation.delete", ...p
                 },
                 buttonProps: {
                     label: "action.delete",
+                    accessKey: "delete",
                     color: "error",
                     variant: "contained",
                 },

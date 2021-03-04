@@ -63,6 +63,7 @@ const ResultButtonEndpointConfirmation = ({
                 requestConfig: resolvedRequestConfig,
                 onSuccess: resolvedOnSuccess,
                 buttonProps: {
+                    deniedAccessList: result?.deniedAccessList,
                     wrapperComponent,
                     wrapperComponentProps,
                     ...buttonProps,

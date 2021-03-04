@@ -28,6 +28,7 @@ const ResultButtonLink = ({ to, result, field, path, ...props }: ResultButtonLin
         <ButtonLink
             {...{
                 to: resolvedTo,
+                deniedAccessList: result?.deniedAccessList,
                 ...props,
             }}
         />

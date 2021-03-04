@@ -26,6 +26,7 @@ const ResultButtonOnClick = ({ onClick, result, field, path, ...props }: ResultB
         <Button
             {...{
                 onClick: () => onClick(value, result, field),
+                deniedAccessList: result?.deniedAccessList,
                 ...props,
             }}
         />
