@@ -66,11 +66,7 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
 
     return (
         <>
-            {filters && (
-                <Paper>
-                    <TableFilters filters={filters} />
-                </Paper>
-            )}
+            {filters && <TableFilters filters={filters} />}
 
             <Paper>
                 {(icon || title) && (
