@@ -163,6 +163,7 @@ import SelectElement, {
     SelectElementAutocompleteOptionalProps,
 } from "@arteneo/forge/components/Form/elements/SelectElement";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
+import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 import Currency, { CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
