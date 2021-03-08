@@ -2,6 +2,7 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextFieldProps, InputAdornment } from "@material-ui/core";
 import CurrencyTextField from "@unicef/material-ui-currency-textfield";
+import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
 /**
  * TODO Prepare props definition for CurrencyTextField based on:
@@ -15,12 +16,7 @@ interface CurrencySymbolFieldProps {
 type CurrencyElementFieldProps = TextFieldProps | CurrencySymbolFieldProps;
 type CurrencyElementSymbolPosition = "start" | "end";
 
-interface CurrencyElementProps {
-    name: string;
-    label?: React.ReactNode;
-    placeholder?: string;
-    error?: string;
-    help?: React.ReactNode;
+interface CurrencyElementProps extends FieldElementPlaceholderInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -31,8 +27,6 @@ interface CurrencyElementProps {
         onChange: () => void,
         values: FormikValues
     ) => void;
-    required: boolean;
-    disabled: boolean;
     currencySymbolPosition?: CurrencyElementSymbolPosition;
     fieldProps?: CurrencyElementFieldProps;
 }

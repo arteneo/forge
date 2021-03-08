@@ -18,6 +18,7 @@ import {
     DisableClearable,
     FreeSolo,
 } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
+import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
 type SelectElementAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
 type SelectElementAutocompletePartialProps<T> = {
@@ -26,14 +27,9 @@ type SelectElementAutocompletePartialProps<T> = {
 // We need to allow passing autocomplete props without required ones. They are filled by component.
 type SelectElementAutocompleteOptionalProps = SelectElementAutocompletePartialProps<SelectElementAutocompleteProps>;
 
-interface SelectElementProps {
-    name: string;
+interface SelectElementProps extends FieldElementPlaceholderInterface {
     options: OptionsType;
     disableTranslateOption?: boolean;
-    label?: React.ReactNode;
-    placeholder?: string;
-    error?: string;
-    help?: React.ReactNode;
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -46,8 +42,6 @@ interface SelectElementProps {
         reason: AutocompleteChangeReason,
         details?: AutocompleteChangeDetails<OptionInterface>
     ) => void;
-    required: boolean;
-    disabled: boolean;
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
     autocompleteProps?: SelectElementAutocompleteOptionalProps;

@@ -8,12 +8,9 @@ import {
     FormControlLabel,
     FormControlLabelProps,
 } from "@material-ui/core";
+import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
 
-interface CheckboxElementProps {
-    name: string;
-    label?: React.ReactNode;
-    error?: string;
-    help?: React.ReactNode;
+interface CheckboxElementProps extends FieldElementInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -24,8 +21,6 @@ interface CheckboxElementProps {
         onChange: () => void,
         values: FormikValues
     ) => void;
-    required: boolean;
-    disabled: boolean;
     formControlLabelProps?: FormControlLabelProps;
     formControlProps?: FormControlProps;
 }

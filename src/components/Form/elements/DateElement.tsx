@@ -2,13 +2,9 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { KeyboardDatePicker, KeyboardDatePickerProps } from "@material-ui/pickers";
 import { formatRFC3339, isValid } from "date-fns";
+import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface DateElementProps {
-    name: string;
-    label?: React.ReactNode;
-    placeholder?: string;
-    error?: string;
-    help?: React.ReactNode;
+interface DateElementProps extends FieldElementPlaceholderInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -19,8 +15,6 @@ interface DateElementProps {
         values: FormikValues,
         value?: string | null
     ) => void;
-    required: boolean;
-    disabled: boolean;
     fieldProps?: KeyboardDatePickerProps;
 }
 

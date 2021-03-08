@@ -1,13 +1,9 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { makeStyles, TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface TextareaElementProps {
-    name: string;
-    label?: React.ReactNode;
-    placeholder?: string;
-    error?: string;
-    help?: React.ReactNode;
+interface TextareaElementProps extends FieldElementPlaceholderInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -16,8 +12,6 @@ interface TextareaElementProps {
         onChange: () => void,
         values: FormikValues
     ) => void;
-    required: boolean;
-    disabled: boolean;
     disableResize?: boolean;
     fieldProps?: TextFieldProps;
 }
