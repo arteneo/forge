@@ -5,18 +5,20 @@ import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/def
 
 interface TextElementProps extends FieldElementPlaceholderInterface {
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
         onChange: () => void,
-        values: FormikValues
+        values: FormikValues,
+        name: string
     ) => void;
     fieldProps?: TextFieldProps;
 }
 
 const TextElement = ({
     name,
+    path,
     label,
     placeholder,
     error,
@@ -29,12 +31,12 @@ const TextElement = ({
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFieldValue(name, event.currentTarget.value);
+        setFieldValue(path, event.currentTarget.value);
     };
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, () => defaultOnChange(event), values);
+            onChange(path, setFieldValue, event, () => defaultOnChange(event), values, name);
             return;
         }
 
@@ -43,7 +45,7 @@ const TextElement = ({
 
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
-        value: getIn(values, name, ""),
+        value: getIn(values, path, ""),
         onChange: callableOnChange,
         error: hasError,
         label,

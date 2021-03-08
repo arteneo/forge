@@ -6,13 +6,14 @@ import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/def
 
 interface TimeElementProps extends FieldElementPlaceholderInterface {
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         // eslint-disable-next-line
         date: any,
         onChange: () => void,
         values: FormikValues,
+        name: string,
         value?: string | null
     ) => void;
     fieldProps?: KeyboardTimePickerProps;
@@ -20,6 +21,7 @@ interface TimeElementProps extends FieldElementPlaceholderInterface {
 
 const TimeElement = ({
     name,
+    path,
     label,
     placeholder,
     error,
@@ -34,18 +36,18 @@ const TimeElement = ({
     // eslint-disable-next-line
     const defaultOnChange = (date: any, value?: string | null) => {
         if (isValid(date)) {
-            setFieldValue(name, formatRFC3339(date));
+            setFieldValue(path, formatRFC3339(date));
             return;
         }
 
-        setFieldValue(name, null);
+        setFieldValue(path, null);
     };
 
     // eslint-disable-next-line
     const callableOnChange = (date: any, value?: string | null) => {
         if (onChange) {
             // Parameters are swapped for convenience
-            onChange(name, setFieldValue, date, () => defaultOnChange(date, value), values, value);
+            onChange(path, setFieldValue, date, () => defaultOnChange(date, value), values, name, value);
             return;
         }
 
@@ -54,7 +56,7 @@ const TimeElement = ({
 
     const hasError = error ? true : false;
     const internalFieldProps: KeyboardTimePickerProps = {
-        value: getIn(values, name, null),
+        value: getIn(values, path, null),
         onChange: callableOnChange,
         error: hasError,
         label,

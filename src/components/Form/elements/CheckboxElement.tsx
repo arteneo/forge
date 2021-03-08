@@ -12,14 +12,15 @@ import FieldElementInterface from "@arteneo/forge/components/Form/definitions/Fi
 
 interface CheckboxElementProps extends FieldElementInterface {
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         // eslint-disable-next-line
         event: React.ChangeEvent<{}>,
         checked: boolean,
         onChange: () => void,
-        values: FormikValues
+        values: FormikValues,
+        name: string
     ) => void;
     formControlLabelProps?: FormControlLabelProps;
     formControlProps?: FormControlProps;
@@ -27,6 +28,7 @@ interface CheckboxElementProps extends FieldElementInterface {
 
 const CheckboxElement = ({
     name,
+    path,
     label,
     error,
     help,
@@ -40,13 +42,13 @@ const CheckboxElement = ({
 
     // eslint-disable-next-line
     const defaultOnChange = (event: React.ChangeEvent<{}>, checked: boolean) => {
-        setFieldValue(name, checked);
+        setFieldValue(path, checked);
     };
 
     // eslint-disable-next-line
     const callableOnChange = (event: React.ChangeEvent<{}>, checked: boolean) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, checked, () => defaultOnChange(event, checked), values);
+            onChange(path, setFieldValue, event, checked, () => defaultOnChange(event, checked), values, name);
             return;
         }
 
@@ -61,7 +63,7 @@ const CheckboxElement = ({
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
     const internalFormControlLabelProps: FormControlLabelProps = {
-        checked: Boolean(getIn(values, name, false)),
+        checked: Boolean(getIn(values, path, false)),
         control: <MuiCheckbox {...{ required }} />,
         onChange: callableOnChange,
         label,

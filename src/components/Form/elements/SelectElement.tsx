@@ -31,7 +31,7 @@ interface SelectElementProps extends FieldElementPlaceholderInterface {
     options: OptionsType;
     disableTranslateOption?: boolean;
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         value: SelectValueType,
@@ -40,6 +40,7 @@ interface SelectElementProps extends FieldElementPlaceholderInterface {
         // eslint-disable-next-line
         event: React.ChangeEvent<{}>,
         reason: AutocompleteChangeReason,
+        name: string,
         details?: AutocompleteChangeDetails<OptionInterface>
     ) => void;
     groupBy?: (option: OptionInterface) => string;
@@ -50,6 +51,7 @@ interface SelectElementProps extends FieldElementPlaceholderInterface {
 
 const SelectElement = ({
     name,
+    path,
     options,
     label,
     placeholder,
@@ -71,12 +73,10 @@ const SelectElement = ({
         // eslint-disable-next-line
         event: React.ChangeEvent<{}>,
         value: SelectValueType,
-        reason: AutocompleteChangeReason,
-        // eslint-disable-next-line
-        details?: AutocompleteChangeDetails<OptionInterface>
+        reason: AutocompleteChangeReason
     ) => {
         if (reason === "clear") {
-            setFieldValue(name, null);
+            setFieldValue(path, null);
             return;
         }
 
@@ -84,7 +84,7 @@ const SelectElement = ({
             return;
         }
 
-        setFieldValue(name, value.id);
+        setFieldValue(path, value.id);
     };
 
     const callableOnChange = (
@@ -97,19 +97,20 @@ const SelectElement = ({
         if (onChange) {
             // Parameters are swapped for convenience
             onChange(
-                name,
+                path,
                 setFieldValue,
                 value,
-                () => defaultOnChange(event, value, reason, details),
+                () => defaultOnChange(event, value, reason),
                 values,
                 event,
                 reason,
+                name,
                 details
             );
             return;
         }
 
-        defaultOnChange(event, value, reason, details);
+        defaultOnChange(event, value, reason);
     };
 
     const hasError = error ? true : false;
@@ -149,7 +150,7 @@ const SelectElement = ({
             disableTranslateGroupBy ? groupBy(option) : t(groupBy(option));
     }
 
-    const value = getIn(values, name, undefined);
+    const value = getIn(values, path, undefined);
     if (typeof value !== "undefined") {
         const optionSelected = options.find((option) => {
             return option.id == value;

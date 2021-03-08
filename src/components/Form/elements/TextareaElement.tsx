@@ -5,12 +5,13 @@ import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/def
 
 interface TextareaElementProps extends FieldElementPlaceholderInterface {
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
         onChange: () => void,
-        values: FormikValues
+        values: FormikValues,
+        name: string
     ) => void;
     disableResize?: boolean;
     fieldProps?: TextFieldProps;
@@ -26,6 +27,7 @@ const useStyles = makeStyles(() => ({
 
 const TextareaElement = ({
     name,
+    path,
     label,
     placeholder,
     error,
@@ -40,12 +42,12 @@ const TextareaElement = ({
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFieldValue(name, event.currentTarget.value);
+        setFieldValue(path, event.currentTarget.value);
     };
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, () => defaultOnChange(event), values);
+            onChange(path, setFieldValue, event, () => defaultOnChange(event), values, name);
             return;
         }
 
@@ -54,7 +56,7 @@ const TextareaElement = ({
 
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
-        value: getIn(values, name, ""),
+        value: getIn(values, path, ""),
         onChange: callableOnChange,
         className: disableResize ? undefined : classes.resize,
         error: hasError,

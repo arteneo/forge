@@ -18,14 +18,15 @@ type CurrencyElementSymbolPosition = "start" | "end";
 
 interface CurrencyElementProps extends FieldElementPlaceholderInterface {
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
         // eslint-disable-next-line
         value: any,
         onChange: () => void,
-        values: FormikValues
+        values: FormikValues,
+        name: string
     ) => void;
     currencySymbolPosition?: CurrencyElementSymbolPosition;
     fieldProps?: CurrencyElementFieldProps;
@@ -33,6 +34,7 @@ interface CurrencyElementProps extends FieldElementPlaceholderInterface {
 
 const Currency = ({
     name,
+    path,
     label,
     placeholder,
     error,
@@ -48,24 +50,24 @@ const Currency = ({
     // eslint-disable-next-line
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>, value: any) => {
         if (typeof value === "number") {
-            setFieldValue(name, value * 100);
+            setFieldValue(path, value * 100);
             return;
         }
 
-        setFieldValue(name, "");
+        setFieldValue(path, "");
     };
 
     // eslint-disable-next-line
     const onBlur = (event: React.ChangeEvent<HTMLInputElement>, value: any) => {
         if (event?.target?.value === "") {
-            setFieldValue(name, "");
+            setFieldValue(path, "");
         }
     };
 
     // eslint-disable-next-line
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>, value: any) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, value, () => defaultOnChange(event, value), values);
+            onChange(path, setFieldValue, event, value, () => defaultOnChange(event, value), values, name);
             return;
         }
 
@@ -73,7 +75,7 @@ const Currency = ({
     };
 
     const hasError = error ? true : false;
-    const value = getIn(values, name, "");
+    const value = getIn(values, path, "");
     const resolvedValue = typeof value === "number" ? value / 100 : "";
 
     // We cannot use TextFieldProps. Best would be CurrencyTextField definitions, but we do not have them
