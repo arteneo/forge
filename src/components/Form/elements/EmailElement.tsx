@@ -15,7 +15,17 @@ interface EmailElementProps extends FieldElementPlaceholderInterface {
     fieldProps?: TextFieldProps;
 }
 
-const EmailElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: EmailElementProps) => {
+const EmailElement = ({
+    name,
+    label,
+    placeholder,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+}: EmailElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +48,7 @@ const EmailElement = ({ name, label, error, help, required, disabled, onChange, 
         onChange: callableOnChange,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         fullWidth: true,
