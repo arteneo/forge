@@ -5,6 +5,7 @@ import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabe
 interface FieldInterface {
     // name is added to props by FormContent
     name?: string;
+    path?: string;
     label?: FieldLabelType;
     disableAutoLabel?: boolean;
     disableTranslateLabel?: boolean;

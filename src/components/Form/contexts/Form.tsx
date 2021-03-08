@@ -17,9 +17,9 @@ interface FormContextProps {
     isReady: (name: string) => boolean;
     // eslint-disable-next-line
     setValidationSchema: (name: string, validationSchema: any) => void;
-    hasError: (name: string, touched: FormikTouched<FormikValues>, errors: FormikErrors<FormikValues>) => boolean;
+    hasError: (path: string, touched: FormikTouched<FormikValues>, errors: FormikErrors<FormikValues>) => boolean;
     getError: (
-        name: string,
+        path: string,
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>
     ) => undefined | string;
@@ -170,24 +170,24 @@ const FormProvider = ({
     };
 
     const hasError = (
-        name: string,
+        path: string,
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>
     ): boolean => {
-        const error = getIn(errors, name);
-        return Boolean(getIn(touched, name)) && typeof error === "string" && Boolean(error);
+        const error = getIn(errors, path);
+        return Boolean(getIn(touched, path)) && typeof error === "string" && Boolean(error);
     };
 
     const getError = (
-        name: string,
+        path: string,
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>
     ): undefined | string => {
-        if (!hasError(name, touched, errors)) {
+        if (!hasError(path, touched, errors)) {
             return undefined;
         }
 
-        return t(String(getIn(errors, name)));
+        return t(String(getIn(errors, path)));
     };
 
     const getLabel = (

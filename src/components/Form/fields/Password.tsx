@@ -10,6 +10,7 @@ type PasswordProps = PasswordElementSpecificProps & TextFieldPlaceholderInterfac
 
 const Password = ({
     name,
+    path,
     label,
     placeholder,
     disableAutoLabel = false,
@@ -61,8 +62,9 @@ const Password = ({
         return null;
     }
 
+    const resolvedPath = path ? path : name;
     const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(name, touched, errors);
+    const resolvedError = getError(resolvedPath, touched, errors);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
     const resolvedPlaceholder = getPlaceholder(
@@ -79,6 +81,7 @@ const Password = ({
         <PasswordElement
             {...{
                 name,
+                path: resolvedPath,
                 label: resolvedLabel,
                 placeholder: resolvedPlaceholder,
                 error: resolvedError,
