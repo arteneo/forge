@@ -27,7 +27,7 @@ type SelectElementAutocompletePartialProps<T> = {
 // We need to allow passing autocomplete props without required ones. They are filled by component.
 type SelectElementAutocompleteOptionalProps = SelectElementAutocompletePartialProps<SelectElementAutocompleteProps>;
 
-interface SelectElementProps extends FieldElementPlaceholderInterface {
+interface SelectElementSpecificProps {
     options: OptionsType;
     disableTranslateOption?: boolean;
     onChange?: (
@@ -48,6 +48,8 @@ interface SelectElementProps extends FieldElementPlaceholderInterface {
     autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
+
+type SelectElementProps = SelectElementSpecificProps & FieldElementPlaceholderInterface;
 
 const SelectElement = ({
     name,
@@ -181,4 +183,9 @@ const SelectElement = ({
 };
 
 export default SelectElement;
-export { SelectElementProps, SelectElementAutocompleteProps, SelectElementAutocompleteOptionalProps };
+export {
+    SelectElementProps,
+    SelectElementSpecificProps,
+    SelectElementAutocompleteProps,
+    SelectElementAutocompleteOptionalProps,
+};

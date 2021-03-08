@@ -159,6 +159,7 @@ import Select, { SelectProps } from "@arteneo/forge/components/Form/fields/Selec
 import SelectApi, { SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
 import SelectElement, {
     SelectElementProps,
+    SelectElementSpecificProps,
     SelectElementAutocompleteProps,
     SelectElementAutocompleteOptionalProps,
 } from "@arteneo/forge/components/Form/elements/SelectElement";
@@ -169,25 +170,50 @@ import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/def
 import Currency, { CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
 import CurrencyElement, {
     CurrencyElementProps,
+    CurrencyElementSpecificProps,
     CurrencyElementFieldProps,
     CurrencyElementSymbolPosition,
 } from "@arteneo/forge/components/Form/elements/CurrencyElement";
 import Textarea, { TextareaProps } from "@arteneo/forge/components/Form/fields/Textarea";
-import TextareaElement, { TextareaElementProps } from "@arteneo/forge/components/Form/elements/TextareaElement";
+import TextareaElement, {
+    TextareaElementProps,
+    TextareaElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/TextareaElement";
 import Text, { TextProps } from "@arteneo/forge/components/Form/fields/Text";
-import TextElement, { TextElementProps } from "@arteneo/forge/components/Form/elements/TextElement";
+import TextElement, {
+    TextElementProps,
+    TextElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/TextElement";
 import Email, { EmailProps } from "@arteneo/forge/components/Form/fields/Email";
-import EmailElement, { EmailElementProps } from "@arteneo/forge/components/Form/elements/EmailElement";
+import EmailElement, {
+    EmailElementProps,
+    EmailElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/EmailElement";
 import Password, { PasswordProps } from "@arteneo/forge/components/Form/fields/Password";
-import PasswordElement, { PasswordElementProps } from "@arteneo/forge/components/Form/elements/PasswordElement";
+import PasswordElement, {
+    PasswordElementProps,
+    PasswordElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/PasswordElement";
 import Date, { DateProps } from "@arteneo/forge/components/Form/fields/Date";
-import DateElement, { DateElementProps } from "@arteneo/forge/components/Form/elements/DateElement";
+import DateElement, {
+    DateElementProps,
+    DateElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/DateElement";
 import DateTime, { DateTimeProps } from "@arteneo/forge/components/Form/fields/DateTime";
-import DateTimeElement, { DateTimeElementProps } from "@arteneo/forge/components/Form/elements/DateTimeElement";
+import DateTimeElement, {
+    DateTimeElementProps,
+    DateTimeElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/DateTimeElement";
 import Time, { TimeProps } from "@arteneo/forge/components/Form/fields/Time";
-import TimeElement, { TimeElementProps } from "@arteneo/forge/components/Form/elements/TimeElement";
+import TimeElement, {
+    TimeElementProps,
+    TimeElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/TimeElement";
 import Checkbox, { CheckboxProps } from "@arteneo/forge/components/Form/fields/Checkbox";
-import CheckboxElement, { CheckboxElementProps } from "@arteneo/forge/components/Form/elements/CheckboxElement";
+import CheckboxElement, {
+    CheckboxElementProps,
+    CheckboxElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/CheckboxElement";
 import Collection, { CollectionProps } from "@arteneo/forge/components/Form/fields/Collection";
 import {
     resolveAnyOrFunction,
@@ -383,6 +409,7 @@ export {
     SelectApiProps,
     SelectElement,
     SelectElementProps,
+    SelectElementSpecificProps,
     SelectElementAutocompleteProps,
     SelectElementAutocompleteOptionalProps,
     SelectValueType,
@@ -390,40 +417,49 @@ export {
     CurrencyProps,
     CurrencyElement,
     CurrencyElementProps,
+    CurrencyElementSpecificProps,
     CurrencyElementFieldProps,
     CurrencyElementSymbolPosition,
     Textarea,
     TextareaProps,
     TextareaElement,
     TextareaElementProps,
+    TextareaElementSpecificProps,
     Text,
     TextProps,
     TextElement,
     TextElementProps,
+    TextElementSpecificProps,
     Email,
     EmailProps,
     EmailElement,
     EmailElementProps,
+    EmailElementSpecificProps,
     Password,
     PasswordProps,
     PasswordElement,
     PasswordElementProps,
+    PasswordElementSpecificProps,
     Date,
     DateProps,
     DateElement,
     DateElementProps,
+    DateElementSpecificProps,
     DateTime,
     DateTimeProps,
     DateTimeElement,
     DateTimeElementProps,
+    DateTimeElementSpecificProps,
     Time,
     TimeProps,
     TimeElement,
     TimeElementProps,
+    TimeElementSpecificProps,
     Checkbox,
     CheckboxProps,
     CheckboxElement,
     CheckboxElementProps,
+    CheckboxElementSpecificProps,
     Collection,
     CollectionProps,
     resolveAnyOrFunction,

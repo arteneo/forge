@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
 
-interface CheckboxElementProps extends FieldElementInterface {
+interface CheckboxElementSpecificProps {
     onChange?: (
         path: string,
         // eslint-disable-next-line
@@ -25,6 +25,8 @@ interface CheckboxElementProps extends FieldElementInterface {
     formControlLabelProps?: FormControlLabelProps;
     formControlProps?: FormControlProps;
 }
+
+type CheckboxElementProps = CheckboxElementSpecificProps & FieldElementInterface;
 
 const CheckboxElement = ({
     name,
@@ -93,4 +95,4 @@ const CheckboxElement = ({
 };
 
 export default CheckboxElement;
-export { CheckboxElementProps };
+export { CheckboxElementProps, CheckboxElementSpecificProps };

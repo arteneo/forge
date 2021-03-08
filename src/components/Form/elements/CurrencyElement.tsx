@@ -16,7 +16,7 @@ interface CurrencySymbolFieldProps {
 type CurrencyElementFieldProps = TextFieldProps | CurrencySymbolFieldProps;
 type CurrencyElementSymbolPosition = "start" | "end";
 
-interface CurrencyElementProps extends FieldElementPlaceholderInterface {
+interface CurrencyElementSpecificProps {
     onChange?: (
         path: string,
         // eslint-disable-next-line
@@ -31,6 +31,8 @@ interface CurrencyElementProps extends FieldElementPlaceholderInterface {
     currencySymbolPosition?: CurrencyElementSymbolPosition;
     fieldProps?: CurrencyElementFieldProps;
 }
+
+type CurrencyElementProps = CurrencyElementSpecificProps & FieldElementPlaceholderInterface;
 
 const Currency = ({
     name,
@@ -127,4 +129,4 @@ const Currency = ({
 };
 
 export default Currency;
-export { CurrencyElementProps, CurrencyElementFieldProps, CurrencyElementSymbolPosition };
+export { CurrencyElementProps, CurrencyElementSpecificProps, CurrencyElementFieldProps, CurrencyElementSymbolPosition };

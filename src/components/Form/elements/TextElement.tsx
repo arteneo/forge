@@ -3,7 +3,7 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface TextElementProps extends FieldElementPlaceholderInterface {
+interface TextElementSpecificProps {
     onChange?: (
         path: string,
         // eslint-disable-next-line
@@ -15,6 +15,8 @@ interface TextElementProps extends FieldElementPlaceholderInterface {
     ) => void;
     fieldProps?: TextFieldProps;
 }
+
+type TextElementProps = TextElementSpecificProps & FieldElementPlaceholderInterface;
 
 const TextElement = ({
     name,
@@ -73,4 +75,4 @@ const TextElement = ({
 };
 
 export default TextElement;
-export { TextElementProps };
+export { TextElementProps, TextElementSpecificProps };

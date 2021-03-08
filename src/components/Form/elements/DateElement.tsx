@@ -4,7 +4,7 @@ import { KeyboardDatePicker, KeyboardDatePickerProps } from "@material-ui/picker
 import { formatRFC3339, isValid } from "date-fns";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface DateElementProps extends FieldElementPlaceholderInterface {
+interface DateElementSpecificProps {
     onChange?: (
         path: string,
         // eslint-disable-next-line
@@ -18,6 +18,8 @@ interface DateElementProps extends FieldElementPlaceholderInterface {
     ) => void;
     fieldProps?: KeyboardDatePickerProps;
 }
+
+type DateElementProps = DateElementSpecificProps & FieldElementPlaceholderInterface;
 
 const DateElement = ({
     name,
@@ -87,4 +89,4 @@ const DateElement = ({
 };
 
 export default DateElement;
-export { DateElementProps };
+export { DateElementProps, DateElementSpecificProps };

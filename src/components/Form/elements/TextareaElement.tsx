@@ -3,7 +3,7 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { makeStyles, TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface TextareaElementProps extends FieldElementPlaceholderInterface {
+interface TextareaElementSpecificProps {
     onChange?: (
         path: string,
         // eslint-disable-next-line
@@ -16,6 +16,8 @@ interface TextareaElementProps extends FieldElementPlaceholderInterface {
     disableResize?: boolean;
     fieldProps?: TextFieldProps;
 }
+
+type TextareaElementProps = TextareaElementSpecificProps & FieldElementPlaceholderInterface;
 
 const useStyles = makeStyles(() => ({
     resize: {
@@ -88,4 +90,4 @@ const TextareaElement = ({
 };
 
 export default TextareaElement;
-export { TextareaElementProps };
+export { TextareaElementProps, TextareaElementSpecificProps };

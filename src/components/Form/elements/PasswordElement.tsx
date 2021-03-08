@@ -3,7 +3,7 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface PasswordElementProps extends FieldElementPlaceholderInterface {
+interface PasswordElementSpecificProps {
     onChange?: (
         path: string,
         // eslint-disable-next-line
@@ -15,6 +15,8 @@ interface PasswordElementProps extends FieldElementPlaceholderInterface {
     ) => void;
     fieldProps?: TextFieldProps;
 }
+
+type PasswordElementProps = PasswordElementSpecificProps & FieldElementPlaceholderInterface;
 
 const PasswordElement = ({
     name,
@@ -74,4 +76,4 @@ const PasswordElement = ({
 };
 
 export default PasswordElement;
-export { PasswordElementProps };
+export { PasswordElementProps, PasswordElementSpecificProps };

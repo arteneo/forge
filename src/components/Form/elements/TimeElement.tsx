@@ -4,7 +4,7 @@ import { KeyboardTimePicker, KeyboardTimePickerProps } from "@material-ui/picker
 import { formatRFC3339, isValid } from "date-fns";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface TimeElementProps extends FieldElementPlaceholderInterface {
+interface TimeElementSpecificProps {
     onChange?: (
         path: string,
         // eslint-disable-next-line
@@ -18,6 +18,8 @@ interface TimeElementProps extends FieldElementPlaceholderInterface {
     ) => void;
     fieldProps?: KeyboardTimePickerProps;
 }
+
+type TimeElementProps = TimeElementSpecificProps & FieldElementPlaceholderInterface;
 
 const TimeElement = ({
     name,
@@ -88,4 +90,4 @@ const TimeElement = ({
 };
 
 export default TimeElement;
-export { TimeElementProps };
+export { TimeElementProps, TimeElementSpecificProps };
