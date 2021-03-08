@@ -1,5 +1,6 @@
 interface FieldElementInterface {
     name: string;
+    path: string;
     label?: React.ReactNode;
     error?: string;
     help?: React.ReactNode;
