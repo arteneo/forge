@@ -3,24 +3,10 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import CheckboxElement from "@arteneo/forge/components/Form/elements/CheckboxElement";
-import { FormControlProps, FormControlLabelProps } from "@material-ui/core";
+import CheckboxElement, { CheckboxElementSpecificProps } from "@arteneo/forge/components/Form/elements/CheckboxElement";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
-interface CheckboxProps extends TextFieldInterface {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        // eslint-disable-next-line
-        event: React.ChangeEvent<{}>,
-        checked: boolean,
-        onChange: () => void,
-        values: FormikValues
-    ) => void;
-    formControlLabelProps?: FormControlLabelProps;
-    formControlProps?: FormControlProps;
-}
+type CheckboxProps = CheckboxElementSpecificProps & TextFieldInterface;
 
 const Checkbox = ({
     name,
@@ -29,13 +15,11 @@ const Checkbox = ({
     disableTranslateLabel = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    formControlLabelProps,
-    formControlProps,
+    ...elementSpecificProps
 }: CheckboxProps) => {
     if (typeof name === "undefined") {
         throw new Error("Email component: name is required prop. By default it is injected by FormContent.");
@@ -89,9 +73,7 @@ const Checkbox = ({
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                formControlLabelProps,
-                formControlProps,
+                ...elementSpecificProps,
             }}
         />
     );

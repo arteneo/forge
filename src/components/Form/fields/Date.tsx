@@ -3,21 +3,10 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import DateElement from "@arteneo/forge/components/Form/elements/DateElement";
+import DateElement, { DateElementSpecificProps } from "@arteneo/forge/components/Form/elements/DateElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
-import { KeyboardDatePickerProps } from "@material-ui/pickers";
 
-interface DateProps extends TextFieldPlaceholderInterface {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void,
-        values: FormikValues
-    ) => void;
-    fieldProps?: KeyboardDatePickerProps;
-}
+type DateProps = DateElementSpecificProps & TextFieldPlaceholderInterface;
 
 const Date = ({
     name,
@@ -29,12 +18,11 @@ const Date = ({
     disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    fieldProps,
+    ...elementSpecificProps
 }: DateProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
@@ -97,8 +85,7 @@ const Date = ({
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                fieldProps,
+                ...elementSpecificProps,
             }}
         />
     );

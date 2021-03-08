@@ -3,39 +3,13 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, {
-    SelectElementAutocompleteOptionalProps,
-} from "@arteneo/forge/components/Form/elements/SelectElement";
+import SelectElement, { SelectElementSpecificProps } from "@arteneo/forge/components/Form/elements/SelectElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
-import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
-import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
-import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
-import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
-import { FormControlProps } from "@material-ui/core";
 
-interface SelectProps extends TextFieldPlaceholderInterface {
-    options: OptionsType;
-    disableTranslateOption?: boolean;
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        value: SelectValueType,
-        onChange: () => void,
-        values: FormikValues,
-        // eslint-disable-next-line
-        event: React.ChangeEvent<{}>,
-        reason: AutocompleteChangeReason,
-        details?: AutocompleteChangeDetails<OptionInterface>
-    ) => void;
-    autocompleteProps?: SelectElementAutocompleteOptionalProps;
-    formControlProps?: FormControlProps;
-}
+type SelectProps = SelectElementSpecificProps & TextFieldPlaceholderInterface;
 
 const Select = ({
     name,
-    options,
-    disableTranslateOption = false,
     label,
     placeholder,
     disableAutoLabel = false,
@@ -44,13 +18,11 @@ const Select = ({
     disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    autocompleteProps,
-    formControlProps,
+    ...elementSpecificProps
 }: SelectProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
@@ -107,17 +79,13 @@ const Select = ({
         <SelectElement
             {...{
                 name,
-                options,
-                disableTranslateOption,
                 label: resolvedLabel,
                 placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                autocompleteProps,
-                formControlProps,
+                ...elementSpecificProps,
             }}
         />
     );

@@ -3,26 +3,10 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import CurrencyElement, {
-    CurrencyElementFieldProps,
-    CurrencyElementSymbolPosition,
-} from "@arteneo/forge/components/Form/elements/CurrencyElement";
+import CurrencyElement, { CurrencyElementSpecificProps } from "@arteneo/forge/components/Form/elements/CurrencyElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 
-interface CurrencyProps extends TextFieldPlaceholderInterface {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        event: React.ChangeEvent<HTMLInputElement>,
-        // eslint-disable-next-line
-        value: any,
-        onChange: () => void,
-        values: FormikValues
-    ) => void;
-    fieldProps?: CurrencyElementFieldProps;
-    currencySymbolPosition?: CurrencyElementSymbolPosition;
-}
+type CurrencyProps = CurrencyElementSpecificProps & TextFieldPlaceholderInterface;
 
 const Currency = ({
     name,
@@ -34,13 +18,11 @@ const Currency = ({
     disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    fieldProps,
-    currencySymbolPosition,
+    ...elementSpecificProps
 }: CurrencyProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
@@ -103,9 +85,7 @@ const Currency = ({
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                currencySymbolPosition,
-                fieldProps,
+                ...elementSpecificProps,
             }}
         />
     );

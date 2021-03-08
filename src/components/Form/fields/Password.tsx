@@ -3,21 +3,10 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import PasswordElement from "@arteneo/forge/components/Form/elements/PasswordElement";
-import { TextFieldProps } from "@material-ui/core";
+import PasswordElement, { PasswordElementSpecificProps } from "@arteneo/forge/components/Form/elements/PasswordElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 
-interface PasswordProps extends TextFieldPlaceholderInterface {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void,
-        values: FormikValues
-    ) => void;
-    fieldProps?: TextFieldProps;
-}
+type PasswordProps = PasswordElementSpecificProps & TextFieldPlaceholderInterface;
 
 const Password = ({
     name,
@@ -29,12 +18,11 @@ const Password = ({
     disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    fieldProps,
+    ...elementSpecificProps
 }: PasswordProps) => {
     if (typeof name === "undefined") {
         throw new Error("Password component: name is required prop. By default it is injected by FormContent.");
@@ -97,8 +85,7 @@ const Password = ({
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                fieldProps,
+                ...elementSpecificProps,
             }}
         />
     );

@@ -3,22 +3,10 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextareaElement from "@arteneo/forge/components/Form/elements/TextareaElement";
-import { TextFieldProps } from "@material-ui/core";
+import TextareaElement, { TextareaElementSpecificProps } from "@arteneo/forge/components/Form/elements/TextareaElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 
-interface TextareaProps extends TextFieldPlaceholderInterface {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void,
-        values: FormikValues
-    ) => void;
-    disableResize?: boolean;
-    fieldProps?: TextFieldProps;
-}
+type TextareaProps = TextareaElementSpecificProps & TextFieldPlaceholderInterface;
 
 const Textarea = ({
     name,
@@ -30,13 +18,11 @@ const Textarea = ({
     disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    disableResize = false,
-    fieldProps,
+    ...elementSpecificProps
 }: TextareaProps) => {
     if (typeof name === "undefined") {
         throw new Error("Textarea component: name is required prop. By default it is injected by FormContent.");
@@ -99,9 +85,7 @@ const Textarea = ({
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                disableResize,
-                fieldProps,
+                ...elementSpecificProps,
             }}
         />
     );

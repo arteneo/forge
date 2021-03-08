@@ -4,39 +4,20 @@ import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, {
-    SelectElementAutocompleteOptionalProps,
-} from "@arteneo/forge/components/Form/elements/SelectElement";
+import SelectElement, { SelectElementSpecificProps } from "@arteneo/forge/components/Form/elements/SelectElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
-import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
-import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
-import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
-import { FormControlProps } from "@material-ui/core";
 
-interface SelectApiProps extends TextFieldPlaceholderInterface {
+interface SelectApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        value: SelectValueType,
-        onChange: () => void,
-        values: FormikValues,
-        // eslint-disable-next-line
-        event: React.ChangeEvent<{}>,
-        reason: AutocompleteChangeReason,
-        details?: AutocompleteChangeDetails<OptionInterface>
-    ) => void;
-    groupBy?: (option: OptionInterface) => string;
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
-    disableTranslateGroupBy?: boolean;
-    disableTranslateOption?: boolean;
-    autocompleteProps?: SelectElementAutocompleteOptionalProps;
-    formControlProps?: FormControlProps;
 }
+
+type SelectApiProps = SelectApiInternalProps &
+    Omit<SelectElementSpecificProps, "options"> &
+    TextFieldPlaceholderInterface;
 
 const SelectApi = ({
     name,
@@ -49,17 +30,13 @@ const SelectApi = ({
     disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    groupBy,
     loadUseEffectDependency,
-    disableTranslateGroupBy,
     disableTranslateOption = true,
-    autocompleteProps,
-    formControlProps,
+    ...elementSpecificProps
 }: SelectApiProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
@@ -153,11 +130,7 @@ const SelectApi = ({
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                groupBy,
-                disableTranslateGroupBy,
-                autocompleteProps,
-                formControlProps,
+                ...elementSpecificProps,
             }}
         />
     );

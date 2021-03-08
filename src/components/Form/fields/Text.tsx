@@ -3,21 +3,10 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextElement from "@arteneo/forge/components/Form/elements/TextElement";
-import { TextFieldProps } from "@material-ui/core";
+import TextElement, { TextElementSpecificProps } from "@arteneo/forge/components/Form/elements/TextElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 
-interface TextProps extends TextFieldPlaceholderInterface {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void,
-        values: FormikValues
-    ) => void;
-    fieldProps?: TextFieldProps;
-}
+type TextProps = TextElementSpecificProps & TextFieldPlaceholderInterface;
 
 const Text = ({
     name,
@@ -29,12 +18,11 @@ const Text = ({
     disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    fieldProps,
+    ...elementSpecificProps
 }: TextProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
@@ -97,8 +85,7 @@ const Text = ({
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                fieldProps,
+                ...elementSpecificProps,
             }}
         />
     );
