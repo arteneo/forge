@@ -27,42 +27,42 @@ const Checkbox = ({
     }
 
     const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
-    const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
+    const resolvedPath = path ? path : name;
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
     const updateValidationSchema = () => {
         if (resolvedHidden) {
-            setValidationSchema(name, null);
+            setValidationSchema(resolvedPath, null);
             return;
         }
 
         if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.boolean().oneOf([true], "validation.required"));
+            setValidationSchema(resolvedPath, Yup.boolean().oneOf([true], "validation.required"));
             return;
         }
 
         if (!validationSchema) {
-            setValidationSchema(name, Yup.boolean());
+            setValidationSchema(resolvedPath, Yup.boolean());
             return;
         }
 
         if (resolvedRequired) {
-            setValidationSchema(name, validationSchema.oneOf([true], "validation.required"));
+            setValidationSchema(resolvedPath, validationSchema.oneOf([true], "validation.required"));
             return;
         }
     };
 
-    if (resolvedHidden || !isReady(name)) {
+    if (resolvedHidden || !isReady(resolvedPath)) {
         return null;
     }
 
-    const resolvedPath = path ? path : name;
     const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors);
+    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
 

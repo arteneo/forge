@@ -30,21 +30,23 @@ const Textarea = ({
     }
 
     const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
+    const resolvedPath = path ? path : name;
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
     const updateValidationSchema = () => {
+        console.log("🚀 ~ file: Textarea.tsx ~ line 44 ~ updateValidationSchema ~ resolvedPath", resolvedPath);
         if (resolvedHidden) {
-            setValidationSchema(name, null);
+            setValidationSchema(resolvedPath, null);
             return;
         }
 
         if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.string().required("validation.required"));
+            setValidationSchema(resolvedPath, Yup.string().required("validation.required"));
             return;
         }
 
@@ -53,18 +55,17 @@ const Textarea = ({
         }
 
         if (resolvedRequired) {
-            setValidationSchema(name, validationSchema.required("validation.required"));
+            setValidationSchema(resolvedPath, validationSchema.required("validation.required"));
             return;
         }
     };
 
-    if (resolvedHidden || !isReady(name)) {
+    if (resolvedHidden || !isReady(resolvedPath)) {
         return null;
     }
 
-    const resolvedPath = path ? path : name;
     const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors);
+    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
     const resolvedPlaceholder = getPlaceholder(

@@ -44,11 +44,12 @@ const SelectApi = ({
     }
 
     const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
+    const resolvedPath = path ? path : name;
     const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
 
     const [options, setOptions] = React.useState<OptionsType>([]);
@@ -58,12 +59,12 @@ const SelectApi = ({
 
     const updateValidationSchema = () => {
         if (resolvedHidden) {
-            setValidationSchema(name, null);
+            setValidationSchema(resolvedPath, null);
             return;
         }
 
         if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.string().required("validation.required"));
+            setValidationSchema(resolvedPath, Yup.string().required("validation.required"));
             return;
         }
 
@@ -72,7 +73,7 @@ const SelectApi = ({
         }
 
         if (resolvedRequired) {
-            setValidationSchema(name, validationSchema.required("validation.required"));
+            setValidationSchema(resolvedPath, validationSchema.required("validation.required"));
             return;
         }
     };
@@ -101,13 +102,12 @@ const SelectApi = ({
         };
     };
 
-    if (resolvedHidden || !isReady(name)) {
+    if (resolvedHidden || !isReady(resolvedPath)) {
         return null;
     }
 
-    const resolvedPath = path ? path : name;
     const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors);
+    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
     const resolvedPlaceholder = getPlaceholder(

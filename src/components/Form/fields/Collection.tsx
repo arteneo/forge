@@ -101,7 +101,7 @@ const Collection = ({
 
     const classes = useStyles();
     const { isReady, getError, getLabel, getHelp } = useForm();
-    const { values, touched, errors, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, setFieldValue, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
 
@@ -140,7 +140,7 @@ const Collection = ({
 
     const resolvedPath = path ? path : name;
     const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors);
+    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
 
