@@ -1,6 +1,6 @@
 /* eslint-disable */
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
-import { FormikValues } from "formik";
+import { FormikValues, setIn, getIn } from "formik";
 
 const isProd = (): boolean => {
     return process.env.APP_ENV === "prod";
@@ -33,18 +33,21 @@ const populate = (fields: FieldsInterface, ...objects: FormikValues[]): FormikVa
         }
 
         objects.forEach((object) => {
+            const path = field?.props?.path ? field.props.path : fieldName;
+            const initialValue = getIn(object, path, undefined);
+
             if (Array.isArray(object)) {
                 // TODO This works but does not make sense for many objects. Should be reworked
                 populatedObject = object.map((objectValue) => populate(fields, objectValue));
-            } else if (object.hasOwnProperty(fieldName)) {
+            } else if (typeof initialValue !== "undefined") {
                 // This badly designed solution, but makes life much easier. Better solution kindly requested
                 const transformInitialValue = field?.props?.transformInitialValue;
                 if (transformInitialValue) {
-                    populatedObject[fieldName] = transformInitialValue(object[fieldName]);
+                    populatedObject = setIn(populatedObject, path, transformInitialValue(initialValue));
                     return;
                 }
 
-                populatedObject[fieldName] = object[fieldName];
+                populatedObject = setIn(populatedObject, path, initialValue);
             }
         });
     });
