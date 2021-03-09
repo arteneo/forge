@@ -78,7 +78,7 @@ const SelectElement = ({
         reason: AutocompleteChangeReason
     ) => {
         if (reason === "clear") {
-            setFieldValue(path, null);
+            setFieldValue(path, "");
             return;
         }
 
@@ -129,6 +129,7 @@ const SelectElement = ({
                 label,
                 required,
                 placeholder,
+                error: hasError,
                 ...params,
             }}
         />
