@@ -3,6 +3,7 @@ import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     Box,
     Checkbox,
+    makeStyles,
     Paper,
     Table,
     TableBody,
@@ -29,6 +30,23 @@ interface TableContentProps {
     title?: string;
     icon?: React.ReactElement;
 }
+
+const useStyles = makeStyles(() => ({
+    svgContainer: {
+        display: "inline-flex",
+    },
+    titleContainer: {
+        verticalAlign: "middle",
+        marginBottom: "8px",
+        display: "inline-flex",
+    },
+    actionBox: {
+        padding: 0,
+        "& .MuiBox-root": {
+            padding: 0,
+        },
+    },
+}));
 
 const TableContent = ({ row, filters, actions, disablePagination, title, icon }: TableContentProps) => {
     const { t } = useTranslation();
@@ -64,6 +82,8 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
         );
     };
 
+    const classes = useStyles();
+
     return (
         <>
             {filters && <TableFilters filters={filters} />}
@@ -71,13 +91,13 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
             <Paper>
                 {(icon || title) && (
                     <Typography>
-                        {icon !== undefined ? icon : ""}
-                        {title !== undefined ? t(title) : ""}
+                        {icon ? <span className={classes.svgContainer}>{icon}</span> : ""}
+                        {title ? <span className={classes.titleContainer}>{t(title)}</span> : ""}
                     </Typography>
                 )}
 
                 <Box p={isSm ? 2 : 4}>
-                    {actions}
+                    <Box className={classes.actionBox}>{actions}</Box>
 
                     {rowCount > 0 ? (
                         <Table>
