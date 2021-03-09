@@ -6,7 +6,7 @@ import { FormProvider } from "@arteneo/forge/components/Form/contexts/Form";
 interface FormProps extends FormContentProps {
     initialValues?: FormikValues;
     initializeEndpoint?: string;
-    isReady?: (name: string) => boolean;
+    isReady?: (path: string) => boolean;
 }
 
 const Form = ({
