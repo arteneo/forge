@@ -40,12 +40,6 @@ const useStyles = makeStyles(() => ({
         marginBottom: "8px",
         display: "inline-flex",
     },
-    actionBox: {
-        padding: 0,
-        "& .MuiBox-root": {
-            padding: 0,
-        },
-    },
 }));
 
 const TableContent = ({ row, filters, actions, disablePagination, title, icon }: TableContentProps) => {
@@ -97,7 +91,7 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
                 )}
 
                 <Box p={isSm ? 2 : 4}>
-                    <Box className={classes.actionBox}>{actions}</Box>
+                    {actions}
 
                     {rowCount > 0 ? (
                         <Table>
