@@ -207,7 +207,7 @@ const FormProvider = ({
             // Experimental solution
             // formikValidationSchema.concat(validationSchemaObject); does not override fields properly
             // validationSchemaObject.concat(formikValidationSchema); does not override fields properly
-            return formikValidationSchema.shape(validationSchemaObject);
+            return formikValidationSchema.shape(validationSchemaObject.fields);
         });
     };
 
