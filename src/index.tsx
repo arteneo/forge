@@ -156,6 +156,7 @@ import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType"
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
+import Radio, { RadioProps } from "@arteneo/forge/components/Form/fields/Radio";
 import Select, { SelectProps } from "@arteneo/forge/components/Form/fields/Select";
 import SelectApi, { SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
 import SelectElement, {
@@ -405,6 +406,8 @@ export {
     FieldElementInterface,
     FieldElementPlaceholderInterface,
     FieldHelpType,
+    Radio,
+    RadioProps,
     Select,
     SelectProps,
     SelectApi,
