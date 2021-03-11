@@ -12,13 +12,18 @@ import {
     FormLabelProps,
     FormControlLabel,
     FormControlLabelProps,
+    IconButton,
+    Tooltip,
 } from "@material-ui/core";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
+import Close from "@material-ui/icons/Close";
 
 interface RadioElementSpecificProps {
     options: OptionsType;
     disableTranslateOption?: boolean;
+    clear?: boolean;
+    clearLabel?: string;
     onChange?: (
         path: string,
         // eslint-disable-next-line
@@ -46,6 +51,8 @@ const RadioElement = ({
     help,
     required,
     disabled,
+    clear = false,
+    clearLabel = "action.form.radioClear",
     disableTranslateOption = false,
     onChange,
     formLabelProps,
@@ -103,6 +110,24 @@ const RadioElement = ({
         );
     }
 
+    let clearComponent = null;
+    if (clear) {
+        const clearValue = () => {
+            setFieldValue(path, undefined);
+        };
+
+        clearComponent = (
+            <IconButton onClick={() => clearValue()}>
+                <Close />
+            </IconButton>
+        );
+
+        if (typeof clearLabel !== "undefined") {
+            // t(clearLabel) "?? clearLabel" is just for TypeScript
+            clearComponent = <Tooltip title={t(clearLabel) ?? clearLabel}>{clearComponent}</Tooltip>;
+        }
+    }
+
     return (
         <FormControl {...mergedFormControlProps}>
             {label && <FormLabel {...mergedFormLabelProps}>{label}</FormLabel>}
@@ -118,6 +143,7 @@ const RadioElement = ({
                         }}
                     />
                 ))}
+                {clearComponent}
             </RadioGroup>
             {helperText && <FormHelperText>{helperText}</FormHelperText>}
         </FormControl>

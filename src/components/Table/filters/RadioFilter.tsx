@@ -6,8 +6,15 @@ type RadioFilterProps = FilterFieldInterface & RadioProps;
 
 // filterBy and filterType are destructed to avoid passing them deeper
 // eslint-disable-next-line
-const RadioFilter = ({ filterBy, filterType, ...props }: RadioFilterProps) => {
-    return <Radio {...props} />;
+const RadioFilter = ({ filterBy, filterType, clear = true, ...props }: RadioFilterProps) => {
+    return (
+        <Radio
+            {...{
+                clear,
+                ...props,
+            }}
+        />
+    );
 };
 
 // * It has to be done via .defaultProps so filterType is passed openly to this component and can be read by Table context
