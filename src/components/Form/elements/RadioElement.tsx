@@ -81,6 +81,7 @@ const RadioElement = ({
 
     const internalRadioGroupProps: RadioGroupProps = {
         value,
+        row: true,
         onChange: callableOnChange,
     };
     const mergedRadioGroupProps = Object.assign(internalRadioGroupProps, radioGroupProps);

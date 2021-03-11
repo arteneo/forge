@@ -131,6 +131,7 @@ import CurrencyFromFilter, {
     CurrencyFromFilterProps,
 } from "@arteneo/forge/components/Table/filters/CurrencyFromFilter";
 import CurrencyToFilter, { CurrencyToFilterProps } from "@arteneo/forge/components/Table/filters/CurrencyToFilter";
+import RadioFilter, { RadioFilterProps } from "@arteneo/forge/components/Table/filters/RadioFilter";
 import SelectFilter, { SelectFilterProps } from "@arteneo/forge/components/Table/filters/SelectFilter";
 import SelectApiFilter, { SelectApiFilterProps } from "@arteneo/forge/components/Table/filters/SelectApiFilter";
 import DateFromFilter, { DateFromFilterProps } from "@arteneo/forge/components/Table/filters/DateFromFilter";
@@ -340,6 +341,8 @@ export {
     CurrencyFromFilterProps,
     CurrencyToFilter,
     CurrencyToFilterProps,
+    RadioFilter,
+    RadioFilterProps,
     SelectFilter,
     SelectFilterProps,
     SelectApiFilter,
