@@ -3,10 +3,13 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction, resolveUpdatedValidationSchema } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import CurrencyElement, { FieldProps, CurrencySymbolPosition } from "@arteneo/forge/components/Form/elements/Currency";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import CurrencyElement, {
+    CurrencyElementFieldProps,
+    CurrencyElementSymbolPosition,
+} from "@arteneo/forge/components/Form/elements/CurrencyElement";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 
-interface Props extends TextFieldInterface {
+interface CurrencyProps extends TextFieldPlaceholderInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -17,15 +20,18 @@ interface Props extends TextFieldInterface {
         onChange: () => void,
         values: FormikValues
     ) => void;
-    fieldProps?: FieldProps;
-    currencySymbolPosition?: CurrencySymbolPosition;
+    fieldProps?: CurrencyElementFieldProps;
+    currencySymbolPosition?: CurrencyElementSymbolPosition;
 }
 
-const Currency: React.FC<Props> = ({
+const Currency = ({
     name,
     label,
+    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
+    enableAutoPlaceholder = false,
+    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     onChange,
@@ -35,12 +41,12 @@ const Currency: React.FC<Props> = ({
     validationSchema = Yup.string(),
     fieldProps,
     currencySymbolPosition,
-}: Props) => {
+}: CurrencyProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
+    const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
@@ -63,12 +69,22 @@ const Currency: React.FC<Props> = ({
     const resolvedError = getError(name, touched, errors);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const resolvedPlaceholder = getPlaceholder(
+        placeholder,
+        values,
+        touched,
+        errors,
+        name,
+        enableAutoPlaceholder,
+        disableTranslatePlaceholder
+    );
 
     return (
         <CurrencyElement
             {...{
                 name,
                 label: resolvedLabel,
+                placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
@@ -82,4 +98,4 @@ const Currency: React.FC<Props> = ({
 };
 
 export default Currency;
-export { Props };
+export { CurrencyProps };

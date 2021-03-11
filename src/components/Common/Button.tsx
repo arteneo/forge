@@ -1,9 +1,11 @@
 import React from "react";
 import clsx from "clsx";
 import { useTranslation } from "react-i18next";
-import { Button as MuiButton, ButtonProps as MuiButtonProps, makeStyles } from "@material-ui/core";
+import { Button as MuiButton, ButtonProps as MuiButtonProps, makeStyles, Tooltip } from "@material-ui/core";
+import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
+import DeniedAccessInterface from "@arteneo/forge/components/Table/definitions/DeniedAccessInterface";
 
 interface InternalMuiButtonProps extends Omit<Omit<MuiButtonProps, "color">, "children"> {
     color?: "default" | "inherit" | "primary" | "secondary" | "success" | "warning" | "error";
@@ -13,10 +15,11 @@ type InternalWrapperMuiButtonProps = InternalMuiButtonProps & WrapperInterface;
 
 interface LabelChildrenProps {
     label?: string;
+    labelVariables?: TranslateVariablesInterface;
     children?: React.ReactNode;
 }
 
-type ButtonProps = InternalWrapperMuiButtonProps & LabelChildrenProps;
+type ButtonProps = InternalWrapperMuiButtonProps & LabelChildrenProps & DeniedAccessInterface;
 
 const useStyles = makeStyles((theme) => ({
     success: {
@@ -44,9 +47,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Button = ({
     label,
+    labelVariables = {},
     children,
     color,
     className,
+    deniedAccessList,
+    accessKey,
+    deniedAccessBehavior = "disable",
     wrapperComponent,
     wrapperComponentProps,
     ...muiButtonProps
@@ -66,7 +73,7 @@ const Button = ({
     }
 
     if (children === undefined && label !== undefined) {
-        children = t(label);
+        children = t(label, labelVariables);
     }
 
     let resolvedClassName = className;
@@ -88,9 +95,29 @@ const Button = ({
         resolvedClassName = clsx(resolvedClassName, classes.error);
     }
 
-    const button = (
-        <MuiButton {...{ children, color: resolvedColor, className: resolvedClassName, ...muiButtonProps }} />
-    );
+    let denyResult = undefined;
+
+    if (typeof accessKey !== "undefined" && typeof deniedAccessList?.[accessKey] !== "undefined") {
+        if (deniedAccessBehavior === "hide") {
+            return null;
+        }
+
+        if (deniedAccessBehavior === "disable") {
+            denyResult = deniedAccessList[accessKey];
+            muiButtonProps.disabled = true;
+        }
+    }
+
+    let button = <MuiButton {...{ children, color: resolvedColor, className: resolvedClassName, ...muiButtonProps }} />;
+
+    if (typeof denyResult !== "undefined") {
+        button = (
+            // t(denyResult) ?? "" just to satisfy TypeScript
+            <Tooltip title={t(denyResult) ?? ""}>
+                <span>{button}</span>
+            </Tooltip>
+        );
+    }
 
     return (
         <Wrapper

@@ -3,15 +3,17 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction, resolveUpdatedValidationSchema } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectAutocompleteOptionalProps } from "@arteneo/forge/components/Form/elements/Select";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import SelectElement, {
+    SelectElementAutocompleteOptionalProps,
+} from "@arteneo/forge/components/Form/elements/SelectElement";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import { FormControlProps } from "@material-ui/core";
 
-interface Props extends TextFieldInterface {
+interface SelectProps extends TextFieldPlaceholderInterface {
     options: OptionsType;
     disableTranslateOption?: boolean;
     onChange?: (
@@ -26,17 +28,20 @@ interface Props extends TextFieldInterface {
         reason: AutocompleteChangeReason,
         details?: AutocompleteChangeDetails<OptionInterface>
     ) => void;
-    autocompleteProps?: SelectAutocompleteOptionalProps;
+    autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
 
-const Select: React.FC<Props> = ({
+const Select = ({
     name,
     options,
     disableTranslateOption = false,
     label,
+    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
+    enableAutoPlaceholder = false,
+    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     onChange,
@@ -46,12 +51,12 @@ const Select: React.FC<Props> = ({
     validationSchema = Yup.string(),
     autocompleteProps,
     formControlProps,
-}: Props) => {
+}: SelectProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
+    const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
@@ -74,6 +79,15 @@ const Select: React.FC<Props> = ({
     const resolvedError = getError(name, touched, errors);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const resolvedPlaceholder = getPlaceholder(
+        placeholder,
+        values,
+        touched,
+        errors,
+        name,
+        enableAutoPlaceholder,
+        disableTranslatePlaceholder
+    );
 
     return (
         <SelectElement
@@ -82,6 +96,7 @@ const Select: React.FC<Props> = ({
                 options,
                 disableTranslateOption,
                 label: resolvedLabel,
+                placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
@@ -95,4 +110,4 @@ const Select: React.FC<Props> = ({
 };
 
 export default Select;
-export { Props };
+export { SelectProps };

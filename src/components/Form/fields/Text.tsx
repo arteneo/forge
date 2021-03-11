@@ -3,11 +3,11 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction, resolveUpdatedValidationSchema } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextElement from "@arteneo/forge/components/Form/elements/Text";
+import TextElement from "@arteneo/forge/components/Form/elements/TextElement";
 import { TextFieldProps } from "@material-ui/core";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 
-interface Props extends TextFieldInterface {
+interface TextProps extends TextFieldPlaceholderInterface {
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -19,11 +19,14 @@ interface Props extends TextFieldInterface {
     fieldProps?: TextFieldProps;
 }
 
-const Text: React.FC<Props> = ({
+const Text = ({
     name,
     label,
+    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
+    enableAutoPlaceholder = false,
+    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     onChange,
@@ -32,12 +35,12 @@ const Text: React.FC<Props> = ({
     disabled = false,
     validationSchema = Yup.string(),
     fieldProps,
-}: Props) => {
+}: TextProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
+    const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
@@ -60,12 +63,22 @@ const Text: React.FC<Props> = ({
     const resolvedError = getError(name, touched, errors);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const resolvedPlaceholder = getPlaceholder(
+        placeholder,
+        values,
+        touched,
+        errors,
+        name,
+        enableAutoPlaceholder,
+        disableTranslatePlaceholder
+    );
 
     return (
         <TextElement
             {...{
                 name,
                 label: resolvedLabel,
+                placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
@@ -78,4 +91,4 @@ const Text: React.FC<Props> = ({
 };
 
 export default Text;
-export { Props };
+export { TextProps };

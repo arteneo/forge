@@ -14,11 +14,13 @@ import FiltersInterface from "@arteneo/forge/components/Table/definitions/Filter
 import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
 import { useTableQuery } from "@arteneo/forge/components/Table/contexts/TableQuery";
 import { useLocation } from "react-router-dom";
+import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
+import BatchSelectedType from "@arteneo/forge/components/Table/definitions/BatchSelectedType";
+import BatchQueryInterface from "@arteneo/forge/components/Table/definitions/BatchQueryInterface";
 
-interface ContextProps {
+interface TableContextProps {
     row: RowInterface;
-    // eslint-disable-next-line
-    results: any[];
+    results: ResultInterface[];
     page: number;
     rowCount: number;
     rowsPerPage: number;
@@ -44,13 +46,22 @@ interface ContextProps {
     onClickSorting: (field: string) => void;
     applySorting: (field: string, direction: SortingDirection) => void;
     removeSorting: (field: string) => void;
+    enableBatchSelect?: boolean;
+    selected: number[];
+    isSelected: (id: number) => boolean;
+    deselectAll: () => void;
+    selectAll: () => void;
+    addSelected: (id: number) => void;
+    removeSelected: (id: number) => void;
+    toggleSelected: (id: number) => void;
     reload: () => void;
     query: QueryInterface;
+    batchQuery: BatchQueryInterface;
     // eslint-disable-next-line
     custom?: any;
 }
 
-interface ProviderProps {
+interface TableProviderProps {
     row: RowInterface;
     children: React.ReactNode;
     endpoint: string;
@@ -63,6 +74,7 @@ interface ProviderProps {
     additionalSorting?: SortingInterface;
     queryKey?: string;
     enableMultipleColumnsSorting?: boolean;
+    enableBatchSelect?: boolean;
     // eslint-disable-next-line
     custom?: any;
 }
@@ -112,14 +124,39 @@ const contextInitial = {
         sorting: [],
         filters: {},
     },
+    batchQuery: {
+        page: 0,
+        rowsPerPage: 10,
+        sorting: [],
+        filters: {},
+        selected: [],
+    },
+    enableBatchSelect: false,
+    selected: [],
+    isSelected: () => false,
+    deselectAll: () => {
+        return;
+    },
+    selectAll: () => {
+        return;
+    },
+    addSelected: () => {
+        return;
+    },
+    removeSelected: () => {
+        return;
+    },
+    toggleSelected: () => {
+        return;
+    },
     reload: () => {
         return;
     },
 };
 
-const TableContext = React.createContext<ContextProps>(contextInitial);
+const TableContext = React.createContext<TableContextProps>(contextInitial);
 
-const TableProvider: React.FC<ProviderProps> = ({
+const TableProvider = ({
     children,
     row,
     endpoint,
@@ -132,19 +169,21 @@ const TableProvider: React.FC<ProviderProps> = ({
     additionalSorting,
     queryKey: _queryKey,
     enableMultipleColumnsSorting,
+    enableBatchSelect,
     custom,
-}: ProviderProps) => {
+}: TableProviderProps) => {
     const location = useLocation();
     const queryKey = typeof _queryKey !== "undefined" ? _queryKey : location.pathname;
     const { setQuery, getQueryPage, getQueryRowsPerPage, getQueryFilters, getQuerySorting } = useTableQuery();
 
-    const [results, setResults] = React.useState([]);
+    const [results, setResults] = React.useState<ResultInterface[]>([]);
     const [page, setPage] = React.useState(getQueryPage(queryKey, 0));
     const [sorting, setSorting] = React.useState<SortingInterface>(getQuerySorting(queryKey, defaultSorting));
     const [filters, setFilters] = React.useState<FilterValuesInterface>(getQueryFilters(queryKey, defaultFilters));
     const [rowsPerPage, setRowsPerPage] = React.useState(getQueryRowsPerPage(queryKey, _rowsPerPage));
     const [rowCount, setRowCount] = React.useState(0);
     const [filtersExpanded, setFiltersExpanded] = React.useState(false);
+    const [selected, setSelected] = React.useState<BatchSelectedType>([]);
 
     const handleCatch = useHandleCatch();
     const { showLoader, hideLoader } = useLoader();
@@ -161,8 +200,6 @@ const TableProvider: React.FC<ProviderProps> = ({
     ): void => {
         showLoader();
 
-        // getVisibleColumns();
-
         setQuery(queryKey, page, rowsPerPage, sorting, filters);
 
         axios
@@ -170,10 +207,7 @@ const TableProvider: React.FC<ProviderProps> = ({
             .then((response) => {
                 setResults(response.data.results);
                 setRowCount(response.data.rowCount);
-
-                // TODO
-                // setSelected([]);
-                // callbacks?
+                setSelected([]);
 
                 hideLoader();
 
@@ -246,6 +280,19 @@ const TableProvider: React.FC<ProviderProps> = ({
                 ...getFiltersDefinitions(filters),
                 ...additionalFilters,
             },
+        };
+    };
+
+    const getBatchQuery = (
+        page: number,
+        rowsPerPage: number,
+        sorting: SortingInterface,
+        filters: FilterValuesInterface,
+        selected: BatchSelectedType
+    ): BatchQueryInterface => {
+        return {
+            ...getQuery(page, rowsPerPage, sorting, filters),
+            selected,
         };
     };
 
@@ -329,11 +376,40 @@ const TableProvider: React.FC<ProviderProps> = ({
         });
     };
 
+    const isSelected = (id: number): boolean => {
+        return selected.indexOf(id) !== -1;
+    };
+
+    const deselectAll = (): void => {
+        setSelected([]);
+    };
+
+    const selectAll = (): void => {
+        setSelected(results.map((result) => result.id));
+    };
+
+    const addSelected = (id: number): void => {
+        setSelected((selected) => selected.concat(id));
+    };
+
+    const removeSelected = (id: number): void => {
+        setSelected((selected) => selected.filter((selectedId) => selectedId !== id));
+    };
+
+    const toggleSelected = (id: number): void => {
+        if (isSelected(id)) {
+            removeSelected(id);
+        } else {
+            addSelected(id);
+        }
+    };
+
     return (
         <TableContext.Provider
             value={{
                 row,
                 query: getQuery(page, rowsPerPage, sorting, filters),
+                batchQuery: getBatchQuery(page, rowsPerPage, sorting, filters, selected),
                 results,
                 page,
                 rowCount,
@@ -353,6 +429,14 @@ const TableProvider: React.FC<ProviderProps> = ({
                 onClickSorting,
                 applySorting,
                 removeSorting,
+                enableBatchSelect,
+                selected,
+                isSelected,
+                deselectAll,
+                selectAll,
+                addSelected,
+                removeSelected,
+                toggleSelected,
                 reload,
                 custom,
             }}
@@ -362,6 +446,6 @@ const TableProvider: React.FC<ProviderProps> = ({
     );
 };
 
-const useTable = (): ContextProps => React.useContext(TableContext);
+const useTable = (): TableContextProps => React.useContext(TableContext);
 
-export { TableContext, TableProvider, useTable };
+export { TableContext, TableContextProps, TableProvider, TableProviderProps, useTable };

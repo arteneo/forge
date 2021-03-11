@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TableFiltersButtons: React.FC = () => {
+const TableFiltersButtons = () => {
     const { t } = useTranslation();
     const classes = useStyles();
     const { isSubmitting, setFieldValue } = useFormikContext();

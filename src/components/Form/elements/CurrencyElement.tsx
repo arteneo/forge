@@ -8,16 +8,17 @@ import CurrencyTextField from "@unicef/material-ui-currency-textfield";
  * https://unicef.github.io/material-ui-currency-textfield/
  * Maybye it is worth forking the package and adding TS with proper definitions
  */
-interface CurrencyFieldProps {
+interface CurrencySymbolFieldProps {
     currencySymbol: string;
 }
 
-type FieldProps = TextFieldProps | CurrencyFieldProps;
-type CurrencySymbolPosition = "start" | "end";
+type CurrencyElementFieldProps = TextFieldProps | CurrencySymbolFieldProps;
+type CurrencyElementSymbolPosition = "start" | "end";
 
-interface Props {
+interface CurrencyElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -32,13 +33,14 @@ interface Props {
     ) => void;
     required: boolean;
     disabled: boolean;
-    currencySymbolPosition?: CurrencySymbolPosition;
-    fieldProps?: FieldProps;
+    currencySymbolPosition?: CurrencyElementSymbolPosition;
+    fieldProps?: CurrencyElementFieldProps;
 }
 
-const Currency: React.FC<Props> = ({
+const Currency = ({
     name,
     label,
+    placeholder,
     error,
     help,
     required,
@@ -46,7 +48,7 @@ const Currency: React.FC<Props> = ({
     onChange,
     fieldProps,
     currencySymbolPosition = "end",
-}: Props) => {
+}: CurrencyElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     // eslint-disable-next-line
@@ -90,6 +92,7 @@ const Currency: React.FC<Props> = ({
         onBlur: onBlur,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         // * This does not work properly. When input is autoselected and you remove value using backspace onChange event is not fired
@@ -128,4 +131,4 @@ const Currency: React.FC<Props> = ({
 };
 
 export default Currency;
-export { FieldProps, CurrencySymbolPosition };
+export { CurrencyElementProps, CurrencyElementFieldProps, CurrencyElementSymbolPosition };

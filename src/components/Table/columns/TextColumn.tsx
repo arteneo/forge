@@ -1,14 +1,18 @@
 import React from "react";
 import { getIn } from "formik";
-import ColumnPathInterface from "@arteneo/forge/components/Table/definitions/ColumnPathInterface";
+import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 
-const TextColumn = ({ result, field, path }: ColumnPathInterface) => {
+const TextColumn = ({ result, field, path }: TableColumnPathType) => {
     if (typeof field === "undefined") {
-        return null;
+        throw new Error("TextColumn component: Missing required field prop");
+    }
+
+    if (typeof result === "undefined") {
+        throw new Error("TextColumn component: Missing required result prop");
     }
 
     return <>{getIn(result, path ? path : field)}</>;
 };
 
 export default TextColumn;
-export { ColumnPathInterface as TextColumnProps };
+export { TableColumnPathType as TextColumnProps };

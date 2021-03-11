@@ -1,20 +1,22 @@
 import React from "react";
 import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 
-interface Props {
+interface TableActionsProps {
     children?: React.ReactNode;
+    pbCustom?: number;
 }
 
-const TableActions: React.FC<Props> = ({ children }: Props) => {
+const TableActions = ({ children, pbCustom }: TableActionsProps) => {
     if (typeof children === "undefined") {
         return null;
     }
 
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
+    const defaultPb = isSm ? 2 : 4;
 
     return (
-        <Box pb={isSm ? 2 : 4}>
+        <Box pb={pbCustom !== undefined ? pbCustom : defaultPb}>
             <Grid container spacing={1}>
                 {React.Children.map(children, (child, key) => (
                     <React.Fragment key={key}>
@@ -33,4 +35,4 @@ const TableActions: React.FC<Props> = ({ children }: Props) => {
 };
 
 export default TableActions;
-export { Props };
+export { TableActionsProps };

@@ -1,5 +1,5 @@
 import React from "react";
-import Date, { Props as DateProps } from "@arteneo/forge/components/Form/fields/Date";
+import Date, { DateProps } from "@arteneo/forge/components/Form/fields/Date";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
 type DateFromFilterProps = FilterFieldInterface & DateProps;

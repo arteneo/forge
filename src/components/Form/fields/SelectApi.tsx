@@ -8,8 +8,10 @@ import {
     resolveUpdatedValidationSchema,
 } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectAutocompleteOptionalProps } from "@arteneo/forge/components/Form/elements/Select";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import SelectElement, {
+    SelectElementAutocompleteOptionalProps,
+} from "@arteneo/forge/components/Form/elements/SelectElement";
+import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
@@ -17,8 +19,8 @@ import { SelectValueType } from "@arteneo/forge/components/Form/definitions/Auto
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 import { FormControlProps } from "@material-ui/core";
 
-interface Props extends TextFieldInterface {
-    endpoint: string | ((values: FormikValues) => string | undefined);
+interface SelectApiProps extends TextFieldPlaceholderInterface {
+    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     onChange?: (
         name: string,
         // eslint-disable-next-line
@@ -36,16 +38,19 @@ interface Props extends TextFieldInterface {
     loadUseEffectDependency?: any;
     disableTranslateGroupBy?: boolean;
     disableTranslateOption?: boolean;
-    autocompleteProps?: SelectAutocompleteOptionalProps;
+    autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
 
-const SelectApi: React.FC<Props> = ({
+const SelectApi = ({
     name,
     endpoint,
     label,
+    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
+    enableAutoPlaceholder = false,
+    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     onChange,
@@ -59,18 +64,18 @@ const SelectApi: React.FC<Props> = ({
     disableTranslateOption = true,
     autocompleteProps,
     formControlProps,
-}: Props) => {
+}: SelectApiProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
+    const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    const resolvedEndpoint = resolveStringOrFunction(endpoint, values);
+    const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 
@@ -86,10 +91,11 @@ const SelectApi: React.FC<Props> = ({
     React.useEffect(() => load(), [resolvedEndpoint, loadUseEffectDependency]);
 
     const load = () => {
-        if (!resolvedEndpoint || resolvedEndpoint == "") {
+        if (!resolvedEndpoint) {
             setOptions([]);
             return;
         }
+
         const axiosSource = axios.CancelToken.source();
 
         axios
@@ -116,6 +122,15 @@ const SelectApi: React.FC<Props> = ({
     const resolvedError = getError(name, touched, errors);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const resolvedPlaceholder = getPlaceholder(
+        placeholder,
+        values,
+        touched,
+        errors,
+        name,
+        enableAutoPlaceholder,
+        disableTranslatePlaceholder
+    );
 
     return (
         <SelectElement
@@ -124,6 +139,7 @@ const SelectApi: React.FC<Props> = ({
                 options,
                 disableTranslateOption,
                 label: resolvedLabel,
+                placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
@@ -151,4 +167,4 @@ SelectApi.defaultProps = {
 };
 
 export default SelectApi;
-export { Props };
+export { SelectApiProps };

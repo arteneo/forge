@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import { Add, Delete } from "@material-ui/icons";
 
-interface Props extends FieldInterface {
+interface CollectionProps extends FieldInterface {
     fields: FieldsInterface;
     disableAddRow?:
         | ((
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Collection: React.FC<Props> = ({
+const Collection = ({
     fields,
     name,
     label,
@@ -93,7 +93,7 @@ const Collection: React.FC<Props> = ({
     onAddRow,
     onDeleteRow,
     initialValues = {},
-}: Props) => {
+}: CollectionProps) => {
     if (typeof name === "undefined") {
         throw new Error("Collection component: name is required prop. By default it is injected by FormContent.");
     }
@@ -237,3 +237,4 @@ const Collection: React.FC<Props> = ({
 };
 
 export default Collection;
+export { CollectionProps };

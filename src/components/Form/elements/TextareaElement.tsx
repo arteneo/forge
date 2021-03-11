@@ -1,10 +1,11 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import { makeStyles, TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 
-interface Props {
+interface TextareaElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -17,10 +18,31 @@ interface Props {
     ) => void;
     required: boolean;
     disabled: boolean;
+    disableResize?: boolean;
     fieldProps?: TextFieldProps;
 }
 
-const Email: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const useStyles = makeStyles(() => ({
+    resize: {
+        "& .MuiInputBase-inputMultiline": {
+            resize: "vertical",
+        },
+    },
+}));
+
+const TextareaElement = ({
+    name,
+    label,
+    placeholder,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    disableResize,
+    fieldProps,
+}: TextareaElementProps) => {
+    const classes = useStyles();
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,13 +60,17 @@ const Email: React.FC<Props> = ({ name, label, error, help, required, disabled, 
 
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
-        type: "email",
         value: getIn(values, name, ""),
         onChange: callableOnChange,
+        className: disableResize ? undefined : classes.resize,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
+        multiline: true,
+        rows: 3,
+        rowsMax: 6,
         fullWidth: true,
         margin: "normal",
         helperText: undefined,
@@ -65,4 +91,5 @@ const Email: React.FC<Props> = ({ name, label, error, help, required, disabled, 
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Email;
+export default TextareaElement;
+export { TextareaElementProps };

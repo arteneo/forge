@@ -7,7 +7,7 @@ import SortingInterface from "@arteneo/forge/components/Table/definitions/Sortin
 import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
 import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
 
-interface Props {
+interface TableProps {
     row: RowInterface;
     endpoint: string;
     rowsPerPage?: number;
@@ -21,11 +21,14 @@ interface Props {
     actions?: React.ReactNode;
     queryKey?: string;
     enableMultipleColumnsSorting?: boolean;
+    enableBatchSelect?: boolean;
+    title?: string;
+    icon?: React.ReactElement;
     // eslint-disable-next-line
     custom?: any;
 }
 
-const Table: React.FC<Props> = ({
+const Table = ({
     row,
     endpoint,
     rowsPerPage,
@@ -39,8 +42,11 @@ const Table: React.FC<Props> = ({
     actions,
     queryKey,
     enableMultipleColumnsSorting,
+    enableBatchSelect,
+    title,
+    icon,
     custom,
-}: Props) => {
+}: TableProps) => {
     return (
         <TableProvider
             {...{
@@ -55,13 +61,16 @@ const Table: React.FC<Props> = ({
                 additionalSorting,
                 queryKey,
                 enableMultipleColumnsSorting,
+                enableBatchSelect,
                 custom,
+                title,
+                icon,
             }}
         >
-            <TableContent {...{ row, filters, actions, disablePagination }} />
+            <TableContent {...{ row, filters, actions, disablePagination, title, icon }} />
         </TableProvider>
     );
 };
 
 export default Table;
-export { Props };
+export { TableProps };

@@ -1,11 +1,11 @@
 import React from "react";
 
-interface ContextProps {
+interface ErrorContextProps {
     error?: number;
     setError: (error: undefined | number) => void;
 }
 
-interface ProviderProps {
+interface ErrorProviderProps {
     children: React.ReactNode;
 }
 
@@ -16,9 +16,9 @@ const contextInitial = {
     },
 };
 
-const ErrorContext = React.createContext<ContextProps>(contextInitial);
+const ErrorContext = React.createContext<ErrorContextProps>(contextInitial);
 
-const ErrorProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) => {
+const ErrorProvider = ({ children }: ErrorProviderProps) => {
     const [error, setError] = React.useState<undefined | number>(undefined);
 
     return (
@@ -33,6 +33,6 @@ const ErrorProvider: React.FC<ProviderProps> = ({ children }: ProviderProps) => 
     );
 };
 
-const useError = (): ContextProps => React.useContext(ErrorContext);
+const useError = (): ErrorContextProps => React.useContext(ErrorContext);
 
-export { ErrorContext, ErrorProvider, useError };
+export { ErrorContext, ErrorContextProps, ErrorProvider, ErrorProviderProps, useError };

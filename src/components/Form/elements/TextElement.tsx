@@ -2,9 +2,10 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 
-interface Props {
+interface TextElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -20,7 +21,17 @@ interface Props {
     fieldProps?: TextFieldProps;
 }
 
-const Text: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const TextElement = ({
+    name,
+    label,
+    placeholder,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+}: TextElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +53,7 @@ const Text: React.FC<Props> = ({ name, label, error, help, required, disabled, o
         onChange: callableOnChange,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         fullWidth: true,
@@ -64,4 +76,5 @@ const Text: React.FC<Props> = ({ name, label, error, help, required, disabled, o
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Text;
+export default TextElement;
+export { TextElementProps };

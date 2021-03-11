@@ -3,9 +3,10 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { KeyboardDatePicker, KeyboardDatePickerProps } from "@material-ui/pickers";
 import { formatRFC3339, isValid } from "date-fns";
 
-interface Props {
+interface DateElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -23,7 +24,17 @@ interface Props {
     fieldProps?: KeyboardDatePickerProps;
 }
 
-const Date: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const DateElement = ({
+    name,
+    label,
+    placeholder,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+}: DateElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     // eslint-disable-next-line
@@ -53,6 +64,7 @@ const Date: React.FC<Props> = ({ name, label, error, help, required, disabled, o
         onChange: callableOnChange,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         disableToolbar: true,
@@ -78,4 +90,5 @@ const Date: React.FC<Props> = ({ name, label, error, help, required, disabled, o
     return <KeyboardDatePicker {...mergedFieldProps} />;
 };
 
-export default Date;
+export default DateElement;
+export { DateElementProps };

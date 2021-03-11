@@ -2,6 +2,8 @@ import React from "react";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     Box,
+    Checkbox,
+    makeStyles,
     Paper,
     Table,
     TableBody,
@@ -9,6 +11,7 @@ import {
     TableHead,
     TableRow,
     TableSortLabel,
+    Typography,
     useMediaQuery,
     useTheme,
 } from "@material-ui/core";
@@ -19,18 +22,43 @@ import TablePagination from "@arteneo/forge/components/Table/components/TablePag
 import TableFilters from "@arteneo/forge/components/Table/components/TableFilters";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 
-interface Props {
+interface TableContentProps {
     row: RowInterface;
     filters?: FieldsInterface;
     actions?: React.ReactNode;
     disablePagination?: boolean;
+    title?: string;
+    icon?: React.ReactElement;
 }
 
-const TableContent: React.FC<Props> = ({ row, filters, actions, disablePagination }: Props) => {
+const useStyles = makeStyles(() => ({
+    svgContainer: {
+        display: "inline-flex",
+    },
+    titleContainer: {
+        verticalAlign: "middle",
+        marginBottom: "8px",
+        display: "inline-flex",
+    },
+}));
+
+const TableContent = ({ row, filters, actions, disablePagination, title, icon }: TableContentProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
-    const { rowCount, results, isSortingActive, getSortingDirection, onClickSorting } = useTable();
+    const {
+        rowCount,
+        results,
+        isSortingActive,
+        getSortingDirection,
+        onClickSorting,
+        enableBatchSelect,
+        selected,
+        isSelected,
+        selectAll,
+        deselectAll,
+        toggleSelected,
+    } = useTable();
 
     const getHeadTableCell = (field: string) => {
         if (row[field]?.props?.disableSorting) {
@@ -48,11 +76,20 @@ const TableContent: React.FC<Props> = ({ row, filters, actions, disablePaginatio
         );
     };
 
+    const classes = useStyles();
+
     return (
         <>
             {filters && <TableFilters filters={filters} />}
 
             <Paper>
+                {(icon || title) && (
+                    <Typography>
+                        {icon ? <span className={classes.svgContainer}>{icon}</span> : ""}
+                        {title ? <span className={classes.titleContainer}>{t(title)}</span> : ""}
+                    </Typography>
+                )}
+
                 <Box p={isSm ? 2 : 4}>
                     {actions}
 
@@ -60,6 +97,17 @@ const TableContent: React.FC<Props> = ({ row, filters, actions, disablePaginatio
                         <Table>
                             <TableHead>
                                 <TableRow>
+                                    {enableBatchSelect && (
+                                        <TableCell padding="checkbox">
+                                            <Checkbox
+                                                indeterminate={selected.length > 0 && selected.length < results.length}
+                                                checked={results.length > 0 && selected.length === results.length}
+                                                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                                    event.target.checked ? selectAll() : deselectAll()
+                                                }
+                                            />
+                                        </TableCell>
+                                    )}
                                     {Object.keys(row).map((field) => {
                                         return <TableCell key={field}>{getHeadTableCell(field)}</TableCell>;
                                     })}
@@ -67,7 +115,13 @@ const TableContent: React.FC<Props> = ({ row, filters, actions, disablePaginatio
                             </TableHead>
                             <TableBody>
                                 {results.map((result, key) => (
-                                    <TableRow key={key}>
+                                    <TableRow key={key} hover={true} selected={isSelected(result.id)}>
+                                        {enableBatchSelect && (
+                                            <TableCell padding="checkbox" onClick={() => toggleSelected(result.id)}>
+                                                <Checkbox checked={isSelected(result.id)} />
+                                            </TableCell>
+                                        )}
+
                                         {Object.keys(row).map((field) => {
                                             return (
                                                 <TableCell key={field}>
@@ -93,4 +147,4 @@ const TableContent: React.FC<Props> = ({ row, filters, actions, disablePaginatio
 };
 
 export default TableContent;
-export { Props };
+export { TableContentProps };

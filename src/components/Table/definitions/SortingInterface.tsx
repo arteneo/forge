@@ -1,7 +1,7 @@
 import SortingDirection from "@arteneo/forge/components/Table/definitions/SortingDirection";
 
-interface SortingInteface {
+interface SortingInterface {
     [key: string]: SortingDirection;
 }
 
-export default SortingInteface;
+export default SortingInterface;

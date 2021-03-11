@@ -2,9 +2,10 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
 
-interface Props {
+interface PasswordElementProps {
     name: string;
     label?: React.ReactNode;
+    placeholder?: string;
     error?: string;
     help?: React.ReactNode;
     onChange?: (
@@ -20,7 +21,17 @@ interface Props {
     fieldProps?: TextFieldProps;
 }
 
-const Password: React.FC<Props> = ({ name, label, error, help, required, disabled, onChange, fieldProps }: Props) => {
+const PasswordElement = ({
+    name,
+    label,
+    placeholder,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+}: PasswordElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +54,7 @@ const Password: React.FC<Props> = ({ name, label, error, help, required, disable
         onChange: callableOnChange,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         fullWidth: true,
@@ -65,4 +77,5 @@ const Password: React.FC<Props> = ({ name, label, error, help, required, disable
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Password;
+export default PasswordElement;
+export { PasswordElementProps };
