@@ -1,6 +1,4 @@
-interface ValidationSchemaInterface {
-    // eslint-disable-next-line
-    [key: string]: any;
-}
+// eslint-disable-next-line
+type ValidationSchemaInterface = any;
 
 export default ValidationSchemaInterface;

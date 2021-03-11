@@ -43,7 +43,7 @@ const SelectApi = ({
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
+    const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
 
@@ -58,24 +58,23 @@ const SelectApi = ({
     React.useEffect(() => load(), [resolvedEndpoint, loadUseEffectDependency]);
 
     const updateValidationSchema = () => {
-        if (resolvedHidden) {
-            setValidationSchema(resolvedPath, null);
-            return;
-        }
-
-        if (!validationSchema && resolvedRequired) {
-            setValidationSchema(resolvedPath, Yup.string().required("validation.required"));
-            return;
-        }
-
-        if (!validationSchema) {
-            return;
-        }
+        let defaultValidationSchema = Yup.string();
 
         if (resolvedRequired) {
-            setValidationSchema(resolvedPath, validationSchema.required("validation.required"));
-            return;
+            defaultValidationSchema = defaultValidationSchema.required("validation.required");
         }
+
+        resolveValidationSchema(
+            resolvedPath,
+            validationSchema,
+            defaultValidationSchema,
+            resolvedHidden,
+            resolvedRequired,
+            values,
+            touched,
+            errors,
+            name
+        );
     };
 
     const load = () => {

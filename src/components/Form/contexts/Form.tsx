@@ -10,14 +10,24 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
 import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
+import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 
 interface FormContextProps {
     formikInitialValues: FormikValues;
-    // eslint-disable-next-line
-    formikValidationSchema: any;
+    formikValidationSchema: ValidationSchemaInterface;
     isReady: (path: string) => boolean;
-    // eslint-disable-next-line
-    setValidationSchema: (path: string, validationSchema: any) => void;
+    setValidationSchema: (path: string, validationSchema: ValidationSchemaInterface) => void;
+    resolveValidationSchema: (
+        path: string,
+        validationSchema: ValidationSchemaInterface,
+        defaultValidationSchema: ValidationSchemaInterface,
+        hidden: boolean,
+        required: boolean,
+        values: FormikValues,
+        touched: FormikTouched<FormikValues>,
+        errors: FormikErrors<FormikValues>,
+        name: string
+    ) => void;
     hasError: (
         path: string,
         touched: FormikTouched<FormikValues>,
@@ -76,8 +86,7 @@ interface FormProviderProps {
      * This allows to lower number of rerenders.
      * By default components are always ready.
      */
-    // eslint-disable-next-line
-    isReady?: (formikValidationSchema: any, path: string) => boolean;
+    isReady?: (formikValidationSchema: ValidationSchemaInterface, path: string) => boolean;
 }
 
 const contextInitial = {
@@ -85,6 +94,9 @@ const contextInitial = {
     formikValidationSchema: {},
     isReady: () => true,
     setValidationSchema: () => {
+        return;
+    },
+    resolveValidationSchema: () => {
         return;
     },
     hasError: () => {
@@ -168,14 +180,11 @@ const FormProvider = ({
         };
     };
 
-    // eslint-disable-next-line
-    const setValidationSchema = (path: string, validationSchema: any) => {
-        // eslint-disable-next-line
-        setFormikValidationSchema((formikValidationSchema: any) => {
+    const setValidationSchema = (path: string, validationSchema: ValidationSchemaInterface) => {
+        setFormikValidationSchema((formikValidationSchema: ValidationSchemaInterface) => {
             const pathParts = path.split(".");
 
-            // eslint-disable-next-line
-            let validationSchemaObject: any = undefined;
+            let validationSchemaObject: undefined | ValidationSchemaInterface = undefined;
             pathParts.reverse().forEach((pathPart) => {
                 const isArrayPart = /^\d+$/.test(pathPart);
 
@@ -195,8 +204,45 @@ const FormProvider = ({
                 }
             });
 
-            return formikValidationSchema.concat(validationSchemaObject);
+            // Experimental solution
+            // formikValidationSchema.concat(validationSchemaObject); does not override fields properly
+            // validationSchemaObject.concat(formikValidationSchema); does not override fields properly
+            return formikValidationSchema.shape(validationSchemaObject.fields);
         });
+    };
+
+    const resolveValidationSchema = (
+        path: string,
+        validationSchema: ValidationSchemaInterface,
+        defaultValidationSchema: ValidationSchemaInterface,
+        hidden: boolean,
+        required: boolean,
+        values: FormikValues,
+        touched: FormikTouched<FormikValues>,
+        errors: FormikErrors<FormikValues>,
+        name: string
+    ) => {
+        if (hidden) {
+            setValidationSchema(path, null);
+            return;
+        }
+
+        if (validationSchema) {
+            const resolvedValidationSchema = resolveAnyOrFunction(
+                validationSchema,
+                defaultValidationSchema,
+                required,
+                hidden,
+                values,
+                touched,
+                errors,
+                name
+            );
+            setValidationSchema(path, resolvedValidationSchema);
+            return;
+        }
+
+        setValidationSchema(path, defaultValidationSchema);
     };
 
     const hasError = (
@@ -310,6 +356,7 @@ const FormProvider = ({
                 formikInitialValues,
                 formikValidationSchema,
                 setValidationSchema,
+                resolveValidationSchema,
                 hasError,
                 getError,
                 getLabel,

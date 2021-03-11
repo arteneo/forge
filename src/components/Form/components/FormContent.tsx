@@ -33,8 +33,6 @@ interface FormContentProps {
         setObject: (object: any) => void
     ) => void;
     endpoint?: string | ((values: FormikValues) => string);
-    // eslint-disable-next-line
-    validationSchema?: any;
     disablePromptIfDirty?: boolean;
     promptIfDirtyLabel?: string;
 }
@@ -53,7 +51,6 @@ const FormContent = ({
     onSubmitSuccess,
     endpoint,
     onSubmit,
-    validationSchema,
     disablePromptIfDirty,
     promptIfDirtyLabel,
 }: FormContentProps) => {
@@ -122,7 +119,7 @@ const FormContent = ({
                 {!disablePromptIfDirty && <PromptIfDirty label={promptIfDirtyLabel} />}
 
                 {children && children}
-                {!children && fields && <FormContentFields {...{ fields, validationSchema }} />}
+                {!children && fields && <FormContentFields {...{ fields }} />}
                 {buttons}
             </Form>
         </Formik>

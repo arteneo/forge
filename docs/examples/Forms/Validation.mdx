@@ -1,0 +1,42 @@
+---
+name: Validation
+menu: Form examples
+---
+
+# Basic usage
+
+```jsx
+import { FormikValues } from "formik";
+import { FieldsInterface, Email, Text } from "@arteneo/forge";
+
+const BasicForm = () => {
+    const onSubmit = (values: FormikValues) => {
+        // You should fill your submit logic here
+        console.log(values);
+    };
+
+    const fields: FieldsInterface = {
+        firstName: <Text />,
+        lastName: <Text />,
+        email: <Email />,
+    };
+
+    return <Form {...{fields, onSubmit}} />;
+};
+
+export default BasicForm;
+```
+
+# TODO
+
+Use required, hidden and how it works by default
+
+How to extend and / or change validation schema per field
+
+```
+const fields: FieldsInterface = {
+    firstName: <Text />,
+    lastName: <Text />,
+    email: <Email />,
+};
+```
