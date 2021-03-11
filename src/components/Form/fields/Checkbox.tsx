@@ -3,80 +3,66 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import CheckboxElement from "@arteneo/forge/components/Form/elements/CheckboxElement";
-import { FormControlProps, FormControlLabelProps } from "@material-ui/core";
+import CheckboxElement, { CheckboxElementSpecificProps } from "@arteneo/forge/components/Form/elements/CheckboxElement";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
-interface CheckboxProps extends TextFieldInterface {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        // eslint-disable-next-line
-        event: React.ChangeEvent<{}>,
-        checked: boolean,
-        onChange: () => void,
-        values: FormikValues
-    ) => void;
-    formControlLabelProps?: FormControlLabelProps;
-    formControlProps?: FormControlProps;
-}
+type CheckboxProps = CheckboxElementSpecificProps & TextFieldInterface;
 
 const Checkbox = ({
     name,
+    path,
     label,
     disableAutoLabel = false,
     disableTranslateLabel = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    formControlLabelProps,
-    formControlProps,
+    ...elementSpecificProps
 }: CheckboxProps) => {
     if (typeof name === "undefined") {
         throw new Error("Email component: name is required prop. By default it is injected by FormContent.");
     }
 
     const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
-    const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
+    const resolvedPath = path ? path : name;
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
     const updateValidationSchema = () => {
         if (resolvedHidden) {
-            setValidationSchema(name, null);
+            setValidationSchema(resolvedPath, null);
             return;
         }
 
         if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.boolean().oneOf([true], "validation.required"));
+            setValidationSchema(resolvedPath, Yup.boolean().oneOf([true], "validation.required"));
             return;
         }
 
         if (!validationSchema) {
-            setValidationSchema(name, Yup.boolean());
+            setValidationSchema(resolvedPath, Yup.boolean());
             return;
         }
 
         if (resolvedRequired) {
-            setValidationSchema(name, validationSchema.oneOf([true], "validation.required"));
+            setValidationSchema(resolvedPath, validationSchema.oneOf([true], "validation.required"));
             return;
         }
     };
 
-    if (resolvedHidden || !isReady(name)) {
+    if (resolvedHidden || !isReady(resolvedPath)) {
         return null;
     }
 
     const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(name, touched, errors);
+    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
 
@@ -84,14 +70,13 @@ const Checkbox = ({
         <CheckboxElement
             {...{
                 name,
+                path: resolvedPath,
                 label: resolvedLabel,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                formControlLabelProps,
-                formControlProps,
+                ...elementSpecificProps,
             }}
         />
     );

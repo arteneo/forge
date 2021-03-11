@@ -1,26 +1,23 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { makeStyles, TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface TextareaElementProps {
-    name: string;
-    label?: React.ReactNode;
-    placeholder?: string;
-    error?: string;
-    help?: React.ReactNode;
+interface TextareaElementSpecificProps {
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
         onChange: () => void,
-        values: FormikValues
+        values: FormikValues,
+        name: string
     ) => void;
-    required: boolean;
-    disabled: boolean;
     disableResize?: boolean;
     fieldProps?: TextFieldProps;
 }
+
+type TextareaElementProps = TextareaElementSpecificProps & FieldElementPlaceholderInterface;
 
 const useStyles = makeStyles(() => ({
     resize: {
@@ -32,6 +29,7 @@ const useStyles = makeStyles(() => ({
 
 const TextareaElement = ({
     name,
+    path,
     label,
     placeholder,
     error,
@@ -46,12 +44,12 @@ const TextareaElement = ({
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFieldValue(name, event.currentTarget.value);
+        setFieldValue(path, event.currentTarget.value);
     };
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, () => defaultOnChange(event), values);
+            onChange(path, setFieldValue, event, () => defaultOnChange(event), values, name);
             return;
         }
 
@@ -60,7 +58,7 @@ const TextareaElement = ({
 
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
-        value: getIn(values, name, ""),
+        value: getIn(values, path, ""),
         onChange: callableOnChange,
         className: disableResize ? undefined : classes.resize,
         error: hasError,
@@ -92,4 +90,4 @@ const TextareaElement = ({
 };
 
 export default TextareaElement;
-export { TextareaElementProps };
+export { TextareaElementProps, TextareaElementSpecificProps };

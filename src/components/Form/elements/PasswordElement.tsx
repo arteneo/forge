@@ -1,28 +1,26 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface PasswordElementProps {
-    name: string;
-    label?: React.ReactNode;
-    placeholder?: string;
-    error?: string;
-    help?: React.ReactNode;
+interface PasswordElementSpecificProps {
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
         onChange: () => void,
-        values: FormikValues
+        values: FormikValues,
+        name: string
     ) => void;
-    required: boolean;
-    disabled: boolean;
     fieldProps?: TextFieldProps;
 }
 
+type PasswordElementProps = PasswordElementSpecificProps & FieldElementPlaceholderInterface;
+
 const PasswordElement = ({
     name,
+    path,
     label,
     placeholder,
     error,
@@ -35,12 +33,12 @@ const PasswordElement = ({
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFieldValue(name, event.currentTarget.value);
+        setFieldValue(path, event.currentTarget.value);
     };
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, () => defaultOnChange(event), values);
+            onChange(path, setFieldValue, event, () => defaultOnChange(event), values, name);
             return;
         }
 
@@ -50,7 +48,7 @@ const PasswordElement = ({
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
         type: "password",
-        value: getIn(values, name, ""),
+        value: getIn(values, path, ""),
         onChange: callableOnChange,
         error: hasError,
         label,
@@ -78,4 +76,4 @@ const PasswordElement = ({
 };
 
 export default PasswordElement;
-export { PasswordElementProps };
+export { PasswordElementProps, PasswordElementSpecificProps };

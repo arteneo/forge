@@ -3,7 +3,6 @@ import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { Formik, FormikHelpers, FormikValues, Form } from "formik";
-import * as Yup from "yup";
 import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import FormButtons from "@arteneo/forge/components/Form/components/FormButtons";
 import PromptIfDirty from "@arteneo/forge/components/Form/components/PromptIfDirty";
@@ -11,7 +10,6 @@ import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import { makeStyles } from "@material-ui/core";
-import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
 
 interface FormContentProps {
@@ -109,25 +107,6 @@ const FormContent = ({
             });
     };
 
-    const getValidationSchema = () => {
-        const validationSchema: ValidationSchemaInterface = {};
-
-        Object.keys(formikValidationSchema).forEach((field) => {
-            const fieldValidationSchema = formikValidationSchema[field];
-
-            if (Array.isArray(fieldValidationSchema) && fieldValidationSchema.length > 0) {
-                // eslint-disable-next-line
-                const fieldValidationSchemaShape: any[] = fieldValidationSchema[0];
-                validationSchema[field] = Yup.array().of(Yup.object().shape(fieldValidationSchemaShape));
-                return;
-            }
-
-            validationSchema[field] = fieldValidationSchema;
-        });
-
-        return Yup.object().shape(validationSchema);
-    };
-
     const _onSubmit = onSubmit
         ? (values: FormikValues, helpers: FormikHelpers<FormikValues>) => onSubmit(values, helpers, setObject)
         : defaultOnSubmit;
@@ -135,7 +114,7 @@ const FormContent = ({
     return (
         <Formik
             initialValues={formikInitialValues}
-            validationSchema={getValidationSchema()}
+            validationSchema={formikValidationSchema}
             onSubmit={_onSubmit}
             enableReinitialize
         >

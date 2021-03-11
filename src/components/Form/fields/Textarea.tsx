@@ -3,25 +3,14 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextareaElement from "@arteneo/forge/components/Form/elements/TextareaElement";
-import { TextFieldProps } from "@material-ui/core";
+import TextareaElement, { TextareaElementSpecificProps } from "@arteneo/forge/components/Form/elements/TextareaElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 
-interface TextareaProps extends TextFieldPlaceholderInterface {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void,
-        values: FormikValues
-    ) => void;
-    disableResize?: boolean;
-    fieldProps?: TextFieldProps;
-}
+type TextareaProps = TextareaElementSpecificProps & TextFieldPlaceholderInterface;
 
 const Textarea = ({
     name,
+    path,
     label,
     placeholder,
     disableAutoLabel = false,
@@ -30,34 +19,34 @@ const Textarea = ({
     disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    disableResize = false,
-    fieldProps,
+    ...elementSpecificProps
 }: TextareaProps) => {
     if (typeof name === "undefined") {
         throw new Error("Textarea component: name is required prop. By default it is injected by FormContent.");
     }
 
     const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
+    const resolvedPath = path ? path : name;
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
     const updateValidationSchema = () => {
+        console.log("🚀 ~ file: Textarea.tsx ~ line 44 ~ updateValidationSchema ~ resolvedPath", resolvedPath);
         if (resolvedHidden) {
-            setValidationSchema(name, null);
+            setValidationSchema(resolvedPath, null);
             return;
         }
 
         if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.string().required("validation.required"));
+            setValidationSchema(resolvedPath, Yup.string().required("validation.required"));
             return;
         }
 
@@ -66,17 +55,17 @@ const Textarea = ({
         }
 
         if (resolvedRequired) {
-            setValidationSchema(name, validationSchema.required("validation.required"));
+            setValidationSchema(resolvedPath, validationSchema.required("validation.required"));
             return;
         }
     };
 
-    if (resolvedHidden || !isReady(name)) {
+    if (resolvedHidden || !isReady(resolvedPath)) {
         return null;
     }
 
     const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(name, touched, errors);
+    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
     const resolvedPlaceholder = getPlaceholder(
@@ -93,15 +82,14 @@ const Textarea = ({
         <TextareaElement
             {...{
                 name,
+                path: resolvedPath,
                 label: resolvedLabel,
                 placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                disableResize,
-                fieldProps,
+                ...elementSpecificProps,
             }}
         />
     );

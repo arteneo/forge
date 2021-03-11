@@ -1,35 +1,44 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
-interface EmailElementProps {
-    name: string;
-    label?: React.ReactNode;
-    error?: string;
-    help?: React.ReactNode;
+interface EmailElementSpecificProps {
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
         onChange: () => void,
-        values: FormikValues
+        values: FormikValues,
+        name: string
     ) => void;
-    required: boolean;
-    disabled: boolean;
     fieldProps?: TextFieldProps;
 }
 
-const EmailElement = ({ name, label, error, help, required, disabled, onChange, fieldProps }: EmailElementProps) => {
+type EmailElementProps = EmailElementSpecificProps & FieldElementPlaceholderInterface;
+
+const EmailElement = ({
+    name,
+    path,
+    label,
+    placeholder,
+    error,
+    help,
+    required,
+    disabled,
+    onChange,
+    fieldProps,
+}: EmailElementProps) => {
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFieldValue(name, event.currentTarget.value);
+        setFieldValue(path, event.currentTarget.value);
     };
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-            onChange(name, setFieldValue, event, () => defaultOnChange(event), values);
+            onChange(path, setFieldValue, event, () => defaultOnChange(event), values, name);
             return;
         }
 
@@ -39,10 +48,11 @@ const EmailElement = ({ name, label, error, help, required, disabled, onChange, 
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
         type: "email",
-        value: getIn(values, name, ""),
+        value: getIn(values, path, ""),
         onChange: callableOnChange,
         error: hasError,
         label,
+        placeholder,
         required,
         disabled,
         fullWidth: true,
@@ -66,4 +76,4 @@ const EmailElement = ({ name, label, error, help, required, disabled, onChange, 
 };
 
 export default EmailElement;
-export { EmailElementProps };
+export { EmailElementProps, EmailElementSpecificProps };
