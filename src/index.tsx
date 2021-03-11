@@ -132,6 +132,7 @@ import CurrencyFromFilter, {
 } from "@arteneo/forge/components/Table/filters/CurrencyFromFilter";
 import CurrencyToFilter, { CurrencyToFilterProps } from "@arteneo/forge/components/Table/filters/CurrencyToFilter";
 import RadioFilter, { RadioFilterProps } from "@arteneo/forge/components/Table/filters/RadioFilter";
+import RadioApiFilter, { RadioApiFilterProps } from "@arteneo/forge/components/Table/filters/RadioApiFilter";
 import SelectFilter, { SelectFilterProps } from "@arteneo/forge/components/Table/filters/SelectFilter";
 import SelectApiFilter, { SelectApiFilterProps } from "@arteneo/forge/components/Table/filters/SelectApiFilter";
 import DateFromFilter, { DateFromFilterProps } from "@arteneo/forge/components/Table/filters/DateFromFilter";
@@ -158,6 +159,7 @@ import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionIn
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import Radio, { RadioProps } from "@arteneo/forge/components/Form/fields/Radio";
+import RadioApi, { RadioApiProps } from "@arteneo/forge/components/Form/fields/RadioApi";
 import Select, { SelectProps } from "@arteneo/forge/components/Form/fields/Select";
 import SelectApi, { SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
 import SelectElement, {
@@ -343,6 +345,8 @@ export {
     CurrencyToFilterProps,
     RadioFilter,
     RadioFilterProps,
+    RadioApiFilter,
+    RadioApiFilterProps,
     SelectFilter,
     SelectFilterProps,
     SelectApiFilter,
@@ -411,6 +415,8 @@ export {
     FieldHelpType,
     Radio,
     RadioProps,
+    RadioApi,
+    RadioApiProps,
     Select,
     SelectProps,
     SelectApi,

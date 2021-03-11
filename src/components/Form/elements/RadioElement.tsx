@@ -22,7 +22,7 @@ import Close from "@material-ui/icons/Close";
 interface RadioElementSpecificProps {
     options: OptionsType;
     disableTranslateOption?: boolean;
-    clear?: boolean;
+    enableClear?: boolean;
     clearLabel?: string;
     onChange?: (
         path: string,
@@ -51,7 +51,7 @@ const RadioElement = ({
     help,
     required,
     disabled,
-    clear = false,
+    enableClear = false,
     clearLabel = "action.form.radioClear",
     disableTranslateOption = false,
     onChange,
@@ -111,7 +111,7 @@ const RadioElement = ({
     }
 
     let clearComponent = null;
-    if (clear) {
+    if (enableClear) {
         const clearValue = () => {
             setFieldValue(path, undefined);
         };
@@ -136,7 +136,7 @@ const RadioElement = ({
                     <FormControlLabel
                         key={key}
                         {...{
-                            value: option.id,
+                            value: option.id.toString,
                             control: <MuiRadio required={required} disabled={disabled} />,
                             label: disableTranslateOption ? option.representation : t(option.representation),
                             ...formControlLabelProps,

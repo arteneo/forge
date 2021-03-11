@@ -1,14 +1,14 @@
 import React from "react";
-import Radio, { RadioProps } from "@arteneo/forge/components/Form/fields/Radio";
+import RadioApi, { RadioApiProps } from "@arteneo/forge/components/Form/fields/RadioApi";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 
-type RadioFilterProps = FilterFieldInterface & RadioProps;
+type RadioApiFilterProps = FilterFieldInterface & RadioApiProps;
 
 // filterBy and filterType are destructed to avoid passing them deeper
 // eslint-disable-next-line
-const RadioFilter = ({ filterBy, filterType, enableClear = true, ...props }: RadioFilterProps) => {
+const RadioApiFilter = ({ filterBy, filterType, enableClear = true, ...props }: RadioApiFilterProps) => {
     return (
-        <Radio
+        <RadioApi
             {...{
                 enableClear,
                 ...props,
@@ -18,9 +18,9 @@ const RadioFilter = ({ filterBy, filterType, enableClear = true, ...props }: Rad
 };
 
 // * It has to be done via .defaultProps so filterType is passed openly to this component and can be read by Table context
-RadioFilter.defaultProps = {
+RadioApiFilter.defaultProps = {
     filterType: "equal",
 };
 
-export default RadioFilter;
-export { RadioFilterProps };
+export default RadioApiFilter;
+export { RadioApiFilterProps };

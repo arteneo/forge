@@ -1,16 +1,26 @@
 import React from "react";
 import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import RadioElement, { RadioElementSpecificProps } from "@arteneo/forge/components/Form/elements/RadioElement";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
+import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 
-type RadioProps = RadioElementSpecificProps & TextFieldInterface;
+interface RadioApiInternalProps {
+    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
+    // eslint-disable-next-line
+    loadUseEffectDependency?: any;
+}
 
-const Radio = ({
+type RadioApiProps = RadioApiInternalProps & Omit<RadioElementSpecificProps, "options"> & TextFieldInterface;
+
+const RadioApi = ({
     name,
     path,
+    endpoint,
     label,
     disableAutoLabel = false,
     disableTranslateLabel = false,
@@ -19,21 +29,28 @@ const Radio = ({
     required = false,
     hidden = false,
     disabled = false,
+    loadUseEffectDependency,
+    disableTranslateOption = true,
     validationSchema,
     ...elementSpecificProps
-}: RadioProps) => {
+}: RadioApiProps) => {
     if (typeof name === "undefined") {
-        throw new Error("Radio component: name is required prop. By default it is injected by FormContent.");
+        throw new Error("RadioApi component: name is required prop. By default it is injected by FormContent.");
     }
 
     const { isReady, resolveValidationSchema, getError, getLabel, getHelp } = useForm();
     const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
+    const handleCatch = useHandleCatch();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
     const resolvedPath = path ? path : name;
+    const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
+
+    const [options, setOptions] = React.useState<OptionsType>([]);
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
+    React.useEffect(() => load(), [resolvedEndpoint, loadUseEffectDependency]);
 
     const updateValidationSchema = () => {
         let defaultValidationSchema = Yup.string();
@@ -55,6 +72,30 @@ const Radio = ({
         );
     };
 
+    const load = () => {
+        if (!resolvedEndpoint) {
+            setOptions([]);
+            return;
+        }
+
+        const axiosSource = axios.CancelToken.source();
+
+        axios
+            .get(resolvedEndpoint, {
+                cancelToken: axiosSource.token,
+            })
+            .then((response: AxiosResponse) => {
+                setOptions(response.data);
+            })
+            .catch((error: AxiosError) => {
+                handleCatch(error);
+            });
+
+        return () => {
+            axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
+        };
+    };
+
     if (resolvedHidden || !isReady(resolvedPath)) {
         return null;
     }
@@ -69,6 +110,8 @@ const Radio = ({
             {...{
                 name,
                 path: resolvedPath,
+                options,
+                disableTranslateOption,
                 label: resolvedLabel,
                 error: resolvedError,
                 help: resolvedHelp,
@@ -80,5 +123,5 @@ const Radio = ({
     );
 };
 
-export default Radio;
-export { RadioProps };
+export default RadioApi;
+export { RadioApiProps };
