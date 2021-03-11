@@ -2,11 +2,12 @@ import React from "react";
 import { FormikValues } from "formik";
 import FormContent, { FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
 import { FormProvider } from "@arteneo/forge/components/Form/contexts/Form";
+import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 
 interface FormProps extends FormContentProps {
     initialValues?: FormikValues;
     initializeEndpoint?: string;
-    isReady?: (path: string) => boolean;
+    isReady?: (formikValidationSchema: ValidationSchemaInterface, path: string) => boolean;
 }
 
 const Form = ({

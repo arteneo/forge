@@ -10,20 +10,17 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
 import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
+import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 
 interface FormContextProps {
     formikInitialValues: FormikValues;
-    // eslint-disable-next-line
-    formikValidationSchema: any;
+    formikValidationSchema: ValidationSchemaInterface;
     isReady: (path: string) => boolean;
-    // eslint-disable-next-line
-    setValidationSchema: (path: string, validationSchema: any) => void;
+    setValidationSchema: (path: string, validationSchema: ValidationSchemaInterface) => void;
     resolveValidationSchema: (
         path: string,
-        // eslint-disable-next-line
-        validationSchema: any,
-        // eslint-disable-next-line
-        defaultValidationSchema: any,
+        validationSchema: ValidationSchemaInterface,
+        defaultValidationSchema: ValidationSchemaInterface,
         hidden: boolean,
         required: boolean,
         values: FormikValues,
@@ -89,8 +86,7 @@ interface FormProviderProps {
      * This allows to lower number of rerenders.
      * By default components are always ready.
      */
-    // eslint-disable-next-line
-    isReady?: (formikValidationSchema: any, path: string) => boolean;
+    isReady?: (formikValidationSchema: ValidationSchemaInterface, path: string) => boolean;
 }
 
 const contextInitial = {
@@ -184,14 +180,11 @@ const FormProvider = ({
         };
     };
 
-    // eslint-disable-next-line
-    const setValidationSchema = (path: string, validationSchema: any) => {
-        // eslint-disable-next-line
-        setFormikValidationSchema((formikValidationSchema: any) => {
+    const setValidationSchema = (path: string, validationSchema: ValidationSchemaInterface) => {
+        setFormikValidationSchema((formikValidationSchema: ValidationSchemaInterface) => {
             const pathParts = path.split(".");
 
-            // eslint-disable-next-line
-            let validationSchemaObject: any = undefined;
+            let validationSchemaObject: undefined | ValidationSchemaInterface = undefined;
             pathParts.reverse().forEach((pathPart) => {
                 const isArrayPart = /^\d+$/.test(pathPart);
 
@@ -214,15 +207,14 @@ const FormProvider = ({
             // Experimental solution
             // formikValidationSchema.concat(validationSchemaObject); does not override fields properly
             // validationSchemaObject.concat(formikValidationSchema); does not override fields properly
-            return formikValidationSchema.shape(validationSchemaObject.fields);
+            return formikValidationSchema.shape(validationSchemaObject);
         });
     };
 
-    // eslint-disable-next-line
     const resolveValidationSchema = (
         path: string,
-        validationSchema: any,
-        defaultValidationSchema: any,
+        validationSchema: ValidationSchemaInterface,
+        defaultValidationSchema: ValidationSchemaInterface,
         hidden: boolean,
         required: boolean,
         values: FormikValues,

@@ -146,6 +146,7 @@ import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabe
 import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
+import FieldValidationSchemaType from "@arteneo/forge/components/Form/definitions/FieldValidationSchemaType";
 import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
 import FormContent, { FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
 import FormContentFields, { FormContentFieldsProps } from "@arteneo/forge/components/Form/components/FormContentFields";
@@ -386,6 +387,7 @@ export {
     FieldPlaceholderType,
     FieldsInterface,
     ValidationSchemaInterface,
+    FieldValidationSchemaType,
     Form,
     FormProps,
     FormContent,
