@@ -19,8 +19,9 @@ import FieldElementInterface from "@arteneo/forge/components/Form/definitions/Fi
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import Close from "@material-ui/icons/Close";
 
-interface RadioElementSpecificProps {
-    options: OptionsType;
+interface BooleanElementSpecificProps {
+    trueOptionLabel?: string;
+    falseOptionLabel?: string;
     disableTranslateOption?: boolean;
     enableClear?: boolean;
     clearLabel?: string;
@@ -29,7 +30,7 @@ interface RadioElementSpecificProps {
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         event: React.ChangeEvent<HTMLInputElement>,
-        value: string,
+        value: undefined | boolean,
         onChange: () => void,
         values: FormikValues,
         name: string
@@ -40,43 +41,89 @@ interface RadioElementSpecificProps {
     formControlProps?: FormControlProps;
 }
 
-type RadioElementProps = RadioElementSpecificProps & FieldElementInterface;
+type BooleanElementProps = BooleanElementSpecificProps & FieldElementInterface;
 
-const RadioElement = ({
+const BooleanElement = ({
     name,
     path,
-    options,
+    trueOptionLabel = "label.yes",
+    falseOptionLabel = "label.no",
     label,
     error,
     help,
     required,
     disabled,
     enableClear = false,
-    clearLabel = "action.form.radioClear",
+    clearLabel = "action.form.booleanClear",
     disableTranslateOption = false,
     onChange,
     formLabelProps,
     radioGroupProps,
     formControlLabelProps,
     formControlProps,
-}: RadioElementProps) => {
+}: BooleanElementProps) => {
     const { t } = useTranslation();
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
-    const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
+    const transformValue = (value?: boolean): string => {
+        if (value === true) {
+            return "true";
+        }
+
+        if (value === false) {
+            return "false";
+        }
+
+        return "";
+    };
+
+    const reverseTransformValue = (value?: string): undefined | boolean => {
+        if (value === "true") {
+            return true;
+        }
+
+        if (value === "false") {
+            return false;
+        }
+
+        return undefined;
+    };
+
+    const options: OptionsType = [
+        {
+            id: transformValue(true),
+            representation: trueOptionLabel,
+        },
+        {
+            id: transformValue(false),
+            representation: falseOptionLabel,
+        },
+    ];
+
+    const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>, value: undefined | boolean) => {
         setFieldValue(path, value);
     };
 
     const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
+        const transformedValue = reverseTransformValue(value);
+
         if (onChange) {
-            onChange(path, setFieldValue, event, value, () => defaultOnChange(event, value), values, name);
+            onChange(
+                path,
+                setFieldValue,
+                event,
+                transformedValue,
+                () => defaultOnChange(event, transformedValue),
+                values,
+                name
+            );
             return;
         }
 
-        defaultOnChange(event, value);
+        defaultOnChange(event, transformedValue);
     };
 
-    const value = getIn(values, path, "");
+    const value = getIn(values, path, undefined);
 
     const hasError = error ? true : false;
     const internalFormControlProps: FormControlProps = {
@@ -87,7 +134,7 @@ const RadioElement = ({
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
     const internalRadioGroupProps: RadioGroupProps = {
-        value,
+        value: transformValue(value),
         row: true,
         onChange: callableOnChange,
     };
@@ -150,5 +197,5 @@ const RadioElement = ({
     );
 };
 
-export default RadioElement;
-export { RadioElementProps, RadioElementSpecificProps };
+export default BooleanElement;
+export { BooleanElementProps, BooleanElementSpecificProps };
