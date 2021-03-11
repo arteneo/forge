@@ -15,7 +15,6 @@ const Form = ({
     endpoint,
     initialValues,
     initializeEndpoint,
-    validationSchema,
     changeSubmitValues,
     onSubmitSuccess,
     onSubmit,
@@ -28,9 +27,7 @@ const Form = ({
 
     return (
         <FormProvider {...{ fields, isReady, initialValues, initializeEndpoint }}>
-            <FormContent
-                {...{ fields, onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, buttons, validationSchema }}
-            >
+            <FormContent {...{ fields, onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, buttons }}>
                 {children}
             </FormContent>
         </FormProvider>
