@@ -26,7 +26,7 @@ const Checkbox = ({
         throw new Error("Email component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getHelp } = useForm();
+    const { isReady, resolveValidationSchema, getError, getLabel, getHelp } = useForm();
     const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
@@ -36,25 +36,23 @@ const Checkbox = ({
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
     const updateValidationSchema = () => {
-        if (resolvedHidden) {
-            setValidationSchema(resolvedPath, null);
-            return;
-        }
-
-        if (!validationSchema && resolvedRequired) {
-            setValidationSchema(resolvedPath, Yup.boolean().oneOf([true], "validation.required"));
-            return;
-        }
-
-        if (!validationSchema) {
-            setValidationSchema(resolvedPath, Yup.boolean());
-            return;
-        }
+        let defaultValidationSchema = Yup.boolean();
 
         if (resolvedRequired) {
-            setValidationSchema(resolvedPath, validationSchema.oneOf([true], "validation.required"));
-            return;
+            defaultValidationSchema = defaultValidationSchema.oneOf([true], "validation.required");
         }
+
+        resolveValidationSchema(
+            resolvedPath,
+            validationSchema,
+            defaultValidationSchema,
+            resolvedHidden,
+            resolvedRequired,
+            values,
+            touched,
+            errors,
+            name
+        );
     };
 
     if (resolvedHidden || !isReady(resolvedPath)) {
