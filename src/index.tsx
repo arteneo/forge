@@ -230,7 +230,7 @@ import CheckboxElement, {
     CheckboxElementSpecificProps,
 } from "@arteneo/forge/components/Form/elements/CheckboxElement";
 import Collection, { CollectionProps } from "@arteneo/forge/components/Form/fields/Collection";
-import Upload, { UploadProps } from "@arteneo/forge/components/Form/fields/Upload";
+import Upload, { UploadProps, UploadSpecificProps } from "@arteneo/forge/components/Form/fields/Upload";
 import UploadElement, {
     UploadElementProps,
     UploadElementSpecificProps,
@@ -249,6 +249,7 @@ export {
     AuthenticationServiceInterface,
     Upload,
     UploadProps,
+    UploadSpecificProps,
     UploadElementSpecificProps,
     UploadElement,
     UploadElementProps,

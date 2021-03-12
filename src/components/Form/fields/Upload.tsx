@@ -1,46 +1,18 @@
 import React from "react";
 import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
+import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import UploadElement, {
-    UploadElementProps,
-    UploadElementSpecificProps,
-} from "@arteneo/forge/components/Form/elements/UploadElement";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
-import { AutocompleteChangeReason, AutocompleteChangeDetails } from "@material-ui/lab";
-import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
-import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
-import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
-import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
-import { FormControlProps } from "@material-ui/core";
+import UploadElement, { UploadElementSpecificProps } from "@arteneo/forge/components/Form/elements/UploadElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
+import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
 
-type UploadProps = UploadElementSpecificProps & TextFieldPlaceholderInterface;
+interface UploadSpecificProps {
+    dropDownMainText?: FieldLabelType;
+    dropDownSubText?: FieldLabelType;
+}
 
-// type UploadProps = UploadElementSpecificPropsTextElementSpecificProps & TextFieldPlaceholderInterface;
-// interface UploadProps extends UploadElementSpecificProps {
-//     // endpoint: string | ((values: FormikValues) => string);
-//     // onChange?: (
-//     //     name: string,
-//     //     // eslint-disable-next-line
-//     //     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-//     //     value: SelectValueType,
-//     //     onChange: () => void,
-//     //     values: FormikValues,
-//     //     // eslint-disable-next-line
-//     //     event: React.ChangeEvent<{}>,
-//     //     reason: AutocompleteChangeReason,
-//     //     details?: AutocompleteChangeDetails<OptionInterface>
-//     // ) => void;
-//     // groupBy?: (option: OptionInterface) => string;
-//     // // eslint-disable-next-line
-//     // loadUseEffectDependency?: any;
-//     // disableTranslateGroupBy?: boolean;
-//     // autocompleteProps?: SelectAutocompleteOptionalProps;
-//     // formControlProps?: FormControlProps;
-// }
+type UploadProps = UploadSpecificProps & UploadElementSpecificProps & TextFieldPlaceholderInterface;
 
 const Upload = ({
     name,
@@ -51,6 +23,7 @@ const Upload = ({
     disableTranslateLabel = false,
     enableAutoPlaceholder = false,
     disableTranslatePlaceholder = false,
+    onUploadComplete,
     help,
     disableTranslateHelp = false,
     required = false,
@@ -58,12 +31,9 @@ const Upload = ({
     disabled = false,
     validationSchema,
     authenticationService,
-}: // groupBy,
-// loadUseEffectDependency,
-// disableTranslateGroupBy,
-// autocompleteProps,
-// formControlProps,
-UploadProps) => {
+    dropDownMainText,
+    dropDownSubText,
+}: UploadProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
@@ -105,6 +75,25 @@ UploadProps) => {
     const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const resolvedDropDownMainText = getLabel(
+        dropDownMainText,
+        values,
+        touched,
+        errors,
+        name,
+        true,
+        disableTranslateLabel
+    );
+    const resolvedDropDownSubText = getLabel(
+        dropDownSubText,
+        values,
+        touched,
+        errors,
+        name,
+        true,
+        disableTranslateLabel
+    );
+
     const resolvedPlaceholder = getPlaceholder(
         placeholder,
         values,
@@ -120,23 +109,20 @@ UploadProps) => {
             {...{
                 name,
                 authenticationService,
-                // options,
                 path: resolvedPath,
                 label: resolvedLabel,
+                onUploadComplete,
+                dropDownMainText: resolvedDropDownMainText,
+                dropDownSubText: resolvedDropDownSubText,
                 placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                // onChange,
-                // groupBy,
-                // disableTranslateGroupBy,
-                // autocompleteProps,
-                // formControlProps,
             }}
         />
     );
 };
 
 export default Upload;
-export { UploadProps };
+export { UploadProps, UploadSpecificProps };

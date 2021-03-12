@@ -1,24 +1,18 @@
-import React, { MutableRefObject } from "react";
-import { useTranslation } from "react-i18next";
+import React from "react";
 import { Typography, IconButton, makeStyles } from "@material-ui/core";
 import { CloudUpload } from "@material-ui/icons";
-import Uppy, { Restrictions, TypeChecking, UppyFile } from "@uppy/core";
+import Uppy, { Restrictions } from "@uppy/core";
 import getDroppedFiles from "@uppy/utils/lib/getDroppedFiles";
 import toArray from "@uppy/utils/lib/toArray";
-// import { getDroppedFiles, toArray } from "@uppy/utils/lib/getDroppedFiles";
-
-// const getDroppedFiles = require("@uppy/utils/lib/getDroppedFiles");
-// const toArray = require("@uppy/utils/lib/toArray");
 
 interface UppyDragDropElementSpecificProps {
     id: string;
-    // uppy: typeof Uppy<Uppy.TypeChecking>;
     uppy: Uppy.Uppy;
-    uploadAction: string;
-    uploadHelp: string;
+    dropDownMainText?: React.ReactNode;
+    dropDownSubText?: React.ReactNode;
     fileRestrictions: Restrictions;
 }
-type UppyDragDropElementProps = UppyDragDropElementSpecificProps; //& FieldElementPlaceholderInterface;
+type UppyDragDropElementProps = UppyDragDropElementSpecificProps;
 
 const useStyles = makeStyles((theme) => ({
     uppyDropzone: {
@@ -42,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const UppyDragDropElement = (props: UppyDragDropElementSpecificProps) => {
-    const { t } = useTranslation();
+const UppyDragDropElement = (props: UppyDragDropElementProps) => {
     const classes = useStyles();
     const [draggingOver, setDraggingOver] = React.useState(false);
     const inputFile = React.useRef<HTMLInputElement>(null);
@@ -76,10 +69,6 @@ const UppyDragDropElement = (props: UppyDragDropElementSpecificProps) => {
                 name: file.name,
                 type: file.type,
                 data: file,
-                //TODO CHECK IF NEEDEED
-                // meta: {
-                //     relativePath: file.relativePath || null,
-                // },
             });
         } catch (err) {
             if (!err.isRestriction) {
@@ -118,10 +107,6 @@ const UppyDragDropElement = (props: UppyDragDropElementSpecificProps) => {
         files.forEach((file) => {
             addFile(file);
         });
-
-        //TODO is this needed
-        // target.value = null;
-        // e.target = target;
     };
 
     return (
@@ -133,7 +118,6 @@ const UppyDragDropElement = (props: UppyDragDropElementSpecificProps) => {
         >
             <IconButton
                 onClick={() => {
-                    // eslint-disable-next-line
                     return inputFile?.current?.click();
                 }}
                 color={draggingOver ? "primary" : "default"}
@@ -152,8 +136,8 @@ const UppyDragDropElement = (props: UppyDragDropElementSpecificProps) => {
                 />
                 <CloudUpload fontSize="large" />
             </IconButton>
-            <Typography variant="h6">{t(props.uploadAction || "action.dragAndDrop")}</Typography>
-            {props.uploadHelp && <Typography variant="subtitle2">{t(props.uploadHelp)}</Typography>}
+            {props.dropDownMainText && <Typography variant="h6">{props.dropDownMainText}</Typography>}
+            {props.dropDownSubText && <Typography variant="subtitle2">{props.dropDownSubText}</Typography>}
         </div>
     );
 };

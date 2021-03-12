@@ -38,49 +38,24 @@ interface AuthenticationServiceInterface {
     refreshTokenAndReattemptRequest: (
         error: AxiosError | AxiosResponse | string,
         errorResponse: undefined | AxiosResponse
+        // eslint-disable-next-line
     ) => void | Promise<any>;
+    getJwtToken: () => null | string;
 }
 
 interface UploadElementSpecificProps {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void
-    ) => void;
+    onUploadComplete?: (result: UploadResult) => void;
     formControlProps?: FormControlProps;
     labelProps?: InputLabelProps;
+    dropDownMainText?: React.ReactNode;
+    dropDownSubText?: React.ReactNode;
     chunkSize?: number;
     uppyThumbnailWidth?: string;
     uppyThumbnailHeight?: string;
-    authenticationService: AuthenticationServiceInterface;
+    authenticationService?: AuthenticationServiceInterface;
 }
 
 type UploadElementProps = UploadElementSpecificProps & FieldElementPlaceholderInterface;
-
-// interface UploadElementProps {
-//     name: string;
-//     label?: React.ReactNode;
-//     error?: string;
-//     help?: React.ReactNode;
-//     onChange?: (
-//         name: string,
-//         // eslint-disable-next-line
-//         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-//         event: React.ChangeEvent<HTMLInputElement>,
-//         onChange: () => void
-//     ) => void;
-//     required: boolean;
-//     disabled: boolean;
-//     labelProps?: InputLabelProps;
-//     formControlProps?: FormControlProps;
-//     chunkSize?: number;
-//     // TODO This thumbnail width/height needs some rethinking
-//     uppyThumbnailWidth?: string;
-//     uppyThumbnailHeight?: string;
-//     authenticationService?: AuthenticationServiceInterface;
-// }
 
 const useStyles = makeStyles((theme) => ({
     uppy: {
@@ -126,8 +101,9 @@ const UploadElement = ({
     error,
     help,
     required,
-    disabled,
-    onChange,
+    onUploadComplete,
+    dropDownMainText,
+    dropDownSubText,
     labelProps,
     formControlProps,
     authenticationService,
@@ -153,19 +129,6 @@ const UploadElement = ({
         setImage("");
     };
 
-    // const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setFieldValue(name, event.currentTarget.value);
-    // };
-
-    // const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     if (onChange) {
-    //         onChange(name, setFieldValue, event, () => defaultOnChange(event));
-    //         return;
-    //     }
-
-    //     defaultOnChange(event);
-    // };
-
     const hasError = error ? true : false;
     const internalFormControlProps: FormControlProps = {
         fullWidth: true,
@@ -176,6 +139,7 @@ const UploadElement = ({
     const internalLabelProps: InputLabelProps = {
         shrink: true,
         error: hasError,
+        required: required,
     };
     const mergedLabelProps = Object.assign(internalLabelProps, labelProps);
 
@@ -202,10 +166,15 @@ const UploadElement = ({
         autoProceed: true,
     });
 
-    uppy.use(Tus, {
-        headers: {
+    let headers = {};
+    if (authenticationService && authenticationService.getJwtToken()) {
+        headers = {
             Authorization: "Bearer " + localStorage.getItem("jwt_token"),
-        },
+        };
+    }
+
+    uppy.use(Tus, {
+        headers: headers,
         resume: false,
         limit: 1,
         chunkSize: chunkSize,
@@ -224,26 +193,29 @@ const UploadElement = ({
             const fileId = result.failed[0].id;
             const error = result.failed[0].error;
 
-            authenticationService.subscribeJwtTokenRefresh(
-                (token: null | string) => {
-                    refreshTokenCallback(token, fileId);
-                },
-                uppyId,
-                false,
-                false
-            );
-            authenticationService.refreshTokenAndReattemptRequest(error, undefined);
+            if (authenticationService) {
+                authenticationService.subscribeJwtTokenRefresh(
+                    (token: null | string) => {
+                        refreshTokenCallback(token, fileId);
+                    },
+                    uppyId,
+                    false,
+                    false
+                );
+                authenticationService.refreshTokenAndReattemptRequest(error, undefined);
+            }
         }
         if (result.successful.length > 0) {
-            authenticationService.unSubscribeJwtTokenRefresh(uppyId);
+            if (authenticationService) {
+                authenticationService.unSubscribeJwtTokenRefresh(uppyId);
+            }
             const parts = result.successful[0].uploadURL.split("/");
             // Last element of array which is token
             setFieldValue(name, parts.slice(-1)[0]);
 
-            // TODO
-            // if (props.onUploadComplete) {
-            //     props.onUploadComplete(result, props, values, errors, touched, setFieldValue);
-            // }
+            if (onUploadComplete) {
+                onUploadComplete(result);
+            }
         }
     });
 
@@ -256,22 +228,28 @@ const UploadElement = ({
     };
 
     uppy.on("upload", () => {
-        authenticationService.subscribeJwtTokenRefresh(
-            (token: null | string) => {
-                refreshTokenCallback(token);
-            },
-            uppyId,
-            false,
-            false
-        );
+        if (authenticationService) {
+            authenticationService.subscribeJwtTokenRefresh(
+                (token: null | string) => {
+                    refreshTokenCallback(token);
+                },
+                uppyId,
+                false,
+                false
+            );
+        }
     });
 
     uppy.on("cancel-all", () => {
-        authenticationService.unSubscribeJwtTokenRefresh(uppyId);
+        if (authenticationService) {
+            authenticationService.unSubscribeJwtTokenRefresh(uppyId);
+        }
     });
 
     // uppy.on("thumbnail:generated", (file, preview) => {
-    uppy.on("thumbnail:generated", (preview: string) => {
+    uppy.on("thumbnail:generated", (file, preview: string) => {
+        console.log(preview);
+        console.log(file);
         setImage(preview);
     });
 
@@ -288,11 +266,8 @@ const UploadElement = ({
                     <div className={classes.uppyDropzone}>
                         <UppyDragDropElement
                             id={uppyId}
-                            // TODO
-                            // uploadAction={uploadAction}
-                            // uploadHelp={uploadHelp}
-                            uploadAction={"action"}
-                            uploadHelp={"help"}
+                            dropDownMainText={dropDownMainText}
+                            dropDownSubText={dropDownSubText}
                             fileRestrictions={fileRestrictions}
                             uppy={uppy}
                         />
