@@ -15,7 +15,13 @@ interface DeleteInterface {
 
 type DeleteProps = DeleteInterface & Optional<ResultButtonEndpointConfirmationProps, "requestConfig">;
 
-const Delete = ({ endpoint, confirmationLabel = "crud.confirmation.delete", ...props }: DeleteProps) => {
+const Delete = ({
+    endpoint,
+    confirmationLabel = "crud.confirmation.delete",
+    buttonProps,
+    confirmationButtonProps,
+    ...props
+}: DeleteProps) => {
     const { reload, custom } = useTable();
 
     if (typeof endpoint === "undefined" && typeof custom?.endpoints?.delete === "undefined") {
@@ -43,11 +49,13 @@ const Delete = ({ endpoint, confirmationLabel = "crud.confirmation.delete", ...p
                     accessKey: "delete",
                     color: "error",
                     variant: "contained",
+                    ...buttonProps,
                 },
                 confirmationButtonProps: {
                     label: "action.delete",
                     color: "error",
                     variant: "contained",
+                    ...confirmationButtonProps,
                 },
                 snackbarLabel: "snackbar.deleted",
                 confirmationLabel,
