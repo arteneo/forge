@@ -18,6 +18,7 @@ import {
     DisableClearable,
     FreeSolo,
 } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
+import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
 type SelectElementAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
 type SelectElementAutocompletePartialProps<T> = {
@@ -26,16 +27,11 @@ type SelectElementAutocompletePartialProps<T> = {
 // We need to allow passing autocomplete props without required ones. They are filled by component.
 type SelectElementAutocompleteOptionalProps = SelectElementAutocompletePartialProps<SelectElementAutocompleteProps>;
 
-interface SelectElementProps {
-    name: string;
+interface SelectElementSpecificProps {
     options: OptionsType;
     disableTranslateOption?: boolean;
-    label?: React.ReactNode;
-    placeholder?: string;
-    error?: string;
-    help?: React.ReactNode;
     onChange?: (
-        name: string,
+        path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         value: SelectValueType,
@@ -44,18 +40,20 @@ interface SelectElementProps {
         // eslint-disable-next-line
         event: React.ChangeEvent<{}>,
         reason: AutocompleteChangeReason,
+        name: string,
         details?: AutocompleteChangeDetails<OptionInterface>
     ) => void;
-    required: boolean;
-    disabled: boolean;
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
     autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
 
+type SelectElementProps = SelectElementSpecificProps & FieldElementPlaceholderInterface;
+
 const SelectElement = ({
     name,
+    path,
     options,
     label,
     placeholder,
@@ -77,12 +75,10 @@ const SelectElement = ({
         // eslint-disable-next-line
         event: React.ChangeEvent<{}>,
         value: SelectValueType,
-        reason: AutocompleteChangeReason,
-        // eslint-disable-next-line
-        details?: AutocompleteChangeDetails<OptionInterface>
+        reason: AutocompleteChangeReason
     ) => {
         if (reason === "clear") {
-            setFieldValue(name, null);
+            setFieldValue(path, "");
             return;
         }
 
@@ -90,7 +86,7 @@ const SelectElement = ({
             return;
         }
 
-        setFieldValue(name, value.id);
+        setFieldValue(path, value.id);
     };
 
     const callableOnChange = (
@@ -103,19 +99,20 @@ const SelectElement = ({
         if (onChange) {
             // Parameters are swapped for convenience
             onChange(
-                name,
+                path,
                 setFieldValue,
                 value,
-                () => defaultOnChange(event, value, reason, details),
+                () => defaultOnChange(event, value, reason),
                 values,
                 event,
                 reason,
+                name,
                 details
             );
             return;
         }
 
-        defaultOnChange(event, value, reason, details);
+        defaultOnChange(event, value, reason);
     };
 
     const hasError = error ? true : false;
@@ -132,6 +129,7 @@ const SelectElement = ({
                 label,
                 required,
                 placeholder,
+                error: hasError,
                 ...params,
             }}
         />
@@ -155,7 +153,7 @@ const SelectElement = ({
             disableTranslateGroupBy ? groupBy(option) : t(groupBy(option));
     }
 
-    const value = getIn(values, name, undefined);
+    const value = getIn(values, path, undefined);
     if (typeof value !== "undefined") {
         const optionSelected = options.find((option) => {
             return option.id == value;
@@ -186,4 +184,9 @@ const SelectElement = ({
 };
 
 export default SelectElement;
-export { SelectElementProps, SelectElementAutocompleteProps, SelectElementAutocompleteOptionalProps };
+export {
+    SelectElementProps,
+    SelectElementSpecificProps,
+    SelectElementAutocompleteProps,
+    SelectElementAutocompleteOptionalProps,
+};

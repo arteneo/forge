@@ -4,46 +4,41 @@ import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectElementSpecificProps } from "@arteneo/forge/components/Form/elements/SelectElement";
-import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
+import RadioElement, { RadioElementSpecificProps } from "@arteneo/forge/components/Form/elements/RadioElement";
+import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 
-interface SelectApiInternalProps {
+interface RadioApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
 }
 
-type SelectApiProps = SelectApiInternalProps &
-    Omit<SelectElementSpecificProps, "options"> &
-    TextFieldPlaceholderInterface;
+type RadioApiProps = RadioApiInternalProps & Omit<RadioElementSpecificProps, "options"> & TextFieldInterface;
 
-const SelectApi = ({
+const RadioApi = ({
     name,
     path,
     endpoint,
     label,
-    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
-    enableAutoPlaceholder = false,
-    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     required = false,
     hidden = false,
     disabled = false,
-    validationSchema,
     loadUseEffectDependency,
     disableTranslateOption = true,
+    validationSchema,
     ...elementSpecificProps
-}: SelectApiProps) => {
+}: RadioApiProps) => {
     if (typeof name === "undefined") {
-        throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
+        throw new Error("RadioApi component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
+    const { isReady, resolveValidationSchema, getError, getLabel, getHelp } = useForm();
     const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
 
@@ -109,25 +104,15 @@ const SelectApi = ({
     const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
-    const resolvedPlaceholder = getPlaceholder(
-        placeholder,
-        values,
-        touched,
-        errors,
-        name,
-        enableAutoPlaceholder,
-        disableTranslatePlaceholder
-    );
 
     return (
-        <SelectElement
+        <RadioElement
             {...{
                 name,
                 path: resolvedPath,
                 options,
                 disableTranslateOption,
                 label: resolvedLabel,
-                placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
@@ -138,17 +123,5 @@ const SelectApi = ({
     );
 };
 
-SelectApi.defaultProps = {
-    // eslint-disable-next-line
-    transformInitialValue: (value: any) => {
-        // Backend API is serializing it as object
-        if (typeof value?.id !== "undefined") {
-            return value.id;
-        }
-
-        return value;
-    },
-};
-
-export default SelectApi;
-export { SelectApiProps };
+export default RadioApi;
+export { RadioApiProps };

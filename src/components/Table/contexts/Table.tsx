@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom";
 import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
 import BatchSelectedType from "@arteneo/forge/components/Table/definitions/BatchSelectedType";
 import BatchQueryInterface from "@arteneo/forge/components/Table/definitions/BatchQueryInterface";
+import TableColumnsType from "@arteneo/forge/components/Table/definitions/TableColumnsType";
 
 interface TableContextProps {
     row: RowInterface;
@@ -57,6 +58,11 @@ interface TableContextProps {
     reload: () => void;
     query: QueryInterface;
     batchQuery: BatchQueryInterface;
+    columns: RowInterface;
+    defaultColumns: RowInterface;
+    updateColumns: (tableColumns: ResultInterface[]) => void;
+    tableKey?: string;
+    tableColumnEndpoint?: string;
     // eslint-disable-next-line
     custom?: any;
 }
@@ -75,6 +81,8 @@ interface TableProviderProps {
     queryKey?: string;
     enableMultipleColumnsSorting?: boolean;
     enableBatchSelect?: boolean;
+    tableKey?: string;
+    tableColumnEndpoint?: string;
     // eslint-disable-next-line
     custom?: any;
 }
@@ -152,6 +160,11 @@ const contextInitial = {
     reload: () => {
         return;
     },
+    columns: {},
+    defaultColumns: {},
+    updateColumns: () => {
+        return;
+    },
 };
 
 const TableContext = React.createContext<TableContextProps>(contextInitial);
@@ -170,6 +183,8 @@ const TableProvider = ({
     queryKey: _queryKey,
     enableMultipleColumnsSorting,
     enableBatchSelect,
+    tableKey,
+    tableColumnEndpoint,
     custom,
 }: TableProviderProps) => {
     const location = useLocation();
@@ -184,11 +199,13 @@ const TableProvider = ({
     const [rowCount, setRowCount] = React.useState(0);
     const [filtersExpanded, setFiltersExpanded] = React.useState(false);
     const [selected, setSelected] = React.useState<BatchSelectedType>([]);
+    const [columns, setColumns] = React.useState<TableColumnsType>(undefined);
 
     const handleCatch = useHandleCatch();
     const { showLoader, hideLoader } = useLoader();
 
     React.useEffect(() => load(page, rowsPerPage, sorting, filters), [endpoint, page, rowsPerPage, sorting]);
+    React.useEffect(() => loadColumns(), [tableKey, tableColumnEndpoint]);
 
     const load = (
         page: number,
@@ -214,6 +231,30 @@ const TableProvider = ({
                 if (onLoadSuccess) {
                     onLoadSuccess();
                 }
+            })
+            .catch((error) => handleCatch(error));
+    };
+
+    const loadColumns = (): void => {
+        if (typeof tableKey === "undefined") {
+            return;
+        }
+
+        if (typeof tableColumnEndpoint === "undefined") {
+            throw Error("Please provide tableColumnEndpoint prop when using tableKey");
+        }
+
+        axios
+            .post(tableColumnEndpoint, {
+                tableKey,
+            })
+            .then((response) => {
+                if (response.status !== 204) {
+                    updateColumns(response.data);
+                    return;
+                }
+
+                setColumns(undefined);
             })
             .catch((error) => handleCatch(error));
     };
@@ -404,6 +445,48 @@ const TableProvider = ({
         }
     };
 
+    const updateColumns = (tableColumns: ResultInterface[]): void => {
+        setColumns(tableColumns.map((result) => result.representation));
+    };
+
+    const getDefaultColumns = (): RowInterface => {
+        if (typeof tableKey !== "undefined") {
+            return Object.keys(row).reduce((rowResult, column) => {
+                if (row[column]?.props?.defaultHide) {
+                    return rowResult;
+                }
+
+                return {
+                    ...rowResult,
+                    [column]: row[column],
+                };
+            }, {});
+        }
+
+        return row;
+    };
+
+    const getColumns = (): RowInterface => {
+        if (typeof tableKey !== "undefined") {
+            if (typeof columns !== "undefined") {
+                return columns.reduce((rowResult, column) => {
+                    if (typeof row?.[column] === "undefined") {
+                        return rowResult;
+                    }
+
+                    return {
+                        ...rowResult,
+                        [column]: row[column],
+                    };
+                }, {});
+            }
+
+            return getDefaultColumns();
+        }
+
+        return row;
+    };
+
     return (
         <TableContext.Provider
             value={{
@@ -438,6 +521,11 @@ const TableProvider = ({
                 removeSelected,
                 toggleSelected,
                 reload,
+                columns: getColumns(),
+                defaultColumns: getDefaultColumns(),
+                updateColumns,
+                tableKey,
+                tableColumnEndpoint,
                 custom,
             }}
         >

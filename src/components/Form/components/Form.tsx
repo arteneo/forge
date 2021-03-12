@@ -2,11 +2,12 @@ import React from "react";
 import { FormikValues } from "formik";
 import FormContent, { FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
 import { FormProvider } from "@arteneo/forge/components/Form/contexts/Form";
+import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 
 interface FormProps extends FormContentProps {
     initialValues?: FormikValues;
     initializeEndpoint?: string;
-    isReady?: (name: string) => boolean;
+    isReady?: (formikValidationSchema: ValidationSchemaInterface, path: string) => boolean;
 }
 
 const Form = ({
@@ -15,7 +16,6 @@ const Form = ({
     endpoint,
     initialValues,
     initializeEndpoint,
-    validationSchema,
     changeSubmitValues,
     onSubmitSuccess,
     onSubmit,
@@ -28,9 +28,7 @@ const Form = ({
 
     return (
         <FormProvider {...{ fields, isReady, initialValues, initializeEndpoint }}>
-            <FormContent
-                {...{ fields, onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, buttons, validationSchema }}
-            >
+            <FormContent {...{ fields, onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, buttons }}>
                 {children}
             </FormContent>
         </FormProvider>

@@ -1,6 +1,7 @@
 import React from "react";
+import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
-import { FormikValues, FormikTouched, FormikErrors, getIn, setIn } from "formik";
+import { FormikValues, FormikTouched, FormikErrors, getIn } from "formik";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { populate } from "@arteneo/forge/utils/common";
@@ -9,19 +10,35 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
 import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
+import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
 
 interface FormContextProps {
     formikInitialValues: FormikValues;
-    // eslint-disable-next-line
-    formikValidationSchema: any;
-    isReady: (name: string) => boolean;
-    // eslint-disable-next-line
-    setValidationSchema: (name: string, validationSchema: any) => void;
-    hasError: (name: string, touched: FormikTouched<FormikValues>, errors: FormikErrors<FormikValues>) => boolean;
-    getError: (
-        name: string,
+    formikValidationSchema: ValidationSchemaInterface;
+    isReady: (path: string) => boolean;
+    setValidationSchema: (path: string, validationSchema: ValidationSchemaInterface) => void;
+    resolveValidationSchema: (
+        path: string,
+        validationSchema: ValidationSchemaInterface,
+        defaultValidationSchema: ValidationSchemaInterface,
+        hidden: boolean,
+        required: boolean,
+        values: FormikValues,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>
+        errors: FormikErrors<FormikValues>,
+        name: string
+    ) => void;
+    hasError: (
+        path: string,
+        touched: FormikTouched<FormikValues>,
+        errors: FormikErrors<FormikValues>,
+        submitCount: number
+    ) => boolean;
+    getError: (
+        path: string,
+        touched: FormikTouched<FormikValues>,
+        errors: FormikErrors<FormikValues>,
+        submitCount: number
     ) => undefined | string;
     getLabel: (
         label: FieldLabelType,
@@ -69,8 +86,7 @@ interface FormProviderProps {
      * This allows to lower number of rerenders.
      * By default components are always ready.
      */
-    // eslint-disable-next-line
-    isReady?: (formikValidationSchema: any, name: string) => boolean;
+    isReady?: (formikValidationSchema: ValidationSchemaInterface, path: string) => boolean;
 }
 
 const contextInitial = {
@@ -78,6 +94,9 @@ const contextInitial = {
     formikValidationSchema: {},
     isReady: () => true,
     setValidationSchema: () => {
+        return;
+    },
+    resolveValidationSchema: () => {
         return;
     },
     hasError: () => {
@@ -116,7 +135,7 @@ const FormProvider = ({
 }: FormProviderProps) => {
     const { t } = useTranslation();
 
-    const [formikValidationSchema, setFormikValidationSchema] = React.useState({});
+    const [formikValidationSchema, setFormikValidationSchema] = React.useState(Yup.object().shape({}));
     const [formikInitialValues, setFormikInitialValues] = React.useState({});
     const [object, setObject] = React.useState(undefined);
     const [submitAction, setSubmitAction] = React.useState(undefined);
@@ -161,33 +180,92 @@ const FormProvider = ({
         };
     };
 
-    // eslint-disable-next-line
-    const setValidationSchema = (name: string, validationSchema: any) => {
-        // eslint-disable-next-line
-        setFormikValidationSchema((formikValidationSchema: any) =>
-            setIn(formikValidationSchema, name, validationSchema)
-        );
+    const setValidationSchema = (path: string, validationSchema: ValidationSchemaInterface) => {
+        setFormikValidationSchema((formikValidationSchema: ValidationSchemaInterface) => {
+            const pathParts = path.split(".");
+
+            let validationSchemaObject: undefined | ValidationSchemaInterface = undefined;
+            pathParts.reverse().forEach((pathPart) => {
+                const isArrayPart = /^\d+$/.test(pathPart);
+
+                const yupShape = {
+                    [pathPart]:
+                        typeof validationSchemaObject !== "undefined" ? validationSchemaObject : validationSchema,
+                };
+
+                if (isArrayPart) {
+                    if (typeof validationSchemaObject === "undefined") {
+                        throw Error("Last pathPart is a number. This should not happen, please check you code");
+                    }
+
+                    validationSchemaObject = Yup.array().of(validationSchemaObject);
+                } else {
+                    validationSchemaObject = Yup.object().shape(yupShape);
+                }
+            });
+
+            // Experimental solution
+            // formikValidationSchema.concat(validationSchemaObject); does not override fields properly
+            // validationSchemaObject.concat(formikValidationSchema); does not override fields properly
+            return formikValidationSchema.shape(validationSchemaObject.fields);
+        });
+    };
+
+    const resolveValidationSchema = (
+        path: string,
+        validationSchema: ValidationSchemaInterface,
+        defaultValidationSchema: ValidationSchemaInterface,
+        hidden: boolean,
+        required: boolean,
+        values: FormikValues,
+        touched: FormikTouched<FormikValues>,
+        errors: FormikErrors<FormikValues>,
+        name: string
+    ) => {
+        if (hidden) {
+            setValidationSchema(path, null);
+            return;
+        }
+
+        if (validationSchema) {
+            const resolvedValidationSchema = resolveAnyOrFunction(
+                validationSchema,
+                defaultValidationSchema,
+                required,
+                hidden,
+                values,
+                touched,
+                errors,
+                name
+            );
+            setValidationSchema(path, resolvedValidationSchema);
+            return;
+        }
+
+        setValidationSchema(path, defaultValidationSchema);
     };
 
     const hasError = (
-        name: string,
+        path: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>
+        errors: FormikErrors<FormikValues>,
+        submitCount: number
     ): boolean => {
-        const error = getIn(errors, name);
-        return Boolean(getIn(touched, name)) && typeof error === "string" && Boolean(error);
+        const error = getIn(errors, path);
+        return (Boolean(getIn(touched, path)) || submitCount > 0) && typeof error === "string" && Boolean(error);
     };
 
     const getError = (
-        name: string,
+        path: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>
+        errors: FormikErrors<FormikValues>,
+        submitCount: number
     ): undefined | string => {
-        if (!hasError(name, touched, errors)) {
+        if (!hasError(path, touched, errors, submitCount)) {
             return undefined;
         }
 
-        return t(String(getIn(errors, name)));
+        return t(String(getIn(errors, path)));
     };
 
     const getLabel = (
@@ -263,9 +341,9 @@ const FormProvider = ({
         return resolvedHelp;
     };
 
-    const componentIsReady = (name: string): boolean => {
+    const componentIsReady = (path: string): boolean => {
         if (isReady) {
-            return isReady(formikValidationSchema, name);
+            return isReady(formikValidationSchema, path);
         }
 
         return true;
@@ -278,6 +356,7 @@ const FormProvider = ({
                 formikInitialValues,
                 formikValidationSchema,
                 setValidationSchema,
+                resolveValidationSchema,
                 hasError,
                 getError,
                 getLabel,

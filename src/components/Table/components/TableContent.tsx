@@ -3,6 +3,7 @@ import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     Box,
     Checkbox,
+    makeStyles,
     Paper,
     Table,
     TableBody,
@@ -30,6 +31,17 @@ interface TableContentProps {
     icon?: React.ReactElement;
 }
 
+const useStyles = makeStyles(() => ({
+    svgContainer: {
+        display: "inline-flex",
+    },
+    titleContainer: {
+        verticalAlign: "middle",
+        marginBottom: "8px",
+        display: "inline-flex",
+    },
+}));
+
 const TableContent = ({ row, filters, actions, disablePagination, title, icon }: TableContentProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
@@ -46,6 +58,7 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
         selectAll,
         deselectAll,
         toggleSelected,
+        columns,
     } = useTable();
 
     const getHeadTableCell = (field: string) => {
@@ -64,6 +77,8 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
         );
     };
 
+    const classes = useStyles();
+
     return (
         <>
             {filters && <TableFilters filters={filters} />}
@@ -71,8 +86,8 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
             <Paper>
                 {(icon || title) && (
                     <Typography>
-                        {icon !== undefined ? icon : ""}
-                        {title !== undefined ? t(title) : ""}
+                        {icon ? <span className={classes.svgContainer}>{icon}</span> : ""}
+                        {title ? <span className={classes.titleContainer}>{t(title)}</span> : ""}
                     </Typography>
                 )}
 
@@ -94,7 +109,7 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
                                             />
                                         </TableCell>
                                     )}
-                                    {Object.keys(row).map((field) => {
+                                    {Object.keys(columns).map((field) => {
                                         return <TableCell key={field}>{getHeadTableCell(field)}</TableCell>;
                                     })}
                                 </TableRow>
@@ -108,7 +123,7 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
                                             </TableCell>
                                         )}
 
-                                        {Object.keys(row).map((field) => {
+                                        {Object.keys(columns).map((field) => {
                                             return (
                                                 <TableCell key={field}>
                                                     {React.cloneElement(row[field], {

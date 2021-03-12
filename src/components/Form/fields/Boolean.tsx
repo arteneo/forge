@@ -3,20 +3,17 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import DateElement, { DateElementSpecificProps } from "@arteneo/forge/components/Form/elements/DateElement";
-import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
+import BooleanElement, { BooleanElementSpecificProps } from "@arteneo/forge/components/Form/elements/BooleanElement";
+import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
 
-type DateProps = DateElementSpecificProps & TextFieldPlaceholderInterface;
+type BooleanProps = BooleanElementSpecificProps & TextFieldInterface;
 
-const Date = ({
+const Boolean = ({
     name,
     path,
     label,
-    placeholder,
     disableAutoLabel = false,
     disableTranslateLabel = false,
-    enableAutoPlaceholder = false,
-    disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
     required = false,
@@ -24,12 +21,12 @@ const Date = ({
     disabled = false,
     validationSchema,
     ...elementSpecificProps
-}: DateProps) => {
+}: BooleanProps) => {
     if (typeof name === "undefined") {
-        throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
+        throw new Error("Boolean component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
+    const { isReady, resolveValidationSchema, getError, getLabel, getHelp } = useForm();
     const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
@@ -39,10 +36,10 @@ const Date = ({
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
     const updateValidationSchema = () => {
-        let defaultValidationSchema = Yup.string();
+        let defaultValidationSchema = Yup.boolean();
 
         if (resolvedRequired) {
-            defaultValidationSchema = defaultValidationSchema.required("validation.required");
+            defaultValidationSchema = defaultValidationSchema.oneOf([true], "validation.required");
         }
 
         resolveValidationSchema(
@@ -66,23 +63,13 @@ const Date = ({
     const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
-    const resolvedPlaceholder = getPlaceholder(
-        placeholder,
-        values,
-        touched,
-        errors,
-        name,
-        enableAutoPlaceholder,
-        disableTranslatePlaceholder
-    );
 
     return (
-        <DateElement
+        <BooleanElement
             {...{
                 name,
                 path: resolvedPath,
                 label: resolvedLabel,
-                placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
@@ -93,5 +80,5 @@ const Date = ({
     );
 };
 
-export default Date;
-export { DateProps };
+export default Boolean;
+export { BooleanProps };

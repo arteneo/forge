@@ -3,24 +3,14 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import PasswordElement from "@arteneo/forge/components/Form/elements/PasswordElement";
-import { TextFieldProps } from "@material-ui/core";
+import PasswordElement, { PasswordElementSpecificProps } from "@arteneo/forge/components/Form/elements/PasswordElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 
-interface PasswordProps extends TextFieldPlaceholderInterface {
-    onChange?: (
-        name: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        event: React.ChangeEvent<HTMLInputElement>,
-        onChange: () => void,
-        values: FormikValues
-    ) => void;
-    fieldProps?: TextFieldProps;
-}
+type PasswordProps = PasswordElementSpecificProps & TextFieldPlaceholderInterface;
 
 const Password = ({
     name,
+    path,
     label,
     placeholder,
     disableAutoLabel = false,
@@ -29,52 +19,51 @@ const Password = ({
     disableTranslatePlaceholder = false,
     help,
     disableTranslateHelp = false,
-    onChange,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
-    fieldProps,
+    ...elementSpecificProps
 }: PasswordProps) => {
     if (typeof name === "undefined") {
         throw new Error("Password component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, setValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors }: FormikProps<FormikValues> = useFormikContext();
+    const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
+    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
+    const resolvedPath = path ? path : name;
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
     const updateValidationSchema = () => {
-        if (resolvedHidden) {
-            setValidationSchema(name, null);
-            return;
-        }
-
-        if (!validationSchema && resolvedRequired) {
-            setValidationSchema(name, Yup.string().required("validation.required"));
-            return;
-        }
-
-        if (!validationSchema) {
-            return;
-        }
+        let defaultValidationSchema = Yup.string();
 
         if (resolvedRequired) {
-            setValidationSchema(name, validationSchema.required("validation.required"));
-            return;
+            defaultValidationSchema = defaultValidationSchema.required("validation.required");
         }
+
+        resolveValidationSchema(
+            resolvedPath,
+            validationSchema,
+            defaultValidationSchema,
+            resolvedHidden,
+            resolvedRequired,
+            values,
+            touched,
+            errors,
+            name
+        );
     };
 
-    if (resolvedHidden || !isReady(name)) {
+    if (resolvedHidden || !isReady(resolvedPath)) {
         return null;
     }
 
     const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(name, touched, errors);
+    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
     const resolvedPlaceholder = getPlaceholder(
@@ -91,14 +80,14 @@ const Password = ({
         <PasswordElement
             {...{
                 name,
+                path: resolvedPath,
                 label: resolvedLabel,
                 placeholder: resolvedPlaceholder,
                 error: resolvedError,
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
-                onChange,
-                fieldProps,
+                ...elementSpecificProps,
             }}
         />
     );

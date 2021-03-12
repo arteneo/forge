@@ -81,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
 const Collection = ({
     fields,
     name,
+    path,
     label,
     disableAutoLabel = false,
     disableTranslateLabel = false,
@@ -100,7 +101,7 @@ const Collection = ({
 
     const classes = useStyles();
     const { isReady, getError, getLabel, getHelp } = useForm();
-    const { values, touched, errors, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, setFieldValue, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
 
@@ -137,10 +138,11 @@ const Collection = ({
         setFieldValue(name, collectionRows);
     };
 
+    const resolvedPath = path ? path : name;
     const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
+    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
     const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
     const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
-    const resolvedError = getError(name, touched, errors);
 
     const fieldPropsOverride: FormikValues = {
         label: undefined,
@@ -203,6 +205,7 @@ const Collection = ({
                                             fields[field],
                                             Object.assign(fieldPropsOverride, {
                                                 name: name + "." + key + "." + field,
+                                                path: resolvedPath + "." + key + "." + field,
                                             })
                                         )}
                                     </TableCell>
