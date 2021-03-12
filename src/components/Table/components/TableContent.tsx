@@ -58,6 +58,7 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
         selectAll,
         deselectAll,
         toggleSelected,
+        columns,
     } = useTable();
 
     const getHeadTableCell = (field: string) => {
@@ -108,7 +109,7 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
                                             />
                                         </TableCell>
                                     )}
-                                    {Object.keys(row).map((field) => {
+                                    {Object.keys(columns).map((field) => {
                                         return <TableCell key={field}>{getHeadTableCell(field)}</TableCell>;
                                     })}
                                 </TableRow>
@@ -122,7 +123,7 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
                                             </TableCell>
                                         )}
 
-                                        {Object.keys(row).map((field) => {
+                                        {Object.keys(columns).map((field) => {
                                             return (
                                                 <TableCell key={field}>
                                                     {React.cloneElement(row[field], {
