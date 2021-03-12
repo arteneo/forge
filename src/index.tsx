@@ -85,6 +85,10 @@ import Delete, { DeleteProps } from "@arteneo/forge/components/Table/actions/res
 import Create, { CreateProps } from "@arteneo/forge/components/Table/actions/table/Create";
 import ExportCsv, { ExportCsvProps } from "@arteneo/forge/components/Table/actions/table/ExportCsv";
 import ExportExcel, { ExportExcelProps } from "@arteneo/forge/components/Table/actions/table/ExportExcel";
+import EditTableColumns, {
+    EditTableColumnsProps,
+    EditTableColumnsSortableColumn,
+} from "@arteneo/forge/components/Table/actions/table/EditTableColumns";
 import Batch, { BatchProps } from "@arteneo/forge/components/Table/actions/table/Batch";
 import BatchDelete, { BatchDeleteProps } from "@arteneo/forge/components/Table/actions/table/BatchDelete";
 import BatchForm, { BatchFormProps } from "@arteneo/forge/components/Table/actions/table/BatchForm";
@@ -104,6 +108,8 @@ import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/Ex
 import TableColumnDisableSortingInterface from "@arteneo/forge/components/Table/definitions/TableColumnDisableSortingInterface";
 import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 import TableColumnType from "@arteneo/forge/components/Table/definitions/TableColumnType";
+import TableColumnsType from "@arteneo/forge/components/Table/definitions/TableColumnsType";
+import TableColumnDefaultHideInterface from "@arteneo/forge/components/Table/definitions/TableColumnDefaultHideInterface";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
 import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
 import TableResultActionInterface from "@arteneo/forge/components/Table/definitions/TableResultActionInterface";
@@ -311,6 +317,9 @@ export {
     ExportCsvProps,
     ExportExcel,
     ExportExcelProps,
+    EditTableColumns,
+    EditTableColumnsProps,
+    EditTableColumnsSortableColumn,
     Batch,
     BatchProps,
     BatchDelete,
@@ -327,6 +336,8 @@ export {
     TableColumnDisableSortingInterface,
     TableColumnPathType,
     TableColumnType,
+    TableColumnsType,
+    TableColumnDefaultHideInterface,
     TableQueriesInterface,
     TableQueryInterface,
     TableResultActionInterface,
