@@ -230,6 +230,13 @@ import CheckboxElement, {
     CheckboxElementSpecificProps,
 } from "@arteneo/forge/components/Form/elements/CheckboxElement";
 import Collection, { CollectionProps } from "@arteneo/forge/components/Form/fields/Collection";
+import Upload, { UploadProps, UploadSpecificProps } from "@arteneo/forge/components/Form/fields/Upload";
+import UploadElement, {
+    UploadElementProps,
+    UploadElementSpecificProps,
+    AuthenticationServiceInterface,
+} from "@arteneo/forge/components/Form/elements/UploadElement";
+import UppyDragDropElement from "@arteneo/forge/components/Form/elements/UppyDragDropElement";
 import {
     resolveAnyOrFunction,
     resolveBooleanOrFunction,
@@ -238,8 +245,15 @@ import {
 } from "@arteneo/forge/utils/resolve";
 import { isDev, isProd, populate } from "@arteneo/forge/utils/common";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
-
 export {
+    AuthenticationServiceInterface,
+    Upload,
+    UploadProps,
+    UploadSpecificProps,
+    UploadElementSpecificProps,
+    UploadElement,
+    UploadElementProps,
+    UppyDragDropElement,
     Button,
     ButtonProps,
     ButtonLink,
