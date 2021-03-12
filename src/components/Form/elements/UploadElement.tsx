@@ -248,8 +248,6 @@ const UploadElement = ({
 
     // uppy.on("thumbnail:generated", (file, preview) => {
     uppy.on("thumbnail:generated", (file, preview: string) => {
-        console.log(preview);
-        console.log(file);
         setImage(preview);
     });
 
