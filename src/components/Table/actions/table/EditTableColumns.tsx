@@ -31,6 +31,8 @@ interface EditTableColumnsProps extends WrapperInterface {
     label?: string;
     snackbarLabel?: string;
     endpoint?: string;
+    className?: string;
+    listClassName?: string;
 }
 
 interface EditTableColumnsSortableColumn {
@@ -65,6 +67,10 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(2),
         justifyContent: "space-between",
     },
+    list: {
+        border: `2px solid ${theme.palette.grey[300]}`,
+        padding: "4px",
+    },
 }));
 
 const EditTableColumns = ({
@@ -73,6 +79,7 @@ const EditTableColumns = ({
     endpoint,
     wrapperComponent,
     wrapperComponentProps,
+    listClassName,
 }: EditTableColumnsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -240,7 +247,7 @@ const EditTableColumns = ({
 
                                     <Droppable droppableId="all">
                                         {(provided: DroppableProvided) => (
-                                            <List ref={provided.innerRef}>
+                                            <List ref={provided.innerRef} className={listClassName || classes.list}>
                                                 {sortableColumns.map((item, index) => (
                                                     <Draggable key={item.id} draggableId={item.id} index={index}>
                                                         {(provided: DraggableProvided) => (
@@ -270,7 +277,7 @@ const EditTableColumns = ({
 
                                     <Droppable droppableId="selected">
                                         {(provided: DroppableProvided) => (
-                                            <List ref={provided.innerRef}>
+                                            <List ref={provided.innerRef} className={listClassName || classes.list}>
                                                 {sortableSelectedColumns.map((item, index) => (
                                                     <Draggable key={item.id} draggableId={item.id} index={index}>
                                                         {(provided: DraggableProvided) => (
