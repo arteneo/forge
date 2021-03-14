@@ -25,6 +25,7 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 interface TableContentProps {
     row: RowInterface;
     filters?: FieldsInterface;
+    filterClass?: { accordion: string; accordionActive: string };
     actions?: React.ReactNode;
     disablePagination?: boolean;
     title?: string;
@@ -42,7 +43,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const TableContent = ({ row, filters, actions, disablePagination, title, icon }: TableContentProps) => {
+const TableContent = ({ row, filters, filterClass, actions, disablePagination, title, icon }: TableContentProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -81,7 +82,7 @@ const TableContent = ({ row, filters, actions, disablePagination, title, icon }:
 
     return (
         <>
-            {filters && <TableFilters filters={filters} />}
+            {filters && <TableFilters filters={filters} filterClass={filterClass} />}
 
             <Paper>
                 {(icon || title) && (
