@@ -14,6 +14,7 @@ interface TableProps {
     rowsPerPageOptions?: number[];
     disablePagination?: boolean;
     filters?: FieldsInterface;
+    filterClass?: { accordion: string; accordionActive: string };
     defaultFilters?: FilterValuesInterface;
     additionalFilters?: FiltersInterface;
     defaultSorting?: SortingInterface;
@@ -37,6 +38,7 @@ const Table = ({
     rowsPerPageOptions,
     disablePagination,
     filters,
+    filterClass,
     defaultFilters,
     additionalFilters,
     defaultSorting,
@@ -59,6 +61,7 @@ const Table = ({
                 rowsPerPage,
                 rowsPerPageOptions,
                 filterFields: filters,
+                filterClass,
                 defaultFilters,
                 additionalFilters,
                 defaultSorting,
@@ -71,7 +74,7 @@ const Table = ({
                 tableColumnEndpoint,
             }}
         >
-            <TableContent {...{ row, filters, actions, disablePagination, title, icon }} />
+            <TableContent {...{ row, filters, filterClass, actions, disablePagination, title, icon }} />
         </TableProvider>
     );
 };
