@@ -18,6 +18,8 @@ import {
     Typography,
     Tooltip,
     makeStyles,
+    ListProps,
+    IconButtonProps,
 } from "@material-ui/core";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
@@ -31,8 +33,8 @@ interface EditTableColumnsProps extends WrapperInterface {
     label?: string;
     snackbarLabel?: string;
     endpoint?: string;
-    className?: string;
-    listClassName?: string;
+    listProps?: ListProps;
+    iconButtonProps?: IconButtonProps;
 }
 
 interface EditTableColumnsSortableColumn {
@@ -79,7 +81,8 @@ const EditTableColumns = ({
     endpoint,
     wrapperComponent,
     wrapperComponentProps,
-    listClassName,
+    listProps = {},
+    iconButtonProps = {},
 }: EditTableColumnsProps) => {
     const classes = useStyles();
     const { t } = useTranslation();
@@ -227,7 +230,7 @@ const EditTableColumns = ({
                 }}
             >
                 <Tooltip placement="left" title={t(label) ?? ""}>
-                    <IconButton size="small" onClick={() => setDialog(true)}>
+                    <IconButton size="small" onClick={() => setDialog(true)} {...iconButtonProps}>
                         <ViewColumn />
                     </IconButton>
                 </Tooltip>
@@ -247,7 +250,7 @@ const EditTableColumns = ({
 
                                     <Droppable droppableId="all">
                                         {(provided: DroppableProvided) => (
-                                            <List ref={provided.innerRef} className={listClassName || classes.list}>
+                                            <List ref={provided.innerRef} {...listProps}>
                                                 {sortableColumns.map((item, index) => (
                                                     <Draggable key={item.id} draggableId={item.id} index={index}>
                                                         {(provided: DraggableProvided) => (
@@ -277,7 +280,7 @@ const EditTableColumns = ({
 
                                     <Droppable droppableId="selected">
                                         {(provided: DroppableProvided) => (
-                                            <List ref={provided.innerRef} className={listClassName || classes.list}>
+                                            <List ref={provided.innerRef} {...listProps}>
                                                 {sortableSelectedColumns.map((item, index) => (
                                                     <Draggable key={item.id} draggableId={item.id} index={index}>
                                                         {(provided: DraggableProvided) => (
