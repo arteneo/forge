@@ -94,6 +94,9 @@ import BatchDelete, { BatchDeleteProps } from "@arteneo/forge/components/Table/a
 import BatchForm, { BatchFormProps } from "@arteneo/forge/components/Table/actions/table/BatchForm";
 import BatchQueryInterface from "@arteneo/forge/components/Table/definitions/BatchQueryInterface";
 import BatchSelectedType from "@arteneo/forge/components/Table/definitions/BatchSelectedType";
+import DeniedAccessBehaviorType from "@arteneo/forge/components/Table/definitions/DeniedAccessBehaviorType";
+import DeniedAccessInterface from "@arteneo/forge/components/Table/definitions/DeniedAccessInterface";
+import DeniedAccessListInterface from "@arteneo/forge/components/Table/definitions/DeniedAccessListInterface";
 import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
 import FilterType from "@arteneo/forge/components/Table/definitions/FilterType";
 import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
@@ -282,6 +285,9 @@ export {
     TablePaginationActions,
     BatchQueryInterface,
     BatchSelectedType,
+    DeniedAccessBehaviorType,
+    DeniedAccessInterface,
+    DeniedAccessListInterface,
     FiltersInterface,
     FilterType,
     FilterValuesInterface,
