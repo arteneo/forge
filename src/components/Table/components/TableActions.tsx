@@ -25,7 +25,6 @@ const TableActions = ({ children, pbCustom }: TableActionsProps) => {
                                 wrapperComponent: Grid,
                                 wrapperComponentProps: {
                                     item: true,
-                                    className: child.props.className || "",
                                 },
                             })}
                     </React.Fragment>
