@@ -5,6 +5,8 @@ import { getIn } from "formik";
 import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 import ChipFieldInterface from "@arteneo/forge/components/Table/definitions/ChipFieldInterface";
 
+type BooleanColumnProps = TableColumnPathType & ChipFieldInterface;
+
 const useStyles = makeStyles((theme) => ({
     yes: {
         borderColor: theme.palette.success.dark,
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BooleanColumn = ({ result, field, path, chipProps }: TableColumnPathType & ChipFieldInterface) => {
+const BooleanColumn = ({ result, field, path, chipProps }: BooleanColumnProps) => {
     if (typeof field === "undefined") {
         throw new Error("BooleanColumn component: Missing required field prop");
     }
@@ -42,4 +44,4 @@ const BooleanColumn = ({ result, field, path, chipProps }: TableColumnPathType &
 };
 
 export default BooleanColumn;
-export { TableColumnPathType as BooleanColumnProps };
+export { BooleanColumnProps };
