@@ -30,6 +30,7 @@ interface TableContextProps {
     // eslint-disable-next-line
     onChangeRowsPerPage: (event: any) => void;
     filters: FiltersInterface;
+    filterClass?: { accordion: string; accordionActive: string };
     filtersExpanded: boolean;
     setFiltersExpanded: (filtersExpanded: boolean) => void;
     onSubmitFilters: (
@@ -74,6 +75,7 @@ interface TableProviderProps {
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     filterFields?: FieldsInterface;
+    filterClass?: { accordion: string; accordionActive: string };
     defaultFilters?: FilterValuesInterface;
     additionalFilters?: FiltersInterface;
     defaultSorting?: SortingInterface;
@@ -176,6 +178,7 @@ const TableProvider = ({
     rowsPerPage: _rowsPerPage = 10,
     rowsPerPageOptions = [5, 10, 25, 50],
     filterFields,
+    filterClass,
     defaultFilters = {},
     additionalFilters,
     defaultSorting = {},
@@ -501,6 +504,7 @@ const TableProvider = ({
                 onChangePage,
                 onChangeRowsPerPage,
                 filters,
+                filterClass,
                 filtersExpanded,
                 setFiltersExpanded,
                 isFiltersActive,
