@@ -1,8 +1,11 @@
 import React from "react";
-import { Chip, ChipProps, makeStyles } from "@material-ui/core";
+import { Chip, makeStyles } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
 import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
+import ChipFieldInterface from "@arteneo/forge/components/Table/definitions/ChipFieldInterface";
+
+type BooleanColumnProps = TableColumnPathType & ChipFieldInterface;
 
 const useStyles = makeStyles((theme) => ({
     yes: {
@@ -15,14 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const BooleanColumn = ({
-    result,
-    field,
-    path,
-    variant = "outlined",
-    size = "small",
-    color = "default",
-}: TableColumnPathType & ChipProps) => {
+const BooleanColumn = ({ result, field, path, chipProps }: BooleanColumnProps) => {
     if (typeof field === "undefined") {
         throw new Error("BooleanColumn component: Missing required field prop");
     }
@@ -39,13 +35,13 @@ const BooleanColumn = ({
     return (
         <>
             {value ? (
-                <Chip variant={variant} size={size} label={t("label.yes")} className={classes.yes} color={color} />
+                <Chip label={t("label.yes")} className={classes.yes} {...chipProps} />
             ) : (
-                <Chip variant={variant} size={size} label={t("label.no")} className={classes.no} color={color} />
+                <Chip label={t("label.no")} className={classes.no} {...chipProps} />
             )}
         </>
     );
 };
 
 export default BooleanColumn;
-export { TableColumnPathType as BooleanColumnProps };
+export { BooleanColumnProps };

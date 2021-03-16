@@ -19,6 +19,7 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 
 interface TableFiltersProps {
     filters: FieldsInterface;
+    filterClass?: { accordion: string; accordionActive: string };
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TableFilters = ({ filters }: TableFiltersProps) => {
+const TableFilters = ({ filters, filterClass }: TableFiltersProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const { filters: filterValues, filtersExpanded, setFiltersExpanded, onSubmitFilters, isFiltersActive } = useTable();
@@ -80,9 +81,12 @@ const TableFilters = ({ filters }: TableFiltersProps) => {
         return gridProps;
     };
 
+    const accordionClass = filterClass?.accordion ? filterClass.accordion : classes.accordion;
+    const accordionActiveClass = filterClass?.accordionActive ? filterClass.accordionActive : classes.accordionActive;
+
     return (
         <Accordion
-            className={clsx(classes.accordion, isFiltersActive() && classes.accordionActive)}
+            className={clsx(accordionClass, isFiltersActive() && accordionActiveClass)}
             expanded={filtersExpanded}
             onChange={() => setFiltersExpanded(!filtersExpanded)}
             TransitionProps={{
