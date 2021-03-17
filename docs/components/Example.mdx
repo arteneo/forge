@@ -1,26 +1,34 @@
 ---
-name: Example Component
+name: Button Component
 menu: Components
 ---
 
-import { Playground, Props } from "docz";
-import { Example } from "../../src/common/Example";
+Comments below with code are work in progress
 
-# Example
+```
+import { Playground, Props } from "docz";
+```
+import { Button } from "../../dist/index.js";
+
+# Button
 
 ## Properties
 
-<Props of={Example} />
+<Props of={Button} />
 
 ## Basic usage
 
+```
 <Playground>
     <Example number={1} />
 </Playground>
+```
 
 ## Using different kinds
 
+```
 <Playground>
     <Example number={1} />
     <Example number={2} />
 </Playground>
+```
