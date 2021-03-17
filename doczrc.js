@@ -1,4 +1,5 @@
 export default {
+    dest: "/public",
     typescript: true,
     gatsbyRemarkPlugins: [
         {

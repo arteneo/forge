@@ -4,3 +4,9 @@ yarn.lock
 yarn-error.log
 .docz
 dist
+
+###> docz ###
+!/public/*
+/public/*
+!/public/.gitkeep
+###< docz ###
