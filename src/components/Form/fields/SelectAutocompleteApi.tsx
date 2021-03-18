@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
@@ -22,7 +22,7 @@ interface SelectAutocompleteApiInternalProps {
     // eslint-disable-next-line
     getAutocompleteData?: (inputValue: string, values: FormikValues) => any;
     // eslint-disable-next-line
-    renderOption?: (inputValue: string, option: OptionInterface, state: any) => ReactNode;
+    renderOption?: (inputValue: string, option: OptionInterface, state: any) => React.ReactNode;
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
     loadingText?: FieldPlaceholderType;
