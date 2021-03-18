@@ -14,6 +14,7 @@ interface TextElementSpecificProps {
         name: string
     ) => void;
     fieldProps?: TextFieldProps;
+    value?: number | string;
 }
 
 type TextElementProps = TextElementSpecificProps & FieldElementPlaceholderInterface;
@@ -25,6 +26,7 @@ const TextElement = ({
     placeholder,
     error,
     help,
+    value,
     required,
     disabled,
     onChange,
@@ -47,7 +49,7 @@ const TextElement = ({
 
     const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
-        value: getIn(values, path, ""),
+        value: value ? value : getIn(values, path, ""),
         onChange: callableOnChange,
         error: hasError,
         label,
