@@ -56,7 +56,9 @@ const SelectAutocompleteApi = ({
     help,
     onChange,
     getAutocompleteData = (inputValue: string) => {
-        phrase: inputValue;
+        return {
+            phrase: inputValue,
+        };
     },
     renderOption,
     disableTranslateHelp = false,
