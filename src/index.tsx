@@ -175,6 +175,9 @@ import Boolean, { BooleanProps } from "@arteneo/forge/components/Form/fields/Boo
 import BooleanElement, { BooleanElementProps } from "@arteneo/forge/components/Form/elements/BooleanElement";
 import Select, { SelectProps } from "@arteneo/forge/components/Form/fields/Select";
 import SelectApi, { SelectApiProps } from "@arteneo/forge/components/Form/fields/SelectApi";
+import SelectAutocompleteApi, {
+    SelectAutocompleteApiProps,
+} from "@arteneo/forge/components/Form/fields/SelectAutocompleteApi";
 import SelectElement, {
     SelectElementProps,
     SelectElementSpecificProps,
@@ -464,6 +467,8 @@ export {
     SelectProps,
     SelectApi,
     SelectApiProps,
+    SelectAutocompleteApi,
+    SelectAutocompleteApiProps,
     SelectElement,
     SelectElementProps,
     SelectElementSpecificProps,
