@@ -3,7 +3,7 @@ import TableColumnPathType from "@arteneo/forge/components/Table/definitions/Tab
 import { getIn, isString } from "formik";
 import CSS from "csstype";
 
-interface StringColumnProps extends TableColumnPathType {
+interface TextTruncateColumnProps extends TableColumnPathType {
     defaultExpandInternal?: boolean;
     stripTags?: boolean;
     stripLength?: number;
@@ -12,7 +12,7 @@ interface StringColumnProps extends TableColumnPathType {
     nowrap?: boolean;
 }
 
-const StringColumn = ({
+const TextTruncateColumn = ({
     result,
     field,
     path,
@@ -22,13 +22,13 @@ const StringColumn = ({
     stripSuffix = "...",
     maxWidth = null,
     nowrap = false,
-}: StringColumnProps) => {
+}: TextTruncateColumnProps) => {
     if (typeof field === "undefined") {
-        throw new Error("StringColumn component: Missing required field prop");
+        throw new Error("TextTruncateColumn component: Missing required field prop");
     }
 
     if (typeof result === "undefined") {
-        throw new Error("StringColumn component: Missing required result prop");
+        throw new Error("TextTruncateColumn component: Missing required result prop");
     }
 
     const [showFull, setShowFull] = React.useState(false);
@@ -79,5 +79,5 @@ const StringColumn = ({
     );
 };
 
-export default StringColumn;
-export { StringColumnProps };
+export default TextTruncateColumn;
+export { TextTruncateColumnProps };
