@@ -9,7 +9,8 @@
     "types": "./dist/index.d.ts",
     "scripts": {
         "docz:dev": "docz dev",
-        "docz:build": "yarn build && docz build",
+        "docz:build": "docz build",
+        "docz:full-build": "yarn build && docz build",
         "docz:serve": "docz build && docz serve",
         "lint": "eslint 'src/**/*.{js,ts,tsx}'",
         "build": "eslint 'src/**/*.{js,ts,tsx}';rm -rf dist/;webpack --mode production"

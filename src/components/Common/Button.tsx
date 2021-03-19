@@ -14,7 +14,11 @@ interface InternalMuiButtonProps extends Omit<Omit<MuiButtonProps, "color">, "ch
 type InternalWrapperMuiButtonProps = InternalMuiButtonProps & WrapperInterface;
 
 interface LabelChildrenProps {
+    /** The description for myProp */
     label?: string;
+    /**
+     * A description of the prop that you seem fit :)
+     */
     labelVariables?: TranslateVariablesInterface;
     children?: React.ReactNode;
 }
