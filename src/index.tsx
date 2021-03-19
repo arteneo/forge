@@ -54,6 +54,9 @@ import TableFiltersButtons from "@arteneo/forge/components/Table/components/Tabl
 import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
 import TablePaginationActions from "@arteneo/forge/components/Table/components/TablePaginationActions";
 import TextColumn, { TextColumnProps } from "@arteneo/forge/components/Table/columns/TextColumn";
+import TextTruncateColumn, {
+    TextTruncateColumnProps,
+} from "@arteneo/forge/components/Table/columns/TextTruncateColumn";
 import CurrencyColumn, { CurrencyColumnProps } from "@arteneo/forge/components/Table/columns/CurrencyColumn";
 import BooleanColumn, { BooleanColumnProps } from "@arteneo/forge/components/Table/columns/BooleanColumn";
 import ConstColumn, { ConstColumnProps } from "@arteneo/forge/components/Table/columns/ConstColumn";
@@ -299,6 +302,8 @@ export {
     SortingInterface,
     TextColumn,
     TextColumnProps,
+    TextTruncateColumn,
+    TextTruncateColumnProps,
     CurrencyColumn,
     CurrencyColumnProps,
     BooleanColumn,

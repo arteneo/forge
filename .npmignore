@@ -9,6 +9,9 @@ coverage
 # Dependency directories
 node_modules
 
+# Omit public folder with docs
+public
+
 # npm package lock
 package-lock.json
 yarn.lock
