@@ -140,11 +140,17 @@ import CurrencyFromFilter, {
     CurrencyFromFilterProps,
 } from "@arteneo/forge/components/Table/filters/CurrencyFromFilter";
 import CurrencyToFilter, { CurrencyToFilterProps } from "@arteneo/forge/components/Table/filters/CurrencyToFilter";
+import NumberFilter, { NumberFilterProps } from "@arteneo/forge/components/Table/filters/NumberFilter";
+import NumberFromFilter, { NumberFromFilterProps } from "@arteneo/forge/components/Table/filters/NumberFromFilter";
+import NumberToFilter, { NumberToFilterProps } from "@arteneo/forge/components/Table/filters/NumberToFilter";
 import RadioFilter, { RadioFilterProps } from "@arteneo/forge/components/Table/filters/RadioFilter";
 import RadioApiFilter, { RadioApiFilterProps } from "@arteneo/forge/components/Table/filters/RadioApiFilter";
 import BooleanFilter, { BooleanFilterProps } from "@arteneo/forge/components/Table/filters/BooleanFilter";
 import SelectFilter, { SelectFilterProps } from "@arteneo/forge/components/Table/filters/SelectFilter";
 import SelectApiFilter, { SelectApiFilterProps } from "@arteneo/forge/components/Table/filters/SelectApiFilter";
+import SelectAutocompleteApiFilter, {
+    SelectAutocompleteApiFilterProps,
+} from "@arteneo/forge/components/Table/filters/SelectAutocompleteApiFilter";
 import DateFromFilter, { DateFromFilterProps } from "@arteneo/forge/components/Table/filters/DateFromFilter";
 import DateToFilter, { DateToFilterProps } from "@arteneo/forge/components/Table/filters/DateToFilter";
 import DateTimeFromFilter, {
@@ -381,6 +387,12 @@ export {
     CurrencyFromFilterProps,
     CurrencyToFilter,
     CurrencyToFilterProps,
+    NumberFilter,
+    NumberFilterProps,
+    NumberFromFilter,
+    NumberFromFilterProps,
+    NumberToFilter,
+    NumberToFilterProps,
     RadioFilter,
     RadioFilterProps,
     RadioApiFilter,
@@ -391,6 +403,8 @@ export {
     SelectFilterProps,
     SelectApiFilter,
     SelectApiFilterProps,
+    SelectAutocompleteApiFilter,
+    SelectAutocompleteApiFilterProps,
     DateFromFilter,
     DateFromFilterProps,
     DateToFilter,
