@@ -65,7 +65,6 @@ const DateElement = ({
         placeholder,
         required,
         disabled,
-        disableToolbar: true,
         autoOk: true,
         fullWidth: true,
         variant: "inline",

@@ -66,7 +66,6 @@ const TimeElement = ({
         required,
         disabled,
         ampm: false,
-        disableToolbar: true,
         autoOk: true,
         fullWidth: true,
         variant: "inline",
