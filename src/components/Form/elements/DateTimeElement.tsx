@@ -16,7 +16,7 @@ interface DateTimeElementSpecificProps {
         name: string,
         value?: string | null
     ) => void;
-    fieldProps?: KeyboardDateTimePickerProps;
+    fieldProps?: Partial<KeyboardDateTimePickerProps>;
 }
 
 type DateTimeElementProps = DateTimeElementSpecificProps & FieldElementPlaceholderInterface;
