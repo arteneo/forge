@@ -16,7 +16,7 @@ interface TimeElementSpecificProps {
         name: string,
         value?: string | null
     ) => void;
-    fieldProps?: KeyboardTimePickerProps;
+    fieldProps?: Partial<KeyboardTimePickerProps>;
 }
 
 type TimeElementProps = TimeElementSpecificProps & FieldElementPlaceholderInterface;
@@ -37,7 +37,12 @@ const TimeElement = ({
 
     // eslint-disable-next-line
     const defaultOnChange = (date: any, value?: string | null) => {
+        console.log("🚀 ~ file: TimeElement.tsx ~ line 40 ~ defaultOnChange ~ date", date);
         if (isValid(date)) {
+            console.log(
+                "🚀 ~ file: TimeElement.tsx ~ line 43 ~ defaultOnChange ~ formatRFC3339(date)",
+                formatRFC3339(date)
+            );
             setFieldValue(path, formatRFC3339(date));
             return;
         }
@@ -66,7 +71,6 @@ const TimeElement = ({
         required,
         disabled,
         ampm: false,
-        disableToolbar: true,
         autoOk: true,
         fullWidth: true,
         variant: "inline",

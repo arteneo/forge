@@ -7,7 +7,7 @@ import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { Alert } from "@material-ui/lab";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
-import Form from "@arteneo/forge/components/Form/components/Form";
+import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
 import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
 import { FormikContext, FormikHelpers, FormikValues } from "formik";
 import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
@@ -17,6 +17,7 @@ interface BatchFormProps extends ButtonProps {
     confirmationLabel: string;
     snackbarLabel: string;
     endpoint: string;
+    formProps?: FormProps;
     resultRepresentation?: (result: ResultInterface) => React.ReactNode;
 }
 
@@ -27,6 +28,7 @@ const BatchForm = ({
     snackbarLabel,
     resultRepresentation = (result: ResultInterface) => result.representation,
     endpoint,
+    formProps,
     ...props
 }: BatchFormProps) => {
     const { t } = useTranslation();
@@ -77,6 +79,7 @@ const BatchForm = ({
                         },
                         onSubmitSuccess,
                         buttons: null,
+                        ...formProps,
                     }}
                 >
                     <DialogContent>

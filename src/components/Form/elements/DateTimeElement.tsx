@@ -16,7 +16,7 @@ interface DateTimeElementSpecificProps {
         name: string,
         value?: string | null
     ) => void;
-    fieldProps?: KeyboardDateTimePickerProps;
+    fieldProps?: Partial<KeyboardDateTimePickerProps>;
 }
 
 type DateTimeElementProps = DateTimeElementSpecificProps & FieldElementPlaceholderInterface;
@@ -66,7 +66,6 @@ const DateTimeElement = ({
         required,
         disabled,
         ampm: false,
-        disableToolbar: true,
         autoOk: true,
         fullWidth: true,
         variant: "inline",
