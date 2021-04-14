@@ -18,7 +18,7 @@ const ButtonDownload = ({ requestConfig, ...props }: ButtonDownloadProps) => {
         showLoader();
 
         axios
-            .request(requestConfig)
+            .request(Object.assign({ responseType: "blob" }, requestConfig))
             .then((response) => {
                 hideLoader();
 
