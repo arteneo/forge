@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { FormikHelpers, FormikValues } from "formik";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
+import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
@@ -217,13 +217,17 @@ const TableProvider = ({
         filters: FilterValuesInterface,
         // eslint-disable-next-line
         onLoadSuccess?: Function
-    ): void => {
+    ) => {
         showLoader();
 
         setQuery(queryKey, page, rowsPerPage, sorting, filters);
 
+        const axiosSource = axios.CancelToken.source();
+
         axios
-            .post(endpoint, getQuery(page, rowsPerPage, sorting, filters))
+            .post(endpoint, getQuery(page, rowsPerPage, sorting, filters), {
+                cancelToken: axiosSource.token,
+            })
             .then((response) => {
                 setResults(response.data.results);
                 setRowCount(response.data.rowCount);
@@ -236,6 +240,10 @@ const TableProvider = ({
                 }
             })
             .catch((error) => handleCatch(error));
+
+        return () => {
+            axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
+        };
     };
 
     const loadColumns = (): void => {
