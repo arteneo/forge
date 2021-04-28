@@ -25,6 +25,7 @@ interface ButtonEndpointConfirmationProps {
     confirmationButtonProps?: ButtonProps;
     confirmationTitle?: string;
     confirmationTitleVariables?: TranslateVariablesInterface;
+    confirmationContent?: React.ReactNode;
     confirmationLabel?: string;
     confirmationLabelVariables?: TranslateVariablesInterface;
     confirmationDialogProps?: Optional<DialogProps, "open">;
@@ -50,6 +51,7 @@ const ButtonEndpointConfirmation = ({
     },
     confirmationTitle = "crud.confirmation.title",
     confirmationTitleVariables = {},
+    confirmationContent,
     confirmationLabel = "crud.confirmation.label",
     confirmationLabelVariables = {},
     confirmationDialogProps = {
@@ -87,6 +89,10 @@ const ButtonEndpointConfirmation = ({
             .catch((error) => handleCatch(error));
     };
 
+    if (typeof confirmationContent === "undefined") {
+        confirmationContent = <DialogContentText>{t(confirmationLabel, confirmationLabelVariables)}</DialogContentText>;
+    }
+
     return (
         <>
             <Button
@@ -98,9 +104,7 @@ const ButtonEndpointConfirmation = ({
 
             <Dialog open={showConfirmation} onClose={() => setShowConfirmation(false)} {...confirmationDialogProps}>
                 <DialogTitle>{t(confirmationTitle, confirmationTitleVariables)}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>{t(confirmationLabel, confirmationLabelVariables)}</DialogContentText>
-                </DialogContent>
+                <DialogContent>{confirmationContent}</DialogContent>
                 <DialogActions>
                     <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
                         <Button onClick={() => setShowConfirmation(false)} {...confirmationButtonBackProps} />
