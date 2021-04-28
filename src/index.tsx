@@ -209,6 +209,14 @@ import TextareaElement, {
     TextareaElementProps,
     TextareaElementSpecificProps,
 } from "@arteneo/forge/components/Form/elements/TextareaElement";
+import RichText, { RichTextProps } from "@arteneo/forge/components/Form/fields/RichText";
+import RichTextElement, {
+    RichTextElementProps,
+    RichTextElementSpecificProps,
+    convertHtmlToDraftJsContent,
+    convertDraftJsContentToHtml,
+    convertDraftJsStateToHtml,
+} from "@arteneo/forge/components/Form/elements/RichTextElement";
 import Text, { TextProps } from "@arteneo/forge/components/Form/fields/Text";
 import TextElement, {
     TextElementProps,
@@ -506,6 +514,14 @@ export {
     TextareaElement,
     TextareaElementProps,
     TextareaElementSpecificProps,
+    RichText,
+    RichTextProps,
+    RichTextElement,
+    RichTextElementProps,
+    RichTextElementSpecificProps,
+    convertHtmlToDraftJsContent,
+    convertDraftJsContentToHtml,
+    convertDraftJsStateToHtml,
     Text,
     TextProps,
     TextElement,
