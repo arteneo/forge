@@ -10,3 +10,6 @@ dist
 /public/*
 !/public/.gitkeep
 ###< docz ###
+###> docz public assets ###
+!/public/assets
+###< docz public assets ###
