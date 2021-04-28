@@ -14,7 +14,8 @@ import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultI
 
 interface BatchFormProps extends ButtonProps {
     fields: FieldsInterface;
-    confirmationLabel: string;
+    confirmationLabel?: string;
+    confirmationContent?: React.ReactNode;
     snackbarLabel: string;
     endpoint: string;
     resultRepresentation?: (result: ResultInterface) => React.ReactNode;
@@ -24,6 +25,7 @@ const BatchForm = ({
     fields,
     label,
     confirmationLabel,
+    confirmationContent,
     snackbarLabel,
     resultRepresentation = (result: ResultInterface) => result.representation,
     endpoint,
@@ -50,6 +52,25 @@ const BatchForm = ({
     };
 
     const resolvedLabel = label ? resolveStringOrFunction(label, selected.length) : undefined;
+
+    if (typeof confirmationContent === "undefined") {
+        if (typeof confirmationLabel === "undefined") {
+            throw new Error("BathForm component: Please provide confirmationContent or confirmationLabel prop");
+        }
+
+        confirmationContent = (
+            <>
+                <Alert severity="error">{t(confirmationLabel)}</Alert>
+                <ul>
+                    {results
+                        .filter((result) => selected.includes(result.id))
+                        .map((result, key) => (
+                            <li key={key}>{resultRepresentation(result)}</li>
+                        ))}
+                </ul>
+            </>
+        );
+    }
 
     return (
         <>
@@ -80,14 +101,7 @@ const BatchForm = ({
                     }}
                 >
                     <DialogContent>
-                        <Alert severity="error">{t(confirmationLabel)}</Alert>
-                        <ul>
-                            {results
-                                .filter((result) => selected.includes(result.id))
-                                .map((result, key) => (
-                                    <li key={key}>{resultRepresentation(result)}</li>
-                                ))}
-                        </ul>
+                        {confirmationContent}
                         <FormContentFields {...{ fields, validationSchema: {} }} />
                     </DialogContent>
                     <DialogActions>
