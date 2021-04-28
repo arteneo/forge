@@ -11,6 +11,7 @@ import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contex
 
 interface SelectApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);
+    modifyOptions?: (options: OptionsType) => OptionsType;
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
 }
@@ -35,6 +36,7 @@ const SelectApi = ({
     hidden = false,
     disabled = false,
     validationSchema,
+    modifyOptions,
     loadUseEffectDependency,
     disableTranslateOption = true,
     ...elementSpecificProps
@@ -90,7 +92,14 @@ const SelectApi = ({
                 cancelToken: axiosSource.token,
             })
             .then((response: AxiosResponse) => {
-                setOptions(response.data);
+                const options: OptionsType = response.data;
+
+                if (typeof modifyOptions !== "undefined") {
+                    setOptions(modifyOptions(options));
+                    return;
+                }
+
+                setOptions(options);
             })
             .catch((error: AxiosError) => {
                 handleCatch(error);

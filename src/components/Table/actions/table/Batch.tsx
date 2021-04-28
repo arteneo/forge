@@ -12,7 +12,8 @@ import { Alert } from "@material-ui/lab";
 import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
 
 interface BatchProps extends ButtonProps {
-    confirmationLabel: string;
+    confirmationLabel?: string;
+    confirmationContent?: React.ReactNode;
     snackbarLabel: string;
     endpoint: string;
     resultRepresentation?: (result: ResultInterface) => React.ReactNode;
@@ -21,6 +22,7 @@ interface BatchProps extends ButtonProps {
 const Batch = ({
     label,
     confirmationLabel,
+    confirmationContent,
     snackbarLabel,
     endpoint,
     resultRepresentation = (result: ResultInterface) => result.representation,
@@ -50,6 +52,25 @@ const Batch = ({
 
     const resolvedLabel = label ? resolveStringOrFunction(label, selected.length) : undefined;
 
+    if (typeof confirmationContent === "undefined") {
+        if (typeof confirmationLabel === "undefined") {
+            throw new Error("Bath component: Please provide confirmationContent or confirmationLabel prop");
+        }
+
+        confirmationContent = (
+            <>
+                <Alert severity="error">{t(confirmationLabel)}</Alert>
+                <ul>
+                    {results
+                        .filter((result) => selected.includes(result.id))
+                        .map((result, key) => (
+                            <li key={key}>{resultRepresentation(result)}</li>
+                        ))}
+                </ul>
+            </>
+        );
+    }
+
     return (
         <>
             <Button
@@ -68,16 +89,7 @@ const Batch = ({
 
             <Dialog open={showConfirmation} onClose={() => setShowConfirmation(false)} fullWidth maxWidth="sm">
                 <DialogTitle>{t("crud.confirmation.title")}</DialogTitle>
-                <DialogContent>
-                    <Alert severity="error">{t(confirmationLabel)}</Alert>
-                    <ul>
-                        {results
-                            .filter((result) => selected.includes(result.id))
-                            .map((result, key) => (
-                                <li key={key}>{resultRepresentation(result)}</li>
-                            ))}
-                    </ul>
-                </DialogContent>
+                <DialogContent>{confirmationContent}</DialogContent>
                 <DialogActions>
                     <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
                         <Button onClick={() => setShowConfirmation(false)} variant="contained">

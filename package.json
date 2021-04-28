@@ -1,6 +1,6 @@
 {
     "name": "@arteneo/forge",
-    "version": "1.3.9",
+    "version": "1.3.10",
     "description": "Forge",
     "license": "MIT",
     "author": "Arteneo",
@@ -10,6 +10,7 @@
     "scripts": {
         "docz:dev": "docz dev",
         "docz:build": "docz build",
+        "docz:full-build": "yarn build && docz build",
         "docz:serve": "docz build && docz serve",
         "lint": "eslint 'src/**/*.{js,ts,tsx}'",
         "build": "eslint 'src/**/*.{js,ts,tsx}';rm -rf dist/;webpack --mode production"
