@@ -188,10 +188,13 @@ const FormProvider = ({
             pathParts.reverse().forEach((pathPart) => {
                 const isArrayPart = /^\d+$/.test(pathPart);
 
-                const yupShape = {
-                    [pathPart]:
-                        typeof validationSchemaObject !== "undefined" ? validationSchemaObject : validationSchema,
-                };
+                const yupShape: ValidationSchemaInterface = {};
+
+                if (typeof validationSchemaObject !== "undefined") {
+                    yupShape[pathPart] = validationSchemaObject;
+                } else if (typeof validationSchema !== "undefined") {
+                    yupShape[pathPart] = validationSchema;
+                }
 
                 if (isArrayPart) {
                     if (typeof validationSchemaObject === "undefined") {
@@ -223,7 +226,7 @@ const FormProvider = ({
         name: string
     ) => {
         if (hidden) {
-            setValidationSchema(path, null);
+            setValidationSchema(path, undefined);
             return;
         }
 
