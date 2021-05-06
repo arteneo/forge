@@ -81,6 +81,7 @@ interface FormProviderProps {
     fields?: FieldsInterface;
     initialValues?: FormikValues;
     initializeEndpoint?: string;
+    translateLabelPrefix?: string;
     /**
      * Idea of isReady function used in each FieldX component to render X view only after validationSchema is initialized.
      * This allows to lower number of rerenders.
@@ -131,6 +132,7 @@ const FormProvider = ({
     fields,
     initialValues,
     initializeEndpoint,
+    translateLabelPrefix = "label.",
     isReady = () => true,
 }: FormProviderProps) => {
     const { t } = useTranslation();
@@ -287,7 +289,7 @@ const FormProvider = ({
         }
 
         if (typeof resolvedLabel === "string" && !disableTranslateLabel) {
-            return t("label." + resolvedLabel);
+            return t(translateLabelPrefix + resolvedLabel);
         }
 
         return resolvedLabel;
@@ -308,7 +310,7 @@ const FormProvider = ({
             resolvedPlaceholder = name;
 
             if (!disableTranslatePlaceholder) {
-                return t("label." + resolvedPlaceholder);
+                return t(translateLabelPrefix + resolvedPlaceholder);
             }
         }
 
