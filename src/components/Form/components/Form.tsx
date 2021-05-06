@@ -8,6 +8,7 @@ interface FormProps extends FormContentProps {
     initialValues?: FormikValues;
     initializeEndpoint?: string;
     isReady?: (formikValidationSchema: ValidationSchemaInterface, path: string) => boolean;
+    translateLabelPrefix?: string;
 }
 
 const Form = ({
@@ -16,6 +17,7 @@ const Form = ({
     endpoint,
     initialValues,
     initializeEndpoint,
+    translateLabelPrefix,
     changeSubmitValues,
     onSubmitSuccess,
     onSubmit,
@@ -27,7 +29,7 @@ const Form = ({
     }
 
     return (
-        <FormProvider {...{ fields, isReady, initialValues, initializeEndpoint }}>
+        <FormProvider {...{ fields, isReady, initialValues, initializeEndpoint, translateLabelPrefix }}>
             <FormContent {...{ fields, onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, buttons }}>
                 {children}
             </FormContent>
