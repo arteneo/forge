@@ -25,6 +25,7 @@ interface TableProps {
     enableBatchSelect?: boolean;
     title?: string;
     icon?: React.ReactElement;
+    loader?: React.ReactElement;
     tableKey?: string;
     tableColumnEndpoint?: string;
     // eslint-disable-next-line
@@ -49,6 +50,7 @@ const Table = ({
     enableBatchSelect,
     title,
     icon,
+    loader,
     tableKey,
     tableColumnEndpoint,
     custom,
@@ -74,7 +76,7 @@ const Table = ({
                 tableColumnEndpoint,
             }}
         >
-            <TableContent {...{ row, filters, filterClass, actions, disablePagination, title, icon }} />
+            <TableContent {...{ row, filters, filterClass, actions, disablePagination, title, icon, loader }} />
         </TableProvider>
     );
 };

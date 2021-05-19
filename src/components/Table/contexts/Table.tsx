@@ -51,6 +51,7 @@ interface TableContextProps {
     enableBatchSelect?: boolean;
     selected: number[];
     isSelected: (id: number) => boolean;
+    isLoaded: () => boolean;
     deselectAll: () => void;
     selectAll: () => void;
     addSelected: (id: number) => void;
@@ -144,6 +145,7 @@ const contextInitial = {
     enableBatchSelect: false,
     selected: [],
     isSelected: () => false,
+    isLoaded: () => false,
     deselectAll: () => {
         return;
     },
@@ -203,6 +205,7 @@ const TableProvider = ({
     const [filtersExpanded, setFiltersExpanded] = React.useState(false);
     const [selected, setSelected] = React.useState<BatchSelectedType>([]);
     const [columns, setColumns] = React.useState<TableColumnsType>(undefined);
+    const [dataLoaded, setDataLoaded] = React.useState(false);
 
     const handleCatch = useHandleCatch();
     const { showLoader, hideLoader } = useLoader();
@@ -234,6 +237,7 @@ const TableProvider = ({
                 setSelected([]);
 
                 hideLoader();
+                setDataLoaded(true);
 
                 if (onLoadSuccess) {
                     onLoadSuccess();
@@ -382,7 +386,7 @@ const TableProvider = ({
     };
 
     const isSortingActive = (field: string): boolean => {
-        return sorting?.[field] ? true : false;
+        return !!sorting?.[field];
     };
 
     const getSortingDirection = (field: string): undefined | SortingDirection => {
@@ -430,6 +434,10 @@ const TableProvider = ({
 
     const isSelected = (id: number): boolean => {
         return selected.indexOf(id) !== -1;
+    };
+
+    const isLoaded = (): boolean => {
+        return dataLoaded;
     };
 
     const deselectAll = (): void => {
@@ -527,6 +535,7 @@ const TableProvider = ({
                 enableBatchSelect,
                 selected,
                 isSelected,
+                isLoaded,
                 deselectAll,
                 selectAll,
                 addSelected,

@@ -30,6 +30,7 @@ interface TableContentProps {
     disablePagination?: boolean;
     title?: string;
     icon?: React.ReactElement;
+    loader?: React.ReactElement;
 }
 
 const useStyles = makeStyles(() => ({
@@ -43,7 +44,16 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const TableContent = ({ row, filters, filterClass, actions, disablePagination, title, icon }: TableContentProps) => {
+const TableContent = ({
+    row,
+    filters,
+    filterClass,
+    actions,
+    disablePagination,
+    title,
+    icon,
+    loader,
+}: TableContentProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -56,6 +66,7 @@ const TableContent = ({ row, filters, filterClass, actions, disablePagination, t
         enableBatchSelect,
         selected,
         isSelected,
+        isLoaded,
         selectAll,
         deselectAll,
         toggleSelected,
@@ -93,54 +104,71 @@ const TableContent = ({ row, filters, filterClass, actions, disablePagination, t
                 )}
 
                 <Box p={isSm ? 2 : 4}>
-                    {actions}
-
-                    {rowCount > 0 ? (
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    {enableBatchSelect && (
-                                        <TableCell padding="checkbox">
-                                            <Checkbox
-                                                indeterminate={selected.length > 0 && selected.length < results.length}
-                                                checked={results.length > 0 && selected.length === results.length}
-                                                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                                                    event.target.checked ? selectAll() : deselectAll()
-                                                }
-                                            />
-                                        </TableCell>
-                                    )}
-                                    {Object.keys(columns).map((field) => {
-                                        return <TableCell key={field}>{getHeadTableCell(field)}</TableCell>;
-                                    })}
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {results.map((result, key) => (
-                                    <TableRow key={key} hover={true} selected={isSelected(result.id)}>
-                                        {enableBatchSelect && (
-                                            <TableCell padding="checkbox" onClick={() => toggleSelected(result.id)}>
-                                                <Checkbox checked={isSelected(result.id)} />
-                                            </TableCell>
-                                        )}
-
-                                        {Object.keys(columns).map((field) => {
-                                            return (
-                                                <TableCell key={field}>
-                                                    {React.cloneElement(row[field], {
-                                                        result,
-                                                        field: row[field].props.field || field,
-                                                    })}
-                                                </TableCell>
-                                            );
-                                        })}
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                            {!disablePagination && <TablePagination />}
-                        </Table>
+                    {!isLoaded() ? (
+                        loader ? (
+                            loader
+                        ) : (
+                            <p>{t("label.loading")}</p>
+                        )
                     ) : (
-                        <Alert severity="info">{t("crud.noresults")}</Alert>
+                        <>
+                            {actions}
+
+                            {rowCount > 0 ? (
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            {enableBatchSelect && (
+                                                <TableCell padding="checkbox">
+                                                    <Checkbox
+                                                        indeterminate={
+                                                            selected.length > 0 && selected.length < results.length
+                                                        }
+                                                        checked={
+                                                            results.length > 0 && selected.length === results.length
+                                                        }
+                                                        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                                            event.target.checked ? selectAll() : deselectAll()
+                                                        }
+                                                    />
+                                                </TableCell>
+                                            )}
+                                            {Object.keys(columns).map((field) => {
+                                                return <TableCell key={field}>{getHeadTableCell(field)}</TableCell>;
+                                            })}
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {results.map((result, key) => (
+                                            <TableRow key={key} hover={true} selected={isSelected(result.id)}>
+                                                {enableBatchSelect && (
+                                                    <TableCell
+                                                        padding="checkbox"
+                                                        onClick={() => toggleSelected(result.id)}
+                                                    >
+                                                        <Checkbox checked={isSelected(result.id)} />
+                                                    </TableCell>
+                                                )}
+
+                                                {Object.keys(columns).map((field) => {
+                                                    return (
+                                                        <TableCell key={field}>
+                                                            {React.cloneElement(row[field], {
+                                                                result,
+                                                                field: row[field].props.field || field,
+                                                            })}
+                                                        </TableCell>
+                                                    );
+                                                })}
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                    {!disablePagination && <TablePagination />}
+                                </Table>
+                            ) : (
+                                <Alert severity="info">{t("crud.noresults")}</Alert>
+                            )}
+                        </>
                     )}
                 </Box>
             </Paper>
