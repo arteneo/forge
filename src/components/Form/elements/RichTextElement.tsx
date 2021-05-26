@@ -1,11 +1,20 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { FormControl, FormControlProps, FormHelperText, InputLabel, InputLabelProps } from "@material-ui/core";
-import MuiRichTextEditor, { TMUIRichTextEditorRef, TMUIRichTextEditorProps } from "mui-rte";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
+import { Chip, FormControl, FormControlProps, FormHelperText, InputLabel, InputLabelProps } from "@material-ui/core";
+import MuiRichTextEditor, {
+    TMUIRichTextEditorRef,
+    TMUIRichTextEditorProps,
+    TToolbarComponentProps,
+} from "/var/www/mui-rte/src/MUIRichTextEditor";
+import { EditorState, convertToRaw, convertFromRaw, RichUtils } from "draft-js";
 import { stateFromHTML } from "draft-js-import-html";
 import { stateToHTML } from "draft-js-export-html";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
+import {
+    headingControl,
+    headingAtomicControl,
+    HeadingPopover,
+} from "@arteneo/forge/components/RichText/components/Heading";
 
 interface RichTextElementSpecificProps {
     onChange?: (
@@ -71,10 +80,23 @@ const RichTextElement = ({
     labelProps,
 }: RichTextElementProps) => {
     const ref = React.useRef<TMUIRichTextEditorRef>(null);
+    console.log("🚀 ~ file: RichTextElement.tsx ~ line 75 ~ ref", ref);
+    const [anchorHeading, setAnchorHeading] = React.useState<undefined | HTMLElement>(undefined);
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
-    const defaultOnChange = (data: string) => {
-        setFieldValue(path, convertDraftJsContentToHtml(data));
+    const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
+    console.log("🚀 ~ file: RichTextElement.tsx ~ line 79 ~ editorState", editorState);
+    console.log(
+        "🚀 ~ file: RichTextElement.tsx ~ line 79 ~ editorState.getCurrentContent",
+        editorState.getCurrentContent()
+    );
+
+    const defaultOnChange = (data: EditorState) => {
+        console.log("🚀 ~ file: RichTextElement.tsx ~ line 77 ~ defaultOnChange ~ data", data);
+        // TODO change that
+        // setFieldValue(path, convertDraftJsContentToHtml(data));
+        // setFieldValue(path, data);
+        // setEditorState(data);
     };
 
     const callableOnChange = (data: string) => {
@@ -100,7 +122,9 @@ const RichTextElement = ({
     };
 
     const controls = [
-        "title",
+        "heading",
+        "heading-atomic",
+        // "title",
         "bold",
         "italic",
         "underline",
@@ -111,14 +135,24 @@ const RichTextElement = ({
         "bulletList",
         "clear",
         "save",
+        // "my-style",
+        "link",
+        "media",
     ];
+
+    const customControls = [headingControl(setAnchorHeading), headingAtomicControl];
 
     const internalRichTextProps: TMUIRichTextEditorProps = {
         controls,
-        defaultValue: convertHtmlToDraftJsContent(getIn(values, path, "")),
+        customControls,
+        // TODO Change that
+        // defaultValue: convertHtmlToDraftJsContent(getIn(values, path, "")),
+        // defaultValue: getIn(values, path, ""),
+        // defaultValue: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
         label: placeholder,
         readOnly: disabled,
-        onSave: callableOnChange,
+        // onChange: (state) => setEditorState(state),
+        // onSave: callableOnChange,
         onBlur,
     };
 
@@ -147,6 +181,28 @@ const RichTextElement = ({
         <FormControl {...mergedFormControlProps}>
             {label && <InputLabel {...mergedLabelProps}>{label}</InputLabel>}
             <MuiRichTextEditor ref={ref} {...mergedRichTextProps} />
+            {anchorHeading && (
+                <HeadingPopover
+                    {...{
+                        anchor: anchorHeading,
+                        close: () => setAnchorHeading(undefined),
+                        submit: (tag) => {
+                            console.log(tag);
+                            ref.current?.insertAtomicBlockSync("heading-atomic", tag);
+                            ref.current?.updateEditorState("heading-atomic", tag, (editorState, tag) => {
+                                console.log("🚀 ~ file: RichTextElement.tsx ~ line 193 ~ ref.current?.updateEditorState ~ editorState", editorState)
+                                console.log(RichUtils.toggleBlockType(editorState, tag));
+                                return  RichUtils.toggleInlineStyle(
+                                    editorState,
+                                    'BOLD'
+                                );
+                                return RichUtils.toggleBlockType(editorState, 'header-two');
+                            });
+                            setAnchorHeading(undefined);
+                        },
+                    }}
+                />
+            )}
             {helperText && <FormHelperText>{helperText}</FormHelperText>}
         </FormControl>
     );
