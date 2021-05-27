@@ -1,21 +1,50 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Close } from "@material-ui/icons";
-import { Snackbar, SnackbarContent, SnackbarCloseReason, IconButton, makeStyles } from "@material-ui/core";
+import { Snackbar, SnackbarProps, SnackbarContent, SnackbarCloseReason, IconButton } from "@material-ui/core";
 import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
 
 type SnackbarVariant = "success" | "info" | "warning" | "error";
 
+interface SnackbarMessage {
+    variant: SnackbarVariant;
+    message: string;
+    autoHideDuration?: null | number;
+}
+
 interface SnackbarContextProps {
-    show: (message: string, variant: SnackbarVariant, messageVariables?: TranslateVariablesInterface) => void;
-    showSuccess: (message: string, messageVariables?: TranslateVariablesInterface) => void;
-    showInfo: (message: string, messageVariables?: TranslateVariablesInterface) => void;
-    showWarning: (message: string, messageVariables?: TranslateVariablesInterface) => void;
-    showError: (message: string, messageVariables?: TranslateVariablesInterface) => void;
+    show: (
+        message: string,
+        variant: SnackbarVariant,
+        messageVariables?: TranslateVariablesInterface,
+        autoHideDuration?: null | number
+    ) => void;
+    showSuccess: (
+        message: string,
+        messageVariables?: TranslateVariablesInterface,
+        autoHideDuration?: null | number
+    ) => void;
+    showInfo: (
+        message: string,
+        messageVariables?: TranslateVariablesInterface,
+        autoHideDuration?: null | number
+    ) => void;
+    showWarning: (
+        message: string,
+        messageVariables?: TranslateVariablesInterface,
+        autoHideDuration?: null | number
+    ) => void;
+    showError: (
+        message: string,
+        messageVariables?: TranslateVariablesInterface,
+        autoHideDuration?: null | number
+    ) => void;
+    close: () => void;
 }
 
 interface SnackbarProviderProps {
     children: React.ReactNode;
+    snackbarProps?: SnackbarProps;
 }
 
 const contextInitial = {
@@ -34,61 +63,60 @@ const contextInitial = {
     showError: (): void => {
         return;
     },
+    close: (): void => {
+        return;
+    },
 };
 
 const SnackbarContext = React.createContext<SnackbarContextProps>(contextInitial);
 
-const useStyles = makeStyles((theme) => ({
-    success: {
-        backgroundColor: theme.palette.success.main,
-    },
-    error: {
-        backgroundColor: theme.palette.error.dark,
-    },
-    info: {
-        backgroundColor: theme.palette.info.main,
-    },
-    warning: {
-        backgroundColor: theme.palette.warning.main,
-    },
-    icon: {
-        fontSize: 20,
-    },
-    iconVariant: {
-        opacity: 0.9,
-        marginRight: theme.spacing(1),
-    },
-    message: {
-        display: "flex",
-        alignItems: "center",
-    },
-    snackbar: {
-        left: 0,
-        right: 0,
-        top: "80px",
-        transform: "none",
-        [theme.breakpoints.up("md")]: {
-            left: "240px",
-            width: "calc(100% - 240px)",
-        },
-    },
-}));
-
-const SnackbarProvider = ({ children }: SnackbarProviderProps) => {
+const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) => {
     const { t } = useTranslation();
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [message, setMessage] = React.useState("");
-    const [variant, setVariant] = React.useState<SnackbarVariant>("success");
+    const [snackbarMessage, setSnackbarMessage] = React.useState<undefined | SnackbarMessage>(undefined);
 
     const show = (
         message: string,
         variant: SnackbarVariant,
-        messageVariables: TranslateVariablesInterface = {}
+        messageVariables: TranslateVariablesInterface = {},
+        autoHideDuration: null | number = 4000
     ): void => {
-        setMessage(t(message, messageVariables));
-        setVariant(variant);
-        setOpen(true);
+        setSnackbarMessage({
+            message: t(message, messageVariables),
+            variant,
+            autoHideDuration,
+        });
+    };
+
+    const showSuccess = (
+        message: string,
+        messageVariables: TranslateVariablesInterface = {},
+        autoHideDuration: null | number = 4000
+    ): void => {
+        show(message, "success", messageVariables, autoHideDuration);
+    };
+
+    const showInfo = (
+        message: string,
+        messageVariables: TranslateVariablesInterface = {},
+        autoHideDuration: null | number = 4000
+    ): void => {
+        show(message, "info", messageVariables, autoHideDuration);
+    };
+
+    const showWarning = (
+        message: string,
+        messageVariables: TranslateVariablesInterface = {},
+        autoHideDuration: null | number = 4000
+    ): void => {
+        show(message, "warning", messageVariables, autoHideDuration);
+    };
+
+    const showError = (
+        message: string,
+        messageVariables: TranslateVariablesInterface = {},
+        autoHideDuration: null | number = 4000
+    ): void => {
+        show(message, "error", messageVariables, autoHideDuration);
     };
 
     // eslint-disable-next-line
@@ -97,24 +125,25 @@ const SnackbarProvider = ({ children }: SnackbarProviderProps) => {
             return;
         }
 
-        setOpen(false);
+        close();
     };
 
-    const showSuccess = (message: string, messageVariables: TranslateVariablesInterface = {}): void => {
-        show(message, "success", messageVariables);
+    const close = () => {
+        setSnackbarMessage(undefined);
     };
 
-    const showInfo = (message: string, messageVariables: TranslateVariablesInterface = {}): void => {
-        show(message, "info", messageVariables);
+    const getVariantClassname = (variant: string): string => {
+        return variant.charAt(0).toUpperCase() + variant.slice(1);
     };
 
-    const showWarning = (message: string, messageVariables: TranslateVariablesInterface = {}): void => {
-        show(message, "warning", messageVariables);
+    const internalSnackbarProps = {
+        anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+        },
     };
 
-    const showError = (message: string, messageVariables: TranslateVariablesInterface = {}): void => {
-        show(message, "error", messageVariables);
-    };
+    const mergedFieldProps = Object.assign(internalSnackbarProps, snackbarProps);
 
     return (
         <>
@@ -125,42 +154,44 @@ const SnackbarProvider = ({ children }: SnackbarProviderProps) => {
                     showInfo,
                     showWarning,
                     showError,
+                    close,
                 }}
             >
                 {children}
             </SnackbarContext.Provider>
-            <Snackbar
-                className={classes.snackbar}
-                anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "center",
-                }}
-                open={open}
-                autoHideDuration={4000}
-                message={message}
-                onClose={onClose}
-            >
-                <SnackbarContent
-                    className={classes[variant]}
-                    aria-describedby="client-snackbar"
-                    message={
-                        <span id="client-snackbar" className={classes.message}>
-                            {message}
-                        </span>
-                    }
-                    action={[
-                        <IconButton
-                            key="close"
-                            aria-label="close"
-                            size="small"
-                            color="inherit"
-                            onClick={() => setOpen(false)}
-                        >
-                            <Close className={classes.icon} />
-                        </IconButton>,
-                    ]}
-                />
-            </Snackbar>
+            {typeof snackbarMessage !== "undefined" && (
+                <Snackbar
+                    {...{
+                        className: "MuiSnackbar-variant" + getVariantClassname(snackbarMessage.variant),
+                        autoHideDuration: snackbarMessage.autoHideDuration,
+                        message: snackbarMessage.message,
+                        open: true,
+                        onClose,
+                        ...mergedFieldProps,
+                    }}
+                >
+                    <SnackbarContent
+                        {...{
+                            className: "MuiSnackbarContent-variant" + getVariantClassname(snackbarMessage.variant),
+                            "aria-describedby": "client-snackbar",
+                            message: <span id="client-snackbar">{snackbarMessage.message}</span>,
+                            action: [
+                                <IconButton
+                                    key="close"
+                                    {...{
+                                        "aria-label": t("action.close"),
+                                        size: "small",
+                                        color: "inherit",
+                                        onClick: () => close(),
+                                    }}
+                                >
+                                    <Close />
+                                </IconButton>,
+                            ],
+                        }}
+                    />
+                </Snackbar>
+            )}
         </>
     );
 };
