@@ -50,6 +50,9 @@ import Table, { TableProps } from "@arteneo/forge/components/Table/components/Ta
 import TableActions, { TableActionsProps } from "@arteneo/forge/components/Table/components/TableActions";
 import TableContent, { TableContentProps } from "@arteneo/forge/components/Table/components/TableContent";
 import TableFilters, { TableFiltersProps } from "@arteneo/forge/components/Table/components/TableFilters";
+import TableFiltersFieldset, {
+    TableFiltersFieldsetProps,
+} from "@arteneo/forge/components/Table/components/TableFiltersFieldset";
 import TableFiltersButtons from "@arteneo/forge/components/Table/components/TableFiltersButtons";
 import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
 import TablePaginationActions from "@arteneo/forge/components/Table/components/TablePaginationActions";
@@ -300,6 +303,8 @@ export {
     TableContentProps,
     TableFilters,
     TableFiltersProps,
+    TableFiltersFieldset,
+    TableFiltersFieldsetProps,
     TableFiltersButtons,
     TablePagination,
     TablePaginationActions,

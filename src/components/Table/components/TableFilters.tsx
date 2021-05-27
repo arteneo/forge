@@ -8,8 +8,6 @@ import {
     AccordionDetails,
     AccordionSummary,
     Box,
-    Grid,
-    GridProps,
     makeStyles,
     Typography,
 } from "@material-ui/core";
@@ -18,6 +16,7 @@ import { ExpandMore, FilterList } from "@material-ui/icons";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 
 interface TableFiltersProps {
+    filtersFieldset: React.ElementType;
     filters: FieldsInterface;
     filterClass?: { accordion: string; accordionActive: string };
 }
@@ -40,49 +39,17 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         marginRight: theme.spacing(1.5),
     },
-    gridContainer: {
-        padding: theme.spacing(0, 0, 4, 0),
-    },
-    gridItem: {
-        padding: theme.spacing(0, 4) + " !important",
-    },
 }));
 
-const TableFilters = ({ filters, filterClass }: TableFiltersProps) => {
+const TableFilters = ({ filters, filterClass, filtersFieldset }: TableFiltersProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const { filters: filterValues, filtersExpanded, setFiltersExpanded, onSubmitFilters, isFiltersActive } = useTable();
 
-    // eslint-disable-next-line
-    const getFieldGridProps = (): GridProps => {
-        const gridProps: GridProps = {
-            xs: 12,
-        };
-
-        const filtersLength = Object.keys(filters).length;
-        if (filtersLength === 2) {
-            gridProps.sm = 6;
-        }
-
-        if (filtersLength === 3) {
-            gridProps.sm = 6;
-            gridProps.lg = 4;
-        }
-
-        if (filtersLength === 4) {
-            gridProps.sm = 6;
-        }
-
-        if (filtersLength > 4) {
-            gridProps.sm = 6;
-            gridProps.lg = 4;
-        }
-
-        return gridProps;
-    };
-
     const accordionClass = filterClass?.accordion ? filterClass.accordion : classes.accordion;
     const accordionActiveClass = filterClass?.accordionActive ? filterClass.accordionActive : classes.accordionActive;
+
+    const FiltersFieldset = filtersFieldset;
 
     return (
         <Accordion
@@ -110,15 +77,7 @@ const TableFilters = ({ filters, filterClass }: TableFiltersProps) => {
                         buttons={<TableFiltersButtons />}
                         disablePromptIfDirty
                     >
-                        <Grid container spacing={8} className={classes.gridContainer}>
-                            {Object.keys(filters).map((field) => (
-                                <Grid item className={classes.gridItem} key={field} {...getFieldGridProps()}>
-                                    {React.cloneElement(filters[field], {
-                                        name: filters[field].props.name || field,
-                                    })}
-                                </Grid>
-                            ))}
-                        </Grid>
+                        <FiltersFieldset filters={filters} />
                     </Form>
                 </Box>
             </AccordionDetails>
