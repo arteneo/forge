@@ -67,10 +67,8 @@ const ExportExcel = ({
 
     if (changeQuery) {
         exportQuery = changeQuery(exportQuery);
-    } else {
-        if (removeFields) {
-            exportQuery.fields = exportQuery.fields.filter((field) => !removeFields.includes(field.field));
-        }
+    } else if (removeFields) {
+        exportQuery.fields = exportQuery.fields.filter((field) => !removeFields.includes(field.field));
     }
 
     const requestConfig: AxiosRequestConfig = {
