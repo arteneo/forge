@@ -15,8 +15,8 @@ interface TableProps {
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     disablePagination?: boolean;
-    tableContent?: React.ElementType;
-    tableFilters?: React.ElementType;
+    tableContentComponent?: React.ElementType;
+    tableFiltersComponent?: React.ElementType;
     filtersFieldset?: React.ElementType;
     filters?: FieldsInterface;
     filterClass?: { accordion: string; accordionActive: string };
@@ -58,10 +58,10 @@ const Table = ({
     tableColumnEndpoint,
     custom,
     filtersFieldset = TableFiltersFieldset,
-    tableContent = TableContent,
-    tableFilters = TableFilters,
+    tableContentComponent = TableContent,
+    tableFiltersComponent = TableFilters,
 }: TableProps) => {
-    const TableContentComponent = tableContent;
+    const TableContentComponent = tableContentComponent;
 
     return (
         <TableProvider
@@ -93,7 +93,7 @@ const Table = ({
                     disablePagination,
                     title,
                     icon,
-                    tableFilters,
+                    tableFiltersComponent,
                     filtersFieldset,
                 }}
             />

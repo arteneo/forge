@@ -23,7 +23,7 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 
 interface TableContentProps {
     row: RowInterface;
-    tableFilters: React.ElementType;
+    tableFiltersComponent: React.ElementType;
     filtersFieldset: React.ElementType;
     filters?: FieldsInterface;
     filterClass?: { accordion: string; accordionActive: string };
@@ -52,7 +52,7 @@ const TableContent = ({
     disablePagination,
     title,
     icon,
-    tableFilters,
+    tableFiltersComponent,
     filtersFieldset,
 }: TableContentProps) => {
     const { t } = useTranslation();
@@ -90,11 +90,13 @@ const TableContent = ({
     };
 
     const classes = useStyles();
-    const TableFilters = tableFilters;
+    const TableFiltersComponent = tableFiltersComponent;
 
     return (
         <>
-            {filters && <TableFilters filters={filters} filterClass={filterClass} filtersFieldset={filtersFieldset} />}
+            {filters && (
+                <TableFiltersComponent filters={filters} filterClass={filterClass} filtersFieldset={filtersFieldset} />
+            )}
 
             <Paper>
                 {(icon || title) && (
