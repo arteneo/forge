@@ -131,7 +131,9 @@ const UploadElement = ({
 
     const hasError = error ? true : false;
     const internalFormControlProps: FormControlProps = {
+        className: "ForgeUpload-root",
         fullWidth: true,
+        margin: "normal",
         error: hasError,
     };
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
