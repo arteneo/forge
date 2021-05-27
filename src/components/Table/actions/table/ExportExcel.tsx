@@ -69,12 +69,7 @@ const ExportExcel = ({
         exportQuery = changeQuery(exportQuery);
     } else {
         if (removeFields) {
-            exportQuery.fields = exportQuery.fields.filter((field) => {
-                if (removeFields.includes(field.field)) {
-                    return false;
-                }
-                return true;
-            });
+            exportQuery.fields = exportQuery.fields.filter((field) => !removeFields.includes(field.field));
         }
     }
 
