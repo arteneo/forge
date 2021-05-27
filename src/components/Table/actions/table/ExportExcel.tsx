@@ -12,11 +12,19 @@ interface ExportExcelInterface {
     fileName?: string;
     sheetName?: string;
     changeQuery?: (query: ExportQueryInterface) => ExportQueryInterface;
+    removeFields?: string[];
 }
 
 type ExportExcelProps = Optional<ExportExcelInterface & ButtonDownloadProps, "requestConfig">;
 
-const ExportExcel = ({ endpoint, fileName, sheetName, changeQuery, ...props }: ExportExcelProps) => {
+const ExportExcel = ({
+    endpoint,
+    fileName,
+    sheetName,
+    changeQuery,
+    removeFields = ["actions"],
+    ...props
+}: ExportExcelProps) => {
     const { t } = useTranslation();
     const { custom, row, query } = useTable();
 
@@ -59,6 +67,8 @@ const ExportExcel = ({ endpoint, fileName, sheetName, changeQuery, ...props }: E
 
     if (changeQuery) {
         exportQuery = changeQuery(exportQuery);
+    } else if (removeFields) {
+        exportQuery.fields = exportQuery.fields.filter((field) => !removeFields.includes(field.field));
     }
 
     const requestConfig: AxiosRequestConfig = {
