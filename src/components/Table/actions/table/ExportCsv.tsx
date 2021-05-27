@@ -12,11 +12,12 @@ interface ExportCsvInterface {
     fileName?: string;
     sheetName?: string;
     changeQuery?: (query: ExportQueryInterface) => ExportQueryInterface;
+    removeFields?: string[];
 }
 
 type ExportCsvProps = Optional<ExportCsvInterface & ButtonDownloadProps, "requestConfig">;
 
-const ExportCsv = ({ endpoint, fileName, sheetName, changeQuery, ...props }: ExportCsvProps) => {
+const ExportCsv = ({ endpoint, fileName, sheetName, changeQuery, removeFields, ...props }: ExportCsvProps) => {
     const { t } = useTranslation();
     const { custom, row, query } = useTable();
 
@@ -59,6 +60,15 @@ const ExportCsv = ({ endpoint, fileName, sheetName, changeQuery, ...props }: Exp
 
     if (changeQuery) {
         exportQuery = changeQuery(exportQuery);
+    } else {
+        if (removeFields) {
+            exportQuery.fields = exportQuery.fields.filter((field) => {
+                if (removeFields.includes(field.field)) {
+                    return false;
+                }
+                return true;
+            });
+        }
     }
 
     const requestConfig: AxiosRequestConfig = {
