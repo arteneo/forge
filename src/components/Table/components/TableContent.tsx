@@ -19,11 +19,12 @@ import { Alert } from "@material-ui/lab";
 import { useTranslation } from "react-i18next";
 import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
 import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
-import TableFilters from "@arteneo/forge/components/Table/components/TableFilters";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 
 interface TableContentProps {
     row: RowInterface;
+    tableFilters: React.ElementType;
+    filtersFieldset: React.ElementType;
     filters?: FieldsInterface;
     filterClass?: { accordion: string; accordionActive: string };
     actions?: React.ReactNode;
@@ -43,7 +44,17 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const TableContent = ({ row, filters, filterClass, actions, disablePagination, title, icon }: TableContentProps) => {
+const TableContent = ({
+    row,
+    filters,
+    filterClass,
+    actions,
+    disablePagination,
+    title,
+    icon,
+    tableFilters,
+    filtersFieldset,
+}: TableContentProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -79,10 +90,11 @@ const TableContent = ({ row, filters, filterClass, actions, disablePagination, t
     };
 
     const classes = useStyles();
+    const TableFilters = tableFilters;
 
     return (
         <>
-            {filters && <TableFilters filters={filters} filterClass={filterClass} />}
+            {filters && <TableFilters filters={filters} filterClass={filterClass} filtersFieldset={filtersFieldset} />}
 
             <Paper>
                 {(icon || title) && (
