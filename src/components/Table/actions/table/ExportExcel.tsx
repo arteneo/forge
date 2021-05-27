@@ -17,7 +17,14 @@ interface ExportExcelInterface {
 
 type ExportExcelProps = Optional<ExportExcelInterface & ButtonDownloadProps, "requestConfig">;
 
-const ExportExcel = ({ endpoint, fileName, sheetName, changeQuery, removeFields, ...props }: ExportExcelProps) => {
+const ExportExcel = ({
+    endpoint,
+    fileName,
+    sheetName,
+    changeQuery,
+    removeFields = ["actions"],
+    ...props
+}: ExportExcelProps) => {
     const { t } = useTranslation();
     const { custom, row, query } = useTable();
 

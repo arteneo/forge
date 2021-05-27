@@ -17,7 +17,14 @@ interface ExportCsvInterface {
 
 type ExportCsvProps = Optional<ExportCsvInterface & ButtonDownloadProps, "requestConfig">;
 
-const ExportCsv = ({ endpoint, fileName, sheetName, changeQuery, removeFields, ...props }: ExportCsvProps) => {
+const ExportCsv = ({
+    endpoint,
+    fileName,
+    sheetName,
+    changeQuery,
+    removeFields = ["actions"],
+    ...props
+}: ExportCsvProps) => {
     const { t } = useTranslation();
     const { custom, row, query } = useTable();
 
