@@ -221,6 +221,11 @@ import RichTextElement, {
     convertDraftJsContentToHtml,
     convertDraftJsStateToHtml,
 } from "@arteneo/forge/components/Form/elements/RichTextElement";
+import Rating, { RatingProps } from "@arteneo/forge/components/Form/fields/Rating";
+import RatingElement, {
+    RatingElementProps,
+    RatingElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/RatingElement";
 import Text, { TextProps } from "@arteneo/forge/components/Form/fields/Text";
 import TextElement, {
     TextElementProps,
@@ -530,6 +535,11 @@ export {
     convertHtmlToDraftJsContent,
     convertDraftJsContentToHtml,
     convertDraftJsStateToHtml,
+    Rating,
+    RatingProps,
+    RatingElement,
+    RatingElementProps,
+    RatingElementSpecificProps,
     Text,
     TextProps,
     TextElement,
