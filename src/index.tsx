@@ -5,6 +5,7 @@ import ButtonEndpoint, { ButtonEndpointProps } from "@arteneo/forge/components/C
 import ButtonEndpointConfirmation, {
     ButtonEndpointConfirmationProps,
 } from "@arteneo/forge/components/Common/ButtonEndpointConfirmation";
+import ButtonDialogForm, { ButtonDialogFormProps } from "@arteneo/forge/components/Common/ButtonDialogForm";
 import {
     FormContext,
     FormContextProps,
@@ -290,6 +291,8 @@ export {
     ButtonEndpointProps,
     ButtonEndpointConfirmation,
     ButtonEndpointConfirmationProps,
+    ButtonDialogForm,
+    ButtonDialogFormProps,
     AppDateFnsUtils,
     Wrapper,
     WrapperProps,
