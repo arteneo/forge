@@ -72,8 +72,9 @@ const RatingElement = ({
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
     const internalRatingProps: RatingProps = {
+        name: path,
         className: "MuiRating-input",
-        value: getIn(values, path, ""),
+        value: getIn(values, path, 0),
         onChange: callableOnChange,
         readOnly: disabled,
     };
