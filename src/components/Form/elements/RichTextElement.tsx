@@ -38,7 +38,7 @@ const convertHtmlToDraftJsContent = (html?: string): undefined | string => {
 
 const convertDraftJsContentToHtml = (content: string): undefined | string => {
     try {
-        return stateToHTML(convertFromRaw(JSON.parse((content as unknown) as string)));
+        return stateToHTML(convertFromRaw(JSON.parse(content as unknown as string)));
     } catch (error) {
         // When error occurs while converting value return undefined value (mui-rte does not handle this case)
     }
