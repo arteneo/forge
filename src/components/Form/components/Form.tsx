@@ -23,6 +23,7 @@ const Form = ({
     onSubmit,
     isReady,
     buttons,
+    formikProps,
 }: FormProps) => {
     if (!children && !fields) {
         throw new Error("Form component: children or fields prop is required.");
@@ -30,7 +31,7 @@ const Form = ({
 
     return (
         <FormProvider {...{ fields, isReady, initialValues, initializeEndpoint, translateLabelPrefix }}>
-            <FormContent {...{ fields, onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, buttons }}>
+            <FormContent {...{ fields, onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, buttons, formikProps }}>
                 {children}
             </FormContent>
         </FormProvider>

@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { Formik, FormikHelpers, FormikValues, Form } from "formik";
+import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
 import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import FormButtons from "@arteneo/forge/components/Form/components/FormButtons";
 import PromptIfDirty from "@arteneo/forge/components/Form/components/PromptIfDirty";
@@ -11,6 +11,7 @@ import { useLoader } from "@arteneo/forge/contexts/Loader";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import { makeStyles } from "@material-ui/core";
 import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
+import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 
 interface FormContentProps {
     fields?: FieldsInterface;
@@ -35,6 +36,7 @@ interface FormContentProps {
     endpoint?: string | ((values: FormikValues) => string);
     disablePromptIfDirty?: boolean;
     promptIfDirtyLabel?: string;
+    formikProps?: Optional<Optional<FormikConfig<FormikValues>, "initialValues">, "onSubmit">;
 }
 
 const useStyles = makeStyles(() => ({
@@ -53,6 +55,7 @@ const FormContent = ({
     onSubmit,
     disablePromptIfDirty,
     promptIfDirtyLabel,
+    formikProps,
 }: FormContentProps) => {
     const classes = useStyles();
     const { formikInitialValues, formikValidationSchema, setObject, submitAction } = useForm();
@@ -114,6 +117,7 @@ const FormContent = ({
             validationSchema={formikValidationSchema}
             onSubmit={_onSubmit}
             enableReinitialize
+            {...formikProps}
         >
             <Form className={classes.form}>
                 {!disablePromptIfDirty && <PromptIfDirty label={promptIfDirtyLabel} />}
