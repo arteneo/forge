@@ -1,12 +1,8 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { FormControl, FormControlProps, FormHelperText, InputLabel, InputLabelProps } from "@material-ui/core";
-import MuiRichTextEditor, {
-    TMUIRichTextEditorRef,
-    TMUIRichTextEditorProps,
-    TToolbarComponentProps,
-} from "/var/www/mui-rte/src/MUIRichTextEditor";
-import { EditorState, convertToRaw, convertFromRaw, RichUtils } from "draft-js";
+import MuiRichTextEditor, { TMUIRichTextEditorRef, TMUIRichTextEditorProps } from "@arteneo/mui-rte";
+import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import { stateFromHTML } from "draft-js-import-html";
 import { stateToHTML } from "draft-js-export-html";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
@@ -76,7 +72,7 @@ const RichTextElement = ({
     labelProps,
 }: RichTextElementProps) => {
     const ref = React.useRef<TMUIRichTextEditorRef>(null);
-    const [anchorHeader, setAnchorHeader] = React.useState<undefined | HTMLElement>(undefined);
+    const [anchorHeader, setAnchorHeader] = React.useState<null | HTMLElement>(null);
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     let editorState = undefined;

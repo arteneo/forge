@@ -1,15 +1,16 @@
 import React from "react";
 import { Title } from "@material-ui/icons";
 import { Button, Box, Popover, makeStyles, ClickAwayListener } from "@material-ui/core";
-import { RichUtils } from "draft-js";
+import { EditorState, RichUtils } from "draft-js";
 import { useTranslation } from "react-i18next";
+import { TMUIRichTextEditorRef } from "@arteneo/mui-rte";
 
-const headerControl = (setAnchor) => {
+const headerControl = (setAnchor: React.Dispatch<React.SetStateAction<HTMLElement | null>>) => {
     return {
         name: "header",
         icon: <Title />,
         type: "callback",
-        onClick: (_editorState, _name, anchor) => {
+        onClick: (_editorState: EditorState, _name: string, anchor: HTMLElement | null) => {
             setAnchor(anchor);
         },
     };
@@ -39,16 +40,25 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
+interface HeaderPopoverInterface {
+    anchor?: HTMLElement;
+    close: () => void;
+    muiRteRef: React.RefObject<TMUIRichTextEditorRef>;
+}
+
 type HeaderType = "one" | "two" | "three" | "four" | "five" | "six";
 
-const HeaderPopover = ({ anchor, close, muiRteRef }) => {
+const HeaderPopover = ({ anchor, close, muiRteRef }: HeaderPopoverInterface) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
     const toggleBlockType = (blockType: HeaderType) => {
-        muiRteRef.current?.setEditorState((editorState) => {
-            return RichUtils.toggleBlockType(editorState, "header-" + blockType);
-        });
+        if (typeof muiRteRef.current !== "undefined") {
+            muiRteRef.current?.setEditorState((editorState) => {
+                return RichUtils.toggleBlockType(editorState, "header-" + blockType);
+            });
+        }
+
         close();
     };
 
@@ -90,4 +100,4 @@ const HeaderPopover = ({ anchor, close, muiRteRef }) => {
     );
 };
 
-export { headerControl, HeaderPopover };
+export { headerControl, HeaderPopover, HeaderPopoverInterface, HeaderType };
