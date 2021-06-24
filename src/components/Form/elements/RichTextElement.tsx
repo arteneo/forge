@@ -3,10 +3,16 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { FormControl, FormControlProps, FormHelperText, InputLabel, InputLabelProps } from "@material-ui/core";
 import MuiRichTextEditor, { TMUIRichTextEditorRef, TMUIRichTextEditorProps, TCustomControl } from "@arteneo/mui-rte";
 import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
-import { stateFromHTML } from "draft-js-import-html";
+import { stateFromHTML, InlineCreators } from "draft-js-import-html";
 import { stateToHTML } from "draft-js-export-html";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 import { headerControl, HeaderPopover } from "@arteneo/forge/components/RichText/components/Header";
+import { textColorControl, TextColorPopover } from "@arteneo/forge/components/RichText/components/TextColor";
+import createStyles from "draft-js-custom-styles";
+import rgbHex from "rgb-hex";
+
+const { styles, customStyleFn, exporter } = createStyles(["color"], "CUSTOM_");
+let editorState: undefined | EditorState = undefined;
 
 interface RichTextElementSpecificProps {
     onChange?: (
@@ -28,7 +34,15 @@ type RichTextElementProps = RichTextElementSpecificProps & FieldElementPlacehold
 const convertHtmlToDraftJsContent = (html?: string): undefined | string => {
     try {
         if (html) {
-            return JSON.stringify(convertToRaw(stateFromHTML(html)));
+            const customInlineFn = (element: Element, { Style }: InlineCreators) => {
+                const htmlElement = element as HTMLElement;
+                if (htmlElement?.style?.color) {
+                    const hex = rgbHex(htmlElement.style.color);
+                    return Style("CUSTOM_COLOR_#" + hex);
+                }
+            };
+
+            return JSON.stringify(convertToRaw(stateFromHTML(html, { customInlineFn })));
         }
     } catch (error) {
         // When error occurs while converting value return undefined value (mui-rte does not handle this case)
@@ -39,7 +53,9 @@ const convertHtmlToDraftJsContent = (html?: string): undefined | string => {
 
 const convertDraftJsContentToHtml = (content: string): undefined | string => {
     try {
-        return stateToHTML(convertFromRaw(JSON.parse((content as unknown) as string)));
+        const inlineStyles = exporter(editorState);
+        const contentState = convertFromRaw(JSON.parse((content as unknown) as string));
+        return stateToHTML(contentState, { inlineStyles });
     } catch (error) {
         // When error occurs while converting value return undefined value (mui-rte does not handle this case)
     }
@@ -49,7 +65,8 @@ const convertDraftJsContentToHtml = (content: string): undefined | string => {
 
 const convertDraftJsStateToHtml = (state: EditorState): undefined | string => {
     try {
-        return stateToHTML(state.getCurrentContent());
+        const inlineStyles = exporter(state);
+        return stateToHTML(state.getCurrentContent(), { inlineStyles });
     } catch (error) {
         // When error occurs while converting value return undefined value (mui-rte does not handle this case)
     }
@@ -73,9 +90,9 @@ const RichTextElement = ({
 }: RichTextElementProps) => {
     const ref = React.useRef<TMUIRichTextEditorRef>(null);
     const [anchorHeader, setAnchorHeader] = React.useState<null | HTMLElement>(null);
+    const [anchorTextColor, setAnchorTextColor] = React.useState<null | HTMLElement>(null);
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
-    let editorState: undefined | EditorState = undefined;
     const [defaultValue, setDefaultValue] = React.useState<undefined | string>(undefined);
 
     const value = getIn(values, path, "");
@@ -124,22 +141,25 @@ const RichTextElement = ({
         "italic",
         "underline",
         "strikethrough",
+        "textColor",
         "undo",
         "redo",
         "numberList",
         "bulletList",
         "clear",
         "save",
-        // "my-style",
         "link",
         "media",
     ];
 
-    const customControls: TCustomControl[] = [headerControl(setAnchorHeader)];
+    const customControls: TCustomControl[] = [headerControl(setAnchorHeader), textColorControl(setAnchorTextColor)];
 
     const internalRichTextProps: TMUIRichTextEditorProps = {
         controls,
         customControls,
+        draftEditorProps: {
+            customStyleFn,
+        },
         defaultValue,
         label: placeholder,
         readOnly: disabled,
@@ -179,6 +199,16 @@ const RichTextElement = ({
                         anchor: anchorHeader,
                         muiRteRef: ref,
                         close: () => setAnchorHeader(null),
+                    }}
+                />
+            )}
+            {anchorTextColor && (
+                <TextColorPopover
+                    {...{
+                        styles,
+                        anchor: anchorTextColor,
+                        muiRteRef: ref,
+                        close: () => setAnchorTextColor(null),
                     }}
                 />
             )}
