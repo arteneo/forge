@@ -1,7 +1,7 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { FormControl, FormControlProps, FormHelperText, InputLabel, InputLabelProps } from "@material-ui/core";
-import MuiRichTextEditor, { TMUIRichTextEditorRef, TMUIRichTextEditorProps } from "@arteneo/mui-rte";
+import MuiRichTextEditor, { TMUIRichTextEditorRef, TMUIRichTextEditorProps, TCustomControl } from "@arteneo/mui-rte";
 import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import { stateFromHTML } from "draft-js-import-html";
 import { stateToHTML } from "draft-js-export-html";
@@ -75,7 +75,7 @@ const RichTextElement = ({
     const [anchorHeader, setAnchorHeader] = React.useState<null | HTMLElement>(null);
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
-    let editorState = undefined;
+    let editorState: undefined | EditorState = undefined;
     const [defaultValue, setDefaultValue] = React.useState<undefined | string>(undefined);
 
     const value = getIn(values, path, "");
@@ -84,7 +84,7 @@ const RichTextElement = ({
     const updateDefaultValue = () => {
         let editorStateHTML = undefined;
         if (editorState !== undefined) {
-            editorStateHTML = stateToHTML(editorState.getCurrentContent());
+            editorStateHTML = convertDraftJsStateToHtml(editorState);
         }
 
         if (value !== editorStateHTML) {
@@ -92,7 +92,7 @@ const RichTextElement = ({
         }
     };
 
-    const defaultOnChange = (data: EditorState) => {
+    const defaultOnChange = (data: string) => {
         setFieldValue(path, convertDraftJsContentToHtml(data));
     };
 
@@ -135,19 +135,11 @@ const RichTextElement = ({
         "media",
     ];
 
-    const customControls = [headerControl(setAnchorHeader)];
-    const customStyleMap = {
-        COLOR_FF00FF: {
-            color: "#FF00FF",
-        },
-    };
+    const customControls: TCustomControl[] = [headerControl(setAnchorHeader)];
 
     const internalRichTextProps: TMUIRichTextEditorProps = {
         controls,
         customControls,
-        draftEditorProps: {
-            customStyleMap,
-        },
         defaultValue,
         label: placeholder,
         readOnly: disabled,
@@ -186,7 +178,7 @@ const RichTextElement = ({
                     {...{
                         anchor: anchorHeader,
                         muiRteRef: ref,
-                        close: () => setAnchorHeader(undefined),
+                        close: () => setAnchorHeader(null),
                     }}
                 />
             )}

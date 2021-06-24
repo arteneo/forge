@@ -3,9 +3,9 @@ import { Title } from "@material-ui/icons";
 import { Button, Box, Popover, makeStyles, ClickAwayListener } from "@material-ui/core";
 import { EditorState, RichUtils } from "draft-js";
 import { useTranslation } from "react-i18next";
-import { TMUIRichTextEditorRef } from "@arteneo/mui-rte";
+import { TMUIRichTextEditorRef, TCustomControl } from "@arteneo/mui-rte";
 
-const headerControl = (setAnchor: React.Dispatch<React.SetStateAction<HTMLElement | null>>) => {
+const headerControl = (setAnchor: React.Dispatch<React.SetStateAction<HTMLElement | null>>): TCustomControl => {
     return {
         name: "header",
         icon: <Title />,
