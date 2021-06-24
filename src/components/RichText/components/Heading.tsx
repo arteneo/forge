@@ -1,18 +1,8 @@
 import React from "react";
-import { Check, RemoveCircle, Title } from "@material-ui/icons";
-import { Button, Grid, Popover } from "@material-ui/core";
-import { RichUtils, convertFromRaw } from "draft-js";
-
-const HeadingAtomicBlock = (props) => {
-    console.log("🚀 ~ file: Heading.tsx ~ line 26 ~ HeadingAtomicBlock ~ props", props);
-    return <h1>abc</h1>;
-};
-
-const headingAtomicControl = {
-    name: "heading-atomic",
-    type: "atomic",
-    atomicComponent: HeadingAtomicBlock,
-};
+import { Title } from "@material-ui/icons";
+import { Button, Box, Popover, makeStyles, ClickAwayListener } from "@material-ui/core";
+import { RichUtils } from "draft-js";
+import { useTranslation } from "react-i18next";
 
 const headingControl = (setAnchor) => {
     return {
@@ -25,7 +15,45 @@ const headingControl = (setAnchor) => {
     };
 };
 
-const HeadingPopover = ({ anchor, close, submit }) => {
+const useStyles = makeStyles(() => ({
+    content: {
+        maxWidth: 250,
+    },
+    one: {
+        fontSize: 22,
+    },
+    two: {
+        fontSize: 20,
+    },
+    three: {
+        fontSize: 18,
+    },
+    four: {
+        fontSize: 16,
+    },
+    five: {
+        fontSize: 14,
+    },
+    six: {
+        fontSize: 12,
+    },
+}));
+
+type HeaderType = "one" | "two" | "three" | "four" | "five" | "six";
+
+const HeadingPopover = ({ anchor, close, muiRteRef }) => {
+    const { t } = useTranslation();
+    const classes = useStyles();
+
+    const toggleBlockType = (blockType: HeaderType) => {
+        muiRteRef.current?.setEditorState((editorState) => {
+            return RichUtils.toggleBlockType(editorState, "header-" + blockType);
+        });
+        close();
+    };
+
+    const headerTypes: HeaderType[] = ["one", "two", "three", "four", "five", "six"];
+
     return (
         <Popover
             open={anchor !== undefined}
@@ -39,24 +67,27 @@ const HeadingPopover = ({ anchor, close, submit }) => {
                 horizontal: "left",
             }}
         >
-            <Grid container item xs={12} direction="row" justify="flex-end">
-                <Button onClick={() => submit("H1")}>
-                    <Check />
-                </Button>
-                <Button onClick={() => submit("H2")}>
-                    <Check />
-                </Button>
-                <Button onClick={() => submit("h3")}>
-                    <Check />
-                </Button>
-            </Grid>
-            <Grid container item xs={12} direction="row" justify="flex-end">
-                <Button onClick={() => close()}>
-                    <RemoveCircle />
-                </Button>
-            </Grid>
+            <div className={classes.content}>
+                <ClickAwayListener onClickAway={close}>
+                    <Box>
+                        {headerTypes.map((headerType) => (
+                            <Button
+                                key={headerType}
+                                onMouseDown={(e) => {
+                                    e.preventDefault();
+                                    toggleBlockType(headerType);
+                                }}
+                                fullWidth
+                                className={classes[headerType]}
+                            >
+                                {t("cms.muiRte.headerType." + headerType)}
+                            </Button>
+                        ))}
+                    </Box>
+                </ClickAwayListener>
+            </div>
         </Popover>
     );
 };
 
-export { headingControl, headingAtomicControl, HeadingAtomicBlock, HeadingPopover };
+export { headingControl, HeadingPopover };

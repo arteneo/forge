@@ -1,6 +1,6 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { Chip, FormControl, FormControlProps, FormHelperText, InputLabel, InputLabelProps } from "@material-ui/core";
+import { FormControl, FormControlProps, FormHelperText, InputLabel, InputLabelProps } from "@material-ui/core";
 import MuiRichTextEditor, {
     TMUIRichTextEditorRef,
     TMUIRichTextEditorProps,
@@ -10,11 +10,7 @@ import { EditorState, convertToRaw, convertFromRaw, RichUtils } from "draft-js";
 import { stateFromHTML } from "draft-js-import-html";
 import { stateToHTML } from "draft-js-export-html";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
-import {
-    headingControl,
-    headingAtomicControl,
-    HeadingPopover,
-} from "@arteneo/forge/components/RichText/components/Heading";
+import { headingControl, HeadingPopover } from "@arteneo/forge/components/RichText/components/Heading";
 
 interface RichTextElementSpecificProps {
     onChange?: (
@@ -80,23 +76,41 @@ const RichTextElement = ({
     labelProps,
 }: RichTextElementProps) => {
     const ref = React.useRef<TMUIRichTextEditorRef>(null);
-    console.log("🚀 ~ file: RichTextElement.tsx ~ line 75 ~ ref", ref);
     const [anchorHeading, setAnchorHeading] = React.useState<undefined | HTMLElement>(undefined);
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
-    const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
-    console.log("🚀 ~ file: RichTextElement.tsx ~ line 79 ~ editorState", editorState);
-    console.log(
-        "🚀 ~ file: RichTextElement.tsx ~ line 79 ~ editorState.getCurrentContent",
-        editorState.getCurrentContent()
-    );
+    let editorState = undefined;
+    const [defaultValue, setDefaultValue] = React.useState<undefined | string>(undefined);
+
+    const value = getIn(values, path, "");
+    React.useEffect(() => updateDefaultValue(), [value]);
+
+    const updateDefaultValue = () => {
+        let editorStateHTML = undefined;
+        if (editorState !== undefined) {
+            editorStateHTML = stateToHTML(editorState.getCurrentContent());
+        }
+
+        if (value !== editorStateHTML) {
+            console.log("🚀 ~ file: RichTextElement.tsx ~ line 99 ~ updateDefaultValue ~ value", value);
+            setDefaultValue(convertHtmlToDraftJsContent(value));
+        }
+    };
+    // console.log("🚀 ~ file: RichTextElement.tsx ~ line 79 ~ editorState", editorState);
+    // console.log(
+    //     "🚀 ~ file: RichTextElement.tsx ~ line 79 ~ editorState.getCurrentContent",
+    //     editorState.getCurrentContent()
+    // );
+
+    // TODO NOW
+    // Robimy useState poczynając od undefined
+    // Robimy useEffect na zmianie zczytanego getIn values
+    // Na MUI RTE na onChange zapisujemy sobie editorState (zmianna, nie musi być na state)
+    // Robimy w useEffect tak, że porównujemy konwersję z editorState do tej z getIn values - jak inne to nadpisz, jak nie to zostaw
+    // Powinno zadziałać ;)
 
     const defaultOnChange = (data: EditorState) => {
-        console.log("🚀 ~ file: RichTextElement.tsx ~ line 77 ~ defaultOnChange ~ data", data);
-        // TODO change that
-        // setFieldValue(path, convertDraftJsContentToHtml(data));
-        // setFieldValue(path, data);
-        // setEditorState(data);
+        setFieldValue(path, convertDraftJsContentToHtml(data));
     };
 
     const callableOnChange = (data: string) => {
@@ -123,8 +137,6 @@ const RichTextElement = ({
 
     const controls = [
         "heading",
-        "heading-atomic",
-        // "title",
         "bold",
         "italic",
         "underline",
@@ -140,19 +152,24 @@ const RichTextElement = ({
         "media",
     ];
 
-    const customControls = [headingControl(setAnchorHeading), headingAtomicControl];
+    const customControls = [headingControl(setAnchorHeading)];
+    const customStyleMap = {
+        COLOR_FF00FF: {
+            color: "#FF00FF",
+        },
+    };
 
     const internalRichTextProps: TMUIRichTextEditorProps = {
         controls,
         customControls,
-        // TODO Change that
-        // defaultValue: convertHtmlToDraftJsContent(getIn(values, path, "")),
-        // defaultValue: getIn(values, path, ""),
-        // defaultValue: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
+        draftEditorProps: {
+            customStyleMap,
+        },
+        defaultValue,
         label: placeholder,
         readOnly: disabled,
-        // onChange: (state) => setEditorState(state),
-        // onSave: callableOnChange,
+        onChange: (state) => (editorState = state),
+        onSave: callableOnChange,
         onBlur,
     };
 
@@ -185,21 +202,8 @@ const RichTextElement = ({
                 <HeadingPopover
                     {...{
                         anchor: anchorHeading,
+                        muiRteRef: ref,
                         close: () => setAnchorHeading(undefined),
-                        submit: (tag) => {
-                            console.log(tag);
-                            ref.current?.insertAtomicBlockSync("heading-atomic", tag);
-                            ref.current?.updateEditorState("heading-atomic", tag, (editorState, tag) => {
-                                console.log("🚀 ~ file: RichTextElement.tsx ~ line 193 ~ ref.current?.updateEditorState ~ editorState", editorState)
-                                console.log(RichUtils.toggleBlockType(editorState, tag));
-                                return  RichUtils.toggleInlineStyle(
-                                    editorState,
-                                    'BOLD'
-                                );
-                                return RichUtils.toggleBlockType(editorState, 'header-two');
-                            });
-                            setAnchorHeading(undefined);
-                        },
                     }}
                 />
             )}
