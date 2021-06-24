@@ -10,7 +10,7 @@ import { EditorState, convertToRaw, convertFromRaw, RichUtils } from "draft-js";
 import { stateFromHTML } from "draft-js-import-html";
 import { stateToHTML } from "draft-js-export-html";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
-import { headingControl, HeadingPopover } from "@arteneo/forge/components/RichText/components/Heading";
+import { headerControl, HeaderPopover } from "@arteneo/forge/components/RichText/components/Header";
 
 interface RichTextElementSpecificProps {
     onChange?: (
@@ -76,7 +76,7 @@ const RichTextElement = ({
     labelProps,
 }: RichTextElementProps) => {
     const ref = React.useRef<TMUIRichTextEditorRef>(null);
-    const [anchorHeading, setAnchorHeading] = React.useState<undefined | HTMLElement>(undefined);
+    const [anchorHeader, setAnchorHeader] = React.useState<undefined | HTMLElement>(undefined);
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     let editorState = undefined;
@@ -92,22 +92,9 @@ const RichTextElement = ({
         }
 
         if (value !== editorStateHTML) {
-            console.log("🚀 ~ file: RichTextElement.tsx ~ line 99 ~ updateDefaultValue ~ value", value);
             setDefaultValue(convertHtmlToDraftJsContent(value));
         }
     };
-    // console.log("🚀 ~ file: RichTextElement.tsx ~ line 79 ~ editorState", editorState);
-    // console.log(
-    //     "🚀 ~ file: RichTextElement.tsx ~ line 79 ~ editorState.getCurrentContent",
-    //     editorState.getCurrentContent()
-    // );
-
-    // TODO NOW
-    // Robimy useState poczynając od undefined
-    // Robimy useEffect na zmianie zczytanego getIn values
-    // Na MUI RTE na onChange zapisujemy sobie editorState (zmianna, nie musi być na state)
-    // Robimy w useEffect tak, że porównujemy konwersję z editorState do tej z getIn values - jak inne to nadpisz, jak nie to zostaw
-    // Powinno zadziałać ;)
 
     const defaultOnChange = (data: EditorState) => {
         setFieldValue(path, convertDraftJsContentToHtml(data));
@@ -136,7 +123,7 @@ const RichTextElement = ({
     };
 
     const controls = [
-        "heading",
+        "header",
         "bold",
         "italic",
         "underline",
@@ -152,7 +139,7 @@ const RichTextElement = ({
         "media",
     ];
 
-    const customControls = [headingControl(setAnchorHeading)];
+    const customControls = [headerControl(setAnchorHeader)];
     const customStyleMap = {
         COLOR_FF00FF: {
             color: "#FF00FF",
@@ -198,12 +185,12 @@ const RichTextElement = ({
         <FormControl {...mergedFormControlProps}>
             {label && <InputLabel {...mergedLabelProps}>{label}</InputLabel>}
             <MuiRichTextEditor ref={ref} {...mergedRichTextProps} />
-            {anchorHeading && (
-                <HeadingPopover
+            {anchorHeader && (
+                <HeaderPopover
                     {...{
-                        anchor: anchorHeading,
+                        anchor: anchorHeader,
                         muiRteRef: ref,
-                        close: () => setAnchorHeading(undefined),
+                        close: () => setAnchorHeader(undefined),
                     }}
                 />
             )}

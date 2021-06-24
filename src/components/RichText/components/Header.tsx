@@ -4,9 +4,9 @@ import { Button, Box, Popover, makeStyles, ClickAwayListener } from "@material-u
 import { RichUtils } from "draft-js";
 import { useTranslation } from "react-i18next";
 
-const headingControl = (setAnchor) => {
+const headerControl = (setAnchor) => {
     return {
-        name: "heading",
+        name: "header",
         icon: <Title />,
         type: "callback",
         onClick: (_editorState, _name, anchor) => {
@@ -41,7 +41,7 @@ const useStyles = makeStyles(() => ({
 
 type HeaderType = "one" | "two" | "three" | "four" | "five" | "six";
 
-const HeadingPopover = ({ anchor, close, muiRteRef }) => {
+const HeaderPopover = ({ anchor, close, muiRteRef }) => {
     const { t } = useTranslation();
     const classes = useStyles();
 
@@ -90,4 +90,4 @@ const HeadingPopover = ({ anchor, close, muiRteRef }) => {
     );
 };
 
-export { headingControl, HeadingPopover };
+export { headerControl, HeaderPopover };
