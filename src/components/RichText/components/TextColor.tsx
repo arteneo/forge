@@ -20,24 +20,6 @@ const useStyles = makeStyles(() => ({
     content: {
         maxWidth: 320,
     },
-    one: {
-        fontSize: 22,
-    },
-    two: {
-        fontSize: 20,
-    },
-    three: {
-        fontSize: 18,
-    },
-    four: {
-        fontSize: 16,
-    },
-    five: {
-        fontSize: 14,
-    },
-    six: {
-        fontSize: 12,
-    },
 }));
 
 interface TextColorPopoverInterface {
@@ -47,8 +29,6 @@ interface TextColorPopoverInterface {
     close: () => void;
     muiRteRef: React.RefObject<TMUIRichTextEditorRef>;
 }
-
-type TextColorType = "one" | "two" | "three" | "four" | "five" | "six";
 
 const TextColorPopover = ({ styles, anchor, close, muiRteRef }: TextColorPopoverInterface) => {
     const classes = useStyles();
@@ -103,4 +83,4 @@ const TextColorPopover = ({ styles, anchor, close, muiRteRef }: TextColorPopover
     );
 };
 
-export { textColorControl, TextColorPopover, TextColorPopoverInterface, TextColorType };
+export { textColorControl, TextColorPopover, TextColorPopoverInterface };
