@@ -11,6 +11,7 @@ import {
     TableHead,
     TableRow,
     TableSortLabel,
+    Tooltip,
     Typography,
     useMediaQuery,
     useTheme,
@@ -21,6 +22,7 @@ import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterfa
 import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
 import TableFilters from "@arteneo/forge/components/Table/components/TableFilters";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import TooltipInterface from "@arteneo/forge/components/Table/definitions/TooltipInterface";
 
 interface TableContentProps {
     row: RowInterface;
@@ -30,6 +32,7 @@ interface TableContentProps {
     disablePagination?: boolean;
     title?: string;
     icon?: React.ReactElement;
+    tooltips?: TooltipInterface;
 }
 
 const useStyles = makeStyles(() => ({
@@ -43,7 +46,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const TableContent = ({ row, filters, filterClass, actions, disablePagination, title, icon }: TableContentProps) => {
+const TableContent = ({ row, filters, filterClass, actions, disablePagination, title, icon, tooltips }: TableContentProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
     const isSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -111,7 +114,14 @@ const TableContent = ({ row, filters, filterClass, actions, disablePagination, t
                                         </TableCell>
                                     )}
                                     {Object.keys(columns).map((field) => {
-                                        return <TableCell key={field}>{getHeadTableCell(field)}</TableCell>;
+                                        const TableCellField = <TableCell key={field}>{getHeadTableCell(field)}</TableCell>;
+
+                                        if (tooltips && tooltips[field] !== undefined) {
+                                            const title = t(tooltips[field]);
+                                            return <Tooltip key={field} title={title} placement="top">{TableCellField}</Tooltip>
+                                        }
+
+                                        return TableCellField;
                                     })}
                                 </TableRow>
                             </TableHead>

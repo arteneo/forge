@@ -6,6 +6,7 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
 import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
 import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
+import TooltipInterface from "@arteneo/forge/components/Table/definitions/TooltipInterface";
 
 interface TableProps {
     row: RowInterface;
@@ -29,6 +30,7 @@ interface TableProps {
     tableColumnEndpoint?: string;
     // eslint-disable-next-line
     custom?: any;
+    tooltips?: TooltipInterface;
 }
 
 const Table = ({
@@ -52,6 +54,7 @@ const Table = ({
     tableKey,
     tableColumnEndpoint,
     custom,
+    tooltips,
 }: TableProps) => {
     return (
         <TableProvider
@@ -74,7 +77,7 @@ const Table = ({
                 tableColumnEndpoint,
             }}
         >
-            <TableContent {...{ row, filters, filterClass, actions, disablePagination, title, icon }} />
+            <TableContent {...{ row, filters, filterClass, actions, disablePagination, title, icon, tooltips }} />
         </TableProvider>
     );
 };

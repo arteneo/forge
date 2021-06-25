@@ -121,6 +121,7 @@ import TableQueryInterface from "@arteneo/forge/components/Table/definitions/Tab
 import TableResultActionInterface from "@arteneo/forge/components/Table/definitions/TableResultActionInterface";
 import TableResultActionPathInterface from "@arteneo/forge/components/Table/definitions/TableResultActionPathInterface";
 import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
+import TooltipInterface from "@arteneo/forge/components/Table/definitions/TooltipInterface";
 import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
 import FilterDefinition from "@arteneo/forge/components/Table/definitions/FilterDefinition";
 import {
@@ -361,6 +362,7 @@ export {
     BatchForm,
     BatchFormProps,
     RowInterface,
+    TooltipInterface,
     ExportQueryInterface,
     TableContext,
     TableContextProps,
