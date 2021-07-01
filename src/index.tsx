@@ -119,6 +119,7 @@ import TableColumnDisableSortingInterface from "@arteneo/forge/components/Table/
 import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 import TableColumnType from "@arteneo/forge/components/Table/definitions/TableColumnType";
 import TableColumnsType from "@arteneo/forge/components/Table/definitions/TableColumnsType";
+import TableColumnTooltipInterface from "@arteneo/forge/components/Table/definitions/TableColumnTooltipInterface";
 import TableColumnDefaultHideInterface from "@arteneo/forge/components/Table/definitions/TableColumnDefaultHideInterface";
 import TableQueriesInterface from "@arteneo/forge/components/Table/definitions/TableQueriesInterface";
 import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
@@ -392,6 +393,7 @@ export {
     TableColumnPathType,
     TableColumnType,
     TableColumnsType,
+    TableColumnTooltipInterface,
     TableColumnDefaultHideInterface,
     TableQueriesInterface,
     TableQueryInterface,

@@ -11,6 +11,7 @@ import {
     TableHead,
     TableRow,
     TableSortLabel,
+    Tooltip,
     Typography,
     useMediaQuery,
     useTheme,
@@ -29,6 +30,7 @@ interface TableContentProps {
     filterClass?: { accordion: string; accordionActive: string };
     actions?: React.ReactNode;
     disablePagination?: boolean;
+    tooltipTranslatePrefix?: string;
     title?: string;
     icon?: React.ReactElement;
 }
@@ -50,6 +52,7 @@ const TableContent = ({
     filterClass,
     actions,
     disablePagination,
+    tooltipTranslatePrefix = "tooltip.",
     title,
     icon,
     tableFiltersComponent,
@@ -74,19 +77,53 @@ const TableContent = ({
     } = useTable();
 
     const getHeadTableCell = (field: string) => {
-        if (row[field]?.props?.disableSorting) {
-            return t("label." + field);
+        let tableCell = <>{t("label." + field)}</>;
+
+        if (!row[field]?.props?.disableSorting) {
+            tableCell = (
+                <TableSortLabel
+                    active={isSortingActive(field)}
+                    direction={getSortingDirection(field)}
+                    onClick={() => onClickSorting(field)}
+                >
+                    {tableCell}
+                </TableSortLabel>
+            );
         }
 
-        return (
-            <TableSortLabel
-                active={isSortingActive(field)}
-                direction={getSortingDirection(field)}
-                onClick={() => onClickSorting(field)}
-            >
-                {t("label." + field)}
-            </TableSortLabel>
-        );
+        if (typeof row[field]?.props?.tooltip !== "undefined" && row[field]?.props?.tooltip !== false) {
+            let tooltipTitle = undefined;
+
+            if (row[field].props.tooltip === true) {
+                tooltipTitle = field;
+            }
+
+            if (typeof row[field].props.tooltip === "string") {
+                tooltipTitle = row[field]?.props?.tooltip;
+            }
+
+            if (typeof tooltipTranslatePrefix !== "undefined") {
+                tooltipTitle = tooltipTranslatePrefix + tooltipTitle;
+            }
+
+            if (typeof tooltipTitle === "string" && !row[field]?.props?.disableTranslateTooltip) {
+                tooltipTitle = t(tooltipTitle, row[field]?.props?.tooltipVariables ?? {});
+            }
+
+            const tooltipProps = {
+                title: tooltipTitle,
+                placement: "top",
+                ...(row[field]?.props?.tooltipProps ?? {}),
+            };
+
+            tableCell = (
+                <Tooltip {...tooltipProps}>
+                    <div>{tableCell}</div>
+                </Tooltip>
+            );
+        }
+
+        return tableCell;
     };
 
     const classes = useStyles();
