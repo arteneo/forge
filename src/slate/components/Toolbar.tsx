@@ -1,11 +1,11 @@
-import { makeStyles } from "@material-ui/core";
 import React from "react";
+import { makeStyles, Paper } from "@material-ui/core";
 
 interface ToolbarProps {
     children: React.ReactNode;
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     toolbar: {
         width: "100%",
         display: "flex",
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 const Toolbar = ({ children }: ToolbarProps) => {
     const classes = useStyles();
 
-    return <div className={classes.toolbar}>{children}</div>;
+    return <Paper className={classes.toolbar}>{children}</Paper>;
 };
 
 export default Toolbar;

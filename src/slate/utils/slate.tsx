@@ -1,4 +1,8 @@
-const isBlockActive = (editor, format) => {
+import { Editor, Transforms, Element as SlateElement } from "slate";
+
+export const LIST_TYPES = ["numbered-list", "bulleted-list"];
+
+export const isBlockActive = (editor: Editor, format: string) => {
     const [match] = Editor.nodes(editor, {
         match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
     });
@@ -6,12 +10,12 @@ const isBlockActive = (editor, format) => {
     return !!match;
 };
 
-const isMarkActive = (editor, format) => {
+export const isMarkActive = (editor: Editor, format: string) => {
     const marks = Editor.marks(editor);
     return marks ? marks[format] === true : false;
 };
 
-const toggleMark = (editor, format) => {
+export const toggleMark = (editor: Editor, format: string) => {
     const isActive = isMarkActive(editor, format);
 
     if (isActive) {
@@ -21,7 +25,7 @@ const toggleMark = (editor, format) => {
     }
 };
 
-const toggleBlock = (editor, format) => {
+export const toggleBlock = (editor: Editor, format: string) => {
     const isActive = isBlockActive(editor, format);
     const isList = LIST_TYPES.includes(format);
 
