@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseEditor, createEditor, Descendant, Text } from "slate";
-import { HistoryEditor } from "slate-history";
+import { HistoryEditor, withHistory } from "slate-history";
 import { ReactEditor, Slate as SlateReact, Editable, withReact } from "slate-react";
 import { jsx } from "slate-hyperscript";
 import Toolbar from "@arteneo/forge/slate/components/Toolbar";
@@ -276,7 +276,8 @@ const deserialize = (el: HTMLElement) => {
 };
 
 const Slate = () => {
-    const editor = React.useMemo(() => withReact(createEditor()), []);
+    const editor = React.useMemo(() => withHistory(withReact(createEditor())), [])
+    // const editor = React.useMemo(() => withHistory(withReact(createEditor())), []);
     const initialValue = deserialize(document.body);
     // console.log("🚀 ~ file: Slate.tsx ~ line 208 ~ Slate ~ initialValue", initialValue);
     const [value, setValue] = React.useState<CustomElement[]>(initialValue);

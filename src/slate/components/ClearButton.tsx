@@ -12,6 +12,7 @@ const ClearButton = ({ ...iconButtonProps }: ClearButtonProps) => {
     const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         const marks = Editor.marks(editor);
+        console.log("🚀 ~ file: ClearButton.tsx ~ line 15 ~ onMouseDown ~ marks", marks)
         if (marks === null) {
             return;
         }
