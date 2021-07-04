@@ -7,6 +7,7 @@ import Toolbar from "@arteneo/forge/slate/components/Toolbar";
 import MarkButton from "@arteneo/forge/slate/components/MarkButton";
 import BlockButton from "@arteneo/forge/slate/components/BlockButton";
 import ColorButton from "@arteneo/forge/slate/components/ColorButton";
+import ClearButton from "@arteneo/forge/slate/components/ClearButton";
 import { FormatBold, FormatItalic, FormatListNumbered, FormatListBulleted, Title } from "@material-ui/icons";
 import escapeHtml from "escape-html";
 
@@ -318,6 +319,7 @@ const Slate = () => {
                     <BlockButton format="bulleted-list">
                         <FormatListBulleted />
                     </BlockButton>
+                    <ClearButton />
                 </Toolbar>
                 <Editable
                     {...{
