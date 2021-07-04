@@ -8,6 +8,8 @@ import MarkButton from "@arteneo/forge/slate/components/MarkButton";
 import BlockButton from "@arteneo/forge/slate/components/BlockButton";
 import ColorButton from "@arteneo/forge/slate/components/ColorButton";
 import ClearButton from "@arteneo/forge/slate/components/ClearButton";
+import UndoButton from "@arteneo/forge/slate/components/UndoButton";
+import RedoButton from "@arteneo/forge/slate/components/RedoButton";
 import { FormatBold, FormatItalic, FormatListNumbered, FormatListBulleted, Title } from "@material-ui/icons";
 import escapeHtml from "escape-html";
 
@@ -276,7 +278,7 @@ const deserialize = (el: HTMLElement) => {
 };
 
 const Slate = () => {
-    const editor = React.useMemo(() => withHistory(withReact(createEditor())), [])
+    const editor = React.useMemo(() => withHistory(withReact(createEditor())), []);
     // const editor = React.useMemo(() => withHistory(withReact(createEditor())), []);
     const initialValue = deserialize(document.body);
     // console.log("🚀 ~ file: Slate.tsx ~ line 208 ~ Slate ~ initialValue", initialValue);
@@ -321,6 +323,8 @@ const Slate = () => {
                         <FormatListBulleted />
                     </BlockButton>
                     <ClearButton />
+                    <UndoButton />
+                    <RedoButton />
                 </Toolbar>
                 <Editable
                     {...{
