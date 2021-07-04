@@ -15,13 +15,13 @@ export const isMarkActive = (editor: Editor, format: string) => {
     return marks ? marks[format] === true : false;
 };
 
-export const toggleMark = (editor: Editor, format: string) => {
+export const toggleMark = (editor: Editor, format: string, value: any = true) => {
     const isActive = isMarkActive(editor, format);
 
     if (isActive) {
         Editor.removeMark(editor, format);
     } else {
-        Editor.addMark(editor, format, true);
+        Editor.addMark(editor, format, value);
     }
 };
 
