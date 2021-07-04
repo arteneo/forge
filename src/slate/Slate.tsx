@@ -7,7 +7,7 @@ import Toolbar from "@arteneo/forge/slate/components/Toolbar";
 import MarkButton from "@arteneo/forge/slate/components/MarkButton";
 import BlockButton from "@arteneo/forge/slate/components/BlockButton";
 import ColorButton from "@arteneo/forge/slate/components/ColorButton";
-import { FormatBold, FormatItalic, Title } from "@material-ui/icons";
+import { FormatBold, FormatItalic, FormatListNumbered, FormatListBulleted, Title } from "@material-ui/icons";
 import escapeHtml from "escape-html";
 
 export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor;
@@ -108,8 +108,10 @@ const Element = ({ attributes, children, element }) => {
 //     "<p><strong color: rgb(32, 94, 193)>STRONG CO<strong/><strong color: #169836>LORSTR<strong/><strong color: rgb(152, 12, 12)>ONG OTHER COLOR<strong/></p>";
 // const initialValueHTML =
 //     "<p><strong style='color: rgb(19, 8, 142)'>STRONG</strong><em style='color: rgb(52, 159, 30)'>ITALIC</em><strong style='color: rgb(74, 5, 5)'>STRONG</strong></p>";
+// const initialValueHTML =
+//     "<p><span style='color: rgb(19, 8, 142)' data-strong><strong>STRON</strong></span><span style='color: rgb(179, 1, 179)' data-strong><strong>G</strong></span><span style='color: rgb(179, 1, 179)' data-strong data-italic><em><strong>I</strong></em></span><span style='color: rgb(52, 159, 30)' data-italic><em>TA</em></span><span style='color: rgb(138, 126, 48)' data-italic><em>LIC</em></span><span style='color: rgb(138, 126, 48)' data-strong data-italic><em><strong>S</strong></em></span><span style='color: rgb(138, 126, 48)' data-strong><strong>TR</strong></span><span style='color: rgb(74, 5, 5)' data-strong><strong>ONG</strong></span></p>";
 const initialValueHTML =
-    "<p><span style='color: rgb(19, 8, 142)' data-strong><strong>STRON</strong></span><span style='color: rgb(179, 1, 179)' data-strong><strong>G</strong></span><span style='color: rgb(179, 1, 179)' data-strong data-italic><em><strong>I</strong></em></span><span style='color: rgb(52, 159, 30)' data-italic><em>TA</em></span><span style='color: rgb(138, 126, 48)' data-italic><em>LIC</em></span><span style='color: rgb(138, 126, 48)' data-strong data-italic><em><strong>S</strong></em></span><span style='color: rgb(138, 126, 48)' data-strong><strong>TR</strong></span><span style='color: rgb(74, 5, 5)' data-strong><strong>ONG</strong></span></p>";
+    "<p><span style='color: rgb(19, 8, 142)' data-strong><strong>TEST</strong></span></p><ol><li><span style='color: rgb(19, 8, 142)' data-strong><strong>STRON</strong></span><span style='color: rgb(179, 1, 179)' data-strong><strong>G</strong></span><span style='color: rgb(179, 1, 179)' data-strong data-italic><em><strong>I</strong></em></span><span style='color: rgb(52, 159, 30)' data-italic><em>TA</em></span><span style='color: rgb(138, 126, 48)' data-italic><em>LIC</em></span><span style='color: rgb(138, 126, 48)' data-strong data-italic><em><strong>S</strong></em></span><span style='color: rgb(138, 126, 48)' data-strong><strong>TR</strong></span><span style='color: rgb(74, 5, 5)' data-strong><strong>ONG</strong></span></li><li><span style='color: rgb(74, 5, 5)' data-strong><strong>ABC</strong></span></li><li><span style='color: rgb(74, 5, 5)' data-strong><strong>DEF</strong></span></li></ol><p><span style='color: rgb(74, 5, 5)' data-strong><strong>TEST 2</strong></span></p><ul><li><span style='color: rgb(74, 5, 5)' data-strong><strong>ABC</strong></span></li><li><span style='color: rgb(74, 5, 5)' data-strong><strong>DEF</strong></span></li></ul>";
 // console.log("🚀 ~ file: Slate.tsx ~ line 81 ~ initialValueHTML", initialValueHTML);
 const document = new DOMParser().parseFromString(initialValueHTML, "text/html");
 // console.log("🚀 ~ file: Slate.tsx ~ line 83 ~ document", document);
@@ -122,8 +124,9 @@ const document = new DOMParser().parseFromString(initialValueHTML, "text/html");
 // ];
 
 const serialize = (node: CustomElement): React.ReactNode => {
+    console.log("🚀 ~ file: Slate.tsx ~ line 110 ~ node", node);
+
     if (Text.isText(node)) {
-        console.log("🚀 ~ file: Slate.tsx ~ line 110 ~ node", node);
         let string = escapeHtml(node.text);
 
         let attributes: string[] = [];
@@ -182,6 +185,12 @@ const serialize = (node: CustomElement): React.ReactNode => {
             return `<p>${children}</p>`;
         case "heading-three":
             return `<h3>${children}</h3>`;
+        case "list-item":
+            return `<li>${children}</li>`;
+        case "numbered-list":
+            return `<ol>${children}</ol>`;
+        case "bulleted-list":
+            return `<ul>${children}</ul>`;
         // case "link":
         //     return `<a href="${escapeHtml(node.url)}">${children}</a>`;
         default:
@@ -203,14 +212,14 @@ const deserialize = (el: HTMLElement) => {
     }
 
     let textProps: any = {};
-    console.log("🚀 ~ file: Slate.tsx ~ line 180 ~ deserialize ~ el", el);
-    console.log("🚀 ~ file: Slate.tsx ~ line 180 ~ deserialize ~ el.style", el.style);
-    console.log("🚀 ~ file: Slate.tsx ~ line 180 ~ deserialize ~ el.nodeName", el.nodeName);
+    // console.log("🚀 ~ file: Slate.tsx ~ line 180 ~ deserialize ~ el", el);
+    // console.log("🚀 ~ file: Slate.tsx ~ line 180 ~ deserialize ~ el.style", el.style);
+    // console.log("🚀 ~ file: Slate.tsx ~ line 180 ~ deserialize ~ el.nodeName", el.nodeName);
     if (el.style?.color) {
         textProps["color"] = el.style?.color;
     }
 
-    console.log("🚀 ~ file: Slate.tsx ~ line 214 ~ deserialize ~ string", el.getAttribute("data-strong"))
+    // console.log("🚀 ~ file: Slate.tsx ~ line 214 ~ deserialize ~ string", el.getAttribute("data-strong"));
     if (el.hasAttribute("data-strong")) {
         textProps["bold"] = true;
     }
@@ -218,7 +227,7 @@ const deserialize = (el: HTMLElement) => {
     if (el.hasAttribute("data-italic")) {
         textProps["italic"] = true;
     }
-    console.log("🚀 ~ file: Slate.tsx ~ line 219 ~ deserialize ~ textProps", textProps)
+    // console.log("🚀 ~ file: Slate.tsx ~ line 219 ~ deserialize ~ textProps", textProps);
 
     let result;
 
@@ -241,6 +250,15 @@ const deserialize = (el: HTMLElement) => {
         case "A":
             result = jsx("element", { type: "link", url: el.getAttribute("href") }, children);
             break;
+        case "LI":
+            result = jsx("element", { type: "list-item" }, children);
+            break;
+        case "UL":
+            result = jsx("element", { type: "bulleted-list" }, children);
+            break;
+        case "OL":
+            result = jsx("element", { type: "numbered-list" }, children);
+            break;
         case "STRONG":
             result = { text: el.textContent, bold: true, ...textProps };
             break;
@@ -252,14 +270,14 @@ const deserialize = (el: HTMLElement) => {
             break;
     }
 
-    console.log("🚀 ~ file: Slate.tsx ~ line 238 ~ deserialize ~ result", result);
+    // console.log("🚀 ~ file: Slate.tsx ~ line 238 ~ deserialize ~ result", result);
     return result;
 };
 
 const Slate = () => {
     const editor = React.useMemo(() => withReact(createEditor()), []);
     const initialValue = deserialize(document.body);
-    console.log("🚀 ~ file: Slate.tsx ~ line 208 ~ Slate ~ initialValue", initialValue);
+    // console.log("🚀 ~ file: Slate.tsx ~ line 208 ~ Slate ~ initialValue", initialValue);
     const [value, setValue] = React.useState<CustomElement[]>(initialValue);
     console.log("🚀 ~ file: Slate.tsx ~ line 210 ~ Slate ~ value", value);
     // console.log("🚀 ~ file: Slate.tsx ~ line 188 ~ Slate ~ deserialize(document.body)", deserialize(document.body));
@@ -294,6 +312,12 @@ const Slate = () => {
                         <Title />
                     </BlockButton>
                     <ColorButton />
+                    <BlockButton format="numbered-list">
+                        <FormatListNumbered />
+                    </BlockButton>
+                    <BlockButton format="bulleted-list">
+                        <FormatListBulleted />
+                    </BlockButton>
                 </Toolbar>
                 <Editable
                     {...{
