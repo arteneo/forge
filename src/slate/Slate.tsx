@@ -1,11 +1,13 @@
 import React from "react";
-import { BaseEditor, createEditor, Descendant } from "slate";
+import { BaseEditor, createEditor, Descendant, Text } from "slate";
 import { HistoryEditor } from "slate-history";
 import { ReactEditor, Slate as SlateReact, Editable, withReact } from "slate-react";
+import { jsx } from "slate-hyperscript";
 import Toolbar from "@arteneo/forge/slate/components/Toolbar";
 import MarkButton from "@arteneo/forge/slate/components/MarkButton";
 import BlockButton from "@arteneo/forge/slate/components/BlockButton";
 import { FormatBold, FormatItalic, Title } from "@material-ui/icons";
+import escapeHtml from "escape-html";
 
 export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor;
 
@@ -75,6 +77,12 @@ const Element = ({ attributes, children, element }) => {
     }
 };
 
+// const initialValueHTML = "<h3>A line of text</h3><p> in a parag</p><h3>asdad</h3><p></p><p><strong>raph.</strong></p>";
+const initialValueHTML = "<h3>A l<em>ine o</em>f text</h3><p> in a parag</p><h3><strong>as</strong><em><strong>da</strong></em>d</h3><p></p><p><strong>raph.</strong></p>";
+console.log("🚀 ~ file: Slate.tsx ~ line 81 ~ initialValueHTML", initialValueHTML);
+const document = new DOMParser().parseFromString(initialValueHTML, "text/html");
+console.log("🚀 ~ file: Slate.tsx ~ line 83 ~ document", document);
+
 const initialValue: CustomElement[] = [
     {
         type: "paragraph",
@@ -82,9 +90,74 @@ const initialValue: CustomElement[] = [
     },
 ];
 
+const serialize = (node: CustomElement): React.ReactNode => {
+    if (Text.isText(node)) {
+        let string = escapeHtml(node.text);
+        if (node.bold) {
+            string = `<strong>${string}</strong>`;
+        }
+        if (node.italic) {
+            string = `<em>${string}</em>`;
+        }
+        return string;
+    }
+
+    const children = node.children.map((n) => serialize(n)).join("");
+
+    switch (node.type) {
+        // case "quote":
+        //     return `<blockquote><p>${children}</p></blockquote>`;
+        case "paragraph":
+            return `<p>${children}</p>`;
+        case "heading-three":
+            return `<h3>${children}</h3>`;
+        // case "link":
+        //     return `<a href="${escapeHtml(node.url)}">${children}</a>`;
+        default:
+            return children;
+    }
+};
+
+const deserialize = (el: HTMLDocument) => {
+    console.log("🚀 ~ file: Slate.tsx ~ line 118 ~ deserialize ~ el", el);
+    if (el.nodeType === 3) {
+        return el.textContent;
+    } else if (el.nodeType !== 1) {
+        return null;
+    }
+
+    let children = Array.from(el.childNodes).map(deserialize);
+
+    if (children.length === 0) {
+        children = [{ text: "" }];
+    }
+
+    switch (el.nodeName) {
+        case "BODY":
+            return jsx("fragment", {}, children);
+        case "BR":
+            return "\n";
+        case "BLOCKQUOTE":
+            return jsx("element", { type: "quote" }, children);
+        case "P":
+            return jsx("element", { type: "paragraph" }, children);
+        case "H3":
+            return jsx("element", { type: "heading-three" }, children);
+        case "A":
+            return jsx("element", { type: "link", url: el.getAttribute("href") }, children);
+        case "STRONG":
+            return { text: el.textContent, bold: true };
+        case "EM":
+            return { text: el.textContent, italic: true };
+        default:
+            return el.textContent;
+    }
+};
+
 const Slate = () => {
     const editor = React.useMemo(() => withReact(createEditor()), []);
-    const [value, setValue] = React.useState<CustomElement[]>(initialValue);
+    const [value, setValue] = React.useState<CustomElement[]>(deserialize(document.body));
+    // const [value, setValue] = React.useState<CustomElement[]>(initialValue);
 
     const renderElement = React.useCallback((props) => <Element {...props} />, []);
     const renderLeaf = React.useCallback((props) => <Leaf {...props} />, []);
@@ -122,6 +195,12 @@ const Slate = () => {
                     }}
                 />
             </SlateReact>
+
+            <code>
+                {serialize({
+                    children: value,
+                })}
+            </code>
         </>
     );
 };
