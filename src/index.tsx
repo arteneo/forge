@@ -1,3 +1,7 @@
+// TODO
+import Slate from "@arteneo/forge/slate/Slate";
+export { Slate };
+
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
 import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
 import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
