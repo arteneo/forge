@@ -11,11 +11,9 @@ import {
 } from "slate-react";
 import { jsx } from "slate-hyperscript";
 import Toolbar from "@arteneo/forge/slate/components/Toolbar";
-import BlockButton from "@arteneo/forge/slate/components/BlockButton";
 import ClearButton from "@arteneo/forge/slate/components/ClearButton";
 import UndoButton from "@arteneo/forge/slate/components/UndoButton";
 import RedoButton from "@arteneo/forge/slate/components/RedoButton";
-import { FormatListNumbered, FormatListBulleted, Title } from "@material-ui/icons";
 import escapeHtml from "escape-html";
 import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
@@ -56,6 +54,12 @@ import {
     unorderedListDeserializeElement,
     UnorderedListButton,
 } from "@arteneo/forge/slate/plugins/UnorderedList";
+import {
+    orderedListElement,
+    orderedListSerializeElement,
+    orderedListDeserializeElement,
+    OrderedListButton,
+} from "@arteneo/forge/slate/plugins/OrderedList";
 
 export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor;
 
@@ -103,6 +107,11 @@ const Element = ({ attributes, children, element }: RenderElementProps) => {
     }
 
     result = unorderedListElement({ attributes, children, element });
+    if (typeof result !== "undefined") {
+        return result;
+    }
+
+    result = orderedListElement({ attributes, children, element });
     if (typeof result !== "undefined") {
         return result;
     }
@@ -190,6 +199,11 @@ const serialize = (node: CustomElement): React.ReactNode => {
         return result;
     }
 
+    result = orderedListSerializeElement(node, children);
+    if (typeof result !== "undefined") {
+        return result;
+    }
+
     switch (node.type) {
         // case "quote":
         //     return `<blockquote><p>${children}</p></blockquote>`;
@@ -244,6 +258,11 @@ const deserialize = (element: HTMLElement) => {
         return result;
     }
 
+    result = orderedListDeserializeElement(element, children);
+    if (typeof result !== "undefined") {
+        return result;
+    }
+
     if (nodeName === "LI") {
         return jsx("element", { type: "list-item" }, children);
     }
@@ -251,8 +270,6 @@ const deserialize = (element: HTMLElement) => {
     if (nodeName === "OL") {
         return jsx("element", { type: "numbered-list" }, children);
     }
-
-    // TODO Other block deserializations
 
     const elementProps: DeserializeElementPropsInterface = {};
     boldDeserializeInline(element, elementProps);
@@ -299,13 +316,8 @@ const Slate = () => {
                     <StrikethroughButton />
                     <ColorButton />
                     <HeadingButton />
-                    <BlockButton format="numbered-list">
-                        <FormatListNumbered />
-                    </BlockButton>
                     <UnorderedListButton />
-                    <BlockButton format="bulleted-list">
-                        <FormatListBulleted />
-                    </BlockButton>
+                    <OrderedListButton />
                     <ClearButton />
                     <UndoButton />
                     <RedoButton />

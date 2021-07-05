@@ -1,13 +1,8 @@
 import React from "react";
-import { IconButton, IconButtonProps, Box, Popover, makeStyles, ClickAwayListener, Button } from "@material-ui/core";
 import { FormatListBulleted } from "@material-ui/icons";
-import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
-import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
-import { RenderElementProps, useSlate } from "slate-react";
-import { toggleBlock } from "@arteneo/forge/slate/utils/slate";
-import { useTranslation } from "react-i18next";
+import { RenderElementProps } from "slate-react";
 import { jsx } from "slate-hyperscript";
-import BlockButton, { BlockButtonProps } from "@arteneo/forge/slate/components/BlockButton";
+import ElementButton, { ElementButtonProps } from "@arteneo/forge/slate/components/ElementButton";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 
 // const boldPlugin = {
@@ -34,13 +29,13 @@ const unorderedListElement = ({ attributes, children, element }: RenderElementPr
     }
 };
 
-type UnorderedListButtonProps = Optional<BlockButtonProps, "format">;
+type UnorderedListButtonProps = Optional<ElementButtonProps, "format">;
 
 const UnorderedListButton = ({ ...elementButtonProps }: UnorderedListButtonProps) => {
     return (
-        <BlockButton
+        <ElementButton
             {...{
-                format: "strikethrough",
+                format: "unordered-list",
                 children: <FormatListBulleted />,
                 ...elementButtonProps,
             }}

@@ -1,8 +1,8 @@
 import { Editor, Transforms, Element as SlateElement } from "slate";
 
-export const LIST_TYPES = ["numbered-list", "bulleted-list"];
+export const LIST_TYPES = ["ordered-list", "unordered-list"];
 
-export const isBlockActive = (editor: Editor, format: string) => {
+export const isElementActive = (editor: Editor, format: string) => {
     const [match] = Editor.nodes(editor, {
         match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
     });
@@ -25,8 +25,8 @@ export const toggleMark = (editor: Editor, format: string, value: any = true) =>
     }
 };
 
-export const toggleBlock = (editor: Editor, format: string) => {
-    const isActive = isBlockActive(editor, format);
+export const toggleElement = (editor: Editor, format: string) => {
+    const isActive = isElementActive(editor, format);
     const isList = LIST_TYPES.includes(format);
 
     Transforms.unwrapNodes(editor, {
@@ -39,7 +39,7 @@ export const toggleBlock = (editor: Editor, format: string) => {
     Transforms.setNodes(editor, newProperties);
 
     if (!isActive && isList) {
-        const block = { type: format, children: [] };
-        Transforms.wrapNodes(editor, block);
+        const element = { type: format, children: [] };
+        Transforms.wrapNodes(editor, element);
     }
 };

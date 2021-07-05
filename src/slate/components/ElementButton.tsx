@@ -1,18 +1,18 @@
 import React from "react";
 import { useSlate } from "slate-react";
 import { IconButton, IconButtonProps } from "@material-ui/core";
-import { toggleBlock } from "@arteneo/forge/slate/utils/slate";
+import { toggleElement } from "@arteneo/forge/slate/utils/slate";
 
-interface BlockButtonProps extends IconButtonProps {
+interface ElementButtonProps extends IconButtonProps {
     format: string;
 }
 
-const BlockButton = ({ format, ...iconButtonProps }: BlockButtonProps) => {
+const ElementButton = ({ format, ...iconButtonProps }: ElementButtonProps) => {
     const editor = useSlate();
 
     const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-        toggleBlock(editor, format);
+        toggleElement(editor, format);
     };
 
     return (
@@ -25,5 +25,5 @@ const BlockButton = ({ format, ...iconButtonProps }: BlockButtonProps) => {
     );
 };
 
-export default BlockButton;
-export { BlockButtonProps };
+export default ElementButton;
+export { ElementButtonProps };

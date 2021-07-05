@@ -1,10 +1,8 @@
 import React from "react";
 import { IconButton, IconButtonProps, Box, Popover, makeStyles, ClickAwayListener, Button } from "@material-ui/core";
 import { Title } from "@material-ui/icons";
-import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
-import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 import { RenderElementProps, useSlate } from "slate-react";
-import { toggleBlock } from "@arteneo/forge/slate/utils/slate";
+import { toggleElement } from "@arteneo/forge/slate/utils/slate";
 import { useTranslation } from "react-i18next";
 import { jsx } from "slate-hyperscript";
 
@@ -112,7 +110,7 @@ const HeadingButton = ({
 
     const onMouseDown = (e: React.MouseEvent<HTMLElement>, type: HeadingType) => {
         e.preventDefault();
-        toggleBlock(editor, type);
+        toggleElement(editor, type);
     };
 
     const onClose = () => {
