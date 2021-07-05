@@ -13,7 +13,7 @@ import { jsx } from "slate-hyperscript";
 // }
 
 // TODO Typings
-const headingSerializeBlock = (node: any, children: any): void | string => {
+const headingSerializeElement = (node: any, children: any): void | string => {
     switch (node.type) {
         case "heading-one":
             return "<h1>" + children + "</h1>";
@@ -30,7 +30,7 @@ const headingSerializeBlock = (node: any, children: any): void | string => {
     }
 };
 
-const headingDeserializeBlock = (element: HTMLElement, children: any): void | CustomElement => {
+const headingDeserializeElement = (element: HTMLElement, children: any): void | CustomElement => {
     switch (element.nodeName) {
         case "H1":
             return jsx("element", { type: "heading-one" }, children);
@@ -47,7 +47,7 @@ const headingDeserializeBlock = (element: HTMLElement, children: any): void | Cu
     }
 };
 
-const headingBlock = ({ attributes, children, element }: RenderElementProps): void | React.ReactNode => {
+const headingElement = ({ attributes, children, element }: RenderElementProps): void | React.ReactNode => {
     switch (element.type) {
         case "heading-one":
             return <h1 {...attributes}>{children}</h1>;
@@ -162,9 +162,9 @@ const HeadingButton = ({
 };
 
 export {
-    headingBlock,
-    headingSerializeBlock,
-    headingDeserializeBlock,
+    headingElement,
+    headingSerializeElement,
+    headingDeserializeElement,
     HeadingButton,
     HeadingButtonProps,
     HeadingType,

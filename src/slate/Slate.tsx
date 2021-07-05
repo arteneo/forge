@@ -45,11 +45,17 @@ import {
     ColorButton,
 } from "@arteneo/forge/slate/plugins/Color";
 import {
-    headingBlock,
-    headingSerializeBlock,
-    headingDeserializeBlock,
+    headingElement,
+    headingSerializeElement,
+    headingDeserializeElement,
     HeadingButton,
 } from "@arteneo/forge/slate/plugins/Heading";
+import {
+    unorderedListElement,
+    unorderedListSerializeElement,
+    unorderedListDeserializeElement,
+    UnorderedListButton,
+} from "@arteneo/forge/slate/plugins/UnorderedList";
 
 export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor;
 
@@ -91,8 +97,12 @@ const Leaf = ({ attributes, children, leaf, text }: RenderLeafProps) => {
 };
 
 const Element = ({ attributes, children, element }: RenderElementProps) => {
-    const result = headingBlock({ attributes, children, element });
+    let result = headingElement({ attributes, children, element });
+    if (typeof result !== "undefined") {
+        return result;
+    }
 
+    result = unorderedListElement({ attributes, children, element });
     if (typeof result !== "undefined") {
         return result;
     }
@@ -100,8 +110,6 @@ const Element = ({ attributes, children, element }: RenderElementProps) => {
     switch (element.type) {
         case "block-quote":
             return <blockquote {...attributes}>{children}</blockquote>;
-        case "bulleted-list":
-            return <ul {...attributes}>{children}</ul>;
         case "list-item":
             return <li {...attributes}>{children}</li>;
         case "numbered-list":
@@ -172,7 +180,12 @@ const serialize = (node: CustomElement): React.ReactNode => {
 
     const children = node.children.map((nodeChild) => serialize(nodeChild)).join("");
 
-    const result = headingSerializeBlock(node, children);
+    let result = headingSerializeElement(node, children);
+    if (typeof result !== "undefined") {
+        return result;
+    }
+
+    result = unorderedListSerializeElement(node, children);
     if (typeof result !== "undefined") {
         return result;
     }
@@ -186,8 +199,6 @@ const serialize = (node: CustomElement): React.ReactNode => {
             return `<li>${children}</li>`;
         case "numbered-list":
             return `<ol>${children}</ol>`;
-        case "bulleted-list":
-            return `<ul>${children}</ul>`;
         // case "link":
         //     return `<a href="${escapeHtml(node.url)}">${children}</a>`;
     }
@@ -223,17 +234,18 @@ const deserialize = (element: HTMLElement) => {
         return jsx("element", { type: "paragraph" }, children);
     }
 
-    const result = headingDeserializeBlock(element, children);
+    let result = headingDeserializeElement(element, children);
+    if (typeof result !== "undefined") {
+        return result;
+    }
+
+    result = unorderedListDeserializeElement(element, children);
     if (typeof result !== "undefined") {
         return result;
     }
 
     if (nodeName === "LI") {
         return jsx("element", { type: "list-item" }, children);
-    }
-
-    if (nodeName === "UL") {
-        return jsx("element", { type: "bulleted-list" }, children);
     }
 
     if (nodeName === "OL") {
@@ -290,6 +302,7 @@ const Slate = () => {
                     <BlockButton format="numbered-list">
                         <FormatListNumbered />
                     </BlockButton>
+                    <UnorderedListButton />
                     <BlockButton format="bulleted-list">
                         <FormatListBulleted />
                     </BlockButton>
