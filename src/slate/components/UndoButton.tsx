@@ -16,8 +16,6 @@ const UndoButton = ({ ...iconButtonProps }: UndoButtonProps) => {
     return (
         <IconButton
             {...{
-                // TODO
-                // active: undefined,
                 onMouseDown,
                 children: <Undo />,
                 ...iconButtonProps,

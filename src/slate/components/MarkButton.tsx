@@ -18,8 +18,6 @@ const MarkButton = ({ format, ...iconButtonProps }: MarkButtonProps) => {
     return (
         <IconButton
             {...{
-                // TODO
-                // active: undefined,
                 onMouseDown,
                 ...iconButtonProps,
             }}

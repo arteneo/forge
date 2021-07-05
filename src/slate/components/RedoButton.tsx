@@ -16,8 +16,6 @@ const RedoButton = ({ ...iconButtonProps }: RedoButtonProps) => {
     return (
         <IconButton
             {...{
-                // TODO
-                // active: undefined,
                 onMouseDown,
                 children: <Redo />,
                 ...iconButtonProps,

@@ -18,8 +18,6 @@ const BlockButton = ({ format, ...iconButtonProps }: BlockButtonProps) => {
     return (
         <IconButton
             {...{
-                // TODO
-                // active: undefined,
                 onMouseDown,
                 ...iconButtonProps,
             }}
