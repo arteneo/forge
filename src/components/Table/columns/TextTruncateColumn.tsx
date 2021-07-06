@@ -2,6 +2,7 @@ import React from "react";
 import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 import { getIn, isString } from "formik";
 import CSS from "csstype";
+import { useTranslation } from "react-i18next";
 
 interface TextTruncateColumnProps extends TableColumnPathType {
     defaultExpandInternal?: boolean;
@@ -10,6 +11,7 @@ interface TextTruncateColumnProps extends TableColumnPathType {
     stripSuffix?: string;
     maxWidth?: string | null;
     nowrap?: boolean;
+    emptyText?: string;
 }
 
 const TextTruncateColumn = ({
@@ -22,6 +24,7 @@ const TextTruncateColumn = ({
     stripSuffix = "...",
     maxWidth = null,
     nowrap = false,
+    emptyText = "label.emptyField",
 }: TextTruncateColumnProps) => {
     if (typeof field === "undefined") {
         throw new Error("TextTruncateColumn component: Missing required field prop");
@@ -32,6 +35,7 @@ const TextTruncateColumn = ({
     }
 
     const [showFull, setShowFull] = React.useState(false);
+    const { t } = useTranslation();
 
     const initialValue = getIn(result, path ? path : field);
     let shortValue = initialValue;
@@ -73,7 +77,7 @@ const TextTruncateColumn = ({
                     {showedText}
                 </span>
             ) : (
-                <>{showedText}</>
+                <>{!!showedText ? showedText : t(emptyText)}</>
             )}
         </>
     );
