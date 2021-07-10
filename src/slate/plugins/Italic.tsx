@@ -1,13 +1,19 @@
 import React from "react";
 import { FormatItalic } from "@material-ui/icons";
 import MarkButton, { MarkButtonProps } from "@arteneo/forge/slate/components/MarkButton";
-import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
+import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { RenderLeafProps } from "slate-react";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
+import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
 
-const serializeInline = (node: any, result: SerializeInlineResult): SerializeInlineResult => {
+interface ItalicInterface extends FormattedTextInterface {
+    kind: "italic";
+    italic?: boolean;
+}
+
+const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
     if (node.italic) {
         result.attributes["data-italic"] = true;
         result.text = "<em>" + result.text + "</em>";
@@ -28,7 +34,7 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.italic) {
+    if (leaf.kind === "italic" && leaf.italic) {
         return <em {...attributes}>{children}</em>;
     }
 
@@ -57,4 +63,4 @@ const plugin: SlatePluginInterface = {
 };
 
 export default plugin;
-export { renderLeaf, serializeInline, deserializeInline, ItalicButton, ItalicButtonProps };
+export { ItalicInterface, renderLeaf, serializeInline, deserializeInline, ItalicButton, ItalicButtonProps };

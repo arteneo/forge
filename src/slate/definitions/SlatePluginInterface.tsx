@@ -1,12 +1,12 @@
 import { RenderElementProps, RenderLeafProps } from "slate-react";
-import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
+import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 
 interface SlatePluginInterface {
     toolbarComponent?: React.ReactElement;
     renderLeaf?: (props: RenderLeafProps) => React.ReactNode;
     renderElement?: (props: RenderElementProps) => JSX.Element;
-    serializeInline?: (node: any, result: SerializeInlineResult) => SerializeInlineResult;
+    serializeInline?: (node: any, result: SerializeInlineResultInteface) => SerializeInlineResultInteface;
     deserializeInline?: (
         element: Element,
         elementProps: DeserializeElementPropsInterface

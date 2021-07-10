@@ -1,31 +1,40 @@
 import React from "react";
-import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
+import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 import { RenderLeafProps, useSlate } from "slate-react";
 import { IconButton, IconButtonProps, Box, Popover, makeStyles, ClickAwayListener } from "@material-ui/core";
 import { toggleMark } from "@arteneo/forge/slate/utils/slate";
 import { FormatColorText } from "@material-ui/icons";
 import { ColorBox, Color } from "material-ui-color";
+import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
+import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
 
-// const boldPlugin = {
-//     button: BoldButton,
-// }
+interface ColorInterface extends FormattedTextInterface {
+    kind: "color";
+    color?: boolean;
+}
 
-// TODO Typings
-const colorSerializeInline = (node: any, result: SerializeInlineResult): void => {
+const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
     if (node.color) {
         result.styles["color"] = node.color;
     }
+
+    return result;
 };
 
-const colorDeserializeInline = (element: HTMLElement, elementProps: DeserializeElementPropsInterface): void => {
+const deserializeInline = (
+    element: Element,
+    elementProps: DeserializeElementPropsInterface
+): DeserializeElementPropsInterface => {
     if (element.style?.color) {
         elementProps["color"] = element.style?.color;
     }
+
+    return elementProps;
 };
 
-const colorLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.color) {
+const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
+    if (leaf.kind === "color" && leaf.color) {
         if (typeof attributes?.style === "undefined") {
             attributes.style = {};
         }
@@ -110,4 +119,12 @@ const ColorButton = ({ format = "color", ...iconButtonProps }: ColorButtonProps)
     );
 };
 
-export { colorLeaf, colorSerializeInline, colorDeserializeInline, ColorButton, ColorButtonProps };
+const plugin: SlatePluginInterface = {
+    toolbarComponent: <ColorButton />,
+    renderLeaf,
+    serializeInline,
+    deserializeInline,
+};
+
+export default plugin;
+export { ColorInterface, renderLeaf, serializeInline, deserializeInline, ColorButton, ColorButtonProps };

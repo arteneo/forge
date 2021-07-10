@@ -4,28 +4,39 @@ import { RenderElementProps } from "slate-react";
 import { jsx } from "slate-hyperscript";
 import ElementButton, { ElementButtonProps } from "@arteneo/forge/slate/components/ElementButton";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
+import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 
-// const boldPlugin = {
-//     button: BoldButton,
-// }
+interface OrderedListElementInterface {
+    type: "ordered-list" | "ordered-list-item";
+    children: TextType[];
+}
 
-// TODO Typings
-const orderedListSerializeElement = (node: any, children: any): void | string => {
-    if (node.type === "ordered-list") {
-        return "<ol>" + children + "</ol>";
+const serializeElement = (node: any, children: string): undefined | string => {
+    switch (node.type) {
+        case "ordered-list":
+            return "<ol>" + children + "</ol>";
+        case "ordered-list-item":
+            return "<li>" + children + "</li>";
     }
 };
 
-const orderedListDeserializeElement = (element: HTMLElement, children: any): void | CustomElement => {
+const deserializeElement = (element: Node, children: any): undefined | any => {
     if (element.nodeName === "OL") {
         return jsx("element", { type: "ordered-list" }, children);
     }
+
+    if (element.parentElement?.nodeName === "LI") {
+        return jsx("element", { type: "ordered-list-item" }, children);
+    }
 };
 
-const orderedListElement = ({ attributes, children, element }: RenderElementProps): void | React.ReactNode => {
+const renderElement = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
     switch (element.type) {
         case "ordered-list":
             return <ol {...attributes}>{children}</ol>;
+        case "ordered-list-item":
+            return <li {...attributes}>{children}</li>;
     }
 };
 
@@ -43,10 +54,19 @@ const OrderedListButton = ({ ...elementButtonProps }: OrderedListButtonProps) =>
     );
 };
 
+const plugin: SlatePluginInterface = {
+    toolbarComponent: <OrderedListButton />,
+    renderElement,
+    serializeElement,
+    deserializeElement,
+};
+
+export default plugin;
 export {
-    orderedListElement,
-    orderedListSerializeElement,
-    orderedListDeserializeElement,
+    OrderedListElementInterface,
+    renderElement,
+    serializeElement,
+    deserializeElement,
     OrderedListButton,
     OrderedListButtonProps,
 };

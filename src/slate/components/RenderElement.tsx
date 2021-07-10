@@ -16,19 +16,7 @@ const RenderElement = ({ plugins, attributes, children, element }: RenderElement
     }, undefined);
 
     if (typeof result === "undefined") {
-        // TODO Move this as plugin
-        switch (element.type) {
-            case "block-quote":
-                return <blockquote {...attributes}>{children}</blockquote>;
-            case "list-item":
-                return <li {...attributes}>{children}</li>;
-            case "numbered-list":
-                return <ol {...attributes}>{children}</ol>;
-            default:
-                return <p {...attributes}>{children}</p>;
-        }
-
-        return <></>;
+        return <p {...attributes}>{children}</p>;
     }
 
     return result;

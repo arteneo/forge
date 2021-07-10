@@ -1,13 +1,19 @@
 import React from "react";
 import { FormatBold } from "@material-ui/icons";
 import MarkButton, { MarkButtonProps } from "@arteneo/forge/slate/components/MarkButton";
-import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
+import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { RenderLeafProps } from "slate-react";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
+import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
 
-const serializeInline = (node: any, result: SerializeInlineResult): SerializeInlineResult => {
+interface BoldInterface extends FormattedTextInterface {
+    kind: "bold";
+    strong?: boolean;
+}
+
+const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
     if (node.strong) {
         result.attributes["data-strong"] = true;
         result.text = "<strong>" + result.text + "</strong>";
@@ -28,7 +34,7 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.strong) {
+    if (leaf.kind === "bold" && leaf.strong) {
         return <strong {...attributes}>{children}</strong>;
     }
 
@@ -57,4 +63,4 @@ const plugin: SlatePluginInterface = {
 };
 
 export default plugin;
-export { renderLeaf, serializeInline, deserializeInline, BoldButton, BoldButtonProps };
+export { BoldInterface, renderLeaf, serializeInline, deserializeInline, BoldButton, BoldButtonProps };

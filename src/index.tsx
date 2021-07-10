@@ -2,9 +2,25 @@
 import Slate from "@arteneo/forge/slate/Slate";
 import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType";
 import Bold from "@arteneo/forge/slate/plugins/Bold";
-import Heading from "@arteneo/forge/slate/plugins/Heading";
 import Italic from "@arteneo/forge/slate/plugins/Italic";
-export { Slate, SlatePluginsType, Bold, Italic, Heading };
+import Strikethrough from "@arteneo/forge/slate/plugins/Strikethrough";
+import Underline from "@arteneo/forge/slate/plugins/Underline";
+import Heading from "@arteneo/forge/slate/plugins/Heading";
+import Paragraph from "@arteneo/forge/slate/plugins/Paragraph";
+import OrderedList from "@arteneo/forge/slate/plugins/OrderedList";
+import UnorderedList from "@arteneo/forge/slate/plugins/UnorderedList";
+export {
+    Slate,
+    SlatePluginsType,
+    Bold,
+    Italic,
+    Strikethrough,
+    Underline,
+    Heading,
+    Paragraph,
+    OrderedList,
+    UnorderedList,
+};
 
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
 import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";

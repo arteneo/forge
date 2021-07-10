@@ -1,5 +1,5 @@
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
-import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
+import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType";
 import { Editor, Transforms, Element as SlateElement, Text } from "slate";
 import escapeHtml from "escape-html";
@@ -120,7 +120,7 @@ export const deserializeInlines = (
 
 export const serialize = (node: any, plugins: SlatePluginsType): undefined | string => {
     if (Text.isText(node)) {
-        let result: SerializeInlineResult = {
+        let result: SerializeInlineResultInteface = {
             text: escapeHtml(node.text),
             attributes: {},
             styles: {},
@@ -189,9 +189,9 @@ export const serialize = (node: any, plugins: SlatePluginsType): undefined | str
 
 export const serializeInlines = (
     element: any,
-    result: SerializeInlineResult,
+    result: SerializeInlineResultInteface,
     plugins: SlatePluginsType
-): SerializeInlineResult => {
+): SerializeInlineResultInteface => {
     return plugins.reduce((result, plugin) => {
         if (typeof plugin.serializeInline !== "undefined") {
             return plugin.serializeInline(element, result);

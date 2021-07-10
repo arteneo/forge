@@ -1,31 +1,40 @@
 import React from "react";
 import { FormatUnderlined } from "@material-ui/icons";
 import MarkButton, { MarkButtonProps } from "@arteneo/forge/slate/components/MarkButton";
-import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
+import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { RenderLeafProps } from "slate-react";
+import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
+import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
 
-// const boldPlugin = {
-//     button: BoldButton,
-// }
+interface UnderlineInterface extends FormattedTextInterface {
+    kind: "underline";
+    underline?: boolean;
+}
 
-// TODO Typings
-const underlineSerializeInline = (node: any, result: SerializeInlineResult): void => {
+const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
     if (node.underline) {
         result.attributes["data-underline"] = true;
         result.text = "<u>" + result.text + "</u>";
     }
+
+    return result;
 };
 
-const underlineDeserializeInline = (element: HTMLElement, elementProps: DeserializeElementPropsInterface): void => {
+const deserializeInline = (
+    element: Element,
+    elementProps: DeserializeElementPropsInterface
+): DeserializeElementPropsInterface => {
     if (element.nodeName === "U" || element.hasAttribute("data-underline")) {
         elementProps["underline"] = true;
     }
+
+    return elementProps;
 };
 
-const underlineLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.underline) {
+const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
+    if (leaf.kind === "underline" && leaf.underline) {
         return <u {...attributes}>{children}</u>;
     }
 
@@ -46,4 +55,12 @@ const UnderlineButton = ({ ...markButtonProps }: UnderlineButtonProps) => {
     );
 };
 
-export { underlineLeaf, underlineSerializeInline, underlineDeserializeInline, UnderlineButton, UnderlineButtonProps };
+const plugin: SlatePluginInterface = {
+    toolbarComponent: <UnderlineButton />,
+    renderLeaf,
+    serializeInline,
+    deserializeInline,
+};
+
+export default plugin;
+export { UnderlineInterface, renderLeaf, serializeInline, deserializeInline, UnderlineButton, UnderlineButtonProps };

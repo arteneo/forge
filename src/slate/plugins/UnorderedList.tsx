@@ -4,28 +4,39 @@ import { RenderElementProps } from "slate-react";
 import { jsx } from "slate-hyperscript";
 import ElementButton, { ElementButtonProps } from "@arteneo/forge/slate/components/ElementButton";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
+import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 
-// const boldPlugin = {
-//     button: BoldButton,
-// }
+interface UnorderedListElementInterface {
+    type: "unordered-list" | "orunordereddered-list-item";
+    children: TextType[];
+}
 
-// TODO Typings
-const unorderedListSerializeElement = (node: any, children: any): void | string => {
-    if (node.type === "unordered-list") {
-        return "<ul>" + children + "</ul>";
+const serializeElement = (node: any, children: string): undefined | string => {
+    switch (node.type) {
+        case "unordered-list":
+            return "<ul>" + children + "</ul>";
+        case "unordered-list-item":
+            return "<li>" + children + "</li>";
     }
 };
 
-const unorderedListDeserializeElement = (element: HTMLElement, children: any): void | CustomElement => {
+const deserializeElement = (element: Node, children: any): undefined | any => {
     if (element.nodeName === "UL") {
         return jsx("element", { type: "unordered-list" }, children);
     }
+
+    if (element.parentElement?.nodeName === "LI") {
+        return jsx("element", { type: "unordered-list-item" }, children);
+    }
 };
 
-const unorderedListElement = ({ attributes, children, element }: RenderElementProps): void | React.ReactNode => {
+const renderElement = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
     switch (element.type) {
         case "unordered-list":
             return <ul {...attributes}>{children}</ul>;
+        case "unordered-list-item":
+            return <li {...attributes}>{children}</li>;
     }
 };
 
@@ -43,10 +54,19 @@ const UnorderedListButton = ({ ...elementButtonProps }: UnorderedListButtonProps
     );
 };
 
+const plugin: SlatePluginInterface = {
+    toolbarComponent: <UnorderedListButton />,
+    renderElement,
+    serializeElement,
+    deserializeElement,
+};
+
+export default plugin;
 export {
-    unorderedListElement,
-    unorderedListSerializeElement,
-    unorderedListDeserializeElement,
+    UnorderedListElementInterface,
+    renderElement,
+    serializeElement,
+    deserializeElement,
     UnorderedListButton,
     UnorderedListButtonProps,
 };

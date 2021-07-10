@@ -1,31 +1,40 @@
 import React from "react";
 import { FormatStrikethrough } from "@material-ui/icons";
 import MarkButton, { MarkButtonProps } from "@arteneo/forge/slate/components/MarkButton";
-import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInlineResult";
+import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { RenderLeafProps } from "slate-react";
+import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
+import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
 
-// const boldPlugin = {
-//     button: BoldButton,
-// }
+interface StrikethroughInterface extends FormattedTextInterface {
+    kind: "strikethrough";
+    strikethrough?: boolean;
+}
 
-// TODO Typings
-const strikethroughSerializeInline = (node: any, result: SerializeInlineResult): void => {
+const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
     if (node.strikethrough) {
         result.attributes["data-strikethrough"] = true;
         result.text = "<s>" + result.text + "</s>";
     }
+
+    return result;
 };
 
-const strikethroughDeserializeInline = (element: HTMLElement, elementProps: DeserializeElementPropsInterface): void => {
+const deserializeInline = (
+    element: Element,
+    elementProps: DeserializeElementPropsInterface
+): DeserializeElementPropsInterface => {
     if (element.nodeName === "S" || element.hasAttribute("data-strikethrough")) {
         elementProps["strikethrough"] = true;
     }
+
+    return elementProps;
 };
 
-const strikethroughLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.strikethrough) {
+const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
+    if (leaf.kind === "strikethrough" && leaf.strikethrough) {
         return <s {...attributes}>{children}</s>;
     }
 
@@ -46,10 +55,19 @@ const StrikethroughButton = ({ ...markButtonProps }: StrikethroughButtonProps) =
     );
 };
 
+const plugin: SlatePluginInterface = {
+    toolbarComponent: <StrikethroughButton />,
+    renderLeaf,
+    serializeInline,
+    deserializeInline,
+};
+
+export default plugin;
 export {
-    strikethroughLeaf,
-    strikethroughSerializeInline,
-    strikethroughDeserializeInline,
+    StrikethroughInterface,
+    renderLeaf,
+    serializeInline,
+    deserializeInline,
     StrikethroughButton,
     StrikethroughButtonProps,
 };

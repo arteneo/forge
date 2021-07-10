@@ -1,39 +1,21 @@
 import React from "react";
-import { BaseEditor, createEditor, Descendant } from "slate";
-import { HistoryEditor, withHistory } from "slate-history";
-import { ReactEditor, Slate as SlateReact, Editable, withReact } from "slate-react";
+import { createEditor, Descendant } from "slate";
+import { withHistory } from "slate-history";
+import { Slate as SlateReact, Editable, withReact } from "slate-react";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
+import EditorType from "@arteneo/forge/slate/definitions/EditorType";
+import ElementType from "@arteneo/forge/slate/definitions/ElementType";
 import Toolbar from "@arteneo/forge/slate/components/Toolbar";
 import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType";
 import { serialize, deserialize } from "@arteneo/forge/slate/utils/slate";
 import RenderElement from "@arteneo/forge/slate/components/RenderElement";
 import RenderLeaf from "@arteneo/forge/slate/components/RenderLeaf";
 
-export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor;
-
-export type ParagraphElement = {
-    type: "paragraph";
-    children: CustomText[];
-};
-
-export type HeadingElement = {
-    type: "heading";
-    level: number;
-    children: CustomText[];
-};
-
-export type CustomElement = ParagraphElement | HeadingElement;
-
-export type FormattedText = { text: string };
-
-export type ColoredText = { text: string; color?: React.CSSProperties };
-
-export type CustomText = FormattedText | ColoredText;
-
 declare module "slate" {
     interface CustomTypes {
-        Editor: BaseEditor & ReactEditor & HistoryEditor;
-        Element: CustomElement;
-        Text: CustomText;
+        Editor: EditorType;
+        Element: ElementType;
+        Text: TextType;
     }
 }
 

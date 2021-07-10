@@ -6,6 +6,14 @@ import { toggleElement } from "@arteneo/forge/slate/utils/slate";
 import { useTranslation } from "react-i18next";
 import { jsx } from "slate-hyperscript";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
+
+type HeadingType = "heading-one" | "heading-two" | "heading-three" | "heading-four" | "heading-five" | "heading-six";
+
+interface HeadingElementInterface {
+    type: HeadingType;
+    children: TextType[];
+}
 
 const serializeElement = (node: any, children: string): undefined | string => {
     switch (node.type) {
@@ -59,8 +67,6 @@ const renderElement = ({ attributes, children, element }: RenderElementProps): J
 
     return children;
 };
-
-type HeadingType = "heading-one" | "heading-two" | "heading-three" | "heading-four" | "heading-five" | "heading-six";
 
 interface HeadingTypes {
     types?: HeadingType[];
@@ -166,11 +172,12 @@ const plugin: SlatePluginInterface = {
 
 export default plugin;
 export {
+    HeadingType,
+    HeadingElementInterface,
     renderElement,
     serializeElement,
     deserializeElement,
     HeadingButton,
     HeadingButtonProps,
-    HeadingType,
     HeadingTypes,
 };
