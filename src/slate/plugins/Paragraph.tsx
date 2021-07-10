@@ -4,8 +4,10 @@ import { jsx } from "slate-hyperscript";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 import TextType from "@arteneo/forge/slate/definitions/TextType";
 
+type ParagraphElementType = "paragraph";
+
 interface ParagraphElementInterface {
-    type: "paragraph";
+    type: ParagraphElementType;
     children: TextType[];
 }
 
@@ -39,4 +41,4 @@ const plugin: SlatePluginInterface = {
 };
 
 export default plugin;
-export { ParagraphElementInterface, renderElement, serializeElement, deserializeElement };
+export { ParagraphElementType, ParagraphElementInterface, renderElement, serializeElement, deserializeElement };

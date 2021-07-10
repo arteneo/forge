@@ -23,7 +23,7 @@ const serializeInline = (node: any, result: SerializeInlineResultInteface): Seri
 };
 
 const deserializeInline = (
-    element: Element,
+    element: HTMLElement,
     elementProps: DeserializeElementPropsInterface
 ): DeserializeElementPropsInterface => {
     if (element.nodeName === "STRONG" || element.hasAttribute("data-strong")) {
@@ -34,7 +34,7 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.kind === "bold" && leaf.strong) {
+    if (leaf.strong) {
         return <strong {...attributes}>{children}</strong>;
     }
 

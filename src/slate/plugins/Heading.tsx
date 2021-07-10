@@ -8,10 +8,16 @@ import { jsx } from "slate-hyperscript";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 import TextType from "@arteneo/forge/slate/definitions/TextType";
 
-type HeadingType = "heading-one" | "heading-two" | "heading-three" | "heading-four" | "heading-five" | "heading-six";
+type HeadingElementType =
+    | "heading-one"
+    | "heading-two"
+    | "heading-three"
+    | "heading-four"
+    | "heading-five"
+    | "heading-six";
 
 interface HeadingElementInterface {
-    type: HeadingType;
+    type: HeadingElementType;
     children: TextType[];
 }
 
@@ -69,7 +75,7 @@ const renderElement = ({ attributes, children, element }: RenderElementProps): J
 };
 
 interface HeadingTypes {
-    types?: HeadingType[];
+    types?: HeadingElementType[];
 }
 
 type HeadingButtonProps = HeadingTypes & IconButtonProps;
@@ -112,7 +118,7 @@ const HeadingButton = ({
         setAnchor(e.currentTarget);
     };
 
-    const onMouseDown = (e: React.MouseEvent<HTMLElement>, type: HeadingType) => {
+    const onMouseDown = (e: React.MouseEvent<HTMLElement>, type: HeadingElementType) => {
         e.preventDefault();
         toggleElement(editor, type);
     };
@@ -172,7 +178,7 @@ const plugin: SlatePluginInterface = {
 
 export default plugin;
 export {
-    HeadingType,
+    HeadingElementType,
     HeadingElementInterface,
     renderElement,
     serializeElement,

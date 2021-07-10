@@ -1,10 +1,13 @@
 // TODO
 import Slate from "@arteneo/forge/slate/Slate";
 import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType";
+import Body from "@arteneo/forge/slate/plugins/Body";
+import Br from "@arteneo/forge/slate/plugins/Br";
 import Bold from "@arteneo/forge/slate/plugins/Bold";
 import Italic from "@arteneo/forge/slate/plugins/Italic";
 import Strikethrough from "@arteneo/forge/slate/plugins/Strikethrough";
 import Underline from "@arteneo/forge/slate/plugins/Underline";
+import Color from "@arteneo/forge/slate/plugins/Color";
 import Heading from "@arteneo/forge/slate/plugins/Heading";
 import Paragraph from "@arteneo/forge/slate/plugins/Paragraph";
 import OrderedList from "@arteneo/forge/slate/plugins/OrderedList";
@@ -12,10 +15,13 @@ import UnorderedList from "@arteneo/forge/slate/plugins/UnorderedList";
 export {
     Slate,
     SlatePluginsType,
+    Body,
+    Br,
     Bold,
     Italic,
     Strikethrough,
     Underline,
+    Color,
     Heading,
     Paragraph,
     OrderedList,

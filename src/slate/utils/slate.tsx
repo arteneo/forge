@@ -1,13 +1,15 @@
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType";
+import NodeType from "@arteneo/forge/slate/definitions/NodeType";
 import { Editor, Transforms, Element as SlateElement, Text } from "slate";
 import escapeHtml from "escape-html";
-import { jsx } from "slate-hyperscript";
+import ElementTypeType from "@arteneo/forge/slate/definitions/ElementTypeType";
 
+// Hard coded - Need idea how to make it flexible
 export const LIST_TYPES = ["ordered-list", "unordered-list"];
 
-export const isElementActive = (editor: Editor, format: string) => {
+export const isElementActive = (editor: Editor, format: ElementTypeType) => {
     const [match] = Editor.nodes(editor, {
         match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
     });
@@ -16,7 +18,7 @@ export const isElementActive = (editor: Editor, format: string) => {
 };
 
 export const isMarkActive = (editor: Editor, format: string) => {
-    const marks = Editor.marks(editor);
+    const marks: null | Record<string, any> = Editor.marks(editor);
     return marks ? marks[format] === true : false;
 };
 
@@ -30,16 +32,26 @@ export const toggleMark = (editor: Editor, format: string, value: any = true) =>
     }
 };
 
-export const toggleElement = (editor: Editor, format: string) => {
+export const toggleElement = (editor: Editor, format: ElementTypeType, formatListItem?: ElementTypeType) => {
     const isActive = isElementActive(editor, format);
     const isList = LIST_TYPES.includes(format);
 
     Transforms.unwrapNodes(editor, {
-        match: (n) => LIST_TYPES.includes(!Editor.isEditor(n) && SlateElement.isElement(n) && n.type),
+        match: (n) => {
+            if (Editor.isEditor(n)) {
+                return false;
+            }
+
+            if (!SlateElement.isElement(n)) {
+                return false;
+            }
+
+            return LIST_TYPES.includes(n.type);
+        },
         split: true,
     });
     const newProperties: Partial<SlateElement> = {
-        type: isActive ? "paragraph" : isList ? "list-item" : format,
+        type: isActive ? "paragraph" : isList ? formatListItem : format,
     };
     Transforms.setNodes(editor, newProperties);
 
@@ -49,7 +61,7 @@ export const toggleElement = (editor: Editor, format: string) => {
     }
 };
 
-export const deserialize = (element: Element, plugins: SlatePluginsType): any => {
+export const deserialize = (element: HTMLElement, plugins: SlatePluginsType): any => {
     if (element.nodeType === 3) {
         return element.textContent;
     }
@@ -58,7 +70,9 @@ export const deserialize = (element: Element, plugins: SlatePluginsType): any =>
         return null;
     }
 
-    let children = Array.from(element.childNodes).map((childElement) => deserialize(childElement as Element, plugins));
+    let children = Array.from(element.childNodes).map((childElement) =>
+        deserialize(childElement as HTMLElement, plugins)
+    );
 
     if (children.length === 0) {
         children = [{ text: "" }];
@@ -67,27 +81,6 @@ export const deserialize = (element: Element, plugins: SlatePluginsType): any =>
     const result = deserializeElements(element, children, plugins);
     if (typeof result !== "undefined") {
         return result;
-    }
-
-    // TODO Add this to deserialization plugins
-    if (element.nodeName === "BODY") {
-        return jsx("fragment", {}, children);
-    }
-
-    if (element.nodeName === "BR") {
-        return "\n";
-    }
-
-    if (element.nodeName === "P") {
-        return jsx("element", { type: "paragraph" }, children);
-    }
-
-    if (element.nodeName === "LI") {
-        return jsx("element", { type: "list-item" }, children);
-    }
-
-    if (element.nodeName === "OL") {
-        return jsx("element", { type: "numbered-list" }, children);
     }
 
     const elementProps = deserializeInlines(element, {}, plugins);
@@ -105,7 +98,7 @@ export const deserializeElements = (element: Node, children: any, plugins: Slate
 };
 
 export const deserializeInlines = (
-    element: Element,
+    element: HTMLElement,
     elementProps: DeserializeElementPropsInterface,
     plugins: SlatePluginsType
 ): DeserializeElementPropsInterface => {
@@ -118,7 +111,11 @@ export const deserializeInlines = (
     }, elementProps);
 };
 
-export const serialize = (node: any, plugins: SlatePluginsType): undefined | string => {
+export const serialize = (nodes: NodeType[], plugins: SlatePluginsType): undefined | string => {
+    return nodes.map((node) => serializeNode(node, plugins)).join("");
+};
+
+export const serializeNode = (node: NodeType, plugins: SlatePluginsType): undefined | string => {
     if (Text.isText(node)) {
         let result: SerializeInlineResultInteface = {
             text: escapeHtml(node.text),
@@ -167,28 +164,12 @@ export const serialize = (node: any, plugins: SlatePluginsType): undefined | str
         return result.text;
     }
 
-    const children = node.children.map((nodeChild) => serialize(nodeChild, plugins)).join("");
-
-    // TODO Add this to deserializetion plugin
-    switch (node.type) {
-        case "quote":
-            return `<blockquote><p>${children}</p></blockquote>`;
-        case "paragraph":
-            console.log("a");
-            return `<p>${children}</p>`;
-        case "list-item":
-            return `<li>${children}</li>`;
-        case "numbered-list":
-            return `<ol>${children}</ol>`;
-        case "link":
-            return `<a href="${escapeHtml(node.url)}">${children}</a>`;
-    }
-
+    const children = node.children.map((nodeChild) => serializeNode(nodeChild, plugins)).join("");
     return serializeElements(node, children, plugins);
 };
 
 export const serializeInlines = (
-    element: any,
+    element: NodeType,
     result: SerializeInlineResultInteface,
     plugins: SlatePluginsType
 ): SerializeInlineResultInteface => {
@@ -201,7 +182,7 @@ export const serializeInlines = (
     }, result);
 };
 
-export const serializeElements = (node: any, children: string, plugins: SlatePluginsType): string => {
+export const serializeElements = (node: NodeType, children: string, plugins: SlatePluginsType): string => {
     const result = plugins.reduce((result: undefined | string, plugin) => {
         if (typeof result === "undefined" && typeof plugin.serializeElement !== "undefined") {
             return plugin.serializeElement(node, children);

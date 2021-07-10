@@ -23,7 +23,7 @@ const serializeInline = (node: any, result: SerializeInlineResultInteface): Seri
 };
 
 const deserializeInline = (
-    element: Element,
+    element: HTMLElement,
     elementProps: DeserializeElementPropsInterface
 ): DeserializeElementPropsInterface => {
     if (element.nodeName === "S" || element.hasAttribute("data-strikethrough")) {

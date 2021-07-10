@@ -10,6 +10,7 @@ import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType"
 import { serialize, deserialize } from "@arteneo/forge/slate/utils/slate";
 import RenderElement from "@arteneo/forge/slate/components/RenderElement";
 import RenderLeaf from "@arteneo/forge/slate/components/RenderLeaf";
+import SerializeInlineResultAttributesInterface from "@arteneo/forge/slate/definitions/SerializeInlineResultAttributesInterface";
 
 declare module "slate" {
     interface CustomTypes {
@@ -220,16 +221,16 @@ const Slate = ({ initialHtml, plugins }: SlateProps) => {
     };
 
     const editor = React.useMemo(() => withHistory(withReact(createEditor())), []);
-    const [value, setValue] = React.useState<CustomElement[]>(getInitialValue());
+    const [value, setValue] = React.useState<ElementType[]>(getInitialValue());
 
     const renderElement = React.useCallback((props) => <RenderElement {...{ plugins, ...props }} />, []);
     const renderLeaf = React.useCallback((props) => <RenderLeaf {...{ plugins, ...props }} />, []);
 
     const onChange = (change: Descendant[]) => {
-        setValue(change as CustomElement[]);
+        setValue(change as ElementType[]);
     };
 
-    const serializedHtml = serialize({ children: value }, plugins);
+    const serializedHtml = serialize(value, plugins);
 
     return (
         <>

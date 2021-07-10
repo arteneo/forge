@@ -7,8 +7,10 @@ import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import TextType from "@arteneo/forge/slate/definitions/TextType";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 
+type OrderedListElementType = "ordered-list" | "ordered-list-item";
+
 interface OrderedListElementInterface {
-    type: "ordered-list" | "ordered-list-item";
+    type: OrderedListElementType;
     children: TextType[];
 }
 
@@ -32,12 +34,15 @@ const deserializeElement = (element: Node, children: any): undefined | any => {
 };
 
 const renderElement = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
+console.log("🚀 ~ file: OrderedList.tsx ~ line 37 ~ element", element)
     switch (element.type) {
         case "ordered-list":
             return <ol {...attributes}>{children}</ol>;
         case "ordered-list-item":
             return <li {...attributes}>{children}</li>;
     }
+
+    return children;
 };
 
 type OrderedListButtonProps = Optional<ElementButtonProps, "format">;
@@ -47,6 +52,7 @@ const OrderedListButton = ({ ...elementButtonProps }: OrderedListButtonProps) =>
         <ElementButton
             {...{
                 format: "ordered-list",
+                formatListItem: "ordered-list-item",
                 children: <FormatListNumbered />,
                 ...elementButtonProps,
             }}
@@ -63,6 +69,7 @@ const plugin: SlatePluginInterface = {
 
 export default plugin;
 export {
+    OrderedListElementType,
     OrderedListElementInterface,
     renderElement,
     serializeElement,

@@ -7,8 +7,10 @@ import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import TextType from "@arteneo/forge/slate/definitions/TextType";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 
+type UnorderedListElementType = "unordered-list" | "unordered-list-item";
+
 interface UnorderedListElementInterface {
-    type: "unordered-list" | "orunordereddered-list-item";
+    type: UnorderedListElementType;
     children: TextType[];
 }
 
@@ -38,6 +40,8 @@ const renderElement = ({ attributes, children, element }: RenderElementProps): J
         case "unordered-list-item":
             return <li {...attributes}>{children}</li>;
     }
+
+    return children;
 };
 
 type UnorderedListButtonProps = Optional<ElementButtonProps, "format">;
@@ -47,6 +51,7 @@ const UnorderedListButton = ({ ...elementButtonProps }: UnorderedListButtonProps
         <ElementButton
             {...{
                 format: "unordered-list",
+                formatListItem: "unordered-list-item",
                 children: <FormatListBulleted />,
                 ...elementButtonProps,
             }}
@@ -63,6 +68,7 @@ const plugin: SlatePluginInterface = {
 
 export default plugin;
 export {
+    UnorderedListElementType,
     UnorderedListElementInterface,
     renderElement,
     serializeElement,

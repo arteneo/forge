@@ -11,7 +11,7 @@ import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTe
 
 interface ColorInterface extends FormattedTextInterface {
     kind: "color";
-    color?: boolean;
+    color?: string;
 }
 
 const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
@@ -23,7 +23,7 @@ const serializeInline = (node: any, result: SerializeInlineResultInteface): Seri
 };
 
 const deserializeInline = (
-    element: Element,
+    element: HTMLElement,
     elementProps: DeserializeElementPropsInterface
 ): DeserializeElementPropsInterface => {
     if (element.style?.color) {
@@ -35,11 +35,11 @@ const deserializeInline = (
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
     if (leaf.kind === "color" && leaf.color) {
-        if (typeof attributes?.style === "undefined") {
-            attributes.style = {};
-        }
-
-        attributes.style["color"] = leaf["color"];
+        return (
+            <span {...attributes} style={{ color: leaf.color }}>
+                {children}
+            </span>
+        );
     }
 
     return children;
