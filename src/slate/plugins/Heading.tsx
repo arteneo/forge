@@ -5,13 +5,9 @@ import { RenderElementProps, useSlate } from "slate-react";
 import { toggleElement } from "@arteneo/forge/slate/utils/slate";
 import { useTranslation } from "react-i18next";
 import { jsx } from "slate-hyperscript";
+import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 
-// const boldPlugin = {
-//     button: BoldButton,
-// }
-
-// TODO Typings
-const headingSerializeElement = (node: any, children: any): void | string => {
+const serializeElement = (node: any, children: string): undefined | string => {
     switch (node.type) {
         case "heading-one":
             return "<h1>" + children + "</h1>";
@@ -28,7 +24,7 @@ const headingSerializeElement = (node: any, children: any): void | string => {
     }
 };
 
-const headingDeserializeElement = (element: HTMLElement, children: any): void | CustomElement => {
+const deserializeElement = (element: Node, children: any): undefined | any => {
     switch (element.nodeName) {
         case "H1":
             return jsx("element", { type: "heading-one" }, children);
@@ -45,7 +41,7 @@ const headingDeserializeElement = (element: HTMLElement, children: any): void | 
     }
 };
 
-const headingElement = ({ attributes, children, element }: RenderElementProps): void | React.ReactNode => {
+const renderElement = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
     switch (element.type) {
         case "heading-one":
             return <h1 {...attributes}>{children}</h1>;
@@ -60,6 +56,8 @@ const headingElement = ({ attributes, children, element }: RenderElementProps): 
         case "heading-six":
             return <h6 {...attributes}>{children}</h6>;
     }
+
+    return children;
 };
 
 type HeadingType = "heading-one" | "heading-two" | "heading-three" | "heading-four" | "heading-five" | "heading-six";
@@ -159,10 +157,18 @@ const HeadingButton = ({
     );
 };
 
+const plugin: SlatePluginInterface = {
+    toolbarComponent: <HeadingButton />,
+    renderElement,
+    serializeElement,
+    deserializeElement,
+};
+
+export default plugin;
 export {
-    headingElement,
-    headingSerializeElement,
-    headingDeserializeElement,
+    renderElement,
+    serializeElement,
+    deserializeElement,
     HeadingButton,
     HeadingButtonProps,
     HeadingType,

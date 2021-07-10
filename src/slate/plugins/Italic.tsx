@@ -5,26 +5,29 @@ import SerializeInlineResult from "@arteneo/forge/slate/definitions/SerializeInl
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { RenderLeafProps } from "slate-react";
+import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 
-// const boldPlugin = {
-//     button: BoldButton,
-// }
-
-// TODO Typings
-const italicSerializeInline = (node: any, result: SerializeInlineResult): void => {
+const serializeInline = (node: any, result: SerializeInlineResult): SerializeInlineResult => {
     if (node.italic) {
         result.attributes["data-italic"] = true;
         result.text = "<em>" + result.text + "</em>";
     }
+
+    return result;
 };
 
-const italicDeserializeInline = (element: HTMLElement, elementProps: DeserializeElementPropsInterface): void => {
+const deserializeInline = (
+    element: Element,
+    elementProps: DeserializeElementPropsInterface
+): DeserializeElementPropsInterface => {
     if (element.nodeName === "EM" || element.hasAttribute("data-italic")) {
         elementProps["italic"] = true;
     }
+
+    return elementProps;
 };
 
-const italicLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
+const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
     if (leaf.italic) {
         return <em {...attributes}>{children}</em>;
     }
@@ -46,4 +49,12 @@ const ItalicButton = ({ ...markButtonProps }: ItalicButtonProps) => {
     );
 };
 
-export { italicLeaf, italicSerializeInline, italicDeserializeInline, ItalicButton, ItalicButtonProps };
+const plugin: SlatePluginInterface = {
+    toolbarComponent: <ItalicButton />,
+    renderLeaf,
+    serializeInline,
+    deserializeInline,
+};
+
+export default plugin;
+export { renderLeaf, serializeInline, deserializeInline, ItalicButton, ItalicButtonProps };

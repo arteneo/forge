@@ -1,8 +1,9 @@
 import React from "react";
 import { makeStyles, Paper } from "@material-ui/core";
+import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType";
 
 interface ToolbarProps {
-    children: React.ReactNode;
+    plugins: SlatePluginsType;
 }
 
 const useStyles = makeStyles(() => ({
@@ -12,10 +13,22 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Toolbar = ({ children }: ToolbarProps) => {
+const Toolbar = ({ plugins }: ToolbarProps) => {
     const classes = useStyles();
 
-    return <Paper className={classes.toolbar}>{children}</Paper>;
+    return (
+        <Paper className={classes.toolbar}>
+            <>
+                {plugins.map((plugin, key) => {
+                    if (typeof plugin.toolbarComponent !== "undefined") {
+                        return <React.Fragment key={key}>{plugin.toolbarComponent}</React.Fragment>;
+                    }
+
+                    return null;
+                })}
+            </>
+        </Paper>
+    );
 };
 
 export default Toolbar;

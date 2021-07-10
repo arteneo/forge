@@ -1,6 +1,10 @@
 // TODO
 import Slate from "@arteneo/forge/slate/Slate";
-export { Slate };
+import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType";
+import Bold from "@arteneo/forge/slate/plugins/Bold";
+import Heading from "@arteneo/forge/slate/plugins/Heading";
+import Italic from "@arteneo/forge/slate/plugins/Italic";
+export { Slate, SlatePluginsType, Bold, Italic, Heading };
 
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
 import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
