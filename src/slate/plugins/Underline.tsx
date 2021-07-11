@@ -7,14 +7,16 @@ import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { RenderLeafProps } from "slate-react";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
 
 interface UnderlineInterface extends FormattedTextInterface {
-    kind: "underline";
     underline?: boolean;
 }
 
-const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
-    if (node.underline) {
+const serializeInline = (node: TextType, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
+    const underlineNode = node as UnderlineInterface;
+
+    if (underlineNode.underline) {
         result.attributes["data-underline"] = true;
         result.text = "<u>" + result.text + "</u>";
     }
@@ -34,7 +36,9 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.underline) {
+    const underlineLeaf = leaf as UnderlineInterface;
+
+    if (underlineLeaf.underline) {
         return <u {...attributes}>{children}</u>;
     }
 

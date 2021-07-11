@@ -8,15 +8,17 @@ import { FormatColorText } from "@material-ui/icons";
 import { ColorBox, Color } from "material-ui-color";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
 
 interface ColorInterface extends FormattedTextInterface {
-    kind: "color";
     color?: string;
 }
 
-const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
-    if (node.color) {
-        result.styles["color"] = node.color;
+const serializeInline = (node: TextType, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
+    const colorNode = node as ColorInterface;
+
+    if (colorNode.color) {
+        result.styles["color"] = colorNode.color;
     }
 
     return result;
@@ -34,9 +36,11 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.color) {
+    const colorLeaf = leaf as ColorInterface;
+
+    if (colorLeaf.color) {
         return (
-            <span {...attributes} style={{ color: leaf.color }}>
+            <span {...attributes} style={{ color: colorLeaf.color }}>
                 {children}
             </span>
         );

@@ -7,14 +7,16 @@ import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { RenderLeafProps } from "slate-react";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
 
 interface ItalicInterface extends FormattedTextInterface {
-    kind: "italic";
     italic?: boolean;
 }
 
-const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
-    if (node.italic) {
+const serializeInline = (node: TextType, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
+    const italicNode = node as ItalicInterface;
+
+    if (italicNode.italic) {
         result.attributes["data-italic"] = true;
         result.text = "<em>" + result.text + "</em>";
     }
@@ -34,7 +36,9 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.italic) {
+    const italicLeaf = leaf as ItalicInterface;
+
+    if (italicLeaf.italic) {
         return <em {...attributes}>{children}</em>;
     }
 

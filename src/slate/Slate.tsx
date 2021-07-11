@@ -10,7 +10,7 @@ import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType"
 import { serialize, deserialize } from "@arteneo/forge/slate/utils/slate";
 import RenderElement from "@arteneo/forge/slate/components/RenderElement";
 import RenderLeaf from "@arteneo/forge/slate/components/RenderLeaf";
-import SerializeInlineResultAttributesInterface from "@arteneo/forge/slate/definitions/SerializeInlineResultAttributesInterface";
+import { jsx } from "slate-hyperscript";
 
 declare module "slate" {
     interface CustomTypes {
@@ -213,21 +213,27 @@ interface SlateProps {
 }
 
 const Slate = ({ initialHtml, plugins }: SlateProps) => {
-    const getInitialValue = () => {
+    const getInitialValue = (): Descendant[] => {
         if (typeof initialHtml !== "undefined") {
             const document = new DOMParser().parseFromString(initialHtml, "text/html");
-            return deserialize(document.body, plugins);
+
+            const deserializeValue = deserialize(document.body, plugins);
+            if (typeof deserializeValue !== "undefined") {
+                return deserializeValue as Descendant[];
+            }
         }
+
+        return [jsx("element", { type: "paragraph" }, [{ text: "" }])];
     };
 
     const editor = React.useMemo(() => withHistory(withReact(createEditor())), []);
-    const [value, setValue] = React.useState<ElementType[]>(getInitialValue());
+    const [value, setValue] = React.useState<Descendant[]>(getInitialValue());
 
     const renderElement = React.useCallback((props) => <RenderElement {...{ plugins, ...props }} />, []);
     const renderLeaf = React.useCallback((props) => <RenderLeaf {...{ plugins, ...props }} />, []);
 
     const onChange = (change: Descendant[]) => {
-        setValue(change as ElementType[]);
+        setValue(change);
     };
 
     const serializedHtml = serialize(value, plugins);

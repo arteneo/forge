@@ -7,14 +7,16 @@ import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { RenderLeafProps } from "slate-react";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
 
 interface StrikethroughInterface extends FormattedTextInterface {
-    kind: "strikethrough";
     strikethrough?: boolean;
 }
 
-const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
-    if (node.strikethrough) {
+const serializeInline = (node: TextType, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
+    const strikethroughNode = node as StrikethroughInterface;
+
+    if (strikethroughNode.strikethrough) {
         result.attributes["data-strikethrough"] = true;
         result.text = "<s>" + result.text + "</s>";
     }
@@ -34,7 +36,9 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.strikethrough) {
+    const strikethroughLeaf = leaf as StrikethroughInterface;
+
+    if (strikethroughLeaf.strikethrough) {
         return <s {...attributes}>{children}</s>;
     }
 

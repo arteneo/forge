@@ -3,6 +3,9 @@ import { RenderElementProps } from "slate-react";
 import { jsx } from "slate-hyperscript";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 import TextType from "@arteneo/forge/slate/definitions/TextType";
+import DeserializeType from "@arteneo/forge/slate/definitions/DeserializeType";
+import DeserializeElementType from "@arteneo/forge/slate/definitions/DeserializeElementType";
+import ElementType from "@arteneo/forge/slate/definitions/ElementType";
 
 type ParagraphElementType = "paragraph";
 
@@ -11,14 +14,14 @@ interface ParagraphElementInterface {
     children: TextType[];
 }
 
-const serializeElement = (node: any, children: string): undefined | string => {
+const serializeElement = (node: ElementType, children: string): undefined | string => {
     switch (node.type) {
         case "paragraph":
             return "<p>" + children + "</p>";
     }
 };
 
-const deserializeElement = (element: Node, children: any): undefined | any => {
+const deserializeElement = (element: Node, children: DeserializeType[]): DeserializeElementType => {
     switch (element.nodeName) {
         case "P":
             return jsx("element", { type: "paragraph" }, children);

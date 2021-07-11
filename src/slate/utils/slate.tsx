@@ -1,10 +1,13 @@
+import { Editor, Transforms, Element as SlateElement, Text, Descendant } from "slate";
+import escapeHtml from "escape-html";
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
 import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import SlatePluginsType from "@arteneo/forge/slate/definitions/SlatePluginsType";
-import NodeType from "@arteneo/forge/slate/definitions/NodeType";
-import { Editor, Transforms, Element as SlateElement, Text } from "slate";
-import escapeHtml from "escape-html";
 import ElementTypeType from "@arteneo/forge/slate/definitions/ElementTypeType";
+import ElementType from "@arteneo/forge/slate/definitions/ElementType";
+import DeserializeElementType from "@arteneo/forge/slate/definitions/DeserializeElementType";
+import DeserializeType from "@arteneo/forge/slate/definitions/DeserializeType";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
 
 // Hard coded - Need idea how to make it flexible
 export const LIST_TYPES = ["ordered-list", "unordered-list"];
@@ -18,11 +21,11 @@ export const isElementActive = (editor: Editor, format: ElementTypeType) => {
 };
 
 export const isMarkActive = (editor: Editor, format: string) => {
-    const marks: null | Record<string, any> = Editor.marks(editor);
+    const marks: null | Record<string, boolean | string> = Editor.marks(editor);
     return marks ? marks[format] === true : false;
 };
 
-export const toggleMark = (editor: Editor, format: string, value: any = true) => {
+export const toggleMark = (editor: Editor, format: string, value: boolean | string = true) => {
     const isActive = isMarkActive(editor, format);
 
     if (isActive) {
@@ -61,13 +64,14 @@ export const toggleElement = (editor: Editor, format: ElementTypeType, formatLis
     }
 };
 
-export const deserialize = (element: HTMLElement, plugins: SlatePluginsType): any => {
+export const deserialize = (element: HTMLElement, plugins: SlatePluginsType): DeserializeType => {
     if (element.nodeType === 3) {
-        return element.textContent;
+        return { text: element.textContent ?? "" };
     }
 
     if (element.nodeType !== 1) {
-        return null;
+        // Brutal - need smarter solution here
+        return (undefined as unknown) as DeserializeType;
     }
 
     let children = Array.from(element.childNodes).map((childElement) =>
@@ -84,11 +88,15 @@ export const deserialize = (element: HTMLElement, plugins: SlatePluginsType): an
     }
 
     const elementProps = deserializeInlines(element, {}, plugins);
-    return { text: element.textContent, ...elementProps };
+    return { text: element.textContent ?? "", ...elementProps };
 };
 
-export const deserializeElements = (element: Node, children: any, plugins: SlatePluginsType): any => {
-    return plugins.reduce((result, plugin) => {
+export const deserializeElements = (
+    element: Node,
+    children: DeserializeType[],
+    plugins: SlatePluginsType
+): DeserializeElementType => {
+    return plugins.reduce((result: DeserializeElementType, plugin) => {
         if (typeof result === "undefined" && typeof plugin.deserializeElement !== "undefined") {
             return plugin.deserializeElement(element, children);
         }
@@ -111,11 +119,11 @@ export const deserializeInlines = (
     }, elementProps);
 };
 
-export const serialize = (nodes: NodeType[], plugins: SlatePluginsType): undefined | string => {
+export const serialize = (nodes: Descendant[], plugins: SlatePluginsType): undefined | string => {
     return nodes.map((node) => serializeNode(node, plugins)).join("");
 };
 
-export const serializeNode = (node: NodeType, plugins: SlatePluginsType): undefined | string => {
+export const serializeNode = (node: Descendant, plugins: SlatePluginsType): undefined | string => {
     if (Text.isText(node)) {
         let result: SerializeInlineResultInteface = {
             text: escapeHtml(node.text),
@@ -169,7 +177,7 @@ export const serializeNode = (node: NodeType, plugins: SlatePluginsType): undefi
 };
 
 export const serializeInlines = (
-    element: NodeType,
+    element: TextType,
     result: SerializeInlineResultInteface,
     plugins: SlatePluginsType
 ): SerializeInlineResultInteface => {
@@ -182,7 +190,7 @@ export const serializeInlines = (
     }, result);
 };
 
-export const serializeElements = (node: NodeType, children: string, plugins: SlatePluginsType): string => {
+export const serializeElements = (node: ElementType, children: string, plugins: SlatePluginsType): string => {
     const result = plugins.reduce((result: undefined | string, plugin) => {
         if (typeof result === "undefined" && typeof plugin.serializeElement !== "undefined") {
             return plugin.serializeElement(node, children);

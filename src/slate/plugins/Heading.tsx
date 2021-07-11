@@ -7,6 +7,9 @@ import { useTranslation } from "react-i18next";
 import { jsx } from "slate-hyperscript";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 import TextType from "@arteneo/forge/slate/definitions/TextType";
+import ElementType from "@arteneo/forge/slate/definitions/ElementType";
+import DeserializeElementType from "@arteneo/forge/slate/definitions/DeserializeElementType";
+import DeserializeType from "@arteneo/forge/slate/definitions/DeserializeType";
 
 type HeadingElementType =
     | "heading-one"
@@ -21,7 +24,7 @@ interface HeadingElementInterface {
     children: TextType[];
 }
 
-const serializeElement = (node: any, children: string): undefined | string => {
+const serializeElement = (node: ElementType, children: string): undefined | string => {
     switch (node.type) {
         case "heading-one":
             return "<h1>" + children + "</h1>";
@@ -38,7 +41,7 @@ const serializeElement = (node: any, children: string): undefined | string => {
     }
 };
 
-const deserializeElement = (element: Node, children: any): undefined | any => {
+const deserializeElement = (element: Node, children: DeserializeType[]): DeserializeElementType => {
     switch (element.nodeName) {
         case "H1":
             return jsx("element", { type: "heading-one" }, children);

@@ -7,14 +7,16 @@ import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { RenderLeafProps } from "slate-react";
 import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 import FormattedTextInterface from "@arteneo/forge/slate/definitions/FormattedTextInterface";
+import TextType from "@arteneo/forge/slate/definitions/TextType";
 
 interface BoldInterface extends FormattedTextInterface {
-    kind: "bold";
     strong?: boolean;
 }
 
-const serializeInline = (node: any, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
-    if (node.strong) {
+const serializeInline = (node: TextType, result: SerializeInlineResultInteface): SerializeInlineResultInteface => {
+    const boldNode = node as BoldInterface;
+
+    if (boldNode.strong) {
         result.attributes["data-strong"] = true;
         result.text = "<strong>" + result.text + "</strong>";
     }
@@ -34,7 +36,9 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.strong) {
+    const boldLeaf = leaf as BoldInterface;
+
+    if (boldLeaf.strong) {
         return <strong {...attributes}>{children}</strong>;
     }
 
