@@ -34,7 +34,7 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.kind === "color" && leaf.color) {
+    if (leaf.color) {
         return (
             <span {...attributes} style={{ color: leaf.color }}>
                 {children}

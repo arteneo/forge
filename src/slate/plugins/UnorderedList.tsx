@@ -28,20 +28,18 @@ const deserializeElement = (element: Node, children: any): undefined | any => {
         return jsx("element", { type: "unordered-list" }, children);
     }
 
-    if (element.parentElement?.nodeName === "LI") {
+    if (element.nodeName === "LI" && element.parentElement?.nodeName === "UL") {
         return jsx("element", { type: "unordered-list-item" }, children);
     }
 };
 
-const renderElement = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
+const renderElement = ({ attributes, children, element }: RenderElementProps): undefined | JSX.Element => {
     switch (element.type) {
         case "unordered-list":
             return <ul {...attributes}>{children}</ul>;
         case "unordered-list-item":
             return <li {...attributes}>{children}</li>;
     }
-
-    return children;
 };
 
 type UnorderedListButtonProps = Optional<ElementButtonProps, "format">;

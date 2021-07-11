@@ -34,7 +34,7 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.kind === "italic" && leaf.italic) {
+    if (leaf.italic) {
         return <em {...attributes}>{children}</em>;
     }
 

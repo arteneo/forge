@@ -6,7 +6,7 @@ import NodeType from "@arteneo/forge/slate/definitions/NodeType";
 interface SlatePluginInterface {
     toolbarComponent?: React.ReactElement;
     renderLeaf?: (props: RenderLeafProps) => React.ReactNode;
-    renderElement?: (props: RenderElementProps) => JSX.Element;
+    renderElement?: (props: RenderElementProps) => undefined | JSX.Element;
     serializeInline?: (node: NodeType, result: SerializeInlineResultInteface) => SerializeInlineResultInteface;
     deserializeInline?: (
         element: HTMLElement,

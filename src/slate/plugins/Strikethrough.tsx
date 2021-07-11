@@ -34,7 +34,7 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.kind === "strikethrough" && leaf.strikethrough) {
+    if (leaf.strikethrough) {
         return <s {...attributes}>{children}</s>;
     }
 

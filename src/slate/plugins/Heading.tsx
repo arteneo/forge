@@ -55,7 +55,7 @@ const deserializeElement = (element: Node, children: any): undefined | any => {
     }
 };
 
-const renderElement = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
+const renderElement = ({ attributes, children, element }: RenderElementProps): undefined | JSX.Element => {
     switch (element.type) {
         case "heading-one":
             return <h1 {...attributes}>{children}</h1>;
@@ -70,8 +70,6 @@ const renderElement = ({ attributes, children, element }: RenderElementProps): J
         case "heading-six":
             return <h6 {...attributes}>{children}</h6>;
     }
-
-    return children;
 };
 
 interface HeadingTypes {

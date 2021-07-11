@@ -25,13 +25,11 @@ const deserializeElement = (element: Node, children: any): undefined | any => {
     }
 };
 
-const renderElement = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
+const renderElement = ({ attributes, children, element }: RenderElementProps): undefined | JSX.Element => {
     switch (element.type) {
         case "paragraph":
             return <p {...attributes}>{children}</p>;
     }
-
-    return children;
 };
 
 const plugin: SlatePluginInterface = {

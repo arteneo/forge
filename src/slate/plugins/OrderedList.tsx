@@ -28,21 +28,18 @@ const deserializeElement = (element: Node, children: any): undefined | any => {
         return jsx("element", { type: "ordered-list" }, children);
     }
 
-    if (element.parentElement?.nodeName === "LI") {
+    if (element.nodeName === "LI" && element.parentElement?.nodeName === "OL") {
         return jsx("element", { type: "ordered-list-item" }, children);
     }
 };
 
-const renderElement = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
-console.log("🚀 ~ file: OrderedList.tsx ~ line 37 ~ element", element)
+const renderElement = ({ attributes, children, element }: RenderElementProps): undefined | JSX.Element => {
     switch (element.type) {
         case "ordered-list":
             return <ol {...attributes}>{children}</ol>;
         case "ordered-list-item":
             return <li {...attributes}>{children}</li>;
     }
-
-    return children;
 };
 
 type OrderedListButtonProps = Optional<ElementButtonProps, "format">;

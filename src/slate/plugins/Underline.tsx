@@ -34,7 +34,7 @@ const deserializeInline = (
 };
 
 const renderLeaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-    if (leaf.kind === "underline" && leaf.underline) {
+    if (leaf.underline) {
         return <u {...attributes}>{children}</u>;
     }
 
