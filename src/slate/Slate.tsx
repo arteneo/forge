@@ -226,8 +226,20 @@ const Slate = ({ initialHtml, plugins }: SlateProps) => {
         return [jsx("element", { type: "paragraph" }, [{ text: "" }])];
     };
 
-    const editor = React.useMemo(() => withHistory(withReact(createEditor())), []);
+    const editor = React.useMemo(() => {
+        let editor = withHistory(withReact(createEditor()));
+
+        plugins.forEach((plugin) => {
+            if (typeof plugin.withEditor !== "undefined") {
+                editor = plugin.withEditor(editor);
+            }
+        });
+
+        return editor;
+    }, []);
+
     const [value, setValue] = React.useState<Descendant[]>(getInitialValue());
+    console.log("🚀 ~ file: Slate.tsx ~ line 231 ~ Slate ~ value", value);
 
     const renderElement = React.useCallback((props) => <RenderElement {...{ plugins, ...props }} />, []);
     const renderLeaf = React.useCallback((props) => <RenderLeaf {...{ plugins, ...props }} />, []);

@@ -8,6 +8,7 @@ import Italic from "@arteneo/forge/slate/plugins/Italic";
 import Strikethrough from "@arteneo/forge/slate/plugins/Strikethrough";
 import Underline from "@arteneo/forge/slate/plugins/Underline";
 import Color from "@arteneo/forge/slate/plugins/Color";
+import Link from "@arteneo/forge/slate/plugins/Link";
 import Nbsp from "@arteneo/forge/slate/plugins/Nbsp";
 import Heading from "@arteneo/forge/slate/plugins/Heading";
 import Paragraph from "@arteneo/forge/slate/plugins/Paragraph";
@@ -26,6 +27,7 @@ export {
     Strikethrough,
     Underline,
     Color,
+    Link,
     Nbsp,
     Heading,
     Paragraph,

@@ -1,4 +1,4 @@
-import { Descendant } from "slate";
+import { Editor } from "slate";
 import { RenderElementProps, RenderLeafProps } from "slate-react";
 import SerializeInlineResultInteface from "@arteneo/forge/slate/definitions/SerializeInlineResultInteface";
 import DeserializeElementPropsInterface from "@arteneo/forge/slate/definitions/DeserializeElementPropsInterface";
@@ -18,6 +18,7 @@ interface SlatePluginInterface {
     ) => DeserializeElementPropsInterface;
     serializeElement?: (node: ElementType, children: string) => undefined | string;
     deserializeElement?: (element: Node, children: DeserializeType[]) => DeserializeElementType;
+    withEditor?: (editor: Editor) => Editor;
 }
 
 export default SlatePluginInterface;

@@ -9,9 +9,6 @@ import DeserializeElementType from "@arteneo/forge/slate/definitions/Deserialize
 import DeserializeType from "@arteneo/forge/slate/definitions/DeserializeType";
 import TextType from "@arteneo/forge/slate/definitions/TextType";
 
-// Hard coded - Need idea how to make it flexible
-export const LIST_TYPES = ["ordered-list", "unordered-list"];
-
 export const isElementActive = (editor: Editor, format: ElementTypeType) => {
     const [match] = Editor.nodes(editor, {
         match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
@@ -35,9 +32,21 @@ export const toggleMark = (editor: Editor, format: string, value: boolean | stri
     }
 };
 
+// Hard coded - Need idea how to make it flexible
+export const isList = (format: ElementTypeType): boolean => {
+    if (format === "ordered-list") {
+        return true;
+    }
+
+    if (format === "unordered-list") {
+        return true;
+    }
+
+    return false;
+};
+
 export const toggleElement = (editor: Editor, format: ElementTypeType, formatListItem?: ElementTypeType) => {
     const isActive = isElementActive(editor, format);
-    const isList = LIST_TYPES.includes(format);
 
     Transforms.unwrapNodes(editor, {
         match: (n) => {
@@ -49,16 +58,19 @@ export const toggleElement = (editor: Editor, format: ElementTypeType, formatLis
                 return false;
             }
 
-            return LIST_TYPES.includes(n.type);
+            return isList(n.type);
         },
         split: true,
     });
+
     const newProperties: Partial<SlateElement> = {
-        type: isActive ? "paragraph" : isList ? formatListItem : format,
+        type: isActive ? "paragraph" : isList(format) ? formatListItem : format,
     };
     Transforms.setNodes(editor, newProperties);
 
-    if (!isActive && isList) {
+    // Hard coded - Need idea how to make it flexible
+    // This has to be checked in a way Typescript will be sure that those are lists
+    if (!isActive && (format === "ordered-list" || format === "unordered-list")) {
         const element = { type: format, children: [] };
         Transforms.wrapNodes(editor, element);
     }
