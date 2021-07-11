@@ -3,16 +3,15 @@ import { Editor } from "slate";
 import { useSlate } from "slate-react";
 import { IconButton, IconButtonProps } from "@material-ui/core";
 import { FormatClear } from "@material-ui/icons";
+import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 
-interface ClearButtonProps extends IconButtonProps {}
-
-const ClearButton = ({ ...iconButtonProps }: ClearButtonProps) => {
+const ClearButton = ({ ...iconButtonProps }: IconButtonProps) => {
     const editor = useSlate();
 
     const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
+
         const marks = Editor.marks(editor);
-        console.log("🚀 ~ file: ClearButton.tsx ~ line 15 ~ onMouseDown ~ marks", marks);
         if (marks === null) {
             return;
         }
@@ -33,5 +32,9 @@ const ClearButton = ({ ...iconButtonProps }: ClearButtonProps) => {
     );
 };
 
-export default ClearButton;
-export { ClearButtonProps };
+const plugin: SlatePluginInterface = {
+    toolbarComponent: <ClearButton />,
+};
+
+export default plugin;
+export { ClearButton, IconButtonProps as ClearButtonProps };

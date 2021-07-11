@@ -12,6 +12,9 @@ import Heading from "@arteneo/forge/slate/plugins/Heading";
 import Paragraph from "@arteneo/forge/slate/plugins/Paragraph";
 import OrderedList from "@arteneo/forge/slate/plugins/OrderedList";
 import UnorderedList from "@arteneo/forge/slate/plugins/UnorderedList";
+import Clear from "@arteneo/forge/slate/plugins/Clear";
+import Undo from "@arteneo/forge/slate/plugins/Undo";
+import Redo from "@arteneo/forge/slate/plugins/Redo";
 export {
     Slate,
     SlatePluginsType,
@@ -26,6 +29,9 @@ export {
     Paragraph,
     OrderedList,
     UnorderedList,
+    Clear,
+    Undo,
+    Redo,
 };
 
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";

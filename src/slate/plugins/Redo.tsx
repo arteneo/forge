@@ -2,10 +2,9 @@ import React from "react";
 import { useSlate } from "slate-react";
 import { IconButton, IconButtonProps } from "@material-ui/core";
 import { Redo } from "@material-ui/icons";
+import SlatePluginInterface from "@arteneo/forge/slate/definitions/SlatePluginInterface";
 
-interface RedoButtonProps extends IconButtonProps {}
-
-const RedoButton = ({ ...iconButtonProps }: RedoButtonProps) => {
+const RedoButton = ({ ...iconButtonProps }: IconButtonProps) => {
     const editor = useSlate();
 
     const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
@@ -24,5 +23,9 @@ const RedoButton = ({ ...iconButtonProps }: RedoButtonProps) => {
     );
 };
 
-export default RedoButton;
-export { RedoButtonProps };
+const plugin: SlatePluginInterface = {
+    toolbarComponent: <RedoButton />,
+};
+
+export default plugin;
+export { RedoButton, IconButtonProps as RedoButtonProps };
