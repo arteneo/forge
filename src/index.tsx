@@ -8,6 +8,7 @@ import Italic from "@arteneo/forge/slate/plugins/Italic";
 import Strikethrough from "@arteneo/forge/slate/plugins/Strikethrough";
 import Underline from "@arteneo/forge/slate/plugins/Underline";
 import Color from "@arteneo/forge/slate/plugins/Color";
+import Nbsp from "@arteneo/forge/slate/plugins/Nbsp";
 import Heading from "@arteneo/forge/slate/plugins/Heading";
 import Paragraph from "@arteneo/forge/slate/plugins/Paragraph";
 import OrderedList from "@arteneo/forge/slate/plugins/OrderedList";
@@ -25,6 +26,7 @@ export {
     Strikethrough,
     Underline,
     Color,
+    Nbsp,
     Heading,
     Paragraph,
     OrderedList,
