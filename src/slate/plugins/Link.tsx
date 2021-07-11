@@ -160,6 +160,7 @@ const LinkButton = ({ ...iconButtonProps }: IconButtonProps) => {
                                     value,
                                     onChange,
                                     variant: "outlined",
+                                    size: "small",
                                     label: t("cms.muiSlate.link"),
                                 }}
                             />
