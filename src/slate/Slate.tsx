@@ -263,7 +263,7 @@ const Slate = ({ initialHtml, plugins }: SlateProps) => {
                     <br />
                     <br />
                     <h1>Initial HTML looks</h1>
-                    <code dangerouslySetInnerHTML={{ __html: initialHtml }} />
+                    <div dangerouslySetInnerHTML={{ __html: initialHtml }} />
                     <br />
                     <br />
                     <h1>Initial HTML code</h1>
@@ -276,7 +276,7 @@ const Slate = ({ initialHtml, plugins }: SlateProps) => {
                     <br />
                     <br />
                     <h1>Serialized HTML looks</h1>
-                    <code dangerouslySetInnerHTML={{ __html: serializedHtml }} />
+                    <div dangerouslySetInnerHTML={{ __html: serializedHtml }} />
                     <br />
                     <br />
                     <h1>Serialized HTML code</h1>

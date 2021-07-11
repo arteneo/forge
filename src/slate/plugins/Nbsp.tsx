@@ -10,8 +10,7 @@ const NbspButton = ({ ...iconButtonProps }: IconButtonProps) => {
     const onMouseDown = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
 
-        // TODO Fix that somehow
-        editor.insertText("&nbsp;");
+        editor.insertText("\u00A0");
     };
 
     return (
