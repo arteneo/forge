@@ -1,89 +1,108 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { FormControl, FormControlProps, FormHelperText, InputLabel, InputLabelProps } from "@material-ui/core";
-import MuiRichTextEditor, { TMUIRichTextEditorRef, TMUIRichTextEditorProps } from "mui-rte";
-import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
-import { stateFromHTML } from "draft-js-import-html";
-import { stateToHTML } from "draft-js-export-html";
-import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
+import {
+    FormControl,
+    FormControlProps,
+    FormHelperText,
+    InputLabel,
+    InputLabelProps,
+    makeStyles,
+} from "@material-ui/core";
+import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
+import {
+    Descendant,
+    Slate,
+    SlateProps,
+    SlatePluginsType,
+    serialize,
+    Body,
+    Br,
+    Bold,
+    Italic,
+    Strikethrough,
+    Underline,
+    Color,
+    Link,
+    Nbsp,
+    Heading,
+    Paragraph,
+    OrderedList,
+    UnorderedList,
+    Clear,
+    Undo,
+    Redo,
+} from "@arteneo/material-ui-slate";
 
 interface RichTextElementSpecificProps {
     onChange?: (
         path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        data: string,
+        value: Descendant[],
         onChange: () => void,
         values: FormikValues,
         name: string
     ) => void;
-    richTextProps?: TMUIRichTextEditorProps;
+    slateProps?: SlateProps;
     formControlProps?: FormControlProps;
     labelProps?: InputLabelProps;
 }
 
-type RichTextElementProps = RichTextElementSpecificProps & FieldElementPlaceholderInterface;
+type RichTextElementProps = RichTextElementSpecificProps & FieldElementInterface;
 
-const convertHtmlToDraftJsContent = (html?: string): undefined | string => {
-    try {
-        if (html) {
-            return JSON.stringify(convertToRaw(stateFromHTML(html)));
-        }
-    } catch (error) {
-        // When error occurs while converting value return undefined value (mui-rte does not handle this case)
-    }
-
-    return undefined;
-};
-
-const convertDraftJsContentToHtml = (content: string): undefined | string => {
-    try {
-        return stateToHTML(convertFromRaw(JSON.parse((content as unknown) as string)));
-    } catch (error) {
-        // When error occurs while converting value return undefined value (mui-rte does not handle this case)
-    }
-
-    return undefined;
-};
-
-const convertDraftJsStateToHtml = (state: EditorState): undefined | string => {
-    try {
-        return stateToHTML(state.getCurrentContent());
-    } catch (error) {
-        // When error occurs while converting value return undefined value (mui-rte does not handle this case)
-    }
-
-    return undefined;
-};
+const useStyles = makeStyles(() => ({
+    slateWrapper: {
+        display: "block",
+    },
+}));
 
 const RichTextElement = ({
     name,
     path,
     label,
-    placeholder,
     error,
     help,
     required,
     disabled,
     onChange,
-    richTextProps,
+    slateProps,
     formControlProps,
     labelProps,
 }: RichTextElementProps) => {
-    const ref = React.useRef<TMUIRichTextEditorRef>(null);
+    // TODO Handle plugins somehow
+    const plugins: SlatePluginsType = [
+        Body,
+        Br,
+        Bold,
+        Italic,
+        Strikethrough,
+        Underline,
+        Color,
+        Link,
+        Nbsp,
+        Heading,
+        Paragraph,
+        OrderedList,
+        UnorderedList,
+        Clear,
+        Undo,
+        Redo,
+    ];
+
+    const classes = useStyles();
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
-    const defaultOnChange = (data: string) => {
-        setFieldValue(path, convertDraftJsContentToHtml(data));
+    const defaultOnChange = (value: Descendant[]) => {
+        setFieldValue(path, serialize(value, plugins));
     };
 
-    const callableOnChange = (data: string) => {
+    const callableOnChange = (value: Descendant[]) => {
         if (onChange) {
-            onChange(path, setFieldValue, data, () => defaultOnChange(data), values, name);
+            onChange(path, setFieldValue, value, () => defaultOnChange(value), values, name);
             return;
         }
 
-        defaultOnChange(data);
+        defaultOnChange(value);
     };
 
     const hasError = error ? true : false;
@@ -95,31 +114,11 @@ const RichTextElement = ({
     };
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
-    const onBlur = () => {
-        ref.current?.save();
-    };
-
-    const controls = [
-        "title",
-        "bold",
-        "italic",
-        "underline",
-        "strikethrough",
-        "undo",
-        "redo",
-        "numberList",
-        "bulletList",
-        "clear",
-        "save",
-    ];
-
-    const internalRichTextProps: TMUIRichTextEditorProps = {
-        controls,
-        defaultValue: convertHtmlToDraftJsContent(getIn(values, path, "")),
-        label: placeholder,
-        readOnly: disabled,
-        onSave: callableOnChange,
-        onBlur,
+    const internalSlateProps: SlateProps = {
+        initialHtml: getIn(values, path, undefined),
+        plugins,
+        onChange: callableOnChange,
+        disabled,
     };
 
     const internalLabelProps: InputLabelProps = {
@@ -141,22 +140,23 @@ const RichTextElement = ({
         );
     }
 
-    const mergedRichTextProps = Object.assign(internalRichTextProps, richTextProps);
+    const mergedSlateProps = Object.assign(internalSlateProps, slateProps);
 
     return (
         <FormControl {...mergedFormControlProps}>
             {label && <InputLabel {...mergedLabelProps}>{label}</InputLabel>}
-            <MuiRichTextEditor ref={ref} {...mergedRichTextProps} />
+            <div
+                className={
+                    classes.slateWrapper +
+                    " MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                }
+            >
+                <Slate {...mergedSlateProps} />
+            </div>
             {helperText && <FormHelperText>{helperText}</FormHelperText>}
         </FormControl>
     );
 };
 
 export default RichTextElement;
-export {
-    RichTextElementProps,
-    RichTextElementSpecificProps,
-    convertHtmlToDraftJsContent,
-    convertDraftJsContentToHtml,
-    convertDraftJsStateToHtml,
-};
+export { RichTextElementProps, RichTextElementSpecificProps };
