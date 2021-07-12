@@ -77,7 +77,7 @@ const TextTruncateColumn = ({
                     {showedText}
                 </span>
             ) : (
-                <>{!!showedText ? showedText : t(emptyText)}</>
+                <>{!showedText ? showedText : t(emptyText)}</>
             )}
         </>
     );
