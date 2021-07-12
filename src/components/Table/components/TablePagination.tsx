@@ -16,8 +16,8 @@ const TablePagination = () => {
                     count={rowCount}
                     rowsPerPage={rowsPerPage}
                     page={page}
-                    onChangePage={onChangePage}
-                    onChangeRowsPerPage={onChangeRowsPerPage}
+                    onPageChange={onChangePage}
+                    onRowsPerPageChange={onChangeRowsPerPage}
                     labelDisplayedRows={({ from, to, count }) =>
                         t("crud.displayedRows", {
                             from: from,
