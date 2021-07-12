@@ -5,6 +5,7 @@ import ButtonEndpoint, { ButtonEndpointProps } from "@arteneo/forge/components/C
 import ButtonEndpointConfirmation, {
     ButtonEndpointConfirmationProps,
 } from "@arteneo/forge/components/Common/ButtonEndpointConfirmation";
+import ButtonDialogForm, { ButtonDialogFormProps } from "@arteneo/forge/components/Common/ButtonDialogForm";
 import {
     FormContext,
     FormContextProps,
@@ -50,6 +51,9 @@ import Table, { TableProps } from "@arteneo/forge/components/Table/components/Ta
 import TableActions, { TableActionsProps } from "@arteneo/forge/components/Table/components/TableActions";
 import TableContent, { TableContentProps } from "@arteneo/forge/components/Table/components/TableContent";
 import TableFilters, { TableFiltersProps } from "@arteneo/forge/components/Table/components/TableFilters";
+import TableFiltersFieldset, {
+    TableFiltersFieldsetProps,
+} from "@arteneo/forge/components/Table/components/TableFiltersFieldset";
 import TableFiltersButtons from "@arteneo/forge/components/Table/components/TableFiltersButtons";
 import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
 import TablePaginationActions from "@arteneo/forge/components/Table/components/TablePaginationActions";
@@ -209,6 +213,16 @@ import TextareaElement, {
     TextareaElementProps,
     TextareaElementSpecificProps,
 } from "@arteneo/forge/components/Form/elements/TextareaElement";
+import RichText, { RichTextProps } from "@arteneo/forge/components/Form/fields/RichText";
+import RichTextElement, {
+    RichTextElementProps,
+    RichTextElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/RichTextElement";
+import Rating, { RatingProps } from "@arteneo/forge/components/Form/fields/Rating";
+import RatingElement, {
+    RatingElementProps,
+    RatingElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/RatingElement";
 import Text, { TextProps } from "@arteneo/forge/components/Form/fields/Text";
 import TextElement, {
     TextElementProps,
@@ -279,6 +293,8 @@ export {
     ButtonEndpointProps,
     ButtonEndpointConfirmation,
     ButtonEndpointConfirmationProps,
+    ButtonDialogForm,
+    ButtonDialogFormProps,
     AppDateFnsUtils,
     Wrapper,
     WrapperProps,
@@ -292,6 +308,8 @@ export {
     TableContentProps,
     TableFilters,
     TableFiltersProps,
+    TableFiltersFieldset,
+    TableFiltersFieldsetProps,
     TableFiltersButtons,
     TablePagination,
     TablePaginationActions,
@@ -506,6 +524,16 @@ export {
     TextareaElement,
     TextareaElementProps,
     TextareaElementSpecificProps,
+    RichText,
+    RichTextProps,
+    RichTextElement,
+    RichTextElementProps,
+    RichTextElementSpecificProps,
+    Rating,
+    RatingProps,
+    RatingElement,
+    RatingElementProps,
+    RatingElementSpecificProps,
     Text,
     TextProps,
     TextElement,

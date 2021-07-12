@@ -6,6 +6,8 @@ import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsIn
 import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
 import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
 import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
+import TableFiltersFieldset from "@arteneo/forge/components/Table/components/TableFiltersFieldset";
+import TableFilters from "@arteneo/forge/components/Table/components/TableFilters";
 
 interface TableProps {
     row: RowInterface;
@@ -13,6 +15,9 @@ interface TableProps {
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     disablePagination?: boolean;
+    tableContentComponent?: React.ElementType;
+    tableFiltersComponent?: React.ElementType;
+    filtersFieldset?: React.ElementType;
     filters?: FieldsInterface;
     filterClass?: { accordion: string; accordionActive: string };
     defaultFilters?: FilterValuesInterface;
@@ -52,7 +57,12 @@ const Table = ({
     tableKey,
     tableColumnEndpoint,
     custom,
+    filtersFieldset = TableFiltersFieldset,
+    tableContentComponent = TableContent,
+    tableFiltersComponent = TableFilters,
 }: TableProps) => {
+    const TableContentComponent = tableContentComponent;
+
     return (
         <TableProvider
             {...{
@@ -74,7 +84,19 @@ const Table = ({
                 tableColumnEndpoint,
             }}
         >
-            <TableContent {...{ row, filters, filterClass, actions, disablePagination, title, icon }} />
+            <TableContentComponent
+                {...{
+                    row,
+                    filters,
+                    filterClass,
+                    actions,
+                    disablePagination,
+                    title,
+                    icon,
+                    tableFiltersComponent,
+                    filtersFieldset,
+                }}
+            />
         </TableProvider>
     );
 };
