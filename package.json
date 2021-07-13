@@ -16,7 +16,7 @@
         "build": "eslint 'src/**/*.{js,ts,tsx}';rm -rf dist/;webpack --mode production"
     },
     "devDependencies": {
-        "@arteneo/material-ui-slate": "^0.1.2",
+        "@arteneo/material-ui-slate": "^0.1.0",
         "@babel/cli": "^7.12.1",
         "@babel/core": "^7.12.3",
         "@babel/plugin-proposal-optional-chaining": "^7.12.1",

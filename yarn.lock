@@ -9,10 +9,10 @@
   dependencies:
     tslib "~2.0.1"
 
-"@arteneo/material-ui-slate@^0.1.1":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@arteneo/material-ui-slate/-/material-ui-slate-0.1.2.tgz#6f0661c9b7aae8c101d65a2ab973e9c3ca91721c"
-  integrity sha512-l5sQfvvx8hjtEiZ/8opZpwSbTswLVHeDfmTGSgXfRKM0lKvaBpd4KJCDU/aWc67qM5/7qCXzSmHoX53i2fOlcg==
+"@arteneo/material-ui-slate@^0.1.0":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@arteneo/material-ui-slate/-/material-ui-slate-0.1.1.tgz#114aedeb775a7bfb182a5f8fb3863519c97472cd"
+  integrity sha512-mKm+NOUbKPwpsDrVtXFOjuoA9GBqS6F0p+OOvENAF3b3VpYHwaNnA1nKIFPBW0Xc0SKDMQKrFXCv4OAkAFxH+A==
 
 "@babel/cli@^7.12.1", "@babel/cli@^7.5.5":
   version "7.14.5"
