@@ -23,11 +23,13 @@ import {
     Underline,
     Color,
     Link,
+    Image,
     Nbsp,
     Heading,
     Paragraph,
     OrderedList,
     UnorderedList,
+    TextAlign,
     Clear,
     Undo,
     Redo,
@@ -78,7 +80,9 @@ const RichTextElement = ({
         Strikethrough,
         Underline,
         Color,
+        TextAlign,
         Link,
+        Image,
         Nbsp,
         Heading,
         Paragraph,
@@ -91,8 +95,22 @@ const RichTextElement = ({
 
     const classes = useStyles();
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
+    const [modified, setModified] = React.useState(false);
+    const value = getIn(values, path, undefined);
+
+    const [initialHtml, setInitialHtml] = React.useState(value);
+
+    React.useEffect(() => updateInitialHtml(), [value]);
+
+    const updateInitialHtml = () => {
+        if (!modified) {
+            // Initial HTML should not be changed after first edit to keep slate from rerendering
+            setInitialHtml(value);
+        }
+    };
 
     const defaultOnChange = (value: Descendant[]) => {
+        setModified(true);
         setFieldValue(path, serialize(value, plugins));
     };
 
@@ -115,7 +133,7 @@ const RichTextElement = ({
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
     const internalSlateProps: SlateProps = {
-        initialHtml: getIn(values, path, undefined),
+        initialHtml,
         plugins,
         onChange: callableOnChange,
         disabled,
