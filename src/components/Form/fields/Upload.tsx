@@ -33,6 +33,7 @@ const Upload = ({
     authenticationService,
     dropDownMainText,
     dropDownSubText,
+    ...elementSpecificProps
 }: UploadProps) => {
     if (typeof name === "undefined") {
         throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
@@ -119,6 +120,7 @@ const Upload = ({
                 help: resolvedHelp,
                 required: resolvedRequired,
                 disabled: resolvedDisabled,
+                ...elementSpecificProps,
             }}
         />
     );
