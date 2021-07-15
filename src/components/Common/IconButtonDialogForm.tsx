@@ -5,14 +5,15 @@ import { Box, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, ma
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
+import IconButton, { IconButtonProps } from "@arteneo/forge/components/Common/IconButton";
 import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
 import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
 import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 import { FormikContext, FormikHelpers, FormikValues } from "formik";
 
-interface ButtonDialogFormProps {
-    buttonProps?: ButtonProps;
+interface IconButtonDialogFormProps {
+    iconButtonProps: IconButtonProps;
     dialogButtonBackProps?: ButtonProps;
     dialogButtonProps?: ButtonProps;
     dialogTitle?: string;
@@ -32,11 +33,8 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const ButtonDialogForm = ({
-    buttonProps = {
-        variant: "contained",
-        color: "primary",
-    },
+const IconButtonDialogForm = ({
+    iconButtonProps,
     dialogButtonBackProps = {
         label: "action.back",
         variant: "contained",
@@ -46,17 +44,17 @@ const ButtonDialogForm = ({
         variant: "contained",
         color: "primary",
     },
-    dialogTitle = "crud.buttonDialogForm.title",
+    dialogTitle = "crud.iconButtonDialogForm.title",
     dialogTitleVariables = {},
     dialogDialogProps = {
         fullWidth: true,
         maxWidth: "md",
     },
-    snackbarLabel = "snackbar.buttonDialogFormSuccess",
+    snackbarLabel = "snackbar.iconButtonDialogFormSuccess",
     snackbarLabelVariables = {},
     formProps,
     children,
-}: ButtonDialogFormProps) => {
+}: IconButtonDialogFormProps) => {
     const { t } = useTranslation();
     const classes = useStyles();
     const { showSuccess } = useSnackbar();
@@ -89,15 +87,15 @@ const ButtonDialogForm = ({
     };
 
     if (!children && !formProps.fields) {
-        throw new Error("ButtonDialogForm component: children or formProps.fields prop is required.");
+        throw new Error("IconButtonDialogForm component: children or formProps.fields prop is required.");
     }
 
     return (
         <>
-            <Button
+            <IconButton
                 {...{
                     onClick: () => setShowDialog(true),
-                    ...buttonProps,
+                    ...iconButtonProps,
                 }}
             />
 
@@ -137,5 +135,5 @@ const ButtonDialogForm = ({
     );
 };
 
-export default ButtonDialogForm;
-export { ButtonDialogFormProps };
+export default IconButtonDialogForm;
+export { IconButtonDialogFormProps };

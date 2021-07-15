@@ -6,6 +6,14 @@ import ButtonEndpointConfirmation, {
     ButtonEndpointConfirmationProps,
 } from "@arteneo/forge/components/Common/ButtonEndpointConfirmation";
 import ButtonDialogForm, { ButtonDialogFormProps } from "@arteneo/forge/components/Common/ButtonDialogForm";
+import IconButton, { IconButtonProps } from "@arteneo/forge/components/Common/IconButton";
+import IconButtonLink, { IconButtonLinkProps } from "@arteneo/forge/components/Common/IconButtonLink";
+import IconButtonDownload, { IconButtonDownloadProps } from "@arteneo/forge/components/Common/IconButtonDownload";
+import IconButtonEndpoint, { IconButtonEndpointProps } from "@arteneo/forge/components/Common/IconButtonEndpoint";
+import IconButtonEndpointConfirmation, {
+    IconButtonEndpointConfirmationProps,
+} from "@arteneo/forge/components/Common/IconButtonEndpointConfirmation";
+import IconButtonDialogForm, { IconButtonDialogFormProps } from "@arteneo/forge/components/Common/IconButtonDialogForm";
 import {
     FormContext,
     FormContextProps,
@@ -295,6 +303,18 @@ export {
     ButtonEndpointConfirmationProps,
     ButtonDialogForm,
     ButtonDialogFormProps,
+    IconButton,
+    IconButtonProps,
+    IconButtonLink,
+    IconButtonLinkProps,
+    IconButtonDownload,
+    IconButtonDownloadProps,
+    IconButtonEndpoint,
+    IconButtonEndpointProps,
+    IconButtonEndpointConfirmation,
+    IconButtonEndpointConfirmationProps,
+    IconButtonDialogForm,
+    IconButtonDialogFormProps,
     AppDateFnsUtils,
     Wrapper,
     WrapperProps,
