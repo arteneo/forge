@@ -28,6 +28,7 @@ interface TableProps {
     queryKey?: string;
     enableMultipleColumnsSorting?: boolean;
     enableBatchSelect?: boolean;
+    tooltipTranslatePrefix?: string;
     title?: string;
     icon?: React.ReactElement;
     tableKey?: string;
@@ -52,6 +53,7 @@ const Table = ({
     queryKey,
     enableMultipleColumnsSorting,
     enableBatchSelect,
+    tooltipTranslatePrefix = "tooltip.",
     title,
     icon,
     tableKey,
@@ -91,6 +93,7 @@ const Table = ({
                     filterClass,
                     actions,
                     disablePagination,
+                    tooltipTranslatePrefix,
                     title,
                     icon,
                     tableFiltersComponent,
