@@ -10,7 +10,7 @@ import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/def
  * Maybye it is worth forking the package and adding TS with proper definitions
  */
 interface CurrencySymbolFieldProps {
-    currencySymbol: string;
+    currencySymbol?: string;
 }
 
 type CurrencyElementFieldProps = TextFieldProps & CurrencySymbolFieldProps;
