@@ -10,10 +10,10 @@ import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/def
  * Maybye it is worth forking the package and adding TS with proper definitions
  */
 interface CurrencySymbolFieldProps {
-    currencySymbol: string;
+    currencySymbol?: string;
 }
 
-type CurrencyElementFieldProps = TextFieldProps | CurrencySymbolFieldProps;
+type CurrencyElementFieldProps = TextFieldProps & CurrencySymbolFieldProps;
 type CurrencyElementSymbolPosition = "start" | "end";
 
 interface CurrencyElementSpecificProps {
@@ -109,7 +109,9 @@ const Currency = ({
         internalFieldProps.InputProps = {};
         internalFieldProps.InputProps.startAdornment = <InputAdornment position="start">&nbsp;</InputAdornment>;
         internalFieldProps.InputProps.endAdornment = (
-            <InputAdornment position="end">{internalFieldProps.currencySymbol}</InputAdornment>
+            <InputAdornment position="end">
+                {fieldProps?.currencySymbol ?? internalFieldProps.currencySymbol}
+            </InputAdornment>
         );
     }
 
