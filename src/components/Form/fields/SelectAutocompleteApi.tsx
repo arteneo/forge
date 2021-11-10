@@ -9,7 +9,7 @@ import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/defini
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
 import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { throttle } from "lodash";
+import { debounce } from "lodash";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import { AutocompleteChangeDetails, AutocompleteChangeReason } from "@material-ui/lab";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
@@ -79,11 +79,13 @@ const SelectAutocompleteApi = ({
 
     const classes = useStyles();
     const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, submitCount, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
     const { showLoader, hideLoader } = useLoader();
 
+    // Input value represents string visible in TextField (search input)
     const [inputValue, setInputValue] = React.useState("");
+    const [options, setOptions] = React.useState<OptionsType>([]);
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
@@ -96,7 +98,6 @@ const SelectAutocompleteApi = ({
 
     // eslint-disable-next-line
     // const [value, setValue] = React.useState<any>(null);
-    const [options, setOptions] = React.useState<OptionsType>([]);
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
@@ -119,6 +120,54 @@ const SelectAutocompleteApi = ({
             name
         );
     };
+
+    // const fetch = React.useMemo(
+    //     () =>
+    //         throttle(({ inputValue, value }, callback: (results: OptionsType) => void) => {
+    //             console.log(inputValue);
+    //             console.log(resolvedEndpoint);
+    //             if (!inputValue || typeof resolvedEndpoint === "undefined") {
+    //                 setOptions([]);
+    //                 return;
+    //             }
+
+    //             // TODO Loader and catch error
+    //             axios
+    //                 .post(resolvedEndpoint, getEndpointData(inputValue, value, values))
+    //                 .then((response: AxiosResponse) => {
+    //                     callback(response.data);
+    //                 })
+    //                 .catch((error: AxiosError) => {
+    //                     handleCatch(error);
+    //                 });
+    //         }, 250),
+    //     [resolvedEndpoint, values]
+    // );
+
+    // React.useEffect(() => {
+    //     console.log(inputValue);
+    //     console.log(resolvedEndpoint);
+    //     let active = true;
+
+    //     if (!inputValue || typeof resolvedEndpoint === "undefined") {
+    //         setOptions([]);
+    //         return undefined;
+    //     }
+
+    //     console.log("fetch");
+    //     axios
+    //         .post(resolvedEndpoint, getEndpointData(inputValue, value, values))
+    //         .then((response: AxiosResponse) => {
+    //             setOptions(response.data);
+    //         })
+    //         .catch((error: AxiosError) => {
+    //             handleCatch(error);
+    //         });
+
+    //     return () => {
+    //         active = false;
+    //     };
+    // }, [value, inputValue]);
 
     const fetch = React.useMemo(
         () =>
@@ -143,30 +192,35 @@ const SelectAutocompleteApi = ({
         [resolvedEndpoint, values]
     );
 
-    React.useEffect(() => {
-        console.log(inputValue);
-        console.log(resolvedEndpoint);
-        let active = true;
+    React.useEffect(() => initialize(), [value, inputValue]);
 
-        if (!inputValue || typeof resolvedEndpoint === "undefined") {
+    const initialize = () => {
+        console.log('initialize = ', inputValue);
+        console.log('initialize = ', value);
+        if (!inputValue && !value) {
             setOptions([]);
-            return undefined;
+            return;
         }
 
-        console.log("fetch");
+        if (typeof resolvedEndpoint === "undefined") {
+            return;
+        }
+
         axios
             .post(resolvedEndpoint, getEndpointData(inputValue, value, values))
             .then((response: AxiosResponse) => {
-                setOptions(response.data);
+                const options = response.data;
+
+                setOptions(options);
+
+                if (options.length > 0 && !inputValue) {
+                    setInputValue(options[0].representation);
+                }
             })
             .catch((error: AxiosError) => {
                 handleCatch(error);
             });
-
-        return () => {
-            active = false;
-        };
-    }, [value, inputValue]);
+    };
 
     if (resolvedHidden || !isReady(resolvedPath)) {
         return null;
@@ -256,7 +310,6 @@ const SelectAutocompleteApi = ({
     );
 
     const getOptionLabel = (option: OptionInterface) => {
-        console.log("🚀 ~ file: SelectAutocompleteApi.tsx ~ line 254 ~ getOptionLabel ~ option", option);
         return inputValue;
         if (typeof option === "string") {
             return option;
@@ -289,8 +342,7 @@ const SelectAutocompleteApi = ({
         name: string,
         details?: AutocompleteChangeDetails<OptionInterface>
     ) => {
-        console.log(value);
-        console.log("hello");
+        console.log("callableOnChange = ", value);
         onChange();
 
         if (value === null || Array.isArray(value) || typeof value === "string") {
@@ -300,7 +352,7 @@ const SelectAutocompleteApi = ({
         setInputValue(value.representation);
     };
 
-    console.log("inputValue", inputValue);
+    console.log("inputValue = ", inputValue);
 
     return (
         <SelectElement
@@ -334,15 +386,18 @@ const SelectAutocompleteApi = ({
                 ...elementSpecificProps,
                 autocompleteProps: {
                     freeSolo: true,
+                    clearOnBlur: false,
                     filterOptions: (option) => option,
-                    // autoComplete: true,
-                    // includeInputInList: true,
-                    // filterSelectedOptions: true,
                     getOptionLabel,
                     inputValue,
-                    onInputChange: (event, value) => {
-                        console.log("🚀 ~ file: SelectAutocompleteApi.tsx ~ line 330 ~ value", value);
-                        setInputValue(value);
+                    onInputChange: (event, value, reason) => {
+                        console.log("onInputChange v = ", value);
+                        console.log("onInputChange e = ", event);
+                        console.log("onInputChange r = ", reason);
+                        if (reason !== "reset") {
+                            setFieldValue(resolvedPath, "");
+                            setInputValue(value);
+                        }
                     },
                     ...(elementSpecificProps?.autocompleteProps ?? {}),
                 },
