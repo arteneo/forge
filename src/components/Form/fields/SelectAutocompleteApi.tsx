@@ -3,35 +3,65 @@ import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
-import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectElementSpecificProps } from "@arteneo/forge/components/Form/elements/SelectElement";
+import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import SelectElement, {
+    SelectElementSpecificProps,
+    SelectElementRenderInput,
+} from "@arteneo/forge/components/Form/elements/SelectElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { throttle } from "lodash";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
-import { AutocompleteChangeDetails, AutocompleteChangeReason } from "@material-ui/lab";
+import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
+import { debounce } from "lodash";
+import {
+    AutocompleteChangeDetails,
+    AutocompleteChangeReason,
+    AutocompleteRenderInputParams,
+    AutocompleteRenderOptionState,
+} from "@material-ui/lab";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
-import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
 import Highlighter from "react-highlight-words";
-import { makeStyles } from "@material-ui/core";
+import { CircularProgress, makeStyles } from "@material-ui/core";
 
 interface SelectAutocompleteApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     // eslint-disable-next-line
-    getAutocompleteData?: (inputValue: string, values: FormikValues) => any;
-    // eslint-disable-next-line
-    renderOption?: (inputValue: string, option: OptionInterface, state: any) => React.ReactNode;
+    getEndpointData?: (inputValue: string, value: string, values: FormikValues) => any;
+    onChange?: (
+        path: string,
+        // eslint-disable-next-line
+        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+        value: SelectValueType,
+        onChange: () => void,
+        setInputValue: React.Dispatch<React.SetStateAction<string>>,
+        setSkipLoading: (skipLoading: boolean) => void,
+        values: FormikValues,
+        // eslint-disable-next-line
+        event: React.ChangeEvent<{}>,
+        reason: AutocompleteChangeReason,
+        name: string,
+        details?: AutocompleteChangeDetails<OptionInterface>
+    ) => void;
+    renderOption?: (
+        inputValue: string,
+        option: OptionInterface,
+        state: AutocompleteRenderOptionState
+    ) => React.ReactNode;
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
-    loadingText?: FieldPlaceholderType;
-    noOptionsText?: FieldPlaceholderType;
 }
 
 type SelectAutocompleteApiProps = SelectAutocompleteApiInternalProps &
-    Omit<SelectElementSpecificProps, "options"> &
+    Omit<SelectElementSpecificProps, "options" | "onChange"> &
     TextFieldPlaceholderInterface;
+
+interface LoadInterface {
+    endpoint: string;
+    // eslint-disable-next-line
+    data: any;
+}
+
+type LoadCancelType = undefined | (() => void);
 
 const useStyles = makeStyles((theme) => ({
     highlight: {
@@ -41,53 +71,64 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+// Skip loading is used to hide loader when user selects a new value.
+// Loading request is still done, but used does not need to see that
+let _skipLoading = false;
+const setSkipLoading = (skipLoading: boolean) => {
+    _skipLoading = skipLoading;
+};
+
 const SelectAutocompleteApi = ({
     name,
     path,
     endpoint,
+    getEndpointData = (inputValue: string, value?: string) => {
+        return {
+            inputValue,
+            value,
+        };
+    },
     label,
     placeholder,
-    loadingText = "loading",
-    noOptionsText = "selectAutocompleteEmpty",
     disableAutoLabel = false,
     disableTranslateLabel = false,
     enableAutoPlaceholder = false,
     disableTranslatePlaceholder = false,
     help,
-    onChange,
-    getAutocompleteData = (inputValue: string) => {
-        return {
-            phrase: inputValue,
-        };
-    },
-    renderOption,
     disableTranslateHelp = false,
     required = false,
     hidden = false,
     disabled = false,
     validationSchema,
+    loadUseEffectDependency,
     disableTranslateOption = true,
+    onChange,
+    renderOption,
     ...elementSpecificProps
 }: SelectAutocompleteApiProps) => {
     if (typeof name === "undefined") {
-        throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
+        throw new Error(
+            "SelectAutocompleteApi component: name is required prop. By default it is injected by FormContent."
+        );
     }
+
     const classes = useStyles();
     const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, submitCount, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
-    const { showLoader, hideLoader } = useLoader();
 
+    // Input value represents string visible in TextField (search input)
     const [inputValue, setInputValue] = React.useState("");
+    // Loading additionally shows CircularProgress icon in input endAdornment
+    const [loading, setLoading] = React.useState(false);
+    const [options, setOptions] = React.useState<OptionsType>([]);
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
     const resolvedPath = path ? path : name;
     const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values, inputValue) : undefined;
 
-    // eslint-disable-next-line
-    const [value, setValue] = React.useState<any>(null);
-    const [options, setOptions] = React.useState<OptionsType>([]);
+    const value = getIn(values, resolvedPath, undefined);
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
@@ -111,67 +152,102 @@ const SelectAutocompleteApi = ({
         );
     };
 
-    const fetch = React.useMemo(
+    // Variables stores cancel token for axios to be used when component is unmounting
+    let debauncedLoadCancel: LoadCancelType = undefined;
+
+    const debouncedLoad = React.useMemo(
         () =>
-            throttle((inputValue: string, callback: (results: OptionsType) => void) => {
-                if (resolvedEndpoint) {
-                    showLoader();
-                    axios
-                        .post(resolvedEndpoint, getAutocompleteData(inputValue, values))
-                        .then((response: AxiosResponse) => {
-                            callback(response.data);
-                            hideLoader();
-                        })
-                        .catch((error: AxiosError) => {
-                            handleCatch(error);
-                            hideLoader();
-                        });
-                }
+            debounce(({ endpoint, data }: LoadInterface, callback: (results: OptionsType) => void) => {
+                const axiosSource = axios.CancelToken.source();
+
+                axios
+                    .post(endpoint, data, { cancelToken: axiosSource.token })
+                    .then((response: AxiosResponse) => {
+                        callback(response.data);
+                    })
+                    .catch((error: AxiosError) => {
+                        handleCatch(error);
+                    });
+
+                debauncedLoadCancel = () => {
+                    axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
+                };
             }, 250),
-        [resolvedEndpoint, values]
+        []
     );
 
-    React.useEffect(() => {
-        let active = true;
+    React.useEffect(() => initialize(), [value, inputValue]);
+    // * Not ideal:
+    // In case of triggering loadUseEffectDependency externally
+    // it is assumed that value has changed and inputValue should be always updated (refreshed based first loaded option assuming empty inputValue)
+    React.useEffect(() => initialize(true), [loadUseEffectDependency]);
 
-        if (inputValue === "") {
+    const initialize = (forceUpdateInputValue = false) => {
+        if (!inputValue && !value) {
             setOptions([]);
-            return undefined;
+            return;
         }
-        fetch(inputValue, (results: OptionsType) => {
-            if (active) {
-                let newOptions: OptionsType = [];
 
-                if (value !== null) {
-                    newOptions = [value];
+        if (typeof resolvedEndpoint === "undefined") {
+            return;
+        }
+
+        if (!_skipLoading) {
+            setLoading(true);
+        }
+
+        const processedInputValue = forceUpdateInputValue ? "" : inputValue;
+
+        debouncedLoad(
+            { endpoint: resolvedEndpoint, data: getEndpointData(processedInputValue, value, values) },
+            (options) => {
+                setLoading(false);
+                setOptions(options);
+
+                if (options.length > 0 && !processedInputValue) {
+                    setInputValue(options[0].representation);
                 }
-
-                if (results) {
-                    newOptions = [...newOptions, ...results];
-                }
-
-                setOptions(newOptions);
             }
-        });
+        );
 
+        setSkipLoading(false);
+    };
+
+    React.useEffect(() => {
         return () => {
-            active = false;
+            if (typeof debauncedLoadCancel !== "undefined") {
+                debauncedLoadCancel();
+            }
         };
-    }, [value, inputValue, fetch]);
+    }, [debouncedLoad]);
 
     if (resolvedHidden || !isReady(resolvedPath)) {
         return null;
     }
 
-    const defaultOnChange = (
-        path: string,
-        // eslint-disable-next-line
-        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        value: SelectValueType,
-        onChangeSelectElement: () => void
-    ) => {
-        setValue(value);
-        onChangeSelectElement();
+    const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
+    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
+    const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
+    const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const resolvedPlaceholder = getPlaceholder(
+        placeholder,
+        values,
+        touched,
+        errors,
+        name,
+        enableAutoPlaceholder,
+        disableTranslatePlaceholder
+    );
+
+    const defaultOnChange = (value: SelectValueType, selectElementOnChange: () => void) => {
+        selectElementOnChange();
+
+        if (value === null || Array.isArray(value) || typeof value === "string") {
+            return;
+        }
+
+        setSkipLoading(true);
+        setInputValue(value.representation);
     };
 
     const callableOnChange = (
@@ -179,7 +255,7 @@ const SelectAutocompleteApi = ({
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         value: SelectValueType,
-        onChangeSelectElement: () => void,
+        selectElementOnChange: () => void,
         values: FormikValues,
         // eslint-disable-next-line
         event: React.ChangeEvent<{}>,
@@ -193,7 +269,9 @@ const SelectAutocompleteApi = ({
                 path,
                 setFieldValue,
                 value,
-                () => defaultOnChange(path, setFieldValue, value, onChangeSelectElement),
+                () => defaultOnChange(value, selectElementOnChange),
+                setInputValue,
+                setSkipLoading,
                 values,
                 event,
                 reason,
@@ -203,55 +281,46 @@ const SelectAutocompleteApi = ({
             return;
         }
 
-        defaultOnChange(path, setFieldValue, value, onChangeSelectElement);
+        defaultOnChange(value, selectElementOnChange);
     };
 
-    const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
-    const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
-    const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
-    const resolvedLoadingText = getPlaceholder(
-        loadingText,
-        values,
-        touched,
-        errors,
-        name,
-        false,
-        disableTranslatePlaceholder
-    );
-    const resolvedNoOptionsText = getPlaceholder(
-        noOptionsText,
-        values,
-        touched,
-        errors,
-        name,
-        false,
-        disableTranslatePlaceholder
-    );
-    const resolvedPlaceholder = getPlaceholder(
-        placeholder,
-        values,
-        touched,
-        errors,
-        name,
-        enableAutoPlaceholder,
-        disableTranslatePlaceholder
+    const renderInput = (params: AutocompleteRenderInputParams) => (
+        <SelectElementRenderInput
+            {...{
+                label: resolvedLabel,
+                required: resolvedRequired,
+                placeholder: resolvedPlaceholder,
+                error: resolvedError ? true : false,
+                ...params,
+                InputProps: {
+                    ...params.InputProps,
+                    endAdornment: (
+                        <>
+                            {loading && <CircularProgress {...{ color: "inherit", size: 20 }} />}
+                            {params.InputProps.endAdornment}
+                        </>
+                    ),
+                },
+            }}
+        />
     );
 
     const defaultRenderOption = (inputValue: string, option: OptionInterface) => (
         <Highlighter
-            highlightClassName={classes.highlight}
-            searchWords={[inputValue]}
-            textToHighlight={getOptionLabel(option)}
+            {...{
+                highlightClassName: classes.highlight,
+                searchWords: [inputValue],
+                textToHighlight: option.representation,
+            }}
         />
     );
 
-    const getOptionLabel = (option: OptionInterface) => {
-        if (typeof option === "string") {
-            return option;
+    const callableRenderOption = (option: OptionInterface, state: AutocompleteRenderOptionState) => {
+        if (renderOption) {
+            return renderOption(inputValue, option, state);
         }
 
-        return option?.representation ?? "";
+        return defaultRenderOption(inputValue, option);
     };
 
     return (
@@ -260,21 +329,6 @@ const SelectAutocompleteApi = ({
                 name,
                 path: resolvedPath,
                 options,
-                autocompleteProps: {
-                    autoComplete: true,
-                    filterSelectedOptions: true,
-                    loadingText: resolvedLoadingText,
-                    noOptionsText: resolvedNoOptionsText,
-                    onInputChange: (event, newInputValue) => {
-                        setInputValue(newInputValue);
-                    },
-                    getOptionLabel: getOptionLabel,
-                    value: value,
-                    renderOption: (option, state) =>
-                        renderOption
-                            ? renderOption(inputValue, option, state)
-                            : defaultRenderOption(inputValue, option),
-                },
                 disableTranslateOption,
                 label: resolvedLabel,
                 placeholder: resolvedPlaceholder,
@@ -284,6 +338,25 @@ const SelectAutocompleteApi = ({
                 disabled: resolvedDisabled,
                 onChange: callableOnChange,
                 ...elementSpecificProps,
+                autocompleteProps: {
+                    freeSolo: true,
+                    loading,
+                    filterOptions: (option) => option,
+                    getOptionLabel: () => inputValue,
+                    inputValue,
+                    renderInput,
+                    onInputChange: (event, value, reason) => {
+                        // Reason "reset" means programmatic change
+                        // This prevents clearing input when changing inputValue when there is a selected option
+                        // Not sure why this works that way
+                        if (reason !== "reset") {
+                            setFieldValue(resolvedPath, "");
+                            setInputValue(value);
+                        }
+                    },
+                    renderOption: callableRenderOption,
+                    ...(elementSpecificProps?.autocompleteProps ?? {}),
+                },
             }}
         />
     );
