@@ -13,7 +13,12 @@ import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType"
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 import { debounce } from "lodash";
-import { AutocompleteChangeDetails, AutocompleteChangeReason, AutocompleteRenderInputParams } from "@material-ui/lab";
+import {
+    AutocompleteChangeDetails,
+    AutocompleteChangeReason,
+    AutocompleteRenderInputParams,
+    AutocompleteRenderOptionState,
+} from "@material-ui/lab";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import Highlighter from "react-highlight-words";
 import { CircularProgress, makeStyles } from "@material-ui/core";
@@ -37,6 +42,11 @@ interface SelectAutocompleteApiInternalProps {
         name: string,
         details?: AutocompleteChangeDetails<OptionInterface>
     ) => void;
+    renderOption?: (
+        inputValue: string,
+        option: OptionInterface,
+        state: AutocompleteRenderOptionState
+    ) => React.ReactNode;
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
 }
@@ -93,6 +103,7 @@ const SelectAutocompleteApi = ({
     loadUseEffectDependency,
     disableTranslateOption = true,
     onChange,
+    renderOption,
     ...elementSpecificProps
 }: SelectAutocompleteApiProps) => {
     if (typeof name === "undefined") {
@@ -294,7 +305,7 @@ const SelectAutocompleteApi = ({
         />
     );
 
-    const renderOption = (option: OptionInterface) => (
+    const defaultRenderOption = (inputValue: string, option: OptionInterface) => (
         <Highlighter
             {...{
                 highlightClassName: classes.highlight,
@@ -303,6 +314,14 @@ const SelectAutocompleteApi = ({
             }}
         />
     );
+
+    const callableRenderOption = (option: OptionInterface, state: AutocompleteRenderOptionState) => {
+        if (renderOption) {
+            return renderOption(inputValue, option, state);
+        }
+
+        return defaultRenderOption(inputValue, option);
+    };
 
     return (
         <SelectElement
@@ -335,7 +354,7 @@ const SelectAutocompleteApi = ({
                             setInputValue(value);
                         }
                     },
-                    renderOption,
+                    renderOption: callableRenderOption,
                     ...(elementSpecificProps?.autocompleteProps ?? {}),
                 },
             }}
