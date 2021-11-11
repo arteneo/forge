@@ -51,6 +51,8 @@ interface SelectElementSpecificProps {
 
 type SelectElementProps = SelectElementSpecificProps & FieldElementPlaceholderInterface;
 
+const SelectElementRenderInput = (params: AutocompleteRenderInputParams) => <MuiTextField {...params} />;
+
 const SelectElement = ({
     name,
     path,
@@ -124,19 +126,12 @@ const SelectElement = ({
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
     const renderInput = (params: AutocompleteRenderInputParams) => (
-        <MuiTextField
-            {...{
-                label,
-                required,
-                placeholder,
-                error: hasError,
-                ...params,
-            }}
-        />
+        <SelectElementRenderInput {...{ label, required, placeholder, error: hasError, ...params }} />
     );
+
     const internalAutocompleteProps: SelectElementAutocompleteProps = {
-        renderInput: renderInput,
-        options: options,
+        renderInput,
+        options,
         value: null,
         loadingText: t("placeholder.loading"),
         noOptionsText: t("placeholder.selectSingleEmpty"),
@@ -189,4 +184,5 @@ export {
     SelectElementSpecificProps,
     SelectElementAutocompleteProps,
     SelectElementAutocompleteOptionalProps,
+    SelectElementRenderInput,
 };
