@@ -292,6 +292,10 @@ const SelectAutocompleteApi = ({
                 placeholder: resolvedPlaceholder,
                 error: resolvedError ? true : false,
                 ...params,
+                inputProps: {
+                    ...params.inputProps,
+                    autoComplete: "new-password",
+                },
                 InputProps: {
                     ...params.InputProps,
                     endAdornment: (
