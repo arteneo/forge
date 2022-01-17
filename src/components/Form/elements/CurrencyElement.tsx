@@ -11,6 +11,7 @@ import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/def
  */
 interface CurrencySymbolFieldProps {
     currencySymbol?: string;
+    textAlign: "right" | "left" | "center";
 }
 
 type CurrencyElementFieldProps = TextFieldProps & CurrencySymbolFieldProps;
