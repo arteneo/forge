@@ -231,6 +231,11 @@ import RatingElement, {
     RatingElementProps,
     RatingElementSpecificProps,
 } from "@arteneo/forge/components/Form/elements/RatingElement";
+import Slider, { SliderProps } from "@arteneo/forge/components/Form/fields/Slider";
+import SliderElement, {
+    SliderElementProps,
+    SliderElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/SliderElement";
 import Text, { TextProps } from "@arteneo/forge/components/Form/fields/Text";
 import TextElement, {
     TextElementProps,
@@ -554,6 +559,11 @@ export {
     RatingElement,
     RatingElementProps,
     RatingElementSpecificProps,
+    Slider,
+    SliderProps,
+    SliderElement,
+    SliderElementProps,
+    SliderElementSpecificProps,
     Text,
     TextProps,
     TextElement,
