@@ -194,8 +194,7 @@ const FormProvider = ({
 
                 if (typeof validationSchemaObject !== "undefined") {
                     yupShape[pathPart] = validationSchemaObject;
-                } else {
-                    //if (typeof validationSchema !== "undefined") {
+                } else if (typeof validationSchema !== "undefined") {
                     yupShape[pathPart] = validationSchema;
                 }
 
