@@ -70,7 +70,8 @@ const UppyDragDropElement = (props: UppyDragDropElementProps) => {
                 type: file.type,
                 data: file,
             });
-        } catch (err) {
+            // eslint-disable-next-line
+        } catch (err: any) {
             if (!err.isRestriction) {
                 props.uppy.log(err);
             }
