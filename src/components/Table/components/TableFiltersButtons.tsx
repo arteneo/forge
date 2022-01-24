@@ -27,7 +27,7 @@ const TableFiltersButtons = () => {
                 {t("action.filtersApply")}
             </Button>
 
-            <Button onClick={() => clearFilters(setFieldValue)} variant="contained" color="default">
+            <Button onClick={() => clearFilters(setFieldValue)} variant="contained">
                 {t("action.filtersClear")}
             </Button>
         </div>

@@ -158,7 +158,7 @@ const SelectElement = ({
 
     const mergedAutocompleteProps = Object.assign(internalAutocompleteProps, autocompleteProps);
 
-    let helperText = undefined;
+    let helperText: undefined | React.ReactNode = undefined;
 
     if (hasError || help) {
         helperText = (

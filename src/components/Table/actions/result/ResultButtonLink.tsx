@@ -3,11 +3,11 @@ import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/Bu
 import TableResultActionPathInterface from "@arteneo/forge/components/Table/definitions/TableResultActionPathInterface";
 import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
 import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
-import { LocationDescriptor } from "history";
 import { getIn } from "formik";
+import { To } from "react-router-dom";
 
 interface ToProps {
-    to: TableResultActionResolveType<LocationDescriptor>;
+    to: TableResultActionResolveType<To>;
 }
 
 type ResultButtonLinkProps = Omit<ButtonLinkProps, "to"> & TableResultActionPathInterface & ToProps;
@@ -22,7 +22,7 @@ const ResultButtonLink = ({ to, result, field, path, ...props }: ResultButtonLin
     }
 
     const value = path ? getIn(result, path) : result;
-    const resolvedTo: LocationDescriptor = resolveAnyOrFunction(to, value, result, field);
+    const resolvedTo: To = resolveAnyOrFunction(to, value, result, field);
 
     return (
         <ButtonLink

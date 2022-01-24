@@ -120,7 +120,7 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
     };
 
     // eslint-disable-next-line
-    const onClose = (event: React.SyntheticEvent<any>, reason: SnackbarCloseReason) => {
+    const onClose = (event: React.SyntheticEvent<any> | Event, reason: string) => {
         if (reason === "clickaway") {
             return;
         }

@@ -1,7 +1,6 @@
 import React from "react";
 import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 import { getIn, isString } from "formik";
-import CSS from "csstype";
 import { useTranslation } from "react-i18next";
 
 interface TextTruncateColumnProps extends TableColumnPathType {
@@ -53,7 +52,8 @@ const TextTruncateColumn = ({
     }
 
     const needShorten = initialValue !== shortValue;
-    const style: CSS.Properties = { wordBreak: "break-all" };
+    // eslint-disable-next-line
+    const style: any = { wordBreak: "break-all" };
 
     if (maxWidth) {
         style.maxWidth = maxWidth;

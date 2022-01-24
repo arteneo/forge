@@ -1,14 +1,6 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import {
-    FormControl,
-    FormControlProps,
-    FormHelperText,
-    FormLabel,
-    FormLabelProps,
-    Box,
-    BoxProps,
-} from "@mui/material";
+import { FormControl, FormControlProps, FormHelperText, FormLabel, FormLabelProps, Box, BoxProps } from "@mui/material";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
 import { Rating, RatingProps } from "@mui/lab";
 
@@ -94,7 +86,7 @@ const RatingElement = ({
     };
     const mergedBoxProps = Object.assign(internalBoxProps, boxProps);
 
-    let helperText = undefined;
+    let helperText: undefined | React.ReactNode = undefined;
 
     if (hasError || help) {
         helperText = (
