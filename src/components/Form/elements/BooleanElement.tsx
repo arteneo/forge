@@ -145,7 +145,7 @@ const BooleanElement = ({
     };
     const mergedFormLabelProps = Object.assign(internalFormLabelProps, formLabelProps);
 
-    let helperText = undefined;
+    let helperText: undefined | React.ReactNode = undefined;
 
     if (hasError || help) {
         helperText = (
@@ -157,7 +157,7 @@ const BooleanElement = ({
         );
     }
 
-    let clearComponent = null;
+    let clearComponent: null | React.ReactElement = null;
     if (enableClear) {
         const clearValue = () => {
             setFieldValue(path, undefined);
@@ -185,7 +185,10 @@ const BooleanElement = ({
                         {...{
                             value: String(option.id),
                             control: <MuiRadio required={required} disabled={disabled} />,
-                            label: disableTranslateOption ? option.representation : t(option.representation),
+                            label: disableTranslateOption
+                                ? option.representation
+                                : // as string is just for TypeScript
+                                  (t(option.representation) as string),
                             ...formControlLabelProps,
                         }}
                     />

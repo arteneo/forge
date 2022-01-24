@@ -74,7 +74,7 @@ const CheckboxElement = ({
 
     const mergedFormControlLabelProps = Object.assign(internalFormControlLabelProps, formControlLabelProps);
 
-    let helperText = undefined;
+    let helperText: undefined | React.ReactNode = undefined;
 
     if (hasError || help) {
         helperText = (

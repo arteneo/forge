@@ -3,6 +3,7 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TimePicker, TimePickerProps } from "@mui/lab";
 import { formatRFC3339, isValid } from "date-fns";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
+import { TextField } from "@mui/material";
 
 interface TimeElementSpecificProps {
     onChange?: (
@@ -62,24 +63,9 @@ const TimeElement = ({
     };
 
     const hasError = error ? true : false;
-    const internalFieldProps: TimePickerProps = {
-        value: getIn(values, path, null),
-        onChange: callableOnChange,
-        error: hasError,
-        label,
-        placeholder,
-        required,
-        disabled,
-        ampm: false,
-        autoOk: true,
-        fullWidth: true,
-        variant: "inline",
-        margin: "normal",
-        helperText: undefined,
-    };
-
+    let helperText: undefined | React.ReactNode = undefined;
     if (hasError || help) {
-        internalFieldProps.helperText = (
+        helperText = (
             <>
                 {error}
                 {hasError && <br />}
@@ -87,6 +73,27 @@ const TimeElement = ({
             </>
         );
     }
+
+    const internalFieldProps: TimePickerProps = {
+        value: getIn(values, path, null),
+        onChange: callableOnChange,
+        label,
+        disabled,
+        ampm: false,
+        renderInput: (params) => (
+            <TextField
+                {...{
+                    ...params,
+                    helperText,
+                    placeholder,
+                    required,
+                    fullWidth: true,
+                    margin: "normal",
+                    error: hasError,
+                }}
+            />
+        ),
+    };
 
     const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);
 

@@ -329,7 +329,7 @@ const FormProvider = ({
         help?: FieldHelpType,
         disableTranslateHelp?: boolean
     ): undefined | React.ReactNode => {
-        let resolvedHelp = undefined;
+        let resolvedHelp: undefined | React.ReactNode = undefined;
 
         if (typeof help === "boolean") {
             resolvedHelp = "help." + name;

@@ -3,6 +3,7 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { DatePicker, DatePickerProps } from "@mui/lab";
 import { formatRFC3339, isValid } from "date-fns";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
+import { TextField, TextFieldProps } from "@mui/material";
 
 interface DateElementSpecificProps {
     onChange?: (
@@ -57,23 +58,9 @@ const DateElement = ({
     };
 
     const hasError = error ? true : false;
-    const internalFieldProps: DatePickerProps = {
-        value: getIn(values, path, null),
-        onChange: callableOnChange,
-        error: hasError,
-        label,
-        placeholder,
-        required,
-        disabled,
-        autoOk: true,
-        fullWidth: true,
-        variant: "inline",
-        margin: "normal",
-        helperText: undefined,
-    };
-
+    let helperText: undefined | React.ReactNode = undefined;
     if (hasError || help) {
-        internalFieldProps.helperText = (
+        helperText = (
             <>
                 {error}
                 {hasError && <br />}
@@ -81,6 +68,26 @@ const DateElement = ({
             </>
         );
     }
+
+    const internalFieldProps: DatePickerProps = {
+        value: getIn(values, path, null),
+        onChange: callableOnChange,
+        label,
+        disabled,
+        renderInput: (params) => (
+            <TextField
+                {...{
+                    ...params,
+                    helperText,
+                    placeholder,
+                    required,
+                    fullWidth: true,
+                    margin: "normal",
+                    error: hasError,
+                }}
+            />
+        ),
+    };
 
     const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);
 
