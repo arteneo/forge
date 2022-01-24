@@ -69,7 +69,6 @@ import TextColumn, { TextColumnProps } from "@arteneo/forge/components/Table/col
 import TextTruncateColumn, {
     TextTruncateColumnProps,
 } from "@arteneo/forge/components/Table/columns/TextTruncateColumn";
-import CurrencyColumn, { CurrencyColumnProps } from "@arteneo/forge/components/Table/columns/CurrencyColumn";
 import BooleanColumn, { BooleanColumnProps } from "@arteneo/forge/components/Table/columns/BooleanColumn";
 import ConstColumn, { ConstColumnProps } from "@arteneo/forge/components/Table/columns/ConstColumn";
 import RepresentationColumn, {
@@ -150,11 +149,6 @@ import {
     useTableQuery,
 } from "@arteneo/forge/components/Table/contexts/TableQuery";
 import TextFilter, { TextFilterProps } from "@arteneo/forge/components/Table/filters/TextFilter";
-import CurrencyFilter, { CurrencyFilterProps } from "@arteneo/forge/components/Table/filters/CurrencyFilter";
-import CurrencyFromFilter, {
-    CurrencyFromFilterProps,
-} from "@arteneo/forge/components/Table/filters/CurrencyFromFilter";
-import CurrencyToFilter, { CurrencyToFilterProps } from "@arteneo/forge/components/Table/filters/CurrencyToFilter";
 import NumberFilter, { NumberFilterProps } from "@arteneo/forge/components/Table/filters/NumberFilter";
 import NumberFromFilter, { NumberFromFilterProps } from "@arteneo/forge/components/Table/filters/NumberFromFilter";
 import NumberToFilter, { NumberToFilterProps } from "@arteneo/forge/components/Table/filters/NumberToFilter";
@@ -209,13 +203,6 @@ import { SelectValueType } from "@arteneo/forge/components/Form/definitions/Auto
 import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
-import Currency, { CurrencyProps } from "@arteneo/forge/components/Form/fields/Currency";
-import CurrencyElement, {
-    CurrencyElementProps,
-    CurrencyElementSpecificProps,
-    CurrencyElementFieldProps,
-    CurrencyElementSymbolPosition,
-} from "@arteneo/forge/components/Form/elements/CurrencyElement";
 import Textarea, { TextareaProps } from "@arteneo/forge/components/Form/fields/Textarea";
 import TextareaElement, {
     TextareaElementProps,
@@ -331,8 +318,6 @@ export {
     TextColumnProps,
     TextTruncateColumn,
     TextTruncateColumnProps,
-    CurrencyColumn,
-    CurrencyColumnProps,
     BooleanColumn,
     BooleanColumnProps,
     ConstColumn,
@@ -404,12 +389,6 @@ export {
     useTableQuery,
     TextFilter,
     TextFilterProps,
-    CurrencyFilter,
-    CurrencyFilterProps,
-    CurrencyFromFilter,
-    CurrencyFromFilterProps,
-    CurrencyToFilter,
-    CurrencyToFilterProps,
     NumberFilter,
     NumberFilterProps,
     NumberFromFilter,
@@ -512,13 +491,6 @@ export {
     SelectElementAutocompleteProps,
     SelectElementAutocompleteOptionalProps,
     SelectValueType,
-    Currency,
-    CurrencyProps,
-    CurrencyElement,
-    CurrencyElementProps,
-    CurrencyElementSpecificProps,
-    CurrencyElementFieldProps,
-    CurrencyElementSymbolPosition,
     Textarea,
     TextareaProps,
     TextareaElement,
