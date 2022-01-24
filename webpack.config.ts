@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as webpack from "webpack";
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 const config: webpack.Configuration = {
     entry: "./src/index.tsx",
@@ -18,6 +19,11 @@ const config: webpack.Configuration = {
             "@arteneo/forge": path.resolve(__dirname, "src"),
         },
     },
+    plugins: [
+        new ESLintPlugin({
+            extensions: [".tsx", ".ts", ".js"],
+        }),
+    ],
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "index.js",

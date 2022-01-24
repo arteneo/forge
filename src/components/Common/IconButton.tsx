@@ -15,7 +15,6 @@ type IconButtonProps = InternalWrapperMuiIconButtonProps & IconProps & DeniedAcc
 
 const IconButton = ({
     icon,
-    className,
     deniedAccessList,
     accessKey,
     deniedAccessBehavior = "disable",

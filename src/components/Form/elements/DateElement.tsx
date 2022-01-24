@@ -3,7 +3,7 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { DatePicker, DatePickerProps } from "@mui/lab";
 import { formatRFC3339, isValid } from "date-fns";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
-import { TextField, TextFieldProps } from "@mui/material";
+import { TextField } from "@mui/material";
 
 interface DateElementSpecificProps {
     onChange?: (

@@ -24,7 +24,6 @@ const Button = ({
     label,
     labelVariables = {},
     children,
-    color,
     deniedAccessList,
     accessKey,
     deniedAccessBehavior = "disable",

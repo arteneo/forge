@@ -185,10 +185,10 @@ const BooleanElement = ({
                         {...{
                             value: String(option.id),
                             control: <MuiRadio required={required} disabled={disabled} />,
+                            // as string is just for TypeScript
                             label: disableTranslateOption
                                 ? option.representation
-                                : // as string is just for TypeScript
-                                  (t(option.representation) as string),
+                                : (t(option.representation) as string),
                             ...formControlLabelProps,
                         }}
                     />

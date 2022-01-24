@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Close } from "@mui/icons-material";
-import { Snackbar, SnackbarProps, SnackbarContent, SnackbarCloseReason, IconButton } from "@mui/material";
+import { Snackbar, SnackbarProps, SnackbarContent, IconButton } from "@mui/material";
 import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
 
 type SnackbarVariant = "success" | "info" | "warning" | "error";
