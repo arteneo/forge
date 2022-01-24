@@ -28,13 +28,6 @@ CHANGELOG.md
 .babelrc
 .gitignore
 
-# lock files
-package-lock.json
-yarn.lock
-
 # others
 .DS_Store
 .idea
-
-# Docz documentation
-.docz
