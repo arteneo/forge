@@ -8,14 +8,14 @@ import {
     InputLabel,
     InputLabelProps,
     makeStyles,
-} from "@material-ui/core";
+} from "@mui/material";
 import { StatusBar } from "@uppy/react";
 import Uppy, { Restrictions, UploadResult } from "@uppy/core";
 import Tus from "@uppy/tus";
 import ThumbnailGenerator from "@uppy/thumbnail-generator";
 import "@uppy/core/dist/style.css";
 import "@uppy/status-bar/dist/style.css";
-import { Delete, DoneOutline } from "@material-ui/icons";
+import { Delete, DoneOutline } from "@mui/icons-material";
 import UppyDragDropElement from "@arteneo/forge/components/Form/elements/UppyDragDropElement";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 import { AxiosError, AxiosResponse } from "axios";

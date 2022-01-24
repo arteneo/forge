@@ -1,15 +1,15 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import MuiTextField from "@material-ui/core/TextField";
+import MuiTextField from "@mui/material/TextField";
 import { useTranslation } from "react-i18next";
-import { FormControl, FormControlProps, FormHelperText } from "@material-ui/core";
+import { FormControl, FormControlProps, FormHelperText } from "@mui/material";
 import {
     Autocomplete,
     AutocompleteChangeReason,
     AutocompleteChangeDetails,
     AutocompleteProps,
     AutocompleteRenderInputParams,
-} from "@material-ui/lab";
+} from "@mui/lab";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
 import {

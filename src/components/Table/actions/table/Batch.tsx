@@ -3,12 +3,12 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
-import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
+import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@mui/lab";
 import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
 
 interface BatchProps extends ButtonProps {

@@ -14,10 +14,10 @@ import {
     FormControlLabelProps,
     IconButton,
     Tooltip,
-} from "@material-ui/core";
+} from "@mui/material";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
-import Close from "@material-ui/icons/Close";
+import Close from "@mui/icons-material/Close";
 
 interface RadioElementSpecificProps {
     options: OptionsType;

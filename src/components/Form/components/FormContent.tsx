@@ -9,7 +9,7 @@ import PromptIfDirty from "@arteneo/forge/components/Form/components/PromptIfDir
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/material";
 import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 

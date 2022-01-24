@@ -20,12 +20,12 @@ import {
     makeStyles,
     ListProps,
     IconButtonProps,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { DragIndicator, ViewColumn } from "@material-ui/icons";
+import { DragIndicator, ViewColumn } from "@mui/icons-material";
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
 

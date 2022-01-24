@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormikContext } from "formik";
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
 
 const FormButtons = ({

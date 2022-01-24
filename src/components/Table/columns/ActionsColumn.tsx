@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, GridProps } from "@material-ui/core";
+import { Grid, GridProps } from "@mui/material";
 import TableColumnType from "@arteneo/forge/components/Table/definitions/TableColumnType";
 
 interface ActionsColumnProps extends TableColumnType {

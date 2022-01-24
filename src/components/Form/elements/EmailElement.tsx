@@ -1,6 +1,6 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { TextField as MuiTextField, TextFieldProps } from "@material-ui/core";
+import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
 interface EmailElementSpecificProps {

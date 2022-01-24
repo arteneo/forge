@@ -1,7 +1,7 @@
 import React from "react";
 import { AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
-import { Box, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, makeStyles } from "@material-ui/core";
+import { Box, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle, makeStyles } from "@mui/material";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";

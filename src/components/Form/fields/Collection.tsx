@@ -16,8 +16,8 @@ import {
     TableHead,
     TableRow,
     Typography,
-} from "@material-ui/core";
-import { Add, Delete } from "@material-ui/icons";
+} from "@mui/material";
+import { Add, Delete } from "@mui/icons-material";
 
 interface CollectionProps extends FieldInterface {
     fields: FieldsInterface;

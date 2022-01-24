@@ -6,7 +6,7 @@ import {
     IconButtonProps as MuiIconButtonProps,
     makeStyles,
     Tooltip,
-} from "@material-ui/core";
+} from "@mui/material";
 import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
 import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
 import DeniedAccessInterface from "@arteneo/forge/components/Table/definitions/DeniedAccessInterface";

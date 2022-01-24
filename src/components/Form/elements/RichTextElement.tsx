@@ -7,7 +7,7 @@ import {
     InputLabel,
     InputLabelProps,
     makeStyles,
-} from "@material-ui/core";
+} from "@mui/material";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
 import {
     Descendant,

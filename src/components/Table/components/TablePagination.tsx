@@ -1,5 +1,5 @@
 import React from "react";
-import { TableFooter, TableRow, TablePagination as MuiTablePagination } from "@material-ui/core";
+import { TableFooter, TableRow, TablePagination as MuiTablePagination } from "@mui/material";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import TablePaginationActions from "@arteneo/forge/components/Table/components/TablePaginationActions";
 import { useTranslation } from "react-i18next";

@@ -9,7 +9,7 @@ import {
     DialogContentText,
     DialogProps,
     DialogTitle,
-} from "@material-ui/core";
+} from "@mui/material";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { useLoader } from "@arteneo/forge/contexts/Loader";

@@ -8,9 +8,9 @@ import {
     FormLabelProps,
     Box,
     BoxProps,
-} from "@material-ui/core";
+} from "@mui/material";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
-import { Rating, RatingProps } from "@material-ui/lab";
+import { Rating, RatingProps } from "@mui/lab";
 
 interface RatingElementSpecificProps {
     onChange?: (

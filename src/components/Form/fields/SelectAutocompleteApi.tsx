@@ -18,10 +18,10 @@ import {
     AutocompleteChangeReason,
     AutocompleteRenderInputParams,
     AutocompleteRenderOptionState,
-} from "@material-ui/lab";
+} from "@mui/lab";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import Highlighter from "react-highlight-words";
-import { CircularProgress, makeStyles } from "@material-ui/core";
+import { CircularProgress, makeStyles } from "@mui/material";
 
 interface SelectAutocompleteApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);

@@ -1,4 +1,4 @@
-import { ChipProps } from "@material-ui/core";
+import { ChipProps } from "@mui/material";
 
 interface ChipFieldInterface {
     chipProps?: ChipProps;

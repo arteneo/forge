@@ -1,6 +1,6 @@
 import React from "react";
-import { Typography, IconButton, makeStyles } from "@material-ui/core";
-import { CloudUpload } from "@material-ui/icons";
+import { Typography, IconButton, makeStyles } from "@mui/material";
+import { CloudUpload } from "@mui/icons-material";
 import Uppy, { Restrictions } from "@uppy/core";
 import getDroppedFiles from "@uppy/utils/lib/getDroppedFiles";
 import toArray from "@uppy/utils/lib/toArray";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
+import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 
 interface TableActionsProps {
     children?: React.ReactNode;

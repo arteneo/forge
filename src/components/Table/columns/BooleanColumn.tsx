@@ -1,5 +1,5 @@
 import React from "react";
-import { Chip, makeStyles } from "@material-ui/core";
+import { Chip, makeStyles } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
 import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";

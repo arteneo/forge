@@ -7,7 +7,7 @@ import {
     Checkbox as MuiCheckbox,
     FormControlLabel,
     FormControlLabelProps,
-} from "@material-ui/core";
+} from "@mui/material";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
 
 interface CheckboxElementSpecificProps {

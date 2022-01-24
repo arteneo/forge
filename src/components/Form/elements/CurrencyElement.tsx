@@ -1,6 +1,6 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { TextFieldProps, InputAdornment } from "@material-ui/core";
+import { TextFieldProps, InputAdornment } from "@mui/material";
 import CurrencyTextField from "@unicef/material-ui-currency-textfield";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 

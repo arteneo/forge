@@ -14,8 +14,8 @@ import {
     Typography,
     useMediaQuery,
     useTheme,
-} from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+} from "@mui/material";
+import { Alert } from "@mui/lab";
 import { useTranslation } from "react-i18next";
 import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
 import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
