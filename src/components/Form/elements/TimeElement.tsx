@@ -1,6 +1,6 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { KeyboardTimePicker, KeyboardTimePickerProps } from "@material-ui/pickers";
+import { TimePicker, TimePickerProps } from "@mui/lab";
 import { formatRFC3339, isValid } from "date-fns";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
@@ -16,7 +16,7 @@ interface TimeElementSpecificProps {
         name: string,
         value?: string | null
     ) => void;
-    fieldProps?: Partial<KeyboardTimePickerProps>;
+    fieldProps?: Partial<TimePickerProps>;
 }
 
 type TimeElementProps = TimeElementSpecificProps & FieldElementPlaceholderInterface;
@@ -62,7 +62,7 @@ const TimeElement = ({
     };
 
     const hasError = error ? true : false;
-    const internalFieldProps: KeyboardTimePickerProps = {
+    const internalFieldProps: TimePickerProps = {
         value: getIn(values, path, null),
         onChange: callableOnChange,
         error: hasError,
@@ -90,7 +90,7 @@ const TimeElement = ({
 
     const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);
 
-    return <KeyboardTimePicker {...mergedFieldProps} />;
+    return <TimePicker {...mergedFieldProps} />;
 };
 
 export default TimeElement;

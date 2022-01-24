@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, makeStyles } from "@mui/material";
+import { Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";

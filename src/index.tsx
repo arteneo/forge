@@ -178,7 +178,6 @@ import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form"
 import FormContent, { FormContentProps } from "@arteneo/forge/components/Form/components/FormContent";
 import FormContentFields, { FormContentFieldsProps } from "@arteneo/forge/components/Form/components/FormContentFields";
 import FormButtons, { FormButtonsProps } from "@arteneo/forge/components/Form/components/FormButtons";
-import PromptIfDirty, { PromptIfDirtyProps } from "@arteneo/forge/components/Form/components/PromptIfDirty";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
 import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
@@ -460,8 +459,6 @@ export {
     FormContentFieldsProps,
     FormButtons,
     FormButtonsProps,
-    PromptIfDirty,
-    PromptIfDirtyProps,
     OptionsType,
     OptionInterface,
     TextFieldInterface,

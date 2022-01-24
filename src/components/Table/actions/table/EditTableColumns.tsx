@@ -17,10 +17,10 @@ import {
     ListItemText,
     Typography,
     Tooltip,
-    makeStyles,
     ListProps,
     IconButtonProps,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { useLoader } from "@arteneo/forge/contexts/Loader";

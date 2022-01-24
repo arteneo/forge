@@ -3,7 +3,6 @@ import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
 import {
     Box,
     Checkbox,
-    makeStyles,
     Paper,
     Table,
     TableBody,
@@ -15,6 +14,7 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { Alert } from "@mui/lab";
 import { useTranslation } from "react-i18next";
 import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";

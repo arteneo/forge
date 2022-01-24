@@ -1,6 +1,6 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { KeyboardDateTimePicker, KeyboardDateTimePickerProps } from "@material-ui/pickers";
+import { DateTimePicker, DateTimePickerProps } from "@mui/lab";
 import { formatRFC3339, isValid } from "date-fns";
 import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
 
@@ -16,7 +16,7 @@ interface DateTimeElementSpecificProps {
         name: string,
         value?: string | null
     ) => void;
-    fieldProps?: Partial<KeyboardDateTimePickerProps>;
+    fieldProps?: Partial<DateTimePickerProps>;
 }
 
 type DateTimeElementProps = DateTimeElementSpecificProps & FieldElementPlaceholderInterface;
@@ -57,7 +57,7 @@ const DateTimeElement = ({
     };
 
     const hasError = error ? true : false;
-    const internalFieldProps: KeyboardDateTimePickerProps = {
+    const internalFieldProps: DateTimePickerProps = {
         value: getIn(values, path, null),
         onChange: callableOnChange,
         error: hasError,
@@ -85,7 +85,7 @@ const DateTimeElement = ({
 
     const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);
 
-    return <KeyboardDateTimePicker {...mergedFieldProps} />;
+    return <DateTimePicker {...mergedFieldProps} />;
 };
 
 export default DateTimeElement;

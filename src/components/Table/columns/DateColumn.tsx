@@ -1,5 +1,5 @@
 import React from "react";
-import { useUtils } from "@material-ui/pickers";
+import { useUtils } from "@mui/lab";
 import { getIn } from "formik";
 import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
 

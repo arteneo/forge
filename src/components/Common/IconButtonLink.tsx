@@ -1,10 +1,9 @@
 import React from "react";
 import IconButton, { IconButtonProps } from "@arteneo/forge/components/Common/IconButton";
-import { Link } from "react-router-dom";
-import { LocationDescriptor } from "history";
+import { Link, To } from "react-router-dom";
 
 interface IconButtonLinkToProps {
-    to: LocationDescriptor;
+    to: To;
 }
 
 type IconButtonLinkProps = IconButtonLinkToProps & IconButtonProps;

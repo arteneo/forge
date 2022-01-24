@@ -21,7 +21,8 @@ import {
 } from "@mui/lab";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import Highlighter from "react-highlight-words";
-import { CircularProgress, makeStyles } from "@mui/material";
+import { CircularProgress } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 interface SelectAutocompleteApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);

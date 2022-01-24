@@ -1,6 +1,7 @@
 import React from "react";
 import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import { IconButton, makeStyles, useTheme } from "@mui/material";
+import { IconButton, useTheme } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { FirstPage, LastPage, KeyboardArrowRight, KeyboardArrowLeft } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 

@@ -8,7 +8,6 @@ import {
     Box,
     FormHelperText,
     IconButton,
-    makeStyles,
     Table,
     TableBody,
     TableCell,
@@ -17,6 +16,7 @@ import {
     TableRow,
     Typography,
 } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import { Add, Delete } from "@mui/icons-material";
 
 interface CollectionProps extends FieldInterface {

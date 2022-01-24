@@ -1,10 +1,9 @@
 import React from "react";
 import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
-import { Link } from "react-router-dom";
-import { LocationDescriptor } from "history";
+import { Link, To } from "react-router-dom";
 
 interface ButtonLinkToProps {
-    to: LocationDescriptor;
+    to: To;
 }
 
 type ButtonLinkProps = ButtonLinkToProps & ButtonProps;

@@ -1,5 +1,6 @@
 import React from "react";
-import { Grid, GridProps, makeStyles } from "@mui/material";
+import { Grid, GridProps } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 
 interface TableFiltersFieldsetProps {

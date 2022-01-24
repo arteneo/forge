@@ -5,11 +5,10 @@ import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
 import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
 import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import FormButtons from "@arteneo/forge/components/Form/components/FormButtons";
-import PromptIfDirty from "@arteneo/forge/components/Form/components/PromptIfDirty";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
 import { useLoader } from "@arteneo/forge/contexts/Loader";
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
-import { makeStyles } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 
@@ -34,8 +33,6 @@ interface FormContentProps {
         setObject: (object: any) => void
     ) => void;
     endpoint?: string | ((values: FormikValues) => string);
-    disablePromptIfDirty?: boolean;
-    promptIfDirtyLabel?: string;
     formikProps?: Optional<Optional<FormikConfig<FormikValues>, "initialValues">, "onSubmit">;
 }
 
@@ -53,8 +50,6 @@ const FormContent = ({
     onSubmitSuccess,
     endpoint,
     onSubmit,
-    disablePromptIfDirty,
-    promptIfDirtyLabel,
     formikProps,
 }: FormContentProps) => {
     const classes = useStyles();
@@ -120,8 +115,6 @@ const FormContent = ({
             {...formikProps}
         >
             <Form className={classes.form}>
-                {!disablePromptIfDirty && <PromptIfDirty label={promptIfDirtyLabel} />}
-
                 {children && children}
                 {!children && fields && <FormContentFields {...{ fields }} />}
                 {buttons}
