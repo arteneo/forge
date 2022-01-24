@@ -18,7 +18,7 @@ import {
     AutocompleteChangeReason,
     AutocompleteRenderInputParams,
     AutocompleteRenderOptionState,
-} from "@mui/lab";
+} from "@mui/material";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import Highlighter from "react-highlight-words";
 import { CircularProgress } from "@mui/material";
@@ -44,7 +44,7 @@ interface SelectAutocompleteApiInternalProps {
         details?: AutocompleteChangeDetails<OptionInterface>
     ) => void;
     renderOption?: (
-        inputValue: string,
+        props: React.HTMLAttributes<HTMLLIElement>,
         option: OptionInterface,
         state: AutocompleteRenderOptionState
     ) => React.ReactNode;
@@ -310,7 +310,7 @@ const SelectAutocompleteApi = ({
         />
     );
 
-    const defaultRenderOption = (inputValue: string, option: OptionInterface) => (
+    const defaultRenderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: OptionInterface) => (
         <Highlighter
             {...{
                 highlightClassName: classes.highlight,
@@ -320,12 +320,16 @@ const SelectAutocompleteApi = ({
         />
     );
 
-    const callableRenderOption = (option: OptionInterface, state: AutocompleteRenderOptionState) => {
+    const callableRenderOption = (
+        props: React.HTMLAttributes<HTMLLIElement>,
+        option: OptionInterface,
+        state: AutocompleteRenderOptionState
+    ) => {
         if (renderOption) {
-            return renderOption(inputValue, option, state);
+            return renderOption(props, option, state);
         }
 
-        return defaultRenderOption(inputValue, option);
+        return defaultRenderOption(props, option);
     };
 
     return (

@@ -68,7 +68,8 @@ const CheckboxElement = ({
         checked: Boolean(getIn(values, path, false)),
         control: <MuiCheckbox {...{ required }} />,
         onChange: callableOnChange,
-        label,
+        // Brutal solution. Looking for better one
+        label: label as React.ReactElement,
         disabled,
     };
 

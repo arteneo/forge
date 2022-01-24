@@ -9,7 +9,7 @@ import {
     AutocompleteChangeDetails,
     AutocompleteProps,
     AutocompleteRenderInputParams,
-} from "@mui/lab";
+} from "@mui/material";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
 import {
@@ -135,7 +135,6 @@ const SelectElement = ({
         value: null,
         loadingText: t("placeholder.loading"),
         noOptionsText: t("placeholder.selectSingleEmpty"),
-        getOptionSelected: (option: OptionInterface, value: OptionInterface) => option.id === value.id,
         getOptionLabel: (option: OptionInterface) =>
             disableTranslateOption ? option.representation : t(option.representation),
         disabled: disabled,
