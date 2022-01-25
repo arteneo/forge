@@ -254,7 +254,7 @@ import {
     resolveStringOrFunction,
     resolveReactNodeOrFunction,
 } from "@arteneo/forge/utils/resolve";
-import { isDev, isProd, populate } from "@arteneo/forge/utils/common";
+import { populate } from "@arteneo/forge/utils/common";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
 export {
     Button,
@@ -539,8 +539,6 @@ export {
     resolveBooleanOrFunction,
     resolveStringOrFunction,
     resolveReactNodeOrFunction,
-    isDev,
-    isProd,
     populate,
     Optional,
 };

@@ -34,6 +34,7 @@ __metadata:
     formik: ^2.2.9
     i18next: ^21.6.7
     lodash: ^4.17.21
+    peer-deps-externals-webpack-plugin: ^1.0.4
     prettier: ^2.5.1
     prop-types: ^15.8.1
     react: ^17.0.2
@@ -3240,6 +3241,15 @@ __metadata:
   version: 4.0.0
   resolution: "path-type@npm:4.0.0"
   checksum: 5b1e2daa247062061325b8fdbfd1fb56dde0a448fb1455453276ea18c60685bdad23a445dc148cf87bc216be1573357509b7d4060494a6fd768c7efad833ee45
+  languageName: node
+  linkType: hard
+
+"peer-deps-externals-webpack-plugin@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "peer-deps-externals-webpack-plugin@npm:1.0.4"
+  peerDependencies:
+    webpack: ">=2.0.0"
+  checksum: 5474de16827e66f4518358c9b7417b3584384de82e35c46b6d61f1348f0958664d3432b26508e30cf3aabc8c6c568dd8efb5a991908a6fa068bce66fd42ee95d
   languageName: node
   linkType: hard
 

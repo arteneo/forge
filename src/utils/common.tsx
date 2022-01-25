@@ -2,14 +2,6 @@
 import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
 import { FormikValues, setIn, getIn } from "formik";
 
-const isProd = (): boolean => {
-    return process.env.APP_ENV === "prod";
-};
-
-const isDev = (): boolean => {
-    return process.env.APP_ENV === "dev";
-};
-
 const populate = (fields: FieldsInterface, ...objects: FormikValues[]): FormikValues => {
     if (objects.length === 0) {
         return {};
@@ -55,4 +47,4 @@ const populate = (fields: FieldsInterface, ...objects: FormikValues[]): FormikVa
     return populatedObject;
 };
 
-export { isDev, isProd, populate };
+export { populate };

@@ -1,6 +1,5 @@
 import React from "react";
 import { useError } from "@arteneo/forge/contexts/Error";
-import { isDev } from "@arteneo/forge/utils/common";
 import { AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
 import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
@@ -11,6 +10,7 @@ interface HandleCatchContextProps {
 
 interface HandleCatchProviderProps {
     children: React.ReactNode;
+    mode: "production" | "development";
 }
 
 interface ErrorsFieldErrorsProps {
@@ -30,7 +30,7 @@ const AXIOS_CANCELLED_UNMOUNTED = "unmounted";
 
 const HandleCatchContext = React.createContext<HandleCatchContextProps>(contextInitial);
 
-const HandleCatchProvider = ({ children }: HandleCatchProviderProps) => {
+const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
     const { setError } = useError();
     const { showError } = useSnackbar();
 
@@ -55,7 +55,7 @@ const HandleCatchProvider = ({ children }: HandleCatchProviderProps) => {
     };
 
     const handleCatch = (error: AxiosError, helpers?: FormikHelpers<FormikValues>): void => {
-        if (isDev()) {
+        if (mode === "development") {
             console.log(error);
 
             if (error?.response?.status !== 400) {
