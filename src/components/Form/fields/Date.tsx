@@ -26,7 +26,7 @@ const Date = ({
     ...elementSpecificProps
 }: DateProps) => {
     if (typeof name === "undefined") {
-        throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
+        throw new Error("Date component: name is required prop. By default it is injected by FormContent.");
     }
 
     const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();

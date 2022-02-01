@@ -4,23 +4,25 @@ import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectElementSpecificProps } from "@arteneo/forge/components/Form/elements/SelectElement";
+import MultiselectElement, {
+    MultiselectElementSpecificProps,
+} from "@arteneo/forge/components/Form/elements/MultiselectElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
 
-interface SelectApiInternalProps {
+interface MultiselectApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     modifyOptions?: (options: OptionsType) => OptionsType;
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
 }
 
-type SelectApiProps = SelectApiInternalProps &
-    Omit<SelectElementSpecificProps, "options"> &
+type MultiselectApiProps = MultiselectApiInternalProps &
+    Omit<MultiselectElementSpecificProps, "options"> &
     TextFieldPlaceholderInterface;
 
-const SelectApi = ({
+const MultiselectApi = ({
     name,
     path,
     endpoint,
@@ -40,9 +42,9 @@ const SelectApi = ({
     loadUseEffectDependency,
     disableTranslateOption = true,
     ...elementSpecificProps
-}: SelectApiProps) => {
+}: MultiselectApiProps) => {
     if (typeof name === "undefined") {
-        throw new Error("SelectApi component: name is required prop. By default it is injected by FormContent.");
+        throw new Error("MultiselectApi component: name is required prop. By default it is injected by FormContent.");
     }
 
     const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
@@ -129,7 +131,7 @@ const SelectApi = ({
     );
 
     return (
-        <SelectElement
+        <MultiselectElement
             {...{
                 name,
                 path: resolvedPath,
@@ -147,17 +149,23 @@ const SelectApi = ({
     );
 };
 
-SelectApi.defaultProps = {
+MultiselectApi.defaultProps = {
     // eslint-disable-next-line
     transformInitialValue: (value: any) => {
-        // Backend API is serializing it as object
-        if (typeof value?.id !== "undefined") {
-            return value.id;
+        if (Array.isArray(value)) {
+            return value.map((valueOption) => {
+                // Backend API is serializing it as object
+                if (typeof valueOption?.id !== "undefined") {
+                    return valueOption.id;
+                }
+
+                return valueOption;
+            });
         }
 
         return value;
     },
 };
 
-export default SelectApi;
-export { SelectApiProps };
+export default MultiselectApi;
+export { MultiselectApiProps };

@@ -199,6 +199,7 @@ import SelectElement, {
     SelectElementAutocompleteOptionalProps,
 } from "@arteneo/forge/components/Form/elements/SelectElement";
 import Multiselect, { MultiselectProps } from "@arteneo/forge/components/Form/fields/Multiselect";
+import MultiselectApi, { MultiselectApiProps } from "@arteneo/forge/components/Form/fields/MultiselectApi";
 import MultiselectElement, {
     MultiselectElementProps,
     MultiselectElementSpecificProps,
@@ -496,6 +497,8 @@ export {
     SelectElementAutocompleteOptionalProps,
     Multiselect,
     MultiselectProps,
+    MultiselectApi,
+    MultiselectApiProps,
     MultiselectElement,
     MultiselectElementProps,
     MultiselectElementSpecificProps,
