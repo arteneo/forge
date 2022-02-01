@@ -198,6 +198,13 @@ import SelectElement, {
     SelectElementAutocompleteProps,
     SelectElementAutocompleteOptionalProps,
 } from "@arteneo/forge/components/Form/elements/SelectElement";
+import Multiselect, { MultiselectProps } from "@arteneo/forge/components/Form/fields/Multiselect";
+import MultiselectElement, {
+    MultiselectElementProps,
+    MultiselectElementSpecificProps,
+    MultiselectElementAutocompleteProps,
+    MultiselectElementAutocompleteOptionalProps,
+} from "@arteneo/forge/components/Form/elements/MultiselectElement";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
 import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
@@ -487,6 +494,13 @@ export {
     SelectElementSpecificProps,
     SelectElementAutocompleteProps,
     SelectElementAutocompleteOptionalProps,
+    Multiselect,
+    MultiselectProps,
+    MultiselectElement,
+    MultiselectElementProps,
+    MultiselectElementSpecificProps,
+    MultiselectElementAutocompleteProps,
+    MultiselectElementAutocompleteOptionalProps,
     SelectValueType,
     Textarea,
     TextareaProps,
