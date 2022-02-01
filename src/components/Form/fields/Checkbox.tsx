@@ -23,7 +23,7 @@ const Checkbox = ({
     ...elementSpecificProps
 }: CheckboxProps) => {
     if (typeof name === "undefined") {
-        throw new Error("Email component: name is required prop. By default it is injected by FormContent.");
+        throw new Error("Checkbox component: name is required prop. By default it is injected by FormContent.");
     }
 
     const { isReady, resolveValidationSchema, getError, getLabel, getHelp } = useForm();

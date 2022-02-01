@@ -28,7 +28,7 @@ const Multiselect = ({
     ...elementSpecificProps
 }: MultiselectProps) => {
     if (typeof name === "undefined") {
-        throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
+        throw new Error("Multiselect component: name is required prop. By default it is injected by FormContent.");
     }
 
     const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
