@@ -4,10 +4,10 @@ import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import SelectElement, {
-    SelectElementSpecificProps,
-    SelectElementRenderInput,
-} from "@arteneo/forge/components/Form/elements/SelectElement";
+import MultiselectElement, {
+    MultiselectElementSpecificProps,
+    MultiselectElementRenderInput,
+} from "@arteneo/forge/components/Form/elements/MultiselectElement";
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
@@ -16,18 +16,20 @@ import { debounce } from "lodash";
 import {
     AutocompleteChangeDetails,
     AutocompleteChangeReason,
+    AutocompleteRenderGetTagProps,
     AutocompleteRenderInputParams,
     AutocompleteRenderOptionState,
+    Box,
+    Chip,
 } from "@mui/material";
 import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
 import Highlighter from "react-highlight-words";
 import { CircularProgress } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 
-interface SelectAutocompleteApiInternalProps {
+interface MultiselectAutocompleteApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);
     // eslint-disable-next-line
-    getEndpointData?: (inputValue: string, value: string, values: FormikValues) => any;
+    getEndpointData?: (inputValue: string, value: OptionsType, values: FormikValues) => any;
     onChange?: (
         path: string,
         // eslint-disable-next-line
@@ -48,12 +50,13 @@ interface SelectAutocompleteApiInternalProps {
         option: OptionInterface,
         state: AutocompleteRenderOptionState
     ) => React.ReactNode;
+    modifyOptions?: (options: OptionsType) => OptionsType;
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
 }
 
-type SelectAutocompleteApiProps = SelectAutocompleteApiInternalProps &
-    Omit<SelectElementSpecificProps, "options" | "onChange"> &
+type MultiselectAutocompleteApiProps = MultiselectAutocompleteApiInternalProps &
+    Omit<MultiselectElementSpecificProps, "options" | "onChange"> &
     TextFieldPlaceholderInterface;
 
 interface LoadInterface {
@@ -64,14 +67,6 @@ interface LoadInterface {
 
 type LoadCancelType = undefined | (() => void);
 
-const useStyles = makeStyles((theme) => ({
-    highlight: {
-        fontWeight: 700,
-        backgroundColor: "transparent",
-        color: theme.palette.primary.main,
-    },
-}));
-
 // Skip loading is used to hide loader when user selects a new value.
 // Loading request is still done, but used does not need to see that
 let _skipLoading = false;
@@ -79,11 +74,14 @@ const setSkipLoading = (skipLoading: boolean) => {
     _skipLoading = skipLoading;
 };
 
-const SelectAutocompleteApi = ({
+/**
+ * ! Not tested with initial values (probably will not work)
+ */
+const MultiselectAutocompleteApi = ({
     name,
     path,
     endpoint,
-    getEndpointData = (inputValue: string, value?: string) => {
+    getEndpointData = (inputValue: string, value: OptionsType) => {
         return {
             inputValue,
             value,
@@ -101,21 +99,21 @@ const SelectAutocompleteApi = ({
     hidden = false,
     disabled = false,
     validationSchema,
+    modifyOptions,
     loadUseEffectDependency,
     disableTranslateOption = true,
     onChange,
     renderOption,
     ...elementSpecificProps
-}: SelectAutocompleteApiProps) => {
+}: MultiselectAutocompleteApiProps) => {
     if (typeof name === "undefined") {
         throw new Error(
-            "SelectAutocompleteApi component: name is required prop. By default it is injected by FormContent."
+            "MultiselectAutocompleteApi component: name is required prop. By default it is injected by FormContent."
         );
     }
 
-    const classes = useStyles();
     const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors, submitCount, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
+    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
 
     // Input value represents string visible in TextField (search input)
@@ -123,21 +121,24 @@ const SelectAutocompleteApi = ({
     // Loading additionally shows CircularProgress icon in input endAdornment
     const [loading, setLoading] = React.useState(false);
     const [options, setOptions] = React.useState<OptionsType>([]);
+    const [selectedOptions, setSelectedOptions] = React.useState<OptionsType>([]);
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
     const resolvedPath = path ? path : name;
     const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values, inputValue) : undefined;
 
-    const value = getIn(values, resolvedPath, undefined);
+    const value: OptionsType = getIn(values, resolvedPath, []);
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
     const updateValidationSchema = () => {
-        let defaultValidationSchema = Yup.string();
+        let defaultValidationSchema = Yup.array();
 
         if (resolvedRequired) {
-            defaultValidationSchema = defaultValidationSchema.required("validation.required");
+            defaultValidationSchema = defaultValidationSchema
+                .min(1, "validation.required")
+                .required("validation.required");
         }
 
         resolveValidationSchema(
@@ -177,19 +178,15 @@ const SelectAutocompleteApi = ({
         []
     );
 
-    React.useEffect(() => initialize(), [value, inputValue]);
-    // * Not ideal:
-    // In case of triggering loadUseEffectDependency externally
-    // it is assumed that value has changed and inputValue should be always updated (refreshed based first loaded option assuming empty inputValue)
-    React.useEffect(() => initialize(true), [loadUseEffectDependency]);
+    // Load options in case of:
+    // - inputValue change
+    // - resolvedEndpoint change
+    // - loadUseEffectDependency change (used to force options reload externally)
+    React.useEffect(() => loadOptions(), [inputValue, resolvedEndpoint, loadUseEffectDependency]);
 
-    const initialize = (forceUpdateInputValue = false) => {
-        if (!inputValue && !value) {
-            setOptions([]);
-            return;
-        }
-
+    const loadOptions = () => {
         if (typeof resolvedEndpoint === "undefined") {
+            setOptions([]);
             return;
         }
 
@@ -197,19 +194,21 @@ const SelectAutocompleteApi = ({
             setLoading(true);
         }
 
-        const processedInputValue = forceUpdateInputValue ? "" : inputValue;
+        debouncedLoad({ endpoint: resolvedEndpoint, data: getEndpointData(inputValue, value, values) }, (options) => {
+            setLoading(false);
 
-        debouncedLoad(
-            { endpoint: resolvedEndpoint, data: getEndpointData(processedInputValue, value, values) },
-            (options) => {
-                setLoading(false);
-                setOptions(options);
-
-                if (options.length > 0 && !processedInputValue) {
-                    setInputValue(options[0].representation);
+            const processedOptions = modifyOptions ? modifyOptions(options) : options;
+            selectedOptions.forEach((option) => {
+                const processedOptionExist = processedOptions.find(
+                    (processedOption) => processedOption.id === option.id
+                );
+                if (!processedOptionExist) {
+                    processedOptions.push(option);
                 }
-            }
-        );
+            });
+
+            setOptions(processedOptions);
+        });
 
         setSkipLoading(false);
     };
@@ -240,15 +239,15 @@ const SelectAutocompleteApi = ({
         disableTranslatePlaceholder
     );
 
-    const defaultOnChange = (value: SelectValueType, selectElementOnChange: () => void) => {
-        selectElementOnChange();
+    const defaultOnChange = (value: SelectValueType, multiselectElementOnChange: () => void) => {
+        multiselectElementOnChange();
 
-        if (value === null || Array.isArray(value) || typeof value === "string") {
+        if (!Array.isArray(value)) {
             return;
         }
 
         setSkipLoading(true);
-        setInputValue(value.representation);
+        setSelectedOptions(value as OptionsType);
     };
 
     const callableOnChange = (
@@ -256,7 +255,7 @@ const SelectAutocompleteApi = ({
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         value: SelectValueType,
-        selectElementOnChange: () => void,
+        multiselectElementOnChange: () => void,
         values: FormikValues,
         // eslint-disable-next-line
         event: React.ChangeEvent<{}>,
@@ -270,7 +269,7 @@ const SelectAutocompleteApi = ({
                 path,
                 setFieldValue,
                 value,
-                () => defaultOnChange(value, selectElementOnChange),
+                () => defaultOnChange(value, multiselectElementOnChange),
                 setInputValue,
                 setSkipLoading,
                 values,
@@ -282,11 +281,11 @@ const SelectAutocompleteApi = ({
             return;
         }
 
-        defaultOnChange(value, selectElementOnChange);
+        defaultOnChange(value, multiselectElementOnChange);
     };
 
     const renderInput = (params: AutocompleteRenderInputParams) => (
-        <SelectElementRenderInput
+        <MultiselectElementRenderInput
             {...{
                 label: resolvedLabel,
                 required: resolvedRequired,
@@ -311,13 +310,19 @@ const SelectAutocompleteApi = ({
     );
 
     const defaultRenderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: OptionInterface) => (
-        <Highlighter
-            {...{
-                highlightClassName: classes.highlight,
-                searchWords: [inputValue],
-                textToHighlight: option.representation,
-            }}
-        />
+        <li {...props}>
+            <Highlighter
+                {...{
+                    highlightTag: ({ children }) => (
+                        <Box component="span" sx={{ color: "primary.main", fontWeight: 700 }}>
+                            {children}
+                        </Box>
+                    ),
+                    searchWords: [inputValue],
+                    textToHighlight: option.representation,
+                }}
+            />
+        </li>
     );
 
     const callableRenderOption = (
@@ -325,15 +330,25 @@ const SelectAutocompleteApi = ({
         option: OptionInterface,
         state: AutocompleteRenderOptionState
     ) => {
-        if (renderOption) {
-            return renderOption(props, option, state);
-        }
+        return (
+            <React.Fragment key={option.id}>
+                {renderOption ? renderOption(props, option, state) : defaultRenderOption(props, option)}
+            </React.Fragment>
+        );
+    };
 
-        return defaultRenderOption(props, option);
+    const renderTags = (value: OptionInterface[], getTagProps: AutocompleteRenderGetTagProps) => {
+        return (
+            <>
+                {value.map((option, index) => (
+                    <Chip {...{ label: option.representation, ...getTagProps({ index }) }} key={index} />
+                ))}
+            </>
+        );
     };
 
     return (
-        <SelectElement
+        <MultiselectElement
             {...{
                 name,
                 path: resolvedPath,
@@ -353,13 +368,14 @@ const SelectAutocompleteApi = ({
                     filterOptions: (option) => option,
                     getOptionLabel: () => inputValue,
                     inputValue,
+                    filterSelectedOptions: true,
                     renderInput,
+                    renderTags,
                     onInputChange: (event, value, reason) => {
                         // Reason "reset" means programmatic change
                         // This prevents clearing input when changing inputValue when there is a selected option
                         // Not sure why this works that way
                         if (reason !== "reset") {
-                            setFieldValue(resolvedPath, "");
                             setInputValue(value);
                         }
                     },
@@ -371,17 +387,24 @@ const SelectAutocompleteApi = ({
     );
 };
 
-SelectAutocompleteApi.defaultProps = {
+MultiselectAutocompleteApi.defaultProps = {
     // eslint-disable-next-line
     transformInitialValue: (value: any) => {
         // Backend API is serializing it as object
-        if (typeof value?.id !== "undefined") {
-            return value.id;
+        if (Array.isArray(value)) {
+            return value.map((valueOption) => {
+                // Backend API is serializing it as object
+                if (typeof valueOption?.id !== "undefined") {
+                    return valueOption.id;
+                }
+
+                return valueOption;
+            });
         }
 
         return value;
     },
 };
 
-export default SelectAutocompleteApi;
-export { SelectAutocompleteApiProps };
+export default MultiselectAutocompleteApi;
+export { MultiselectAutocompleteApiProps };
