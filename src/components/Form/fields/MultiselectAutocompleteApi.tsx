@@ -309,7 +309,7 @@ const MultiselectAutocompleteApi = ({
         />
     );
 
-    const defaultRenderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: OptionInterface, { selected }) => (
+    const defaultRenderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: OptionInterface) => (
         <li {...props}>
             <Highlighter
                 {...{
@@ -332,7 +332,7 @@ const MultiselectAutocompleteApi = ({
     ) => {
         return (
             <React.Fragment key={option.id}>
-                {renderOption ? renderOption(props, option, state) : defaultRenderOption(props, option, state)}
+                {renderOption ? renderOption(props, option, state) : defaultRenderOption(props, option)}
             </React.Fragment>
         );
     };
