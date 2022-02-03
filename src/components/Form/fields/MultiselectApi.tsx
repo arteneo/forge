@@ -62,10 +62,12 @@ const MultiselectApi = ({
     React.useEffect(() => load(), [resolvedEndpoint, loadUseEffectDependency]);
 
     const updateValidationSchema = () => {
-        let defaultValidationSchema = Yup.string();
+        let defaultValidationSchema = Yup.array();
 
         if (resolvedRequired) {
-            defaultValidationSchema = defaultValidationSchema.required("validation.required");
+            defaultValidationSchema = defaultValidationSchema
+                .min(1, "validation.required")
+                .required("validation.required");
         }
 
         resolveValidationSchema(

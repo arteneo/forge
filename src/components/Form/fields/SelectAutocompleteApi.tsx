@@ -295,7 +295,7 @@ const SelectAutocompleteApi = ({
                 ...params,
                 inputProps: {
                     ...params.inputProps,
-                    autoComplete: "new-password",
+                    autoComplete: "off",
                 },
                 InputProps: {
                     ...params.InputProps,
