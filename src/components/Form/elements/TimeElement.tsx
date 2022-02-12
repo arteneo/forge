@@ -37,13 +37,8 @@ const TimeElement = ({
     const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
 
     // eslint-disable-next-line
-    const defaultOnChange = (date: any, value?: string | null) => {
-        console.log("🚀 ~ file: TimeElement.tsx ~ line 40 ~ defaultOnChange ~ date", date);
+    const defaultOnChange = (date: any) => {
         if (isValid(date)) {
-            console.log(
-                "🚀 ~ file: TimeElement.tsx ~ line 43 ~ defaultOnChange ~ formatRFC3339(date)",
-                formatRFC3339(date)
-            );
             setFieldValue(path, formatRFC3339(date));
             return;
         }
@@ -55,11 +50,11 @@ const TimeElement = ({
     const callableOnChange = (date: any, value?: string | null) => {
         if (onChange) {
             // Parameters are swapped for convenience
-            onChange(path, setFieldValue, date, () => defaultOnChange(date, value), values, name, value);
+            onChange(path, setFieldValue, date, () => defaultOnChange(date), values, name, value);
             return;
         }
 
-        defaultOnChange(date, value);
+        defaultOnChange(date);
     };
 
     const hasError = error ? true : false;
