@@ -20,7 +20,6 @@ const peerDependencies = {
     "react-beforeunload": "^2.5.2",
     "react-dom": "^17.0.2",
     "react-highlight-words": "^0.17.0",
-    "react-i18n": "^1.0.1",
     "react-i18next": "^11.15.3",
     "react-router-dom": "^6.2.1",
     "yup": "^0.32.11"
