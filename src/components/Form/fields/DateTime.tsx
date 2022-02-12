@@ -39,7 +39,8 @@ const DateTime = ({
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
 
     const updateValidationSchema = () => {
-        let defaultValidationSchema = Yup.string();
+        // Null is an empty value for datepickers
+        let defaultValidationSchema = Yup.string().nullable();
 
         if (resolvedRequired) {
             defaultValidationSchema = defaultValidationSchema.required("validation.required");
