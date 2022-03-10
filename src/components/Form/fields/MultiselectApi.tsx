@@ -1,8 +1,8 @@
 import React from "react";
 import * as Yup from "yup";
 import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
+import axios, { AxiosError, AxiosResponse, AxiosRequestConfig } from "axios";
+import { resolveBooleanOrFunction, resolveAxiosRequestConfigOrFunction } from "@arteneo/forge/utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import MultiselectElement, {
     MultiselectElementSpecificProps,
@@ -10,9 +10,10 @@ import MultiselectElement, {
 import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
 import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
+import useDeepCompareEffect from "use-deep-compare-effect";
 
 interface MultiselectApiInternalProps {
-    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
+    requestConfig: undefined | AxiosRequestConfig | ((values: FormikValues) => undefined | AxiosRequestConfig);
     modifyOptions?: (options: OptionsType) => OptionsType;
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
@@ -25,7 +26,7 @@ type MultiselectApiProps = MultiselectApiInternalProps &
 const MultiselectApi = ({
     name,
     path,
-    endpoint,
+    requestConfig,
     label,
     placeholder,
     disableAutoLabel = false,
@@ -54,12 +55,14 @@ const MultiselectApi = ({
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
     const resolvedPath = path ? path : name;
-    const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
+    const resolvedRequestConfig = requestConfig
+        ? resolveAxiosRequestConfigOrFunction(requestConfig, values)
+        : undefined;
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 
     React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
-    React.useEffect(() => load(), [resolvedEndpoint, loadUseEffectDependency]);
+    useDeepCompareEffect(() => load(), [resolvedRequestConfig, loadUseEffectDependency]);
 
     const updateValidationSchema = () => {
         let defaultValidationSchema = Yup.array();
@@ -84,7 +87,7 @@ const MultiselectApi = ({
     };
 
     const load = () => {
-        if (!resolvedEndpoint) {
+        if (!requestConfig) {
             setOptions([]);
             return;
         }
@@ -92,9 +95,7 @@ const MultiselectApi = ({
         const axiosSource = axios.CancelToken.source();
 
         axios
-            .get(resolvedEndpoint, {
-                cancelToken: axiosSource.token,
-            })
+            .request(Object.assign({ cancelToken: axiosSource.token }, requestConfig))
             .then((response: AxiosResponse) => {
                 const options: OptionsType = response.data;
 
