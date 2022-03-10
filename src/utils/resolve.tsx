@@ -1,4 +1,5 @@
 import React from "react";
+import { AxiosRequestConfig } from "axios";
 /* eslint-disable */
 
 const resolveBooleanOrFunction = (parameter: undefined | boolean | Function, ...functionParameters: any[]): boolean => {
@@ -36,4 +37,21 @@ const resolveReactNodeOrFunction = (
     return parameter;
 };
 
-export { resolveAnyOrFunction, resolveBooleanOrFunction, resolveStringOrFunction, resolveReactNodeOrFunction };
+const resolveAxiosRequestConfigOrFunction = (
+    parameter: undefined | AxiosRequestConfig | Function,
+    ...functionParameters: any[]
+): undefined | AxiosRequestConfig => {
+    if (typeof parameter === "function") {
+        return parameter(...functionParameters);
+    }
+
+    return parameter;
+};
+
+export {
+    resolveAnyOrFunction,
+    resolveBooleanOrFunction,
+    resolveStringOrFunction,
+    resolveReactNodeOrFunction,
+    resolveAxiosRequestConfigOrFunction,
+};

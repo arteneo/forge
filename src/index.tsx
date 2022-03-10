@@ -264,6 +264,7 @@ import {
     resolveBooleanOrFunction,
     resolveStringOrFunction,
     resolveReactNodeOrFunction,
+    resolveAxiosRequestConfigOrFunction,
 } from "@arteneo/forge/utils/resolve";
 import { populate } from "@arteneo/forge/utils/common";
 import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
@@ -561,6 +562,7 @@ export {
     resolveBooleanOrFunction,
     resolveStringOrFunction,
     resolveReactNodeOrFunction,
+    resolveAxiosRequestConfigOrFunction,
     populate,
     Optional,
 };
