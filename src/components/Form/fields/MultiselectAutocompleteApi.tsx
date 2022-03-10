@@ -319,6 +319,7 @@ const MultiselectAutocompleteApi = ({
                         </Box>
                     ),
                     searchWords: [inputValue],
+                    autoEscape: true,
                     textToHighlight: option.representation,
                 }}
             />

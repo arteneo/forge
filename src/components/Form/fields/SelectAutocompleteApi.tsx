@@ -315,6 +315,7 @@ const SelectAutocompleteApi = ({
             {...{
                 highlightClassName: classes.highlight,
                 searchWords: [inputValue],
+                autoEscape: true,
                 textToHighlight: option.representation,
             }}
         />
