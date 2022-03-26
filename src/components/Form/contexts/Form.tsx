@@ -3,14 +3,14 @@ import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 import { FormikValues, FormikTouched, FormikErrors, getIn } from "formik";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { populate } from "@arteneo/forge/utils/common";
-import { resolveReactNodeOrFunction, resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
-import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
-import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
-import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
-import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
-import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
+import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "../../../contexts/HandleCatch";
+import { populate } from "../../../utils/common";
+import { resolveReactNodeOrFunction, resolveAnyOrFunction } from "../../../utils/resolve";
+import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
+import FieldLabelType from "../../../components/Form/definitions/FieldLabelType";
+import FieldPlaceholderType from "../../../components/Form/definitions/FieldPlaceholderType";
+import ValidationSchemaInterface from "../../../components/Form/definitions/ValidationSchemaInterface";
 
 interface FormContextProps {
     formikInitialValues: FormikValues;

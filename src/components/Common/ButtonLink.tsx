@@ -1,5 +1,5 @@
 import React from "react";
-import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
+import Button, { ButtonProps } from "../../components/Common/Button";
 import { Link, To } from "react-router-dom";
 
 interface ButtonLinkToProps {

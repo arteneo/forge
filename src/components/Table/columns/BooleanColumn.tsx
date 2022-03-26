@@ -3,8 +3,8 @@ import { Chip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
-import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
-import ChipFieldInterface from "@arteneo/forge/components/Table/definitions/ChipFieldInterface";
+import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
+import ChipFieldInterface from "../../../components/Table/definitions/ChipFieldInterface";
 
 type BooleanColumnProps = TableColumnPathType & ChipFieldInterface;
 

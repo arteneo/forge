@@ -1,8 +1,8 @@
 import React from "react";
-import ButtonLink, { ButtonLinkProps } from "@arteneo/forge/components/Common/ButtonLink";
-import TableResultActionPathInterface from "@arteneo/forge/components/Table/definitions/TableResultActionPathInterface";
-import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
-import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
+import ButtonLink, { ButtonLinkProps } from "../../../../components/Common/ButtonLink";
+import TableResultActionPathInterface from "../../../../components/Table/definitions/TableResultActionPathInterface";
+import TableResultActionResolveType from "../../../../components/Table/definitions/TableResultActionResolveType";
+import { resolveAnyOrFunction } from "../../../../utils/resolve";
 import { getIn } from "formik";
 import { To } from "react-router-dom";
 

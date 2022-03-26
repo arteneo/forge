@@ -1,5 +1,5 @@
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
-import FieldPlaceholderType from "@arteneo/forge/components/Form/definitions/FieldPlaceholderType";
+import TextFieldInterface from "../../../components/Form/definitions/TextFieldInterface";
+import FieldPlaceholderType from "../../../components/Form/definitions/FieldPlaceholderType";
 
 interface TextFieldPlaceholderInterface extends TextFieldInterface {
     placeholder?: FieldPlaceholderType;

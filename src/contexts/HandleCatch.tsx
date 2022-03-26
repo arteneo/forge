@@ -1,8 +1,8 @@
 import React from "react";
-import { useError } from "@arteneo/forge/contexts/Error";
+import { useError } from "../contexts/Error";
 import { AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
-import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
+import { useSnackbar } from "../contexts/Snackbar";
 
 interface HandleCatchContextProps {
     (error: AxiosError, helpers?: FormikHelpers<FormikValues>): void;

@@ -1,6 +1,6 @@
 import React from "react";
-import Time, { TimeProps } from "@arteneo/forge/components/Form/fields/Time";
-import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
+import Time, { TimeProps } from "../../../components/Form/fields/Time";
+import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
 
 type TimeToFilterProps = FilterFieldInterface & TimeProps;
 

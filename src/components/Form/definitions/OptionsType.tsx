@@ -1,4 +1,4 @@
-import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
+import OptionInterface from "../../../components/Form/definitions/OptionInterface";
 
 type OptionsType = OptionInterface[];
 

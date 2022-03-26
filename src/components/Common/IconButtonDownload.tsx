@@ -1,8 +1,8 @@
 import React from "react";
-import IconButton, { IconButtonProps } from "@arteneo/forge/components/Common/IconButton";
+import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
 import axios, { AxiosRequestConfig } from "axios";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
+import { useHandleCatch } from "../../contexts/HandleCatch";
+import { useLoader } from "../../contexts/Loader";
 
 interface IconButtonDownloadInterface {
     requestConfig: AxiosRequestConfig;

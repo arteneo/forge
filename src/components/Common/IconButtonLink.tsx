@@ -1,5 +1,5 @@
 import React from "react";
-import IconButton, { IconButtonProps } from "@arteneo/forge/components/Common/IconButton";
+import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
 import { Link, To } from "react-router-dom";
 
 interface IconButtonLinkToProps {

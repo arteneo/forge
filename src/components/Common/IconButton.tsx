@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { IconButton as MuiIconButton, IconButtonProps as MuiIconButtonProps, Tooltip } from "@mui/material";
-import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
-import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
-import DeniedAccessInterface from "@arteneo/forge/components/Table/definitions/DeniedAccessInterface";
+import WrapperInterface from "../../definitions/WrapperInterface";
+import Wrapper from "../../components/Table/components/Wrapper";
+import DeniedAccessInterface from "../../components/Table/definitions/DeniedAccessInterface";
 
 type InternalWrapperMuiIconButtonProps = Omit<MuiIconButtonProps, "children"> & WrapperInterface;
 

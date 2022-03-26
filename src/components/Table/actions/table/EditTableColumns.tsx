@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import Button from "@arteneo/forge/components/Common/Button";
+import { useTable } from "../../../../components/Table/contexts/Table";
+import Button from "../../../../components/Common/Button";
 import {
     Box,
     Grid,
@@ -21,13 +21,13 @@ import {
     IconButtonProps,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
+import { useSnackbar } from "../../../../contexts/Snackbar";
+import { useHandleCatch } from "../../../../contexts/HandleCatch";
+import { useLoader } from "../../../../contexts/Loader";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { DragIndicator, ViewColumn } from "@mui/icons-material";
-import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
-import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
+import WrapperInterface from "../../../../definitions/WrapperInterface";
+import Wrapper from "../../../../components/Table/components/Wrapper";
 
 interface EditTableColumnsProps extends WrapperInterface {
     label?: string;

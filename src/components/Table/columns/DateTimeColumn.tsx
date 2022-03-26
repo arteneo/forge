@@ -1,7 +1,7 @@
 import React from "react";
 import { useUtils } from "@mui/lab/internal/pickers/hooks/useUtils";
 import { getIn } from "formik";
-import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
+import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
 
 const DateTimeColumn = ({ result, field, path }: TableColumnPathType) => {
     if (typeof field === "undefined") {
@@ -13,7 +13,7 @@ const DateTimeColumn = ({ result, field, path }: TableColumnPathType) => {
     }
 
     // We force TS to think this is any object to silence issue with missing function formatDateTime
-    // utils is class from @arteneo/forge/utils/AppDateFnsUtils. Can be extended in specific projects
+    // utils is class from ../../../utils/AppDateFnsUtils. Can be extended in specific projects
     // eslint-disable-next-line
     const utils: any = useUtils();
 

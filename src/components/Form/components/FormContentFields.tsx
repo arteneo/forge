@@ -1,5 +1,5 @@
 import React from "react";
-import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
 
 interface FormContentFieldsProps {
     fields: FieldsInterface;

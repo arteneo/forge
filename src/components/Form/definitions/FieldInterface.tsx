@@ -1,6 +1,6 @@
 import { FormikValues, FormikTouched, FormikErrors } from "formik";
-import FieldHelpType from "@arteneo/forge/components/Form/definitions/FieldHelpType";
-import FieldLabelType from "@arteneo/forge/components/Form/definitions/FieldLabelType";
+import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
+import FieldLabelType from "../../../components/Form/definitions/FieldLabelType";
 
 interface FieldInterface {
     // name is added to props by FormContent

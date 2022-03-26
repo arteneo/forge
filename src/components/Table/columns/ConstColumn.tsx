@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
-import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
+import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
 
 interface ConstColumnProps extends TableColumnPathType {
     getLabel: (constKey: string) => string;

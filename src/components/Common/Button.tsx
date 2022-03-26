@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button as MuiButton, ButtonProps as MuiButtonProps, Tooltip } from "@mui/material";
-import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
-import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
-import Wrapper from "@arteneo/forge/components/Table/components/Wrapper";
-import DeniedAccessInterface from "@arteneo/forge/components/Table/definitions/DeniedAccessInterface";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import WrapperInterface from "../../definitions/WrapperInterface";
+import Wrapper from "../../components/Table/components/Wrapper";
+import DeniedAccessInterface from "../../components/Table/definitions/DeniedAccessInterface";
 
 type InternalWrapperMuiButtonProps = Omit<MuiButtonProps, "children"> & WrapperInterface;
 

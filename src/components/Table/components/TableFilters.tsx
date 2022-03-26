@@ -1,13 +1,13 @@
 import React from "react";
 import clsx from "clsx";
-import Form from "@arteneo/forge/components/Form/components/Form";
-import TableFiltersButtons from "@arteneo/forge/components/Table/components/TableFiltersButtons";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
+import Form from "../../../components/Form/components/Form";
+import TableFiltersButtons from "../../../components/Table/components/TableFiltersButtons";
+import { useTable } from "../../../components/Table/contexts/Table";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import { ExpandMore, FilterList } from "@mui/icons-material";
-import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
 
 interface TableFiltersProps {
     filtersFieldset: React.ElementType;

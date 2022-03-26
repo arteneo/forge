@@ -1,4 +1,4 @@
-import DeniedAccessListInterface from "@arteneo/forge/components/Table/definitions/DeniedAccessListInterface";
+import DeniedAccessListInterface from "../../../components/Table/definitions/DeniedAccessListInterface";
 
 interface ResultInterface {
     id: number;

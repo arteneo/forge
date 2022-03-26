@@ -1,10 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
+import { useForm } from "../../../components/Form/contexts/Form";
+import { resolveBooleanOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextareaElement, { TextareaElementSpecificProps } from "@arteneo/forge/components/Form/elements/TextareaElement";
-import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
+import TextareaElement, { TextareaElementSpecificProps } from "../../../components/Form/elements/TextareaElement";
+import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
 
 type TextareaProps = TextareaElementSpecificProps & TextFieldPlaceholderInterface;
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { AxiosRequestConfig } from "axios";
-import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
-import TableResultActionPathInterface from "@arteneo/forge/components/Table/definitions/TableResultActionPathInterface";
-import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
-import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
+import ButtonDownload, { ButtonDownloadProps } from "../../../../components/Common/ButtonDownload";
+import TableResultActionPathInterface from "../../../../components/Table/definitions/TableResultActionPathInterface";
+import TableResultActionResolveType from "../../../../components/Table/definitions/TableResultActionResolveType";
+import { resolveAnyOrFunction } from "../../../../utils/resolve";
 import { getIn } from "formik";
 
 interface DownloadProps {

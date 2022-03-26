@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormikContext } from "formik";
 import { Box } from "@mui/material";
-import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
+import Button, { ButtonProps } from "../../../components/Common/Button";
 
 const FormButtons = ({
     label = "action.form.submit",

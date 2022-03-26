@@ -1,12 +1,12 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
+import { useForm } from "../../../components/Form/contexts/Form";
+import { resolveBooleanOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import MultiselectElement, {
     MultiselectElementSpecificProps,
-} from "@arteneo/forge/components/Form/elements/MultiselectElement";
-import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
+} from "../../../components/Form/elements/MultiselectElement";
+import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
 
 type MultiselectProps = MultiselectElementSpecificProps & TextFieldPlaceholderInterface;
 

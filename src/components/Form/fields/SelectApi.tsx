@@ -1,13 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
+import { useForm } from "../../../components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
+import { resolveBooleanOrFunction, resolveStringOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectElementSpecificProps } from "@arteneo/forge/components/Form/elements/SelectElement";
-import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
-import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
-import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
+import SelectElement, { SelectElementSpecificProps } from "../../../components/Form/elements/SelectElement";
+import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
+import OptionsType from "../../../components/Form/definitions/OptionsType";
+import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 
 interface SelectApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);

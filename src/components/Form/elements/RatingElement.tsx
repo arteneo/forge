@@ -1,7 +1,7 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { FormControl, FormControlProps, FormHelperText, FormLabel, FormLabelProps, Box, BoxProps } from "@mui/material";
-import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
+import FieldElementInterface from "../../../components/Form/definitions/FieldElementInterface";
 import { Rating, RatingProps } from "@mui/lab";
 
 interface RatingElementSpecificProps {

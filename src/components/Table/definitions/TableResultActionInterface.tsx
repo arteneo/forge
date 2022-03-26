@@ -1,4 +1,4 @@
-import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
+import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 
 interface TableResultActionInterface {
     // result is added to props by TableContent

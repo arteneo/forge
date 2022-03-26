@@ -1,10 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
+import { useForm } from "../../../components/Form/contexts/Form";
+import { resolveBooleanOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import PasswordElement, { PasswordElementSpecificProps } from "@arteneo/forge/components/Form/elements/PasswordElement";
-import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
+import PasswordElement, { PasswordElementSpecificProps } from "../../../components/Form/elements/PasswordElement";
+import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
 
 type PasswordProps = PasswordElementSpecificProps & TextFieldPlaceholderInterface;
 

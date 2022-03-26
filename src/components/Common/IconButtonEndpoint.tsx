@@ -1,10 +1,10 @@
 import React from "react";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
-import IconButton, { IconButtonProps } from "@arteneo/forge/components/Common/IconButton";
-import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
+import { useSnackbar } from "../../contexts/Snackbar";
+import { useHandleCatch } from "../../contexts/HandleCatch";
+import { useLoader } from "../../contexts/Loader";
+import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 
 interface IconButtonEndpointInterface {
     requestConfig: AxiosRequestConfig;

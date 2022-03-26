@@ -1,5 +1,5 @@
 import { FormikValues, FormikTouched, FormikErrors } from "formik";
-import ValidationSchemaInterface from "@arteneo/forge/components/Form/definitions/ValidationSchemaInterface";
+import ValidationSchemaInterface from "../../../components/Form/definitions/ValidationSchemaInterface";
 
 type FieldValidationSchemaType =
     | ValidationSchemaInterface

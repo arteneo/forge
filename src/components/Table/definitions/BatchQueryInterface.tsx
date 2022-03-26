@@ -1,5 +1,5 @@
-import BatchSelectedType from "@arteneo/forge/components/Table/definitions/BatchSelectedType";
-import QueryInterface from "@arteneo/forge/components/Table/definitions/QueryInterface";
+import BatchSelectedType from "../../../components/Table/definitions/BatchSelectedType";
+import QueryInterface from "../../../components/Table/definitions/QueryInterface";
 
 interface BatchQueryInterface extends QueryInterface {
     selected: BatchSelectedType;

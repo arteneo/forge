@@ -1,16 +1,16 @@
 import React from "react";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
+import { useForm } from "../../../components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
+import { useHandleCatch } from "../../../contexts/HandleCatch";
 import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
-import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
-import FormButtons from "@arteneo/forge/components/Form/components/FormButtons";
-import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
-import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import { resolveStringOrFunction } from "../../../utils/resolve";
+import FormButtons from "../../../components/Form/components/FormButtons";
+import { useSnackbar } from "../../../contexts/Snackbar";
+import { useLoader } from "../../../contexts/Loader";
+import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
 import { makeStyles } from "@mui/styles";
-import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
-import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
+import FormContentFields from "../../../components/Form/components/FormContentFields";
+import { Optional } from "../../../utils/TypescriptOperators";
 
 interface FormContentProps {
     fields?: FieldsInterface;

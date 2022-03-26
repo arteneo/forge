@@ -3,8 +3,8 @@ import { Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
+import { useTable } from "../../../components/Table/contexts/Table";
+import { useLoader } from "../../../contexts/Loader";
 
 const useStyles = makeStyles((theme) => ({
     buttons: {

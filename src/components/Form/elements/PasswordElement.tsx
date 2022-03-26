@@ -1,7 +1,7 @@
 import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
-import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
+import FieldElementPlaceholderInterface from "../../../components/Form/definitions/FieldElementPlaceholderInterface";
 
 interface PasswordElementSpecificProps {
     onChange?: (

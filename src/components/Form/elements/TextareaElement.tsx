@@ -2,7 +2,7 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
+import FieldElementPlaceholderInterface from "../../../components/Form/definitions/FieldElementPlaceholderInterface";
 
 interface TextareaElementSpecificProps {
     onChange?: (

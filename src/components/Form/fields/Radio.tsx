@@ -1,10 +1,10 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
+import { useForm } from "../../../components/Form/contexts/Form";
+import { resolveBooleanOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import RadioElement, { RadioElementSpecificProps } from "@arteneo/forge/components/Form/elements/RadioElement";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
+import RadioElement, { RadioElementSpecificProps } from "../../../components/Form/elements/RadioElement";
+import TextFieldInterface from "../../../components/Form/definitions/TextFieldInterface";
 
 type RadioProps = RadioElementSpecificProps & TextFieldInterface;
 

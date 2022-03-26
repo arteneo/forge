@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import ExportQueryInterface from "@arteneo/forge/components/Table/definitions/ExportQueryInterface";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import ButtonDownload, { ButtonDownloadProps } from "@arteneo/forge/components/Common/ButtonDownload";
+import ExportQueryInterface from "../../../../components/Table/definitions/ExportQueryInterface";
+import { useTable } from "../../../../components/Table/contexts/Table";
+import ButtonDownload, { ButtonDownloadProps } from "../../../../components/Common/ButtonDownload";
 import { AxiosRequestConfig } from "axios";
-import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
+import { Optional } from "../../../../utils/TypescriptOperators";
 
 interface ExportCsvInterface {
     // eslint-disable-next-line

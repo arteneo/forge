@@ -1,6 +1,6 @@
 import React from "react";
-import Radio, { RadioProps } from "@arteneo/forge/components/Form/fields/Radio";
-import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
+import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
+import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
 
 type RadioFilterProps = FilterFieldInterface & RadioProps;
 

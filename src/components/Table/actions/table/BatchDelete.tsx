@@ -1,7 +1,7 @@
 import React from "react";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import Batch, { BatchProps } from "@arteneo/forge/components/Table/actions/table/Batch";
-import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
+import { useTable } from "../../../../components/Table/contexts/Table";
+import Batch, { BatchProps } from "../../../../components/Table/actions/table/Batch";
+import { Optional } from "../../../../utils/TypescriptOperators";
 
 type BatchDeleteProps = Optional<BatchProps, "endpoint" | "confirmationLabel" | "snackbarLabel">;
 

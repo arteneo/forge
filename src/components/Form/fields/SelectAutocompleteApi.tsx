@@ -1,17 +1,17 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
+import { useForm } from "../../../components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
+import { resolveBooleanOrFunction, resolveStringOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import SelectElement, {
     SelectElementSpecificProps,
     SelectElementRenderInput,
-} from "@arteneo/forge/components/Form/elements/SelectElement";
-import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
-import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
-import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
-import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
+} from "../../../components/Form/elements/SelectElement";
+import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
+import OptionsType from "../../../components/Form/definitions/OptionsType";
+import OptionInterface from "../../../components/Form/definitions/OptionInterface";
+import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { debounce } from "lodash";
 import {
     AutocompleteChangeDetails,
@@ -19,7 +19,7 @@ import {
     AutocompleteRenderInputParams,
     AutocompleteRenderOptionState,
 } from "@mui/material";
-import { SelectValueType } from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
+import { SelectValueType } from "../../../components/Form/definitions/AutocompleteTypes";
 import Highlighter from "react-highlight-words";
 import { CircularProgress } from "@mui/material";
 import { makeStyles } from "@mui/styles";

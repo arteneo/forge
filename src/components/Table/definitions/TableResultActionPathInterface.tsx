@@ -1,4 +1,4 @@
-import TableResultActionInterface from "@arteneo/forge/components/Table/definitions/TableResultActionInterface";
+import TableResultActionInterface from "../../../components/Table/definitions/TableResultActionInterface";
 
 interface TableResultActionPathInterface extends TableResultActionInterface {
     /**

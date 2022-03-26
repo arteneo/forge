@@ -40,9 +40,6 @@ const config: webpack.Configuration = {
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
-        alias: {
-            "@arteneo/forge": path.resolve(__dirname, "src"),
-        },
     },
     plugins: [
         new ESLintPlugin({

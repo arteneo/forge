@@ -14,10 +14,7 @@
         "skipLibCheck": true,
         "noImplicitAny": false,
         "strict": true,
-        "types": ["node"],
-        "paths": {
-            "@arteneo/forge/*": ["src/*"]
-        }
+        "types": ["node"]
     },
     "include": ["src/**/*"]
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import SelectAutocompleteApi, {
     SelectAutocompleteApiProps,
-} from "@arteneo/forge/components/Form/fields/SelectAutocompleteApi";
-import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
+} from "../../../components/Form/fields/SelectAutocompleteApi";
+import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
 
 type SelectAutocompleteApiFilterProps = FilterFieldInterface & SelectAutocompleteApiProps;
 

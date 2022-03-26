@@ -1,5 +1,5 @@
 import React from "react";
-import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
+import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
 import { getIn, isString } from "formik";
 import { useTranslation } from "react-i18next";
 

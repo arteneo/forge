@@ -1,6 +1,6 @@
 import { FormikValues, FormikTouched, FormikErrors } from "formik";
-import FieldInterface from "@arteneo/forge/components/Form/definitions/FieldInterface";
-import FieldValidationSchemaType from "@arteneo/forge/components/Form/definitions/FieldValidationSchemaType";
+import FieldInterface from "../../../components/Form/definitions/FieldInterface";
+import FieldValidationSchemaType from "../../../components/Form/definitions/FieldValidationSchemaType";
 
 interface TextFieldInterface extends FieldInterface {
     required?:

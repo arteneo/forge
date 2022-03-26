@@ -1,6 +1,6 @@
 import React from "react";
-import DateTime, { DateTimeProps } from "@arteneo/forge/components/Form/fields/DateTime";
-import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
+import DateTime, { DateTimeProps } from "../../../components/Form/fields/DateTime";
+import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
 
 type DateTimeFromFilterProps = FilterFieldInterface & DateTimeProps;
 

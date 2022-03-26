@@ -1,5 +1,5 @@
 import React from "react";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
+import { useTable } from "../../../components/Table/contexts/Table";
 import {
     Box,
     Checkbox,
@@ -17,9 +17,9 @@ import {
 import { makeStyles } from "@mui/styles";
 import { Alert } from "@mui/lab";
 import { useTranslation } from "react-i18next";
-import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
-import TablePagination from "@arteneo/forge/components/Table/components/TablePagination";
-import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import RowInterface from "../../../components/Table/definitions/RowInterface";
+import TablePagination from "../../../components/Table/components/TablePagination";
+import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
 
 interface TableContentProps {
     row: RowInterface;

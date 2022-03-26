@@ -1,5 +1,5 @@
-import DeniedAccessListInterface from "@arteneo/forge/components/Table/definitions/DeniedAccessListInterface";
-import DeniedAccessBehaviorType from "@arteneo/forge/components/Table/definitions/DeniedAccessBehaviorType";
+import DeniedAccessListInterface from "../../../components/Table/definitions/DeniedAccessListInterface";
+import DeniedAccessBehaviorType from "../../../components/Table/definitions/DeniedAccessBehaviorType";
 
 interface DeniedAccessInterface {
     deniedAccessList?: DeniedAccessListInterface;

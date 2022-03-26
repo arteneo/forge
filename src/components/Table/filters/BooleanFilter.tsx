@@ -1,6 +1,6 @@
 import React from "react";
-import Boolean, { BooleanProps } from "@arteneo/forge/components/Form/fields/Boolean";
-import FilterFieldInterface from "@arteneo/forge/components/Table/definitions/FilterFieldInterface";
+import Boolean, { BooleanProps } from "../../../components/Form/fields/Boolean";
+import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
 
 type BooleanFilterProps = FilterFieldInterface & BooleanProps;
 

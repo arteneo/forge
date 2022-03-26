@@ -1,6 +1,6 @@
 import React from "react";
-import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
-import TableResultActionInterface from "@arteneo/forge/components/Table/definitions/TableResultActionInterface";
+import Button, { ButtonProps } from "../../../../components/Common/Button";
+import TableResultActionInterface from "../../../../components/Table/definitions/TableResultActionInterface";
 
 type ResultButtonProps = ButtonProps & TableResultActionInterface;
 

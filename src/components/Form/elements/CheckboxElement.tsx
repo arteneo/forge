@@ -8,7 +8,7 @@ import {
     FormControlLabel,
     FormControlLabelProps,
 } from "@mui/material";
-import FieldElementInterface from "@arteneo/forge/components/Form/definitions/FieldElementInterface";
+import FieldElementInterface from "../../../components/Form/definitions/FieldElementInterface";
 
 interface CheckboxElementSpecificProps {
     onChange?: (

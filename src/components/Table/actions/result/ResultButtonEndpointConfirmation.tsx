@@ -2,14 +2,14 @@ import React from "react";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import ButtonEndpointConfirmation, {
     ButtonEndpointConfirmationProps,
-} from "@arteneo/forge/components/Common/ButtonEndpointConfirmation";
-import TableResultActionPathInterface from "@arteneo/forge/components/Table/definitions/TableResultActionPathInterface";
-import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
-import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
+} from "../../../../components/Common/ButtonEndpointConfirmation";
+import TableResultActionPathInterface from "../../../../components/Table/definitions/TableResultActionPathInterface";
+import TableResultActionResolveType from "../../../../components/Table/definitions/TableResultActionResolveType";
+import { resolveAnyOrFunction } from "../../../../utils/resolve";
 import { getIn } from "formik";
-import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
-import WrapperInterface from "@arteneo/forge/definitions/WrapperInterface";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
+import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
+import WrapperInterface from "../../../../definitions/WrapperInterface";
+import { useTable } from "../../../../components/Table/contexts/Table";
 
 interface EndpointConfirmationProps {
     requestConfig: TableResultActionResolveType<AxiosRequestConfig>;

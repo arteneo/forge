@@ -1,13 +1,13 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
+import { useForm } from "../../../components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
+import { resolveBooleanOrFunction, resolveStringOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import RadioElement, { RadioElementSpecificProps } from "@arteneo/forge/components/Form/elements/RadioElement";
-import TextFieldInterface from "@arteneo/forge/components/Form/definitions/TextFieldInterface";
-import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
-import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
+import RadioElement, { RadioElementSpecificProps } from "../../../components/Form/elements/RadioElement";
+import TextFieldInterface from "../../../components/Form/definitions/TextFieldInterface";
+import OptionsType from "../../../components/Form/definitions/OptionsType";
+import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 
 interface RadioApiInternalProps {
     endpoint: undefined | string | ((values: FormikValues) => undefined | string);

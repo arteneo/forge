@@ -1,4 +1,4 @@
-import TableQueryInterface from "@arteneo/forge/components/Table/definitions/TableQueryInterface";
+import TableQueryInterface from "../../../components/Table/definitions/TableQueryInterface";
 
 interface TableQueriesInterface {
     [key: string]: TableQueryInterface;

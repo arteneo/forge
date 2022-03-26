@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid, GridProps } from "@mui/material";
-import TableColumnType from "@arteneo/forge/components/Table/definitions/TableColumnType";
+import TableColumnType from "../../../components/Table/definitions/TableColumnType";
 
 interface ActionsColumnProps extends TableColumnType {
     children: React.ReactNode;

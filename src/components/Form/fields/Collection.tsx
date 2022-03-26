@@ -1,9 +1,9 @@
 import React from "react";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
-import { resolveAnyOrFunction, resolveBooleanOrFunction } from "@arteneo/forge/utils/resolve";
+import { useForm } from "../../../components/Form/contexts/Form";
+import { resolveAnyOrFunction, resolveBooleanOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikTouched, FormikErrors, FormikProps, useFormikContext, getIn } from "formik";
-import FieldInterface from "@arteneo/forge/components/Form/definitions/FieldInterface";
-import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import FieldInterface from "../../../components/Form/definitions/FieldInterface";
+import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
 import {
     Box,
     FormHelperText,

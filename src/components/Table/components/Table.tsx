@@ -1,13 +1,13 @@
 import React from "react";
-import { TableProvider } from "@arteneo/forge/components/Table/contexts/Table";
-import TableContent from "@arteneo/forge/components/Table/components/TableContent";
-import RowInterface from "@arteneo/forge/components/Table/definitions/RowInterface";
-import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
-import SortingInterface from "@arteneo/forge/components/Table/definitions/SortingInterface";
-import FiltersInterface from "@arteneo/forge/components/Table/definitions/FiltersInterface";
-import FilterValuesInterface from "@arteneo/forge/components/Table/definitions/FilterValuesInterface";
-import TableFiltersFieldset from "@arteneo/forge/components/Table/components/TableFiltersFieldset";
-import TableFilters from "@arteneo/forge/components/Table/components/TableFilters";
+import { TableProvider } from "../../../components/Table/contexts/Table";
+import TableContent from "../../../components/Table/components/TableContent";
+import RowInterface from "../../../components/Table/definitions/RowInterface";
+import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import SortingInterface from "../../../components/Table/definitions/SortingInterface";
+import FiltersInterface from "../../../components/Table/definitions/FiltersInterface";
+import FilterValuesInterface from "../../../components/Table/definitions/FilterValuesInterface";
+import TableFiltersFieldset from "../../../components/Table/components/TableFiltersFieldset";
+import TableFilters from "../../../components/Table/components/TableFilters";
 
 interface TableProps {
     row: RowInterface;

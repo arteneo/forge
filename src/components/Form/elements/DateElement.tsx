@@ -2,7 +2,7 @@ import React from "react";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { DatePicker, DatePickerProps } from "@mui/lab";
 import { formatRFC3339, isValid } from "date-fns";
-import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
+import FieldElementPlaceholderInterface from "../../../components/Form/definitions/FieldElementPlaceholderInterface";
 import { TextField } from "@mui/material";
 
 interface DateElementSpecificProps {

@@ -12,15 +12,15 @@ import {
     AutocompleteProps,
     AutocompleteRenderInputParams,
 } from "@mui/material";
-import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
-import OptionInterface from "@arteneo/forge/components/Form/definitions/OptionInterface";
+import OptionsType from "../../../components/Form/definitions/OptionsType";
+import OptionInterface from "../../../components/Form/definitions/OptionInterface";
 import {
     SelectValueType,
     Multiple,
     DisableClearable,
     FreeSolo,
-} from "@arteneo/forge/components/Form/definitions/AutocompleteTypes";
-import FieldElementPlaceholderInterface from "@arteneo/forge/components/Form/definitions/FieldElementPlaceholderInterface";
+} from "../../../components/Form/definitions/AutocompleteTypes";
+import FieldElementPlaceholderInterface from "../../../components/Form/definitions/FieldElementPlaceholderInterface";
 
 type SelectElementAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
 type SelectElementAutocompletePartialProps<T> = {

@@ -1,15 +1,15 @@
 import React from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
+import { useTable } from "../../../../components/Table/contexts/Table";
+import Button, { ButtonProps } from "../../../../components/Common/Button";
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
-import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
+import { useSnackbar } from "../../../../contexts/Snackbar";
+import { useHandleCatch } from "../../../../contexts/HandleCatch";
+import { useLoader } from "../../../../contexts/Loader";
+import { resolveStringOrFunction } from "../../../../utils/resolve";
 import { Alert } from "@mui/lab";
-import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
+import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
 
 interface BatchProps extends ButtonProps {
     confirmationLabel?: string;

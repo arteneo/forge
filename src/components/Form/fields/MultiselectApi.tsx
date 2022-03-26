@@ -1,15 +1,15 @@
 import React from "react";
 import * as Yup from "yup";
-import { useForm } from "@arteneo/forge/components/Form/contexts/Form";
+import { useForm } from "../../../components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse, AxiosRequestConfig } from "axios";
-import { resolveBooleanOrFunction, resolveAxiosRequestConfigOrFunction } from "@arteneo/forge/utils/resolve";
+import { resolveBooleanOrFunction, resolveAxiosRequestConfigOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import MultiselectElement, {
     MultiselectElementSpecificProps,
-} from "@arteneo/forge/components/Form/elements/MultiselectElement";
-import TextFieldPlaceholderInterface from "@arteneo/forge/components/Form/definitions/TextFieldPlaceholderInterface";
-import OptionsType from "@arteneo/forge/components/Form/definitions/OptionsType";
-import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "@arteneo/forge/contexts/HandleCatch";
+} from "../../../components/Form/elements/MultiselectElement";
+import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
+import OptionsType from "../../../components/Form/definitions/OptionsType";
+import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import useDeepCompareEffect from "use-deep-compare-effect";
 
 interface MultiselectApiInternalProps {

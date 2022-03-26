@@ -3,13 +3,13 @@ import { AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
 import { Box, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
-import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
-import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
-import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
-import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
-import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
+import { useSnackbar } from "../../contexts/Snackbar";
+import { useLoader } from "../../contexts/Loader";
+import Button, { ButtonProps } from "../../components/Common/Button";
+import Form, { FormProps } from "../../components/Form/components/Form";
+import FormContentFields from "../../components/Form/components/FormContentFields";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { Optional } from "../../utils/TypescriptOperators";
 import { FormikContext, FormikHelpers, FormikValues } from "formik";
 
 interface ButtonDialogFormProps {

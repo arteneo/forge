@@ -1,5 +1,5 @@
 /* eslint-disable */
-import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
+import FieldsInterface from "../components/Form/definitions/FieldsInterface";
 import { FormikValues, setIn, getIn } from "formik";
 
 const populate = (fields: FieldsInterface, ...objects: FormikValues[]): FormikValues => {

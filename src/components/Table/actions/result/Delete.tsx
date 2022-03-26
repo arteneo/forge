@@ -1,12 +1,12 @@
 import React from "react";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
+import { useTable } from "../../../../components/Table/contexts/Table";
 import ResultButtonEndpointConfirmation, {
     ResultButtonEndpointConfirmationProps,
-} from "@arteneo/forge/components/Table/actions/result/ResultButtonEndpointConfirmation";
-import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
-import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
-import TableResultActionResolveType from "@arteneo/forge/components/Table/definitions/TableResultActionResolveType";
-import { resolveAnyOrFunction } from "@arteneo/forge/utils/resolve";
+} from "../../../../components/Table/actions/result/ResultButtonEndpointConfirmation";
+import { Optional } from "../../../../utils/TypescriptOperators";
+import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
+import TableResultActionResolveType from "../../../../components/Table/definitions/TableResultActionResolveType";
+import { resolveAnyOrFunction } from "../../../../utils/resolve";
 
 interface DeleteInterface {
     endpoint?: TableResultActionResolveType<string>;

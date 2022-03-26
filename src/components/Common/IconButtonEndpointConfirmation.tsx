@@ -2,13 +2,13 @@ import React from "react";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogProps, DialogTitle } from "@mui/material";
-import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
-import { useHandleCatch } from "@arteneo/forge/contexts/HandleCatch";
-import { useLoader } from "@arteneo/forge/contexts/Loader";
-import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
-import IconButton, { IconButtonProps } from "@arteneo/forge/components/Common/IconButton";
-import TranslateVariablesInterface from "@arteneo/forge/definitions/TranslateVariablesInterface";
-import { Optional } from "@arteneo/forge/utils/TypescriptOperators";
+import { useSnackbar } from "../../contexts/Snackbar";
+import { useHandleCatch } from "../../contexts/HandleCatch";
+import { useLoader } from "../../contexts/Loader";
+import Button, { ButtonProps } from "../../components/Common/Button";
+import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { Optional } from "../../utils/TypescriptOperators";
 
 interface IconButtonEndpointConfirmationProps {
     requestConfig: AxiosRequestConfig;

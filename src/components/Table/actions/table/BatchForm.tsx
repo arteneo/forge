@@ -1,16 +1,16 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useTable } from "@arteneo/forge/components/Table/contexts/Table";
-import Button, { ButtonProps } from "@arteneo/forge/components/Common/Button";
+import { useTable } from "../../../../components/Table/contexts/Table";
+import Button, { ButtonProps } from "../../../../components/Common/Button";
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { useSnackbar } from "@arteneo/forge/contexts/Snackbar";
-import { resolveStringOrFunction } from "@arteneo/forge/utils/resolve";
+import { useSnackbar } from "../../../../contexts/Snackbar";
+import { resolveStringOrFunction } from "../../../../utils/resolve";
 import { Alert } from "@mui/lab";
-import FieldsInterface from "@arteneo/forge/components/Form/definitions/FieldsInterface";
-import Form, { FormProps } from "@arteneo/forge/components/Form/components/Form";
-import FormContentFields from "@arteneo/forge/components/Form/components/FormContentFields";
+import FieldsInterface from "../../../../components/Form/definitions/FieldsInterface";
+import Form, { FormProps } from "../../../../components/Form/components/Form";
+import FormContentFields from "../../../../components/Form/components/FormContentFields";
 import { FormikContext, FormikHelpers, FormikValues } from "formik";
-import ResultInterface from "@arteneo/forge/components/Table/definitions/ResultInterface";
+import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
 
 interface BatchFormProps extends ButtonProps {
     fields: FieldsInterface;

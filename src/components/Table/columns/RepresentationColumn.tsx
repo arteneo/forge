@@ -1,6 +1,6 @@
 import React from "react";
 import { getIn } from "formik";
-import TableColumnPathType from "@arteneo/forge/components/Table/definitions/TableColumnPathType";
+import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
 
 const RepresentationColumn = ({ result, field, path }: TableColumnPathType) => {
     if (typeof field === "undefined") {
