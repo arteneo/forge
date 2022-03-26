@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
         cursor: "pointer",
     },
     iconAddRow: {
-        padding: theme.spacing(1),
+        padding: 5, // TODO theme.spacing(1),
     },
 }));
 

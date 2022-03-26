@@ -9,10 +9,10 @@ interface TableFiltersFieldsetProps {
 
 const useStyles = makeStyles((theme) => ({
     gridContainer: {
-        padding: theme.spacing(0, 0, 4, 0),
+        padding: "0 0 20 0", // TODO theme.spacing(0, 0, 4, 0),
     },
     gridItem: {
-        padding: theme.spacing(0, 4) + " !important",
+        padding: "0 20 0 20 !important", // TODO theme.spacing(0, 4) + " !important",
     },
 }));
 

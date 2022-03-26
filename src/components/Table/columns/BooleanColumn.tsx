@@ -10,12 +10,12 @@ type BooleanColumnProps = TableColumnPathType & ChipFieldInterface;
 
 const useStyles = makeStyles((theme) => ({
     yes: {
-        borderColor: theme.palette.success.dark,
-        color: theme.palette.success.dark,
+        borderColor: "blue", //theme.palette.success.dark,
+        color: "blue", //theme.palette.success.dark,
     },
     no: {
-        borderColor: theme.palette.error.dark,
-        color: theme.palette.error.dark,
+        borderColor: "blue", //theme.palette.error.dark,
+        color: "blue", //theme.palette.error.dark,
     },
 }));
 

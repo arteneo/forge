@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexShrink: 0,
-        marginLeft: theme.spacing(2.5),
+        marginLeft: 12.5, // TODO theme.spacing(2.5),
     },
 }));
 

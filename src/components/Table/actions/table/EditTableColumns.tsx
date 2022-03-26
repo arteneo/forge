@@ -62,15 +62,15 @@ const useStyles = makeStyles((theme) => ({
         cursor: "pointer !important",
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: theme.palette.grey[300],
-        marginBottom: theme.spacing(2),
+        borderColor: "blue", // theme.palette.grey[300],
+        marginBottom: 10, // TODO theme.spacing(2),
     },
     dialogActions: {
-        margin: theme.spacing(2),
+        margin: 10, // TODO theme.spacing(2),
         justifyContent: "space-between",
     },
     list: {
-        border: `2px solid ${theme.palette.grey[300]}`,
+        border: "2px solid blue", //`2px solid ${theme.palette.grey[300]}`,
         padding: "4px",
     },
 }));

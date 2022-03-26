@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     highlight: {
         fontWeight: 700,
         backgroundColor: "transparent",
-        color: theme.palette.primary.main,
+        color: "red", // TODO theme.palette.primary.main,
     },
 }));
 

@@ -19,19 +19,19 @@ const useStyles = makeStyles((theme) => ({
     accordion: {
         borderLeft: "4px solid transparent",
         borderRight: "4px solid transparent",
-        marginBottom: theme.spacing(4),
+        marginBottom: 20, // TODO theme.spacing(4),
         borderRadius: "4px",
         "&:before": {
             display: "none",
         },
     },
     accordionActive: {
-        borderLeft: "4px solid " + theme.palette.primary.main,
-        borderRight: "4px solid " + theme.palette.primary.main,
+        borderLeft: "blue", //"4px solid " + theme.palette.primary.main,
+        borderRight: "blue", //"4px solid " + theme.palette.primary.main,
     },
     titleIcon: {
         display: "flex",
-        marginRight: theme.spacing(1.5),
+        marginRight: 7.5, // TODO theme.spacing(1.5),
     },
 }));
 
