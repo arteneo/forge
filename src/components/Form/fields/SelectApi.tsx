@@ -45,7 +45,7 @@ const SelectApi = ({
         throw new Error("SelectApi component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
+    const { getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
 
@@ -66,17 +66,18 @@ const SelectApi = ({
             defaultValidationSchema = defaultValidationSchema.required("validation.required");
         }
 
-        resolveValidationSchema(
-            resolvedPath,
-            validationSchema,
-            defaultValidationSchema,
-            resolvedHidden,
-            resolvedRequired,
-            values,
-            touched,
-            errors,
-            name
-        );
+        // TODO
+        // resolveValidationSchema(
+        //     resolvedPath,
+        //     validationSchema,
+        //     defaultValidationSchema,
+        //     resolvedHidden,
+        //     resolvedRequired,
+        //     values,
+        //     touched,
+        //     errors,
+        //     name
+        // );
     };
 
     const load = () => {
@@ -110,7 +111,7 @@ const SelectApi = ({
         };
     };
 
-    if (resolvedHidden || !isReady(resolvedPath)) {
+    if (resolvedHidden) {
         return null;
     }
 

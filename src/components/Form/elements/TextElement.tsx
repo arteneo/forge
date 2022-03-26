@@ -30,7 +30,18 @@ const TextElement = ({
     onChange,
     fieldProps,
 }: TextElementProps) => {
-    const { values, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
+    const { values, setFieldValue, registerField, unregisterField }: FormikProps<FormikValues> = useFormikContext();
+
+    const validate = () => (values.firstName === "1" ? "2" : undefined);
+    // TODO Validate stuff
+    React.useEffect(() => {
+        registerField(name, {
+            validate: validate,
+        });
+        return () => {
+            unregisterField(name);
+        };
+    }, [registerField, unregisterField, name, validate]);
 
     const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFieldValue(path, event.currentTarget.value);
@@ -52,7 +63,8 @@ const TextElement = ({
         error: hasError,
         label,
         placeholder,
-        required,
+        // TODO
+        required: false,
         disabled,
         fullWidth: true,
         margin: "normal",

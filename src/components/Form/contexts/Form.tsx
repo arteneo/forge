@@ -1,33 +1,15 @@
 import React from "react";
-import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
 import { FormikValues, FormikTouched, FormikErrors, getIn } from "formik";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "../../../contexts/HandleCatch";
-import { populate } from "../../../utils/common";
 import { resolveReactNodeOrFunction, resolveAnyOrFunction } from "../../../utils/resolve";
-import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
 import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
 import FieldLabelType from "../../../components/Form/definitions/FieldLabelType";
 import FieldPlaceholderType from "../../../components/Form/definitions/FieldPlaceholderType";
-import ValidationSchemaInterface from "../../../components/Form/definitions/ValidationSchemaInterface";
 
 interface FormContextProps {
     formikInitialValues: FormikValues;
-    formikValidationSchema: ValidationSchemaInterface;
-    isReady: (path: string) => boolean;
-    setValidationSchema: (path: string, validationSchema: ValidationSchemaInterface) => void;
-    resolveValidationSchema: (
-        path: string,
-        validationSchema: ValidationSchemaInterface,
-        defaultValidationSchema: ValidationSchemaInterface,
-        hidden: boolean,
-        required: boolean,
-        values: FormikValues,
-        touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>,
-        name: string
-    ) => void;
     hasError: (
         path: string,
         touched: FormikTouched<FormikValues>,
@@ -66,40 +48,17 @@ interface FormContextProps {
         help?: FieldHelpType,
         disableTranslateHelp?: boolean
     ) => undefined | React.ReactNode;
-    // eslint-disable-next-line
-    object?: any;
-    // eslint-disable-next-line
-    setObject: (object: any) => void;
-    // eslint-disable-next-line
-    submitAction?: any;
-    // eslint-disable-next-line
-    setSubmitAction: (submitAction: any) => void;
 }
 
 interface FormProviderProps {
     children: React.ReactNode;
-    fields?: FieldsInterface;
     initialValues?: FormikValues;
     initializeEndpoint?: string;
     translateLabelPrefix?: string;
-    /**
-     * Idea of isReady function used in each FieldX component to render X view only after validationSchema is initialized.
-     * This allows to lower number of rerenders.
-     * By default components are always ready.
-     */
-    isReady?: (formikValidationSchema: ValidationSchemaInterface, path: string) => boolean;
 }
 
 const contextInitial = {
     formikInitialValues: {},
-    formikValidationSchema: {},
-    isReady: () => true,
-    setValidationSchema: () => {
-        return;
-    },
-    resolveValidationSchema: () => {
-        return;
-    },
     hasError: () => {
         return false;
     },
@@ -115,51 +74,31 @@ const contextInitial = {
     getHelp: () => {
         return undefined;
     },
-    object: undefined,
-    setObject: () => {
-        return;
-    },
-    submitAction: undefined,
-    setSubmitAction: () => {
-        return;
-    },
 };
 
 const FormContext = React.createContext<FormContextProps>(contextInitial);
 
 const FormProvider = ({
     children,
-    fields,
     initialValues,
     initializeEndpoint,
-    translateLabelPrefix = "label.",
-    isReady = () => true,
+    translateLabelPrefix = "form.",
 }: FormProviderProps) => {
     const { t } = useTranslation();
 
-    const [formikValidationSchema, setFormikValidationSchema] = React.useState(Yup.object().shape({}));
     const [formikInitialValues, setFormikInitialValues] = React.useState({});
-    const [object, setObject] = React.useState(undefined);
-    const [submitAction, setSubmitAction] = React.useState(undefined);
     const handleCatch = useHandleCatch();
 
+    // TODO Changing intitialValues might not actually trigger useEffect due nested nature. Test and decide
     React.useEffect(() => initializeValues(), [initializeEndpoint, initialValues]);
 
     const initializeValues = () => {
-        if (typeof initializeEndpoint === "undefined" && typeof initialValues === "undefined") {
+        if (typeof initialValues !== "undefined") {
+            setFormikInitialValues(initialValues);
             return;
         }
 
-        if (typeof fields === "undefined") {
-            throw new Error(
-                "FormProvider component: fields prop is required to use initializeEndpoint or initialValues."
-            );
-        }
-
         if (typeof initializeEndpoint === "undefined") {
-            setFormikInitialValues(() => ({
-                ...populate(fields, {}, initialValues || {}),
-            }));
             return;
         }
 
@@ -170,84 +109,13 @@ const FormProvider = ({
                 cancelToken: axiosSource.token,
             })
             .then((response: AxiosResponse) => {
-                setObject(response.data);
-                setFormikInitialValues(() => ({
-                    ...populate(fields, {}, initialValues || {}, response.data),
-                }));
+                setFormikInitialValues(response.data);
             })
             .catch((error: AxiosError) => handleCatch(error));
 
         return () => {
             axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
         };
-    };
-
-    const setValidationSchema = (path: string, validationSchema: ValidationSchemaInterface) => {
-        setFormikValidationSchema((formikValidationSchema: ValidationSchemaInterface) => {
-            const pathParts = path.split(".");
-
-            let validationSchemaObject: undefined | ValidationSchemaInterface = undefined;
-            pathParts.reverse().forEach((pathPart) => {
-                const isArrayPart = /^\d+$/.test(pathPart);
-
-                const yupShape: ValidationSchemaInterface = {};
-
-                if (typeof validationSchemaObject !== "undefined") {
-                    yupShape[pathPart] = validationSchemaObject;
-                } else if (typeof validationSchema !== "undefined") {
-                    yupShape[pathPart] = validationSchema;
-                }
-
-                if (isArrayPart) {
-                    if (typeof validationSchemaObject === "undefined") {
-                        throw Error("Last pathPart is a number. This should not happen, please check you code");
-                    }
-
-                    validationSchemaObject = Yup.array().of(validationSchemaObject);
-                } else {
-                    validationSchemaObject = Yup.object().shape(yupShape);
-                }
-            });
-
-            // Experimental solution
-            // formikValidationSchema.concat(validationSchemaObject); does not override fields properly
-            // validationSchemaObject.concat(formikValidationSchema); does not override fields properly
-            return formikValidationSchema.shape(validationSchemaObject.fields);
-        });
-    };
-
-    const resolveValidationSchema = (
-        path: string,
-        validationSchema: ValidationSchemaInterface,
-        defaultValidationSchema: ValidationSchemaInterface,
-        hidden: boolean,
-        required: boolean,
-        values: FormikValues,
-        touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>,
-        name: string
-    ) => {
-        if (hidden) {
-            setValidationSchema(path, undefined);
-            return;
-        }
-
-        if (validationSchema) {
-            const resolvedValidationSchema = resolveAnyOrFunction(
-                validationSchema,
-                defaultValidationSchema,
-                required,
-                hidden,
-                values,
-                touched,
-                errors,
-                name
-            );
-            setValidationSchema(path, resolvedValidationSchema);
-            return;
-        }
-
-        setValidationSchema(path, defaultValidationSchema);
     };
 
     const hasError = (
@@ -346,31 +214,15 @@ const FormProvider = ({
         return resolvedHelp;
     };
 
-    const componentIsReady = (path: string): boolean => {
-        if (isReady) {
-            return isReady(formikValidationSchema, path);
-        }
-
-        return true;
-    };
-
     return (
         <FormContext.Provider
             value={{
-                isReady: componentIsReady,
                 formikInitialValues,
-                formikValidationSchema,
-                setValidationSchema,
-                resolveValidationSchema,
                 hasError,
                 getError,
                 getLabel,
                 getPlaceholder,
                 getHelp,
-                object,
-                setObject,
-                submitAction,
-                setSubmitAction,
             }}
         >
             {children}

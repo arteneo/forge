@@ -38,12 +38,7 @@ const BatchForm = ({
     const { showSuccess } = useSnackbar();
     const [showConfirmation, setShowConfirmation] = React.useState(false);
 
-    const onSubmitSuccess = (
-        defaultOnSubmitSuccess: () => void,
-        // eslint-disable-next-line
-        submitAction: any,
-        helpers: FormikHelpers<FormikValues>
-    ) => {
+    const onSubmitSuccess = (defaultOnSubmitSuccess: () => void, helpers: FormikHelpers<FormikValues>) => {
         helpers.setSubmitting(false);
 
         showSuccess(snackbarLabel);

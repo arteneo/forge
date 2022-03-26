@@ -100,12 +100,12 @@ const Collection = ({
     }
 
     const classes = useStyles();
-    const { isReady, getError, getLabel, getHelp } = useForm();
+    const { getError, getLabel, getHelp } = useForm();
     const { values, touched, errors, setFieldValue, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
 
-    if (resolvedHidden || !isReady(name)) {
+    if (resolvedHidden) {
         return null;
     }
 

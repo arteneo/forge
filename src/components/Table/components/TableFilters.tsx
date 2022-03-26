@@ -65,10 +65,12 @@ const TableFilters = ({ filters, filterClass, filtersFieldset }: TableFiltersPro
             <AccordionDetails>
                 <Box p={2} display="flex" flexGrow={1}>
                     <Form
-                        fields={filters}
+                        // TODO
+                        // fields={filters}
                         initialValues={filterValues}
                         onSubmit={onSubmitFilters}
-                        buttons={<TableFiltersButtons />}
+                        // TODO
+                        // buttons={<TableFiltersButtons />}
                     >
                         <FiltersFieldset filters={filters} />
                     </Form>

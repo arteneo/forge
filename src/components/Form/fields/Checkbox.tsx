@@ -26,7 +26,7 @@ const Checkbox = ({
         throw new Error("Checkbox component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, resolveValidationSchema, getError, getLabel, getHelp } = useForm();
+    const { getError, getLabel, getHelp } = useForm();
     const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
@@ -42,20 +42,21 @@ const Checkbox = ({
             defaultValidationSchema = defaultValidationSchema.oneOf([true], "validation.required");
         }
 
-        resolveValidationSchema(
-            resolvedPath,
-            validationSchema,
-            defaultValidationSchema,
-            resolvedHidden,
-            resolvedRequired,
-            values,
-            touched,
-            errors,
-            name
-        );
+        // TODO
+        // resolveValidationSchema(
+        //     resolvedPath,
+        //     validationSchema,
+        //     defaultValidationSchema,
+        //     resolvedHidden,
+        //     resolvedRequired,
+        //     values,
+        //     touched,
+        //     errors,
+        //     name
+        // );
     };
 
-    if (resolvedHidden || !isReady(resolvedPath)) {
+    if (resolvedHidden) {
         return null;
     }
 

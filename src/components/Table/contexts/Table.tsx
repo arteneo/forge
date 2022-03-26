@@ -33,12 +33,7 @@ interface TableContextProps {
     filterClass?: { accordion: string; accordionActive: string };
     filtersExpanded: boolean;
     setFiltersExpanded: (filtersExpanded: boolean) => void;
-    onSubmitFilters: (
-        values: FormikValues,
-        helpers: FormikHelpers<FormikValues>,
-        // eslint-disable-next-line
-        setObject: (object: any) => void
-    ) => void;
+    onSubmitFilters: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
     isFiltersActive: () => boolean;
     // eslint-disable-next-line
     clearFilters: (setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void) => void;

@@ -29,7 +29,7 @@ const Date = ({
         throw new Error("Date component: name is required prop. By default it is injected by FormContent.");
     }
 
-    const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
+    const { getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
 
     const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
@@ -46,20 +46,21 @@ const Date = ({
             defaultValidationSchema = defaultValidationSchema.required("validation.required");
         }
 
-        resolveValidationSchema(
-            resolvedPath,
-            validationSchema,
-            defaultValidationSchema,
-            resolvedHidden,
-            resolvedRequired,
-            values,
-            touched,
-            errors,
-            name
-        );
+        // TODO
+        // resolveValidationSchema(
+        //     resolvedPath,
+        //     validationSchema,
+        //     defaultValidationSchema,
+        //     resolvedHidden,
+        //     resolvedRequired,
+        //     values,
+        //     touched,
+        //     errors,
+        //     name
+        // );
     };
 
-    if (resolvedHidden || !isReady(resolvedPath)) {
+    if (resolvedHidden) {
         return null;
     }
 

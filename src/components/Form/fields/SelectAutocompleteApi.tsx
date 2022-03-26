@@ -114,7 +114,7 @@ const SelectAutocompleteApi = ({
     }
 
     const classes = useStyles();
-    const { isReady, resolveValidationSchema, getError, getLabel, getPlaceholder, getHelp } = useForm();
+    const { getError, getLabel, getPlaceholder, getHelp } = useForm();
     const { values, touched, errors, submitCount, setFieldValue }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
 
@@ -140,17 +140,18 @@ const SelectAutocompleteApi = ({
             defaultValidationSchema = defaultValidationSchema.required("validation.required");
         }
 
-        resolveValidationSchema(
-            resolvedPath,
-            validationSchema,
-            defaultValidationSchema,
-            resolvedHidden,
-            resolvedRequired,
-            values,
-            touched,
-            errors,
-            name
-        );
+        // TODO
+        // resolveValidationSchema(
+        //     resolvedPath,
+        //     validationSchema,
+        //     defaultValidationSchema,
+        //     resolvedHidden,
+        //     resolvedRequired,
+        //     values,
+        //     touched,
+        //     errors,
+        //     name
+        // );
     };
 
     // Variables stores cancel token for axios to be used when component is unmounting
@@ -222,7 +223,7 @@ const SelectAutocompleteApi = ({
         };
     }, [debouncedLoad]);
 
-    if (resolvedHidden || !isReady(resolvedPath)) {
+    if (resolvedHidden) {
         return null;
     }
 

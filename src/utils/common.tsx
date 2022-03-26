@@ -1,6 +1,23 @@
 /* eslint-disable */
+import React from "react";
 import FieldsInterface from "../components/Form/definitions/FieldsInterface";
 import { FormikValues, setIn, getIn } from "formik";
+
+export const renderField = (fields: FieldsInterface) => {
+    // eslint-disable-next-line
+    return (field: string, props: any = {}) => {
+        if (typeof fields?.[field] === "undefined") {
+            throw new Error("Missing '" + field + "' field definition");
+        }
+
+        return React.cloneElement(
+            fields[field],
+            Object.assign(props, {
+                name: fields[field].props.name || field,
+            })
+        );
+    };
+};
 
 const populate = (fields: FieldsInterface, ...objects: FormikValues[]): FormikValues => {
     if (objects.length === 0) {
