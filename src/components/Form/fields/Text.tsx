@@ -1,98 +1,102 @@
 import React from "react";
-import * as Yup from "yup";
+import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
+import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import { useForm } from "../../../components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "../../../utils/resolve";
-import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextElement, { TextElementSpecificProps } from "../../../components/Form/elements/TextElement";
-import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
 
-type TextProps = TextElementSpecificProps & TextFieldPlaceholderInterface;
+interface TextSpecificProps {
+    onChange?: (
+        path: string,
+        // eslint-disable-next-line
+        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+        event: React.ChangeEvent<HTMLInputElement>,
+        onChange: () => void,
+        values: FormikValues,
+        name: string
+    ) => void;
+    fieldProps?: TextFieldProps;
+}
 
-const Text = ({
-    name,
-    path,
-    label,
-    placeholder,
-    disableAutoLabel = false,
-    disableTranslateLabel = false,
-    enableAutoPlaceholder = false,
-    disableTranslatePlaceholder = false,
-    help,
-    disableTranslateHelp = false,
-    required = false,
-    hidden = false,
-    disabled = false,
-    validationSchema,
-    ...elementSpecificProps
-}: TextProps) => {
-    if (typeof name === "undefined") {
-        throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
-    }
+type TextProps = TextSpecificProps & FieldPlaceholderInterface;
 
-    const { getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
-
-    const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
-    const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    const resolvedPath = path ? path : name;
-
-    React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
-
-    const updateValidationSchema = () => {
-        let defaultValidationSchema = Yup.string();
-
-        if (resolvedRequired) {
-            defaultValidationSchema = defaultValidationSchema.required("validation.required");
-        }
-
-        // TODO
-        // resolveValidationSchema(
-        //     resolvedPath,
-        //     validationSchema,
-        //     defaultValidationSchema,
-        //     resolvedHidden,
-        //     resolvedRequired,
-        //     values,
-        //     touched,
-        //     errors,
-        //     name
-        // );
-    };
-
-    if (resolvedHidden) {
-        return null;
-    }
-
-    const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
-    const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
-    const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
-    const resolvedPlaceholder = getPlaceholder(
-        placeholder,
+const Text = ({ onChange, fieldProps, ...field }: TextProps) => {
+    const {
         values,
         touched,
         errors,
-        name,
-        enableAutoPlaceholder,
-        disableTranslatePlaceholder
-    );
+        submitCount,
+        setFieldValue,
+        registerField,
+        unregisterField,
+    }: FormikProps<FormikValues> = useFormikContext();
+    const { resolvePlaceholderField } = useForm();
+    const { name, path, label, error, help, required, disabled, hidden, validate, placeholder } =
+        resolvePlaceholderField({
+            values,
+            touched,
+            errors,
+            submitCount,
+            ...field,
+        });
+    console.log("🚀 ~ file: Text.tsx ~ line 34 ~ Text ~ validate", validate);
 
-    return (
-        <TextElement
-            {...{
-                name,
-                path: resolvedPath,
-                label: resolvedLabel,
-                placeholder: resolvedPlaceholder,
-                error: resolvedError,
-                help: resolvedHelp,
-                required: resolvedRequired,
-                disabled: resolvedDisabled,
-                ...elementSpecificProps,
-            }}
-        />
-    );
+    React.useEffect(() => {
+        console.log("🚀 ~ file: Text.tsx ~ line 43 ~ React.useEffect ~ validate", validate);
+        if (hidden || typeof validate === "undefined") {
+            return;
+        }
+
+        registerField(name, {
+            validate: () => validate,
+        });
+
+        return () => {
+            unregisterField(name);
+        };
+    }, [hidden, registerField, unregisterField, name, validate]);
+
+    if (hidden) {
+        return null;
+    }
+
+    const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFieldValue(path, event.currentTarget.value);
+    };
+
+    const callableOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (onChange) {
+            onChange(path, setFieldValue, event, () => defaultOnChange(event), values, name);
+            return;
+        }
+
+        defaultOnChange(event);
+    };
+
+    const hasError = error ? true : false;
+    const internalFieldProps: TextFieldProps = {
+        value: getIn(values, path, ""),
+        onChange: callableOnChange,
+        error: hasError,
+        label,
+        placeholder,
+        required,
+        disabled,
+    };
+
+    if (hasError || help) {
+        internalFieldProps.helperText = (
+            <>
+                {error}
+                {hasError && <br />}
+                {help}
+            </>
+        );
+    }
+
+    const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);
+
+    return <MuiTextField {...mergedFieldProps} />;
 };
 
 export default Text;
-export { TextProps };
+export { TextProps, TextSpecificProps };

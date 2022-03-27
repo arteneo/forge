@@ -32,7 +32,7 @@ const TextElement = ({
 }: TextElementProps) => {
     const { values, setFieldValue, registerField, unregisterField }: FormikProps<FormikValues> = useFormikContext();
 
-    const validate = () => (values.firstName === "1" ? "2" : undefined);
+    const validate = () => (values.username === "1" ? "username is 1" : undefined);
     // TODO Validate stuff
     React.useEffect(() => {
         registerField(name, {

@@ -1,20 +1,16 @@
 import React from "react";
-import { FormikValues } from "formik";
 import FormContent, { FormContentProps } from "../../../components/Form/components/FormContent";
-import { FormProvider } from "../../../components/Form/contexts/Form";
+import { FormProvider, FormProviderProps } from "../../../components/Form/contexts/Form";
 
-// TODO Maybye use FormProvider props?
-interface FormProps extends FormContentProps {
-    initialValues?: FormikValues;
-    initializeEndpoint?: string;
-    translateLabelPrefix?: string;
-}
+type FormProps = FormContentProps & Omit<FormProviderProps, "children">;
 
 const Form = ({
     children,
     endpoint,
+    fields,
     initialValues,
     initializeEndpoint,
+    processInitialValues,
     translateLabelPrefix,
     changeSubmitValues,
     onSubmitSuccess,
@@ -22,7 +18,7 @@ const Form = ({
     formikProps,
 }: FormProps) => {
     return (
-        <FormProvider {...{ initialValues, initializeEndpoint, translateLabelPrefix }}>
+        <FormProvider {...{ fields, initialValues, initializeEndpoint, processInitialValues, translateLabelPrefix }}>
             <FormContent {...{ onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, formikProps }}>
                 {children}
             </FormContent>

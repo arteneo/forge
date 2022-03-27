@@ -14,7 +14,7 @@
         "skipLibCheck": true,
         "noImplicitAny": false,
         "strict": true,
-        "types": ["node"]
+        "types": ["jest", "node"]
     },
     "include": ["src/**/*"]
 }

@@ -1,7 +1,8 @@
 import React from "react";
 import clsx from "clsx";
-import Form from "../../../components/Form/components/Form";
-import TableFiltersButtons from "../../../components/Table/components/TableFiltersButtons";
+// TODO
+// import Form from "../../../components/Form/components/Form";
+// import TableFiltersButtons from "../../../components/Table/components/TableFiltersButtons";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
@@ -64,8 +65,8 @@ const TableFilters = ({ filters, filterClass, filtersFieldset }: TableFiltersPro
             </AccordionSummary>
             <AccordionDetails>
                 <Box p={2} display="flex" flexGrow={1}>
-                    <Form
-                        // TODO
+                    {/* // TODO */}
+                    {/* <Form
                         // fields={filters}
                         initialValues={filterValues}
                         onSubmit={onSubmitFilters}
@@ -73,7 +74,7 @@ const TableFilters = ({ filters, filterClass, filtersFieldset }: TableFiltersPro
                         // buttons={<TableFiltersButtons />}
                     >
                         <FiltersFieldset filters={filters} />
-                    </Form>
+                    </Form> */}
                 </Box>
             </AccordionDetails>
         </Accordion>

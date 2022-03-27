@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React from "react";
 import FieldsInterface from "../components/Form/definitions/FieldsInterface";
-import { FormikValues, setIn, getIn } from "formik";
+import { FormikValues, getIn } from "formik";
 
 export const renderField = (fields: FieldsInterface) => {
     // eslint-disable-next-line
@@ -13,55 +12,65 @@ export const renderField = (fields: FieldsInterface) => {
         return React.cloneElement(
             fields[field],
             Object.assign(props, {
+                key: field,
                 name: fields[field].props.name || field,
             })
         );
     };
 };
 
-const populate = (fields: FieldsInterface, ...objects: FormikValues[]): FormikValues => {
-    if (objects.length === 0) {
-        return {};
-    }
-
-    let populatedObject: FormikValues = {};
+export const filterInitialValues = (
+    fields: FieldsInterface,
+    initialValues?: FormikValues,
+    loadedInitialValues?: FormikValues
+): FormikValues => {
+    const values: FormikValues = {};
 
     Object.keys(fields).forEach((fieldName) => {
         const field = fields[fieldName];
-        const fieldFields = field?.props?.fields;
-
-        if (fieldFields) {
-            // This field has it own fields definition (Collection)
-            // Prepare fieldObjects variable which has only values for this field. Not existing objects are removed
-            const fieldObjects = objects.map((object) => object[fieldName] || null).filter((object) => object !== null);
-            if (fieldObjects.length > 0) {
-                populatedObject[fieldName] = populate(fieldFields, ...fieldObjects);
-            }
-
+        if (typeof field?.props?.fields !== "undefined") {
+            // Collection field
+            const collectionValues: FormikValues[] = getIn(
+                loadedInitialValues,
+                fieldName,
+                getIn(initialValues, fieldName, [])
+            );
+            values[fieldName] = collectionValues
+                .map((collectionValue) => filterInitialValues(field?.props?.fields, collectionValue))
+                .filter((collectionValue) => Object.keys(collectionValue).length > 0);
             return;
         }
 
-        objects.forEach((object) => {
-            const path = field?.props?.path ? field.props.path : fieldName;
-            const initialValue = getIn(object, path, undefined);
-
-            if (Array.isArray(object)) {
-                // TODO This works but does not make sense for many objects. Should be reworked
-                populatedObject = object.map((objectValue) => populate(fields, objectValue));
-            } else if (typeof initialValue !== "undefined") {
-                // This badly designed solution, but makes life much easier. Better solution kindly requested
-                const transformInitialValue = field?.props?.transformInitialValue;
-                if (transformInitialValue) {
-                    populatedObject = setIn(populatedObject, path, transformInitialValue(initialValue));
-                    return;
-                }
-
-                populatedObject = setIn(populatedObject, path, initialValue);
-            }
-        });
+        const value = getIn(loadedInitialValues, fieldName, getIn(initialValues, fieldName, undefined));
+        if (typeof value !== "undefined") {
+            values[fieldName] = value;
+        }
     });
 
-    return populatedObject;
+    return values;
 };
 
-export { populate };
+export const transformInitialValues = (fields: FieldsInterface, initialValues: FormikValues): FormikValues => {
+    const values: FormikValues = Object.assign({}, initialValues);
+
+    Object.keys(fields).forEach((fieldName) => {
+        const field = fields[fieldName];
+        if (typeof field?.props?.fields !== "undefined") {
+            // Collection field
+            const collectionValues: undefined | FormikValues[] = getIn(initialValues, fieldName, undefined);
+
+            if (typeof collectionValues !== "undefined") {
+                values[fieldName] = collectionValues.map((collectionValue) =>
+                    transformInitialValues(field?.props?.fields, collectionValue)
+                );
+            }
+            return;
+        }
+
+        if (typeof field?.props?.transformInitialValue !== "undefined") {
+            values[fieldName] = field?.props?.transformInitialValue(getIn(initialValues, fieldName));
+        }
+    });
+
+    return values;
+};

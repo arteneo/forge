@@ -11,6 +11,7 @@
         "lint": "eslint 'src/**/*.{js,ts,tsx}'",
         "dev": "webpack --mode development",
         "watch": "webpack --watch --mode development",
+        "test": "jest",
         "build": "webpack --mode production"
     },
     "repository": {
@@ -54,6 +55,7 @@
         "@mui/lab": "^5.0.0-alpha.65",
         "@mui/material": "^5.3.0",
         "@mui/styles": "^5.3.0",
+        "@types/jest": "^27.4.1",
         "@types/node": "^17.0.10",
         "@types/react": "^17.0.38",
         "@types/react-beautiful-dnd": "^13.1.2",
@@ -73,6 +75,7 @@
         "eslint-webpack-plugin": "^3.1.1",
         "formik": "^2.2.9",
         "i18next": "^21.6.7",
+        "jest": "^27.5.1",
         "lodash": "^4.17.21",
         "prettier": "^2.5.1",
         "prop-types": "^15.8.1",
@@ -83,6 +86,7 @@
         "react-highlight-words": "^0.17.0",
         "react-i18next": "^11.15.3",
         "react-router-dom": "^6.2.1",
+        "ts-jest": "^27.1.4",
         "ts-loader": "^9.2.6",
         "ts-node": "^10.4.0",
         "typescript": "^4.5.5",

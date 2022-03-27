@@ -2,12 +2,12 @@ import React from "react";
 import { useForm } from "../../../components/Form/contexts/Form";
 import { resolveBooleanOrFunction } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextareaElement, { TextareaElementSpecificProps } from "../../../components/Form/elements/TextareaElement";
+import TextElement, { TextElementSpecificProps } from "../../../components/Form/elements/TextElement";
 import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
 
-type TextareaProps = TextareaElementSpecificProps & TextFieldPlaceholderInterface;
+type TextProps = TextElementSpecificProps & TextFieldPlaceholderInterface;
 
-const Textarea = ({
+const Text = ({
     name,
     path,
     label,
@@ -22,9 +22,9 @@ const Textarea = ({
     hidden = false,
     disabled = false,
     ...elementSpecificProps
-}: TextareaProps) => {
+}: TextProps) => {
     if (typeof name === "undefined") {
-        throw new Error("Textarea component: name is required prop. By default it is injected by FormContent.");
+        throw new Error("Text component: name is required prop. By default it is injected by FormContent.");
     }
 
     const { getError, getLabel, getPlaceholder, getHelp } = useForm();
@@ -52,7 +52,7 @@ const Textarea = ({
     );
 
     return (
-        <TextareaElement
+        <TextElement
             {...{
                 name,
                 path: resolvedPath,
@@ -68,5 +68,5 @@ const Textarea = ({
     );
 };
 
-export default Textarea;
-export { TextareaProps };
+export default Text;
+export { TextProps };

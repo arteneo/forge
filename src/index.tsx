@@ -85,7 +85,8 @@ import EditTableColumns, {
 } from "./components/Table/actions/table/EditTableColumns";
 import Batch, { BatchProps } from "./components/Table/actions/table/Batch";
 import BatchDelete, { BatchDeleteProps } from "./components/Table/actions/table/BatchDelete";
-import BatchForm, { BatchFormProps } from "./components/Table/actions/table/BatchForm";
+// TODO
+// import BatchForm, { BatchFormProps } from "./components/Table/actions/table/BatchForm";
 import BatchQueryInterface from "./components/Table/definitions/BatchQueryInterface";
 import BatchSelectedType from "./components/Table/definitions/BatchSelectedType";
 import DeniedAccessBehaviorType from "./components/Table/definitions/DeniedAccessBehaviorType";
@@ -228,7 +229,7 @@ import {
     resolveReactNodeOrFunction,
     resolveAxiosRequestConfigOrFunction,
 } from "./utils/resolve";
-import { renderField, populate } from "./utils/common";
+import { renderField, filterInitialValues, transformInitialValues } from "./utils/common";
 import { Optional } from "./utils/TypescriptOperators";
 export {
     Button,
@@ -336,8 +337,9 @@ export {
     BatchProps,
     BatchDelete,
     BatchDeleteProps,
-    BatchForm,
-    BatchFormProps,
+    // TODO
+    // BatchForm,
+    // BatchFormProps,
     RowInterface,
     ExportQueryInterface,
     TableContext,
@@ -524,6 +526,7 @@ export {
     resolveReactNodeOrFunction,
     resolveAxiosRequestConfigOrFunction,
     renderField,
-    populate,
+    filterInitialValues,
+    transformInitialValues,
     Optional,
 };

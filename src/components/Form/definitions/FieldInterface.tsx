@@ -1,32 +1,23 @@
-import { FormikValues, FormikTouched, FormikErrors } from "formik";
-import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
+import FieldRequiredType from "../../../components/Form/definitions/FieldRequiredType";
 import FieldLabelType from "../../../components/Form/definitions/FieldLabelType";
+import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
+import FieldDisabledType from "../../../components/Form/definitions/FieldDisabledType";
+import FieldHiddenType from "../../../components/Form/definitions/FieldHiddenType";
+import FieldValidateType from "../../../components/Form/definitions/FieldValidateType";
 
 interface FieldInterface {
-    // name is added to props by FormContent
+    // name should be added to props while rendering
     name?: string;
     path?: string;
+    required?: FieldRequiredType;
     label?: FieldLabelType;
     disableAutoLabel?: boolean;
     disableTranslateLabel?: boolean;
     help?: FieldHelpType;
     disableTranslateHelp?: boolean;
-    disabled?:
-        | ((
-              values: FormikValues,
-              touched: FormikTouched<FormikValues>,
-              errors: FormikErrors<FormikValues>,
-              name: string
-          ) => boolean)
-        | boolean;
-    hidden?:
-        | ((
-              values: FormikValues,
-              touched: FormikTouched<FormikValues>,
-              errors: FormikErrors<FormikValues>,
-              name: string
-          ) => boolean)
-        | boolean;
+    disabled?: FieldDisabledType;
+    hidden?: FieldHiddenType;
+    validate?: FieldValidateType;
     // eslint-disable-next-line
     transformInitialValue?: (value: any) => any;
 }
