@@ -1,127 +1,80 @@
 import React from "react";
-import * as Yup from "yup";
-import { useForm } from "../../../components/Form/contexts/Form";
+import useDeepCompareEffect from "use-deep-compare-effect";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "../../../utils/resolve";
+import { resolveFieldEndpoint } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import RadioElement, { RadioElementSpecificProps } from "../../../components/Form/elements/RadioElement";
-import TextFieldInterface from "../../../components/Form/definitions/TextFieldInterface";
+import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
 import OptionsType from "../../../components/Form/definitions/OptionsType";
+import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 
-interface RadioApiInternalProps {
-    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
+interface RadioApiSpecificProps {
+    endpoint: FieldEndpointType;
+    processResponse?: (response: AxiosResponse) => OptionsType;
+    // Used to reload options on demand
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
 }
 
-type RadioApiProps = RadioApiInternalProps & Omit<RadioElementSpecificProps, "options"> & TextFieldInterface;
+type RadioApiProps = RadioApiSpecificProps & Omit<RadioProps, "options">;
 
 const RadioApi = ({
-    name,
-    path,
     endpoint,
-    label,
-    disableAutoLabel = false,
-    disableTranslateLabel = false,
-    help,
-    disableTranslateHelp = false,
-    required = false,
-    hidden = false,
-    disabled = false,
+    processResponse = (response) => response.data,
     loadUseEffectDependency,
     disableTranslateOption = true,
-    validationSchema,
-    ...elementSpecificProps
+    ...radioProps
 }: RadioApiProps) => {
-    if (typeof name === "undefined") {
-        throw new Error("RadioApi component: name is required prop. By default it is injected by FormContent.");
-    }
-
-    const { getError, getLabel, getHelp } = useForm();
-    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
-
-    const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
-    const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    const resolvedPath = path ? path : name;
-    const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
+    const { values }: FormikProps<FormikValues> = useFormikContext();
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 
-    React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
-    React.useEffect(() => load(), [resolvedEndpoint, loadUseEffectDependency]);
+    const requestConfig = resolveFieldEndpoint(endpoint, values);
 
-    const updateValidationSchema = () => {
-        let defaultValidationSchema = Yup.string();
-
-        if (resolvedRequired) {
-            defaultValidationSchema = defaultValidationSchema.required("validation.required");
-        }
-
-        // TODO
-        // resolveValidationSchema(
-        //     resolvedPath,
-        //     validationSchema,
-        //     defaultValidationSchema,
-        //     resolvedHidden,
-        //     resolvedRequired,
-        //     values,
-        //     touched,
-        //     errors,
-        //     name
-        // );
-    };
+    useDeepCompareEffect(() => load(), [requestConfig, loadUseEffectDependency]);
 
     const load = () => {
-        if (!resolvedEndpoint) {
+        if (typeof requestConfig === "undefined") {
             setOptions([]);
             return;
         }
 
         const axiosSource = axios.CancelToken.source();
+        // requestConfig needs to be copied to avoid firing useDeepCompareEffect
+        const axiosRequestConfig = Object.assign({ cancelToken: axiosSource.token }, requestConfig);
 
         axios
-            .get(resolvedEndpoint, {
-                cancelToken: axiosSource.token,
-            })
-            .then((response: AxiosResponse) => {
-                setOptions(response.data);
-            })
-            .catch((error: AxiosError) => {
-                handleCatch(error);
-            });
+            .request(axiosRequestConfig)
+            .then((response: AxiosResponse) => setOptions(processResponse(response)))
+            .catch((error: AxiosError) => handleCatch(error));
 
         return () => {
             axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
         };
     };
 
-    if (resolvedHidden) {
-        return null;
-    }
-
-    const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
-    const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
-    const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
-
     return (
-        <RadioElement
+        <Radio
             {...{
-                name,
-                path: resolvedPath,
                 options,
                 disableTranslateOption,
-                label: resolvedLabel,
-                error: resolvedError,
-                help: resolvedHelp,
-                required: resolvedRequired,
-                disabled: resolvedDisabled,
-                ...elementSpecificProps,
+                ...radioProps,
             }}
         />
     );
+};
+
+RadioApi.defaultProps = {
+    // eslint-disable-next-line
+    transformInitialValue: (value: any) => {
+        // Backend API is serializing it as object
+        if (typeof value?.id !== "undefined") {
+            return value.id;
+        }
+
+        return value;
+    },
 };
 
 export default RadioApi;
