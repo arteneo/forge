@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import useDeepCompareEffect from "use-deep-compare-effect";
 import { FormikValues, FormikTouched, FormikErrors, getIn } from "formik";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "../../../contexts/HandleCatch";
-import { resolveReactNodeOrFunction, resolveAnyOrFunction } from "../../../utils/resolve";
 import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
 import FieldLabelType from "../../../components/Form/definitions/FieldLabelType";
 import FieldPlaceholderType from "../../../components/Form/definitions/FieldPlaceholderType";
@@ -12,8 +12,15 @@ import FieldResolveInterface from "../../../components/Form/definitions/FieldRes
 import FieldResolvedInterface from "../../../components/Form/definitions/FieldResolvedInterface";
 import FieldPlaceholderResolveInterface from "../../../components/Form/definitions/FieldPlaceholderResolveInterface";
 import FieldPlaceholderResolvedInterface from "../../../components/Form/definitions/FieldPlaceholderResolvedInterface";
+import EndpointType from "../../../components/Form/definitions/EndpointType";
 import { filterInitialValues, transformInitialValues } from "../../../utils/common";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "../../../utils/resolve";
+import {
+    resolveBooleanOrFunction,
+    resolveStringOrFunction,
+    resolveReactNodeOrFunction,
+    resolveAnyOrFunction,
+    resolveEndpoint,
+} from "../../../utils/resolve";
 
 interface FormContextProps {
     formikInitialValues: FormikValues;
@@ -63,7 +70,7 @@ interface FormProviderProps {
     children: React.ReactNode;
     fields: FieldsInterface;
     initialValues?: FormikValues;
-    initializeEndpoint?: string;
+    initializeEndpoint?: EndpointType;
     /**
      * Processing initial values by default will remove any non-field related initialValue
      * It will also transform values according to fields requirements
@@ -130,29 +137,29 @@ const FormProvider = ({
     const [formikInitialValues, setFormikInitialValues] = React.useState({});
     const handleCatch = useHandleCatch();
 
-    // TODO Changing intitialValues might not actually trigger useEffect due nested nature. Test and decide
-    React.useEffect(() => initializeValues(), [initializeEndpoint, initialValues]);
+    const requestConfig = resolveEndpoint(initializeEndpoint);
+
+    useDeepCompareEffect(() => initializeValues(), [requestConfig, initialValues]);
 
     const initializeValues = () => {
-        if (typeof initialValues !== "undefined" && typeof initializeEndpoint === "undefined") {
+        if (typeof initialValues !== "undefined" && typeof requestConfig === "undefined") {
             setFormikInitialValues(callableProcessInitialValues(fields, initialValues));
             return;
         }
 
-        if (typeof initializeEndpoint === "undefined") {
+        if (typeof requestConfig === "undefined") {
             return;
         }
 
         const axiosSource = axios.CancelToken.source();
+        // requestConfig needs to be copied to avoid firing useDeepCompareEffect
+        const axiosRequestConfig = Object.assign({ cancelToken: axiosSource.token }, requestConfig);
 
         axios
-            // TODO Request Config
-            .get(initializeEndpoint, {
-                cancelToken: axiosSource.token,
-            })
-            .then((response: AxiosResponse) => {
-                setFormikInitialValues(callableProcessInitialValues(fields, initialValues, response));
-            })
+            .request(axiosRequestConfig)
+            .then((response: AxiosResponse) =>
+                setFormikInitialValues(callableProcessInitialValues(fields, initialValues, response))
+            )
             .catch((error: AxiosError) => handleCatch(error));
 
         return () => {

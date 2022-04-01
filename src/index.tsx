@@ -229,6 +229,7 @@ import {
     resolveReactNodeOrFunction,
     resolveAxiosRequestConfigOrFunction,
     resolveEndpoint,
+    resolveFieldEndpoint,
 } from "./utils/resolve";
 import { renderField, filterInitialValues, transformInitialValues } from "./utils/common";
 import { Optional } from "./utils/TypescriptOperators";
@@ -527,6 +528,7 @@ export {
     resolveReactNodeOrFunction,
     resolveAxiosRequestConfigOrFunction,
     resolveEndpoint,
+    resolveFieldEndpoint,
     renderField,
     filterInitialValues,
     transformInitialValues,

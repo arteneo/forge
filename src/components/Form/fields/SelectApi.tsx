@@ -1,15 +1,15 @@
 import React from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveEndpoint } from "../../../utils/resolve";
+import { resolveFieldEndpoint } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import Select, { SelectProps } from "../../../components/Form/fields/Select";
 import OptionsType from "../../../components/Form/definitions/OptionsType";
-import EndpointType from "../../../components/Form/definitions/EndpointType";
+import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 
 interface SelectApiSpecificProps {
-    endpoint: EndpointType;
+    endpoint: FieldEndpointType;
     processResponse?: (response: AxiosResponse) => OptionsType;
     // Used to reload options on demand
     // eslint-disable-next-line
@@ -30,7 +30,7 @@ const SelectApi = ({
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 
-    const requestConfig = resolveEndpoint(endpoint, values);
+    const requestConfig = resolveFieldEndpoint(endpoint, values);
 
     useDeepCompareEffect(() => load(), [requestConfig, loadUseEffectDependency]);
 
