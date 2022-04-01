@@ -30,7 +30,7 @@ const Text = ({ onChange, fieldProps, ...field }: TextProps) => {
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
     const { resolvePlaceholderField } = useForm();
-    const { name, path, label, error, help, required, disabled, hidden, validate, placeholder } =
+    const { name, path, label, error, hasError, help, required, disabled, hidden, validate, placeholder } =
         resolvePlaceholderField({
             values,
             touched,
@@ -38,10 +38,8 @@ const Text = ({ onChange, fieldProps, ...field }: TextProps) => {
             submitCount,
             ...field,
         });
-    console.log("🚀 ~ file: Text.tsx ~ line 34 ~ Text ~ validate", validate);
 
     React.useEffect(() => {
-        console.log("🚀 ~ file: Text.tsx ~ line 43 ~ React.useEffect ~ validate", validate);
         if (hidden || typeof validate === "undefined") {
             return;
         }
@@ -72,7 +70,6 @@ const Text = ({ onChange, fieldProps, ...field }: TextProps) => {
         defaultOnChange(event);
     };
 
-    const hasError = error ? true : false;
     const internalFieldProps: TextFieldProps = {
         value: getIn(values, path, ""),
         onChange: callableOnChange,

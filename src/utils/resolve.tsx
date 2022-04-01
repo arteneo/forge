@@ -1,7 +1,9 @@
 import React from "react";
 import { AxiosRequestConfig } from "axios";
-/* eslint-disable */
+import EndpointType from "../components/Form/definitions/EndpointType";
+import { FormikValues } from "formik";
 
+/* eslint-disable */
 const resolveBooleanOrFunction = (parameter: undefined | boolean | Function, ...functionParameters: any[]): boolean => {
     if (typeof parameter === "function") {
         return parameter(...functionParameters);
@@ -48,10 +50,23 @@ const resolveAxiosRequestConfigOrFunction = (
     return parameter;
 };
 
+const resolveEndpoint = (parameter: EndpointType, values: FormikValues): undefined | AxiosRequestConfig => {
+    const resolved = typeof parameter === "function" ? parameter(values) : parameter;
+
+    if (typeof resolved === "string") {
+        return {
+            url: resolved,
+        };
+    }
+
+    return resolved;
+};
+
 export {
     resolveAnyOrFunction,
     resolveBooleanOrFunction,
     resolveStringOrFunction,
     resolveReactNodeOrFunction,
     resolveAxiosRequestConfigOrFunction,
+    resolveEndpoint,
 };

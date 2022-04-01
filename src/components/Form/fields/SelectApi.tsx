@@ -1,148 +1,63 @@
 import React from "react";
-import * as Yup from "yup";
-import { useForm } from "../../../components/Form/contexts/Form";
+import useDeepCompareEffect from "use-deep-compare-effect";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveBooleanOrFunction, resolveStringOrFunction } from "../../../utils/resolve";
+import { resolveEndpoint } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import SelectElement, { SelectElementSpecificProps } from "../../../components/Form/elements/SelectElement";
-import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
+import Select, { SelectProps } from "../../../components/Form/fields/Select";
 import OptionsType from "../../../components/Form/definitions/OptionsType";
+import EndpointType from "../../../components/Form/definitions/EndpointType";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 
-interface SelectApiInternalProps {
-    endpoint: undefined | string | ((values: FormikValues) => undefined | string);
-    modifyOptions?: (options: OptionsType) => OptionsType;
+interface SelectApiSpecificProps {
+    endpoint: EndpointType;
+    processResponse?: (response: AxiosResponse) => OptionsType;
+    // Used to reload options on demand
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
 }
 
-type SelectApiProps = SelectApiInternalProps &
-    Omit<SelectElementSpecificProps, "options"> &
-    TextFieldPlaceholderInterface;
+type SelectApiProps = SelectApiSpecificProps & Omit<SelectProps, "options">;
 
 const SelectApi = ({
-    name,
-    path,
     endpoint,
-    label,
-    placeholder,
-    disableAutoLabel = false,
-    disableTranslateLabel = false,
-    enableAutoPlaceholder = false,
-    disableTranslatePlaceholder = false,
-    help,
-    disableTranslateHelp = false,
-    required = false,
-    hidden = false,
-    disabled = false,
-    validationSchema,
-    modifyOptions,
+    processResponse = (response) => response.data,
     loadUseEffectDependency,
-    disableTranslateOption = true,
-    ...elementSpecificProps
+    ...selectProps
 }: SelectApiProps) => {
-    if (typeof name === "undefined") {
-        throw new Error("SelectApi component: name is required prop. By default it is injected by FormContent.");
-    }
-
-    const { getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
     const handleCatch = useHandleCatch();
-
-    const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
-    const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    const resolvedPath = path ? path : name;
-    const resolvedEndpoint = endpoint ? resolveStringOrFunction(endpoint, values) : undefined;
+    const { values }: FormikProps<FormikValues> = useFormikContext();
 
     const [options, setOptions] = React.useState<OptionsType>([]);
 
-    React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
-    React.useEffect(() => load(), [resolvedEndpoint, loadUseEffectDependency]);
+    const requestConfig = resolveEndpoint(endpoint, values);
 
-    const updateValidationSchema = () => {
-        let defaultValidationSchema = Yup.string();
-
-        if (resolvedRequired) {
-            defaultValidationSchema = defaultValidationSchema.required("validation.required");
-        }
-
-        // TODO
-        // resolveValidationSchema(
-        //     resolvedPath,
-        //     validationSchema,
-        //     defaultValidationSchema,
-        //     resolvedHidden,
-        //     resolvedRequired,
-        //     values,
-        //     touched,
-        //     errors,
-        //     name
-        // );
-    };
+    useDeepCompareEffect(() => load(), [requestConfig, loadUseEffectDependency]);
 
     const load = () => {
-        if (!resolvedEndpoint) {
+        if (typeof requestConfig === "undefined") {
             setOptions([]);
             return;
         }
 
         const axiosSource = axios.CancelToken.source();
+        // requestConfig needs to be copied to avoid firing useDeepCompareEffect
+        const axiosRequestConfig = Object.assign({ cancelToken: axiosSource.token }, requestConfig);
 
         axios
-            .get(resolvedEndpoint, {
-                cancelToken: axiosSource.token,
-            })
-            .then((response: AxiosResponse) => {
-                const options: OptionsType = response.data;
-
-                if (typeof modifyOptions !== "undefined") {
-                    setOptions(modifyOptions(options));
-                    return;
-                }
-
-                setOptions(options);
-            })
-            .catch((error: AxiosError) => {
-                handleCatch(error);
-            });
+            .request(axiosRequestConfig)
+            .then((response: AxiosResponse) => setOptions(processResponse(response)))
+            .catch((error: AxiosError) => handleCatch(error));
 
         return () => {
             axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
         };
     };
 
-    if (resolvedHidden) {
-        return null;
-    }
-
-    const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
-    const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
-    const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
-    const resolvedPlaceholder = getPlaceholder(
-        placeholder,
-        values,
-        touched,
-        errors,
-        name,
-        enableAutoPlaceholder,
-        disableTranslatePlaceholder
-    );
-
     return (
-        <SelectElement
+        <Select
             {...{
-                name,
-                path: resolvedPath,
                 options,
-                disableTranslateOption,
-                label: resolvedLabel,
-                placeholder: resolvedPlaceholder,
-                error: resolvedError,
-                help: resolvedHelp,
-                required: resolvedRequired,
-                disabled: resolvedDisabled,
-                ...elementSpecificProps,
+                ...selectProps,
             }}
         />
     );

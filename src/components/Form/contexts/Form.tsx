@@ -100,6 +100,7 @@ const contextInitial = {
             required: false,
             disabled: false,
             hidden: false,
+            hasError: false,
         };
     },
     resolvePlaceholderField: () => {
@@ -109,6 +110,7 @@ const contextInitial = {
             required: false,
             disabled: false,
             hidden: false,
+            hasError: false,
         };
     },
 };
@@ -184,6 +186,7 @@ const FormProvider = ({
             disabled: resolveBooleanOrFunction(field.disabled, values, touched, errors, name),
             help: getHelp(values, touched, errors, name, field.help, field.disableTranslateHelp),
             error: getError(path, touched, errors, submitCount),
+            hasError: hasError(path, touched, errors, submitCount),
             label: getLabel(
                 field.label,
                 values,
