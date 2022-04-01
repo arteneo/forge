@@ -173,17 +173,30 @@ const FormProvider = ({
         }
 
         const path = field.path ? field.path : name;
-        const validate =
-            typeof field.validate !== "undefined"
-                ? resolveStringOrFunction(field.validate, values, touched, errors, name)
-                : undefined;
+        const required = resolveBooleanOrFunction(field.required, values, touched, errors, name);
+        const disabled = resolveBooleanOrFunction(field.disabled, values, touched, errors, name);
+        const value = getIn(values, path, undefined);
+        let validate: undefined | string = undefined;
+        if (typeof field.validate !== "undefined") {
+            validate = resolveStringOrFunction(
+                field.validate,
+                value,
+                required,
+                disabled,
+                values,
+                name,
+                path,
+                touched,
+                errors
+            );
+        }
 
         return {
             name,
             path,
             hidden: resolveBooleanOrFunction(field.hidden, values, touched, errors, name),
-            required: resolveBooleanOrFunction(field.required, values, touched, errors, name),
-            disabled: resolveBooleanOrFunction(field.disabled, values, touched, errors, name),
+            required,
+            disabled,
             help: getHelp(values, touched, errors, name, field.help, field.disableTranslateHelp),
             error: getError(path, touched, errors, submitCount),
             hasError: hasError(path, touched, errors, submitCount),
