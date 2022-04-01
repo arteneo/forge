@@ -1,68 +1,32 @@
 import React from "react";
-import { useForm } from "../../../components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "../../../utils/resolve";
-import { FormikValues, FormikProps, useFormikContext } from "formik";
-import TextareaElement, { TextareaElementSpecificProps } from "../../../components/Form/elements/TextareaElement";
-import TextFieldPlaceholderInterface from "../../../components/Form/definitions/TextFieldPlaceholderInterface";
+import Text, { TextProps } from "../../../components/Form/fields/Text";
 
-type TextareaProps = TextareaElementSpecificProps & TextFieldPlaceholderInterface;
+interface TextareaSpecificProps {
+    resize?: "none" | "vertical" | "horizontal" | "both";
+}
 
-const Textarea = ({
-    name,
-    path,
-    label,
-    placeholder,
-    disableAutoLabel = false,
-    disableTranslateLabel = false,
-    enableAutoPlaceholder = false,
-    disableTranslatePlaceholder = false,
-    help,
-    disableTranslateHelp = false,
-    required = false,
-    hidden = false,
-    disabled = false,
-    ...elementSpecificProps
-}: TextareaProps) => {
-    if (typeof name === "undefined") {
-        throw new Error("Textarea component: name is required prop. By default it is injected by FormContent.");
-    }
+type TextareaProps = TextareaSpecificProps & TextProps;
 
-    const { getError, getLabel, getPlaceholder, getHelp } = useForm();
-    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
-
-    const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    if (resolvedHidden) {
-        return null;
-    }
-
-    const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
-    const resolvedPath = path ? path : name;
-    const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
-    const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
-    const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
-    const resolvedPlaceholder = getPlaceholder(
-        placeholder,
-        values,
-        touched,
-        errors,
-        name,
-        enableAutoPlaceholder,
-        disableTranslatePlaceholder
-    );
-
+const Textarea = ({ resize = "vertical", ...textProps }: TextareaProps) => {
     return (
-        <TextareaElement
+        <Text
             {...{
-                name,
-                path: resolvedPath,
-                label: resolvedLabel,
-                placeholder: resolvedPlaceholder,
-                error: resolvedError,
-                help: resolvedHelp,
-                required: resolvedRequired,
-                disabled: resolvedDisabled,
-                ...elementSpecificProps,
+                ...textProps,
+                fieldProps: {
+                    multiline: true,
+                    minRows: 3,
+                    maxRows: 6,
+                    ...(textProps?.fieldProps ?? {}),
+                    InputProps: {
+                        sx: {
+                            "& textarea": {
+                                resize,
+                            },
+                            ...(textProps?.fieldProps?.InputProps?.sx ?? {}),
+                        },
+                        ...(textProps?.fieldProps?.InputProps ?? {}),
+                    },
+                },
             }}
         />
     );

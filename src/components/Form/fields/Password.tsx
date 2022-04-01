@@ -7,11 +7,11 @@ const Password = (textProps: PasswordProps) => {
     return (
         <Text
             {...{
+                ...textProps,
                 fieldProps: {
                     type: "password",
                     ...(textProps?.fieldProps ?? {}),
                 },
-                ...textProps,
             }}
         />
     );
