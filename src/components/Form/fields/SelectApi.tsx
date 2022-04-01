@@ -22,6 +22,7 @@ const SelectApi = ({
     endpoint,
     processResponse = (response) => response.data,
     loadUseEffectDependency,
+    disableTranslateOption = true,
     ...selectProps
 }: SelectApiProps) => {
     const handleCatch = useHandleCatch();
@@ -57,6 +58,7 @@ const SelectApi = ({
         <Select
             {...{
                 options,
+                disableTranslateOption,
                 ...selectProps,
             }}
         />
