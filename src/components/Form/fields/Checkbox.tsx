@@ -1,85 +1,117 @@
 import React from "react";
-import * as Yup from "yup";
+import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import {
+    FormControl,
+    FormControlProps,
+    FormHelperText,
+    Checkbox as MuiCheckbox,
+    FormControlLabel,
+    FormControlLabelProps,
+} from "@mui/material";
+import FieldInterface from "../../../components/Form/definitions/FieldInterface";
 import { useForm } from "../../../components/Form/contexts/Form";
-import { resolveBooleanOrFunction } from "../../../utils/resolve";
-import { FormikValues, FormikProps, useFormikContext } from "formik";
-import CheckboxElement, { CheckboxElementSpecificProps } from "../../../components/Form/elements/CheckboxElement";
-import TextFieldInterface from "../../../components/Form/definitions/TextFieldInterface";
 
-type CheckboxProps = CheckboxElementSpecificProps & TextFieldInterface;
+interface CheckboxSpecificProps {
+    onChange?: (
+        path: string,
+        // eslint-disable-next-line
+        setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
+        event: React.SyntheticEvent,
+        checked: boolean,
+        onChange: () => void,
+        values: FormikValues,
+        name: string
+    ) => void;
+    formControlLabelProps?: FormControlLabelProps;
+    formControlProps?: FormControlProps;
+}
 
-const Checkbox = ({
-    name,
-    path,
-    label,
-    disableAutoLabel = false,
-    disableTranslateLabel = false,
-    help,
-    disableTranslateHelp = false,
-    required = false,
-    hidden = false,
-    disabled = false,
-    validationSchema,
-    ...elementSpecificProps
-}: CheckboxProps) => {
-    if (typeof name === "undefined") {
-        throw new Error("Checkbox component: name is required prop. By default it is injected by FormContent.");
-    }
+type CheckboxProps = CheckboxSpecificProps & FieldInterface;
 
-    const { getError, getLabel, getHelp } = useForm();
-    const { values, touched, errors, submitCount }: FormikProps<FormikValues> = useFormikContext();
+const Checkbox = ({ onChange, formControlLabelProps, formControlProps, ...field }: CheckboxProps) => {
+    const {
+        values,
+        touched,
+        errors,
+        submitCount,
+        setFieldValue,
+        registerField,
+        unregisterField,
+    }: FormikProps<FormikValues> = useFormikContext();
+    const { resolveField } = useForm();
+    const { name, path, label, error, hasError, help, required, disabled, hidden, validate } = resolveField({
+        values,
+        touched,
+        errors,
+        submitCount,
+        ...field,
+    });
 
-    const resolvedRequired = resolveBooleanOrFunction(required, values, touched, errors, name);
-    const resolvedHidden = resolveBooleanOrFunction(hidden, values, touched, errors, name);
-    const resolvedPath = path ? path : name;
-
-    React.useEffect(() => updateValidationSchema(), [resolvedRequired, resolvedHidden]);
-
-    const updateValidationSchema = () => {
-        let defaultValidationSchema = Yup.boolean();
-
-        if (resolvedRequired) {
-            defaultValidationSchema = defaultValidationSchema.oneOf([true], "validation.required");
+    React.useEffect(() => {
+        if (hidden || typeof validate === "undefined") {
+            return;
         }
 
-        // TODO
-        // resolveValidationSchema(
-        //     resolvedPath,
-        //     validationSchema,
-        //     defaultValidationSchema,
-        //     resolvedHidden,
-        //     resolvedRequired,
-        //     values,
-        //     touched,
-        //     errors,
-        //     name
-        // );
-    };
+        registerField(name, {
+            validate: () => validate,
+        });
 
-    if (resolvedHidden) {
+        return () => {
+            unregisterField(name);
+        };
+    }, [hidden, registerField, unregisterField, name, validate]);
+
+    if (hidden) {
         return null;
     }
 
-    const resolvedHelp = getHelp(values, touched, errors, name, help, disableTranslateHelp);
-    const resolvedError = getError(resolvedPath, touched, errors, submitCount);
-    const resolvedDisabled = resolveBooleanOrFunction(disabled, values, touched, errors, name);
-    const resolvedLabel = getLabel(label, values, touched, errors, name, disableAutoLabel, disableTranslateLabel);
+    const defaultOnChange = (event: React.SyntheticEvent, checked: boolean) => {
+        setFieldValue(path, checked);
+    };
+
+    const callableOnChange = (event: React.SyntheticEvent, checked: boolean) => {
+        if (onChange) {
+            onChange(path, setFieldValue, event, checked, () => defaultOnChange(event, checked), values, name);
+            return;
+        }
+
+        defaultOnChange(event, checked);
+    };
+
+    const internalFormControlProps: FormControlProps = {
+        error: hasError,
+    };
+    const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
+
+    const internalFormControlLabelProps: FormControlLabelProps = {
+        checked: Boolean(getIn(values, path, false)),
+        control: <MuiCheckbox {...{ required }} />,
+        onChange: callableOnChange,
+        // Brutal solution. Looking for better one
+        label: label as React.ReactElement,
+        disabled,
+    };
+    const mergedFormControlLabelProps = Object.assign(internalFormControlLabelProps, formControlLabelProps);
+
+    let helperText: undefined | React.ReactNode = undefined;
+
+    if (hasError || help) {
+        helperText = (
+            <>
+                {error}
+                {hasError && <br />}
+                {help}
+            </>
+        );
+    }
 
     return (
-        <CheckboxElement
-            {...{
-                name,
-                path: resolvedPath,
-                label: resolvedLabel,
-                error: resolvedError,
-                help: resolvedHelp,
-                required: resolvedRequired,
-                disabled: resolvedDisabled,
-                ...elementSpecificProps,
-            }}
-        />
+        <FormControl {...mergedFormControlProps}>
+            <FormControlLabel {...mergedFormControlLabelProps} />
+            {helperText && <FormHelperText>{helperText}</FormHelperText>}
+        </FormControl>
     );
 };
 
 export default Checkbox;
-export { CheckboxProps };
+export { CheckboxProps, CheckboxSpecificProps };
