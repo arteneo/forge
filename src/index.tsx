@@ -162,7 +162,7 @@ import TextFieldPlaceholderInterface from "./components/Form/definitions/TextFie
 import Radio, { RadioProps } from "./components/Form/fields/Radio";
 import RadioApi, { RadioApiProps } from "./components/Form/fields/RadioApi";
 import RadioElement, { RadioElementProps } from "./components/Form/elements/RadioElement";
-import Boolean, { BooleanProps } from "./components/Form/fields/Boolean";
+import TrueFalse, { TrueFalseProps } from "./components/Form/fields/TrueFalse";
 import BooleanElement, { BooleanElementProps } from "./components/Form/elements/BooleanElement";
 import Select, { SelectProps } from "./components/Form/fields/Select";
 import SelectApi, { SelectApiProps } from "./components/Form/fields/SelectApi";
@@ -448,8 +448,8 @@ export {
     RadioApiProps,
     RadioElement,
     RadioElementProps,
-    Boolean,
-    BooleanProps,
+    TrueFalse,
+    TrueFalseProps,
     BooleanElement,
     BooleanElementProps,
     Select,

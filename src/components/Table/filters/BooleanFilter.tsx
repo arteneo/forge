@@ -1,14 +1,14 @@
 import React from "react";
-import Boolean, { BooleanProps } from "../../../components/Form/fields/Boolean";
+import TrueFalse, { TrueFalseProps } from "../../../components/Form/fields/TrueFalse";
 import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
 
-type BooleanFilterProps = FilterFieldInterface & BooleanProps;
+type BooleanFilterProps = FilterFieldInterface & TrueFalseProps;
 
 // filterBy and filterType are destructed to avoid passing them deeper
 // eslint-disable-next-line
 const BooleanFilter = ({ filterBy, filterType, enableClear = true, ...props }: BooleanFilterProps) => {
     return (
-        <Boolean
+        <TrueFalse
             {...{
                 enableClear,
                 ...props,
