@@ -33,4 +33,4 @@ const Textarea = ({ resize = "vertical", ...textProps }: TextareaProps) => {
 };
 
 export default Textarea;
-export { TextareaProps };
+export { TextareaProps, TextareaSpecificProps };

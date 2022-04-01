@@ -78,4 +78,4 @@ RadioApi.defaultProps = {
 };
 
 export default RadioApi;
-export { RadioApiProps };
+export { RadioApiProps, RadioApiSpecificProps };

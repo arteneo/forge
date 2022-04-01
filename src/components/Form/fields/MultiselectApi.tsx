@@ -84,4 +84,4 @@ MultiselectApi.defaultProps = {
 };
 
 export default MultiselectApi;
-export { MultiselectApiProps };
+export { MultiselectApiProps, MultiselectApiSpecificProps };

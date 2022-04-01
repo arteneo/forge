@@ -177,4 +177,4 @@ const Radio = ({
 };
 
 export default Radio;
-export { RadioProps };
+export { RadioProps, RadioSpecificProps };

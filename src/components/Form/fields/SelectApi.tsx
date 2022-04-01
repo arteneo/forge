@@ -78,4 +78,4 @@ SelectApi.defaultProps = {
 };
 
 export default SelectApi;
-export { SelectApiProps };
+export { SelectApiProps, SelectApiSpecificProps };

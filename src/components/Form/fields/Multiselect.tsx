@@ -236,4 +236,4 @@ const Multiselect = ({
 };
 
 export default Multiselect;
-export { MultiselectProps };
+export { MultiselectProps, MultiselectSpecificProps };

@@ -198,4 +198,4 @@ const Select = ({
 };
 
 export default Select;
-export { SelectProps };
+export { SelectProps, SelectSpecificProps };
