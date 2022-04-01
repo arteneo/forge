@@ -1,12 +1,13 @@
 import React from "react";
-import { useForm } from "../../../components/Form/contexts/Form";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { useHandleCatch } from "../../../contexts/HandleCatch";
 import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
-import { resolveStringOrFunction } from "../../../utils/resolve";
+import { useForm } from "../../../components/Form/contexts/Form";
+import { useHandleCatch } from "../../../contexts/HandleCatch";
+import { resolveFieldEndpoint } from "../../../utils/resolve";
 import { useSnackbar } from "../../../contexts/Snackbar";
 import { useLoader } from "../../../contexts/Loader";
 import { Optional } from "../../../utils/TypescriptOperators";
+import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
 
 interface FormContentProps {
     children: React.ReactNode;
@@ -17,7 +18,7 @@ interface FormContentProps {
         response: AxiosResponse
     ) => void;
     onSubmit?: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
-    endpoint?: string | ((values: FormikValues) => string);
+    endpoint?: FieldEndpointType;
     formikProps?: Optional<Optional<FormikConfig<FormikValues>, "initialValues">, "onSubmit">;
 }
 
@@ -34,23 +35,19 @@ const FormContent = ({
     const { showSuccess } = useSnackbar();
     const { showLoader, hideLoader } = useLoader();
 
-    if (!endpoint && !onSubmit) {
-        // endpoint check just for TS
-        throw new Error(
-            "FormContent component: Endpoint parameter is required when using default onSubmit. Possibly not passed to Form component."
-        );
-    }
-
     const defaultOnSubmit = (values: FormikValues, helpers: FormikHelpers<FormikValues>) => {
-        if (!endpoint) {
-            // endpoint check just for TS
-            throw new Error();
+        const requestConfig = resolveFieldEndpoint(endpoint, values);
+
+        if (typeof requestConfig === "undefined") {
+            throw new Error("Resolved requestConfig is undefined");
         }
+
+        requestConfig.data = changeSubmitValues ? changeSubmitValues(values) : values;
 
         showLoader();
 
         axios
-            .post(resolveStringOrFunction(endpoint, values), changeSubmitValues ? changeSubmitValues(values) : values)
+            .request(requestConfig)
             .then((response: AxiosResponse) => {
                 const defaultOnSubmitSuccess = () => {
                     showSuccess("snackbar.form.submitted");
