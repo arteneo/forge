@@ -158,7 +158,7 @@ const Select = ({
         noOptionsText: t("placeholder.selectSingleEmpty"),
         getOptionLabel: (option: OptionInterface) =>
             disableTranslateOption ? option.representation : t(option.representation),
-        disabled: disabled,
+        disabled,
         onChange: callableOnChange,
     };
 
