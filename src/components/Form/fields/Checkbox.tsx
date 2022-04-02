@@ -1,4 +1,5 @@
 import React from "react";
+import * as Yup from "yup";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import {
     FormControl,
@@ -28,7 +29,20 @@ interface CheckboxSpecificProps {
 
 type CheckboxProps = CheckboxSpecificProps & FieldInterface;
 
-const Checkbox = ({ onChange, formControlLabelProps, formControlProps, ...field }: CheckboxProps) => {
+const Checkbox = ({
+    onChange,
+    formControlLabelProps,
+    formControlProps,
+    // eslint-disable-next-line
+    validate: fieldValidate = (value: any, required: boolean) => {
+        if (required && !Yup.bool().required().oneOf([true]).isValidSync(value)) {
+            return "validate.required";
+        }
+
+        return undefined;
+    },
+    ...field
+}: CheckboxProps) => {
     const {
         values,
         touched,
@@ -44,6 +58,7 @@ const Checkbox = ({ onChange, formControlLabelProps, formControlProps, ...field 
         touched,
         errors,
         submitCount,
+        validate: fieldValidate,
         ...field,
     });
 
@@ -83,12 +98,23 @@ const Checkbox = ({ onChange, formControlLabelProps, formControlProps, ...field 
     };
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
+    let formControlLabel: React.ReactElement = <>{label}</>;
+    if (label && required) {
+        formControlLabel = (
+            <>
+                {label}
+                <span aria-hidden="true" className="MuiInputLabel-asterisk MuiFormLabel-asterisk">
+                    &thinsp;*
+                </span>
+            </>
+        );
+    }
+
     const internalFormControlLabelProps: FormControlLabelProps = {
         checked: Boolean(getIn(values, path, false)),
         control: <MuiCheckbox {...{ required }} />,
         onChange: callableOnChange,
-        // Brutal solution. Looking for better one
-        label: label ? (label as React.ReactElement) : "",
+        label: formControlLabel,
         disabled,
     };
     const mergedFormControlLabelProps = Object.assign(internalFormControlLabelProps, formControlLabelProps);
