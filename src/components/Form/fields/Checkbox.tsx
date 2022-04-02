@@ -88,7 +88,7 @@ const Checkbox = ({ onChange, formControlLabelProps, formControlProps, ...field 
         control: <MuiCheckbox {...{ required }} />,
         onChange: callableOnChange,
         // Brutal solution. Looking for better one
-        label: label as React.ReactElement,
+        label: label ? (label as React.ReactElement) : "",
         disabled,
     };
     const mergedFormControlLabelProps = Object.assign(internalFormControlLabelProps, formControlLabelProps);
