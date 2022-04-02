@@ -1,4 +1,5 @@
 import React from "react";
+import * as Yup from "yup";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
 import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
@@ -19,7 +20,19 @@ interface TextSpecificProps {
 
 type TextProps = TextSpecificProps & FieldPlaceholderInterface;
 
-const Text = ({ onChange, fieldProps, ...field }: TextProps) => {
+const Text = ({
+    onChange,
+    fieldProps,
+    // eslint-disable-next-line
+    validate: fieldValidate = (value: any, required: boolean) => {
+        if (required && !Yup.string().required().isValidSync(value)) {
+            return "validate.required";
+        }
+
+        return undefined;
+    },
+    ...field
+}: TextProps) => {
     const {
         values,
         touched,
@@ -36,6 +49,7 @@ const Text = ({ onChange, fieldProps, ...field }: TextProps) => {
             touched,
             errors,
             submitCount,
+            validate: fieldValidate,
             ...field,
         });
 
