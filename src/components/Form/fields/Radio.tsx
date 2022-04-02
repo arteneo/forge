@@ -1,4 +1,5 @@
 import React from "react";
+import * as Yup from "yup";
 import {
     Radio as MuiRadio,
     RadioGroup,
@@ -53,6 +54,14 @@ const Radio = ({
     radioGroupProps,
     formControlLabelProps,
     formControlProps,
+    // eslint-disable-next-line
+    validate: fieldValidate = (value: any, required: boolean) => {
+        if (required && !Yup.string().required().isValidSync(value)) {
+            return "validate.required";
+        }
+
+        return undefined;
+    },
     ...field
 }: RadioProps) => {
     const { t } = useTranslation();
@@ -71,6 +80,7 @@ const Radio = ({
         touched,
         errors,
         submitCount,
+        validate: fieldValidate,
         ...field,
     });
 
@@ -161,7 +171,7 @@ const Radio = ({
                         key={key}
                         {...{
                             value: String(option.id),
-                            control: <MuiRadio required={required} disabled={disabled} />,
+                            control: <MuiRadio {...{ required, disabled }} />,
                             label: disableTranslateOption
                                 ? option.representation // as string is just for TypeScript
                                 : (t(option.representation) as string),
