@@ -1,8 +1,10 @@
 import React from "react";
+import * as Yup from "yup";
 import { FormikValues, FormikTouched, FormikErrors, FormikProps, useFormikContext, getIn } from "formik";
 import {
     Box,
     FormHelperText,
+    FormLabel,
     IconButton,
     Table,
     TableBody,
@@ -10,7 +12,6 @@ import {
     TableFooter,
     TableHead,
     TableRow,
-    Typography,
 } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
 import { useForm } from "../../../components/Form/contexts/Form";
@@ -74,6 +75,14 @@ const Collection = ({
     onAddRow,
     onDeleteRow,
     initialValues = {},
+    // eslint-disable-next-line
+    validate: fieldValidate = (value: any, required: boolean) => {
+        if (required && !Yup.array().min(1).required().isValidSync(value)) {
+            return "validate.required";
+        }
+
+        return undefined;
+    },
     ...field
 }: CollectionProps) => {
     const {
@@ -91,6 +100,7 @@ const Collection = ({
         touched,
         errors,
         submitCount,
+        validate: fieldValidate,
         ...field,
     });
 
@@ -133,6 +143,7 @@ const Collection = ({
             onDeleteRow(key, setFieldValue, values, name, touched, errors, () => defaultDeleteRow(key));
             return;
         }
+
         defaultDeleteRow(key);
     };
 
@@ -154,17 +165,9 @@ const Collection = ({
 
     return (
         <div className="ForgeCollectionTable-root">
-            {(label || help || error) && (
-                <Box mt={3} mb={2}>
-                    {label && (
-                        <Typography component="h2" variant="h3">
-                            {label}
-                        </Typography>
-                    )}
-                    {help && <FormHelperText>{help}</FormHelperText>}
-                    {error && <FormHelperText error>{error}</FormHelperText>}
-                </Box>
-            )}
+            {label && <FormLabel {...{ required }}>{label}</FormLabel>}
+            {help && <FormHelperText>{help}</FormHelperText>}
+            {error && <FormHelperText error>{error}</FormHelperText>}
 
             <Table>
                 <TableHead>
