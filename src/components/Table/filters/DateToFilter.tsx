@@ -1,13 +1,13 @@
 import React from "react";
-import Date, { DateProps } from "../../../components/Form/fields/Date";
+import DatePicker, { DatePickerProps } from "../../../components/Form/fields/DatePicker";
 import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
 
-type DateToFilterProps = FilterFieldInterface & DateProps;
+type DateToFilterProps = FilterFieldInterface & DatePickerProps;
 
 // filterBy and filterType are destructed to avoid passing them deeper
 // eslint-disable-next-line
 const DateToFilter = ({ filterBy, filterType, ...props }: DateToFilterProps) => {
-    return <Date {...props} />;
+    return <DatePicker {...props} />;
 };
 
 // * It has to be done via .defaultProps so filterType is passed openly to this component and can be read by Table context

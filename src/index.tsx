@@ -138,9 +138,6 @@ import RadioApiFilter, { RadioApiFilterProps } from "./components/Table/filters/
 import BooleanFilter, { BooleanFilterProps } from "./components/Table/filters/BooleanFilter";
 import SelectFilter, { SelectFilterProps } from "./components/Table/filters/SelectFilter";
 import SelectApiFilter, { SelectApiFilterProps } from "./components/Table/filters/SelectApiFilter";
-import SelectAutocompleteApiFilter, {
-    SelectAutocompleteApiFilterProps,
-} from "./components/Table/filters/SelectAutocompleteApiFilter";
 import DateFromFilter, { DateFromFilterProps } from "./components/Table/filters/DateFromFilter";
 import DateToFilter, { DateToFilterProps } from "./components/Table/filters/DateToFilter";
 import DateTimeFromFilter, { DateTimeFromFilterProps } from "./components/Table/filters/DateTimeFromFilter";
@@ -161,69 +158,23 @@ import TextFieldInterface from "./components/Form/definitions/TextFieldInterface
 import TextFieldPlaceholderInterface from "./components/Form/definitions/TextFieldPlaceholderInterface";
 import Radio, { RadioProps } from "./components/Form/fields/Radio";
 import RadioApi, { RadioApiProps } from "./components/Form/fields/RadioApi";
-import RadioElement, { RadioElementProps } from "./components/Form/elements/RadioElement";
 import TrueFalse, { TrueFalseProps } from "./components/Form/fields/TrueFalse";
-import BooleanElement, { BooleanElementProps } from "./components/Form/elements/BooleanElement";
 import Select, { SelectProps } from "./components/Form/fields/Select";
 import SelectApi, { SelectApiProps } from "./components/Form/fields/SelectApi";
-import SelectAutocompleteApi, { SelectAutocompleteApiProps } from "./components/Form/fields/SelectAutocompleteApi";
-import SelectElement, {
-    SelectElementProps,
-    SelectElementSpecificProps,
-    SelectElementAutocompleteProps,
-    SelectElementAutocompleteOptionalProps,
-} from "./components/Form/elements/SelectElement";
 import Multiselect, { MultiselectProps } from "./components/Form/fields/Multiselect";
 import MultiselectApi, { MultiselectApiProps } from "./components/Form/fields/MultiselectApi";
-import MultiselectAutocompleteApi, {
-    MultiselectAutocompleteApiProps,
-} from "./components/Form/fields/MultiselectAutocompleteApi";
-import MultiselectElement, {
-    MultiselectElementProps,
-    MultiselectElementSpecificProps,
-    MultiselectElementAutocompleteProps,
-    MultiselectElementAutocompleteOptionalProps,
-} from "./components/Form/elements/MultiselectElement";
 import { SelectValueType } from "./components/Form/definitions/AutocompleteTypes";
 import FieldHelpType from "./components/Form/definitions/FieldHelpType";
 import FieldElementInterface from "./components/Form/definitions/FieldElementInterface";
 import FieldElementPlaceholderInterface from "./components/Form/definitions/FieldElementPlaceholderInterface";
 import Textarea, { TextareaProps } from "./components/Form/fields/Textarea";
-import TextareaElement, {
-    TextareaElementProps,
-    TextareaElementSpecificProps,
-} from "./components/Form/elements/TextareaElement";
-import Rating, { RatingProps } from "./components/Form/fields/Rating";
-import RatingElement, {
-    RatingElementProps,
-    RatingElementSpecificProps,
-} from "./components/Form/elements/RatingElement";
 import Text, { TextProps } from "./components/Form/fields/Text";
-import TextElement, { TextElementProps, TextElementSpecificProps } from "./components/Form/elements/TextElement";
 import Email, { EmailProps } from "./components/Form/fields/Email";
-import EmailElement, { EmailElementProps, EmailElementSpecificProps } from "./components/Form/elements/EmailElement";
 import Password, { PasswordProps } from "./components/Form/fields/Password";
-import PasswordElement, {
-    PasswordElementProps,
-    PasswordElementSpecificProps,
-} from "./components/Form/elements/PasswordElement";
-import Date, { DateProps } from "./components/Form/fields/Date";
-import DateElement, { DateElementProps, DateElementSpecificProps } from "./components/Form/elements/DateElement";
 import DatePicker, { DatePickerProps } from "./components/Form/fields/DatePicker";
 import DateTimePicker, { DateTimePickerProps } from "./components/Form/fields/DateTimePicker";
 import TimePicker, { TimePickerProps } from "./components/Form/fields/TimePicker";
-import DateTime, { DateTimeProps } from "./components/Form/fields/DateTime";
-import DateTimeElement, {
-    DateTimeElementProps,
-    DateTimeElementSpecificProps,
-} from "./components/Form/elements/DateTimeElement";
-import Time, { TimeProps } from "./components/Form/fields/Time";
-import TimeElement, { TimeElementProps, TimeElementSpecificProps } from "./components/Form/elements/TimeElement";
 import Checkbox, { CheckboxProps } from "./components/Form/fields/Checkbox";
-import CheckboxElement, {
-    CheckboxElementProps,
-    CheckboxElementSpecificProps,
-} from "./components/Form/elements/CheckboxElement";
 import Collection, { CollectionProps } from "./components/Form/fields/Collection";
 import {
     resolveAnyOrFunction,
@@ -387,8 +338,6 @@ export {
     SelectFilterProps,
     SelectApiFilter,
     SelectApiFilterProps,
-    SelectAutocompleteApiFilter,
-    SelectAutocompleteApiFilterProps,
     DateFromFilter,
     DateFromFilterProps,
     DateToFilter,
@@ -449,86 +398,33 @@ export {
     RadioProps,
     RadioApi,
     RadioApiProps,
-    RadioElement,
-    RadioElementProps,
     TrueFalse,
     TrueFalseProps,
-    BooleanElement,
-    BooleanElementProps,
     Select,
     SelectProps,
     SelectApi,
     SelectApiProps,
-    SelectAutocompleteApi,
-    SelectAutocompleteApiProps,
-    SelectElement,
-    SelectElementProps,
-    SelectElementSpecificProps,
-    SelectElementAutocompleteProps,
-    SelectElementAutocompleteOptionalProps,
     Multiselect,
     MultiselectProps,
     MultiselectApi,
     MultiselectApiProps,
-    MultiselectAutocompleteApi,
-    MultiselectAutocompleteApiProps,
-    MultiselectElement,
-    MultiselectElementProps,
-    MultiselectElementSpecificProps,
-    MultiselectElementAutocompleteProps,
-    MultiselectElementAutocompleteOptionalProps,
     SelectValueType,
     Textarea,
     TextareaProps,
-    TextareaElement,
-    TextareaElementProps,
-    TextareaElementSpecificProps,
-    Rating,
-    RatingProps,
-    RatingElement,
-    RatingElementProps,
-    RatingElementSpecificProps,
     Text,
     TextProps,
-    TextElement,
-    TextElementProps,
-    TextElementSpecificProps,
     Email,
     EmailProps,
-    EmailElement,
-    EmailElementProps,
-    EmailElementSpecificProps,
     Password,
     PasswordProps,
-    PasswordElement,
-    PasswordElementProps,
-    PasswordElementSpecificProps,
-    Date,
-    DateProps,
-    DateElement,
-    DateElementProps,
-    DateElementSpecificProps,
     DatePicker,
     DatePickerProps,
     DateTimePicker,
     DateTimePickerProps,
     TimePicker,
     TimePickerProps,
-    DateTime,
-    DateTimeProps,
-    DateTimeElement,
-    DateTimeElementProps,
-    DateTimeElementSpecificProps,
-    Time,
-    TimeProps,
-    TimeElement,
-    TimeElementProps,
-    TimeElementSpecificProps,
     Checkbox,
     CheckboxProps,
-    CheckboxElement,
-    CheckboxElementProps,
-    CheckboxElementSpecificProps,
     Collection,
     CollectionProps,
     resolveAnyOrFunction,
