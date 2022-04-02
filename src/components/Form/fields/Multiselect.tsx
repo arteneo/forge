@@ -1,4 +1,5 @@
 import React from "react";
+import * as Yup from "yup";
 import {
     Checkbox as MuiCheckbox,
     TextField as MuiTextField,
@@ -65,6 +66,14 @@ const Multiselect = ({
     disableTranslateGroupBy,
     autocompleteProps,
     formControlProps,
+    // eslint-disable-next-line
+    validate: fieldValidate = (value: any, required: boolean) => {
+        if (required && !Yup.array().min(1).required().isValidSync(value)) {
+            return "validate.required";
+        }
+
+        return undefined;
+    },
     ...field
 }: MultiselectProps) => {
     const { t } = useTranslation();
@@ -84,6 +93,7 @@ const Multiselect = ({
             touched,
             errors,
             submitCount,
+            validate: fieldValidate,
             ...field,
         });
 
