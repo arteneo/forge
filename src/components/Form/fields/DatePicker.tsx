@@ -1,4 +1,5 @@
 import React from "react";
+import * as Yup from "yup";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { DatePicker as MuiDatePicker, DatePickerProps as MuiDatePickerProps } from "@mui/lab";
 import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@mui/material";
@@ -25,7 +26,19 @@ type DatePickerProps = DatePickerSpecificProps & FieldPlaceholderInterface;
 
 const DatePickerRenderInput = (props: MuiTextFieldProps) => <MuiTextField {...props} />;
 
-const DatePicker = ({ onChange, fieldProps, ...field }: DatePickerProps) => {
+const DatePicker = ({
+    onChange,
+    fieldProps,
+    // eslint-disable-next-line
+    validate: fieldValidate = (value: any, required: boolean) => {
+        if (required && !Yup.string().required().isValidSync(value)) {
+            return "validate.required";
+        }
+
+        return undefined;
+    },
+    ...field
+}: DatePickerProps) => {
     const {
         values,
         touched,
@@ -42,6 +55,7 @@ const DatePicker = ({ onChange, fieldProps, ...field }: DatePickerProps) => {
             touched,
             errors,
             submitCount,
+            validate: fieldValidate,
             ...field,
         });
 
@@ -97,7 +111,11 @@ const DatePicker = ({ onChange, fieldProps, ...field }: DatePickerProps) => {
             );
         }
 
-        return <DatePickerRenderInput {...{ label, required, placeholder, error: hasError, helperText, ...props }} />;
+        return (
+            <DatePickerRenderInput
+                {...{ label, required, placeholder, helperText, ...props, error: props.error || hasError }}
+            />
+        );
     };
 
     const internalFieldProps: MuiDatePickerProps = {

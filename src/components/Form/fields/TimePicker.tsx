@@ -1,4 +1,5 @@
 import React from "react";
+import * as Yup from "yup";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TimePicker as MuiTimePicker, TimePickerProps as MuiTimePickerProps } from "@mui/lab";
 import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@mui/material";
@@ -25,7 +26,19 @@ type TimePickerProps = TimePickerSpecificProps & FieldPlaceholderInterface;
 
 const TimePickerRenderInput = (props: MuiTextFieldProps) => <MuiTextField {...props} />;
 
-const TimePicker = ({ onChange, fieldProps, ...field }: TimePickerProps) => {
+const TimePicker = ({
+    onChange,
+    fieldProps,
+    // eslint-disable-next-line
+    validate: fieldValidate = (value: any, required: boolean) => {
+        if (required && !Yup.string().required().isValidSync(value)) {
+            return "validate.required";
+        }
+
+        return undefined;
+    },
+    ...field
+}: TimePickerProps) => {
     const {
         values,
         touched,
@@ -42,6 +55,7 @@ const TimePicker = ({ onChange, fieldProps, ...field }: TimePickerProps) => {
             touched,
             errors,
             submitCount,
+            validate: fieldValidate,
             ...field,
         });
 
@@ -97,7 +111,11 @@ const TimePicker = ({ onChange, fieldProps, ...field }: TimePickerProps) => {
             );
         }
 
-        return <TimePickerRenderInput {...{ label, required, placeholder, error: hasError, helperText, ...props }} />;
+        return (
+            <TimePickerRenderInput
+                {...{ label, required, placeholder, helperText, ...props, error: props.error || hasError }}
+            />
+        );
     };
 
     const internalFieldProps: MuiTimePickerProps = {
