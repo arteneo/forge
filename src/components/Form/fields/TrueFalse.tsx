@@ -47,6 +47,10 @@ const TrueFalse = (radioProps: TrueFalseProps) => {
 TrueFalse.defaultProps = {
     // eslint-disable-next-line
     transformInitialValue: (value: any) => {
+        if (typeof value === "undefined") {
+            return value;
+        }
+
         // Make sure it is a boolean value
         if (value === "false") {
             return false;
