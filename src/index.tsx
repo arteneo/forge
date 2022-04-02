@@ -209,6 +209,9 @@ import PasswordElement, {
 } from "./components/Form/elements/PasswordElement";
 import Date, { DateProps } from "./components/Form/fields/Date";
 import DateElement, { DateElementProps, DateElementSpecificProps } from "./components/Form/elements/DateElement";
+import DatePicker, { DatePickerProps } from "./components/Form/fields/DatePicker";
+import DateTimePicker, { DateTimePickerProps } from "./components/Form/fields/DateTimePicker";
+import TimePicker, { TimePickerProps } from "./components/Form/fields/TimePicker";
 import DateTime, { DateTimeProps } from "./components/Form/fields/DateTime";
 import DateTimeElement, {
     DateTimeElementProps,
@@ -505,6 +508,12 @@ export {
     DateElement,
     DateElementProps,
     DateElementSpecificProps,
+    DatePicker,
+    DatePickerProps,
+    DateTimePicker,
+    DateTimePickerProps,
+    TimePicker,
+    TimePickerProps,
     DateTime,
     DateTimeProps,
     DateTimeElement,
