@@ -1,4 +1,5 @@
 import React from "react";
+import * as Yup from "yup";
 import {
     TextField as MuiTextField,
     FormControl,
@@ -63,6 +64,14 @@ const Select = ({
     disableTranslateGroupBy,
     autocompleteProps,
     formControlProps,
+    // eslint-disable-next-line
+    validate: fieldValidate = (value: any, required: boolean) => {
+        if (required && !Yup.string().required().isValidSync(value)) {
+            return "validate.required";
+        }
+
+        return undefined;
+    },
     ...field
 }: SelectProps) => {
     const { t } = useTranslation();
@@ -82,6 +91,7 @@ const Select = ({
             touched,
             errors,
             submitCount,
+            validate: fieldValidate,
             ...field,
         });
 
