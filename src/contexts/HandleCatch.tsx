@@ -1,8 +1,10 @@
 import React from "react";
-import { useError } from "../contexts/Error";
+import { useTranslation } from "react-i18next";
 import { AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
+import { useError } from "../contexts/Error";
 import { useSnackbar } from "../contexts/Snackbar";
+import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
 
 interface HandleCatchContextProps {
     (error: AxiosError, helpers?: FormikHelpers<FormikValues>): void;
@@ -14,12 +16,17 @@ interface HandleCatchProviderProps {
 }
 
 interface ErrorsFieldErrorsProps {
-    errors: string[];
+    errors: ErrorMessage[];
     children?: ErrorsFieldProps;
 }
 
 interface ErrorsFieldProps {
     [field: string]: ErrorsFieldErrorsProps;
+}
+
+interface ErrorMessage {
+    message: string;
+    parameters: TranslateVariablesInterface;
 }
 
 const contextInitial = () => {
@@ -33,6 +40,7 @@ const HandleCatchContext = React.createContext<HandleCatchContextProps>(contextI
 const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
     const { setError } = useError();
     const { showError } = useSnackbar();
+    const { t } = useTranslation();
 
     const updateValidationErrors = (
         children: ErrorsFieldProps,
@@ -42,8 +50,8 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
         Object.keys(children).forEach((field: string) => {
             const childField = children[field];
             if (childField?.errors) {
-                childField.errors.forEach((error: string) => {
-                    helpers.setFieldError(prefix + field, error);
+                childField.errors.forEach((error: ErrorMessage) => {
+                    helpers.setFieldError(prefix + field, t(error.message, error.parameters));
                     helpers.setFieldTouched(prefix + field, true, false);
                 });
             }

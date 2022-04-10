@@ -284,7 +284,7 @@ const FormProvider = ({
             return undefined;
         }
 
-        return t(String(getIn(errors, path)));
+        return String(getIn(errors, path));
     };
 
     const getLabel = (
