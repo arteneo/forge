@@ -139,7 +139,7 @@ const FormProvider = ({
 
     const requestConfig = resolveEndpoint(initializeEndpoint);
 
-    useDeepCompareEffect(() => initializeValues(), [requestConfig, initialValues]);
+    useDeepCompareEffectNoCheck(() => initializeValues(), [requestConfig, initialValues]);
 
     const initializeValues = () => {
         if (typeof initialValues !== "undefined" && typeof requestConfig === "undefined") {
@@ -152,7 +152,7 @@ const FormProvider = ({
         }
 
         const axiosSource = axios.CancelToken.source();
-        // requestConfig needs to be copied to avoid firing useDeepCompareEffect
+        // requestConfig needs to be copied to avoid firing useDeepCompareEffectNoCheck
         const axiosRequestConfig = Object.assign({ cancelToken: axiosSource.token }, requestConfig);
 
         axios
