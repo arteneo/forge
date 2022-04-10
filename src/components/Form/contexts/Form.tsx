@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import useDeepCompareEffect from "use-deep-compare-effect";
+import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 import { FormikValues, FormikTouched, FormikErrors, getIn } from "formik";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "../../../contexts/HandleCatch";

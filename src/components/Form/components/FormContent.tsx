@@ -42,6 +42,7 @@ const FormContent = ({
             throw new Error("Resolved requestConfig is undefined");
         }
 
+        requestConfig.method = requestConfig.method ?? "post";
         requestConfig.data = changeSubmitValues ? changeSubmitValues(values) : values;
 
         showLoader();
