@@ -23,36 +23,36 @@ const TableResultsPaginationActions = () => {
     };
 
     const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement> | null) => {
-        onChangePage(event, Math.max(1, Math.ceil(rowCount / rowsPerPage) - 1));
+        onChangePage(event, Math.max(1, Math.ceil(rowCount / rowsPerPage)));
     };
 
     return (
-        <Box>
+        <Box {...{ display: "flex", ml: 4 }}>
             <IconButton
                 onClick={handleFirstPageButtonClick}
                 disabled={page === 1}
-                aria-label={t("table.tablePagination.firstPage")}
+                aria-label={t("table.pagination.firstPage")}
             >
                 {theme.direction === "rtl" ? <LastPage /> : <FirstPage />}
             </IconButton>
             <IconButton
                 onClick={handleBackButtonClick}
                 disabled={page === 1}
-                aria-label={t("table.tablePagination.previousPage")}
+                aria-label={t("table.pagination.previousPage")}
             >
                 {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             </IconButton>
             <IconButton
                 onClick={handleNextButtonClick}
-                disabled={page >= Math.ceil(rowCount / rowsPerPage) - 1}
-                aria-label={t("table.tablePagination.nextPage")}
+                disabled={page >= Math.ceil(rowCount / rowsPerPage)}
+                aria-label={t("table.pagination.nextPage")}
             >
                 {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </IconButton>
             <IconButton
                 onClick={handleLastPageButtonClick}
-                disabled={page >= Math.ceil(rowCount / rowsPerPage) - 1}
-                aria-label={t("table.tablePagination.lastPage")}
+                disabled={page >= Math.ceil(rowCount / rowsPerPage)}
+                aria-label={t("table.pagination.lastPage")}
             >
                 {theme.direction === "rtl" ? <FirstPage /> : <LastPage />}
             </IconButton>

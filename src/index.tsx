@@ -47,10 +47,9 @@ import TranslateVariablesInterface from "./definitions/TranslateVariablesInterfa
 import Wrapper, { WrapperProps } from "./components/Table/components/Wrapper";
 import Table, { TableProps } from "./components/Table/components/Table";
 import TableActions, { TableActionsProps } from "./components/Table/components/TableActions";
-import TableContent, { TableContentProps } from "./components/Table/components/TableContent";
-import TableFilters, { TableFiltersProps } from "./components/Table/components/TableFilters";
+import TableContent from "./components/Table/components/TableContent";
+import TableFilters from "./components/Table/components/TableFilters";
 import TableFiltersFieldset, { TableFiltersFieldsetProps } from "./components/Table/components/TableFiltersFieldset";
-import TableFiltersButtons from "./components/Table/components/TableFiltersButtons";
 import TableResults from "./components/Table/components/TableResults";
 import TableResultsPagination from "./components/Table/components/TableResultsPagination";
 import TableResultsPaginationActions from "./components/Table/components/TableResultsPaginationActions";
@@ -151,6 +150,7 @@ import FieldPlaceholderType from "./components/Form/definitions/FieldPlaceholder
 import FieldsInterface from "./components/Form/definitions/FieldsInterface";
 import Form, { FormProps } from "./components/Form/components/Form";
 import FormContent, { FormContentProps } from "./components/Form/components/FormContent";
+import { getFields } from "./components/Form/utilities/common";
 import OptionsType from "./components/Form/definitions/OptionsType";
 import OptionInterface from "./components/Form/definitions/OptionInterface";
 import Radio, { RadioProps } from "./components/Form/fields/Radio";
@@ -219,12 +219,9 @@ export {
     TableActions,
     TableActionsProps,
     TableContent,
-    TableContentProps,
     TableFilters,
-    TableFiltersProps,
     TableFiltersFieldset,
     TableFiltersFieldsetProps,
-    TableFiltersButtons,
     TableResults,
     TableResultsPagination,
     TableResultsPaginationActions,
@@ -381,6 +378,7 @@ export {
     FormProps,
     FormContent,
     FormContentProps,
+    getFields,
     OptionsType,
     OptionInterface,
     FieldHelpType,

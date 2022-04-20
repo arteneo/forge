@@ -1,4 +1,4 @@
-import ColumnsInterface from "../definitions/ColumnsInterface";
+import ColumnsInterface from "../../../components/Table/definitions/ColumnsInterface";
 
 export const getColumns = <T,>(names: undefined | T[], columns: ColumnsInterface): ColumnsInterface => {
     const _columns: ColumnsInterface = {};

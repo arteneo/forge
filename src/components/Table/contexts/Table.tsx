@@ -34,6 +34,7 @@ interface TableContextProps {
     // eslint-disable-next-line
     onChangeRowsPerPage: (event: any) => void;
     filters: FiltersInterface;
+    filterFields: FieldsInterface;
     filterClass?: { accordion: string; accordionActive: string };
     onSubmitFilters: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
     isFiltersActive: () => boolean;
@@ -73,7 +74,7 @@ interface TableProviderProps {
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     disablePagination?: boolean;
-    filterFields?: FieldsInterface;
+    filters?: FieldsInterface;
     defaultFilters?: FilterValuesInterface;
     additionalFilters?: FiltersInterface;
     defaultSorting?: SortingInterface;
@@ -102,6 +103,7 @@ const contextInitial = {
         return;
     },
     filters: {},
+    filterFields: {},
     onSubmitFilters: () => {
         return;
     },
@@ -171,7 +173,7 @@ const TableProvider = ({
     rowsPerPage: _rowsPerPage = 10,
     rowsPerPageOptions = [5, 10, 25, 50],
     disablePagination = false,
-    filterFields,
+    filters: filterFields,
     defaultFilters = {},
     additionalFilters,
     defaultSorting = {},
@@ -510,6 +512,7 @@ const TableProvider = ({
                 onChangePage,
                 onChangeRowsPerPage,
                 disablePagination,
+                filterFields,
                 filters,
                 isFiltersActive,
                 onSubmitFilters,

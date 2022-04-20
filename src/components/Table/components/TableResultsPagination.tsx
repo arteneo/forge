@@ -13,19 +13,20 @@ const TableResultsPagination = () => {
             <TableRow>
                 <TablePagination
                     {...{
-                        page,
+                        // Page in MUI is starting from 0
+                        page: page - 1,
                         rowsPerPageOptions,
                         rowsPerPage,
                         count: rowCount,
                         onPageChange: onChangePage,
                         onRowsPerPageChange: onChangeRowsPerPage,
                         labelDisplayedRows: ({ from, to, count }) =>
-                            t("table.resultsPagination.displayedRows", {
+                            t("table.pagination.displayedRows", {
                                 from: from,
                                 to: to === -1 ? count : to,
                                 count: count,
                             }),
-                        labelRowsPerPage: t("table.resultsPagination.rowsPerPage"),
+                        labelRowsPerPage: t("table.pagination.rowsPerPage"),
                         ActionsComponent: TableResultsPaginationActions,
                     }}
                 />

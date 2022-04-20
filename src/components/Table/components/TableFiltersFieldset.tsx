@@ -1,62 +1,62 @@
 import React from "react";
-import { Grid, GridProps } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/material";
+import { useFormikContext } from "formik";
+import { useTable } from "../../../components/Table/contexts/Table";
+import Button from "../../../components/Common/Button";
 import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import { renderField } from "../../../utils/common";
 
 interface TableFiltersFieldsetProps {
-    filters: FieldsInterface;
+    fields: FieldsInterface;
 }
 
-const useStyles = makeStyles((theme) => ({
-    gridContainer: {
-        padding: "0 0 20 0", // TODO theme.spacing(0, 0, 4, 0),
-    },
-    gridItem: {
-        padding: "0 20 0 20 !important", // TODO theme.spacing(0, 4) + " !important",
-    },
-}));
+const TableFiltersFieldset = ({ fields }: TableFiltersFieldsetProps) => {
+    const { isSubmitting, setFieldValue } = useFormikContext();
+    const { clearFilters } = useTable();
 
-const TableFiltersFieldset = ({ filters }: TableFiltersFieldsetProps) => {
-    const classes = useStyles();
+    const render = renderField(fields);
 
-    // eslint-disable-next-line
-    const getFieldGridProps = (): GridProps => {
-        const gridProps: GridProps = {
-            xs: 12,
-        };
-
-        const filtersLength = Object.keys(filters).length;
-        if (filtersLength === 2) {
-            gridProps.sm = 6;
-        }
-
-        if (filtersLength === 3) {
-            gridProps.sm = 6;
-            gridProps.lg = 4;
-        }
-
-        if (filtersLength === 4) {
-            gridProps.sm = 6;
-        }
-
-        if (filtersLength > 4) {
-            gridProps.sm = 6;
-            gridProps.lg = 4;
-        }
-
-        return gridProps;
+    const gridTemplateColumns = {
+        xs: "1fr",
+        md: "1fr 1fr 1fr",
     };
 
+    const fieldsCount = Object.keys(fields).length;
+    switch (fieldsCount) {
+        case 1:
+            gridTemplateColumns["md"] = "1fr";
+            break;
+        case 2:
+            gridTemplateColumns["md"] = "1fr 1fr";
+            break;
+    }
+
     return (
-        <Grid container spacing={8} className={classes.gridContainer}>
-            {Object.keys(filters).map((field) => (
-                <Grid item className={classes.gridItem} key={field} {...getFieldGridProps()}>
-                    {React.cloneElement(filters[field], {
-                        name: filters[field].props.name || field,
-                    })}
-                </Grid>
-            ))}
-        </Grid>
+        <>
+            <Box sx={{ display: "grid", gap: 2, gridTemplateColumns }}>
+                {Object.keys(fields).map((field) => render(field))}
+            </Box>
+            <Box mt={3} sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Button
+                    {...{
+                        onClick: () => clearFilters(setFieldValue),
+                        disabled: isSubmitting,
+                        variant: "outlined",
+                        color: "warning",
+                        label: "table.filters.clear",
+                    }}
+                />
+                <Button
+                    {...{
+                        disabled: isSubmitting,
+                        type: "submit",
+                        variant: "contained",
+                        color: "primary",
+                        label: "table.filters.submit",
+                    }}
+                />
+            </Box>
+        </>
     );
 };
 

@@ -1,85 +1,63 @@
 import React from "react";
-import clsx from "clsx";
-// TODO
-// import Form from "../../../components/Form/components/Form";
-// import TableFiltersButtons from "../../../components/Table/components/TableFiltersButtons";
-import { useTable } from "../../../components/Table/contexts/Table";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material";
 import { ExpandMore, FilterList } from "@mui/icons-material";
-import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import Form from "../../../components/Form/components/Form";
+import TableFiltersFieldset from "../../../components/Table/components/TableFiltersFieldset";
+import { useTable } from "../../../components/Table/contexts/Table";
 
-interface TableFiltersProps {
-    filtersFieldset: React.ElementType;
-    filters: FieldsInterface;
-    filterClass?: { accordion: string; accordionActive: string };
-}
-
-const useStyles = makeStyles((theme) => ({
-    accordion: {
-        borderLeft: "4px solid transparent",
-        borderRight: "4px solid transparent",
-        marginBottom: 20, // TODO theme.spacing(4),
-        borderRadius: "4px",
-        "&:before": {
-            display: "none",
-        },
-    },
-    accordionActive: {
-        borderLeft: "blue", //"4px solid " + theme.palette.primary.main,
-        borderRight: "blue", //"4px solid " + theme.palette.primary.main,
-    },
-    titleIcon: {
-        display: "flex",
-        marginRight: 7.5, // TODO theme.spacing(1.5),
-    },
-}));
-
-const TableFilters = ({ filters, filterClass, filtersFieldset }: TableFiltersProps) => {
+const TableFilters = () => {
     const { t } = useTranslation();
-    const classes = useStyles();
-    const { filters: filterValues, filtersExpanded, setFiltersExpanded, onSubmitFilters, isFiltersActive } = useTable();
+    const { filters, filterFields, onSubmitFilters, isFiltersActive } = useTable();
 
-    const accordionClass = filterClass?.accordion ? filterClass.accordion : classes.accordion;
-    const accordionActiveClass = filterClass?.accordionActive ? filterClass.accordionActive : classes.accordionActive;
+    const [filtersExpanded, setFiltersExpanded] = React.useState(false);
 
-    const FiltersFieldset = filtersFieldset;
+    if (typeof filterFields === "undefined") {
+        return null;
+    }
 
     return (
-        <Accordion
-            className={clsx(accordionClass, isFiltersActive() && accordionActiveClass)}
-            expanded={filtersExpanded}
-            onChange={() => setFiltersExpanded(!filtersExpanded)}
-            TransitionProps={{
-                unmountOnExit: true,
-            }}
-        >
-            <AccordionSummary expandIcon={<ExpandMore />}>
-                <div className={classes.titleIcon}>
-                    <FilterList />
-                </div>
-                <Typography variant="body1" component="h2">
-                    {t("crud." + (filtersExpanded ? "filtersCollapse" : "filtersExpand"))}
-                </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-                <Box p={2} display="flex" flexGrow={1}>
-                    {/* // TODO */}
-                    {/* <Form
-                        // fields={filters}
-                        initialValues={filterValues}
-                        onSubmit={onSubmitFilters}
-                        // TODO
-                        // buttons={<TableFiltersButtons />}
-                    >
-                        <FiltersFieldset filters={filters} />
-                    </Form> */}
-                </Box>
-            </AccordionDetails>
-        </Accordion>
+        <Box mb={2}>
+            <Accordion
+                {...{
+                    expanded: filtersExpanded,
+                    onChange: () => setFiltersExpanded(!filtersExpanded),
+                    sx: {
+                        borderLeftWidth: isFiltersActive() ? "4px" : undefined,
+                        borderLeftStyle: isFiltersActive() ? "solid" : undefined,
+                        borderLeftColor: isFiltersActive() ? "primary.main" : undefined,
+                        borderRightWidth: isFiltersActive() ? "4px" : undefined,
+                        borderRightStyle: isFiltersActive() ? "solid" : undefined,
+                        borderRightColor: isFiltersActive() ? "primary.main" : undefined,
+                    },
+                    TransitionProps: {
+                        unmountOnExit: true,
+                    },
+                }}
+            >
+                <AccordionSummary expandIcon={<ExpandMore />}>
+                    <Box {...{ display: "flex", mr: 1 }}>
+                        <FilterList />
+                    </Box>
+                    <Typography {...{ variant: "body1", component: "h2" }}>
+                        {t("table.filters." + (filtersExpanded ? "collapse" : "expand"))}
+                    </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Box p={1} pt={0}>
+                        <Form
+                            {...{
+                                fields: filterFields,
+                                initialValues: filters,
+                                onSubmit: onSubmitFilters,
+                                children: <TableFiltersFieldset {...{ fields: filterFields }} />,
+                            }}
+                        />
+                    </Box>
+                </AccordionDetails>
+            </Accordion>
+        </Box>
     );
 };
 
 export default TableFilters;
-export { TableFiltersProps };
