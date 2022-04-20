@@ -4,6 +4,7 @@ import { useTable } from "../../../components/Table/contexts/Table";
 import TablePaginationActions from "../../../components/Table/components/TablePaginationActions";
 import { useTranslation } from "react-i18next";
 
+// TODO Remove component
 const TablePagination = () => {
     const { t } = useTranslation();
     const { page, rowCount, rowsPerPage, rowsPerPageOptions, onChangePage, onChangeRowsPerPage } = useTable();

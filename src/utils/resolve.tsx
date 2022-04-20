@@ -2,7 +2,7 @@ import React from "react";
 import { AxiosRequestConfig } from "axios";
 import { FormikValues } from "formik";
 import FieldEndpointType from "../components/Form/definitions/FieldEndpointType";
-import EndpointType from "../components/Form/definitions/EndpointType";
+import EndpointType from "../definitions/EndpointType";
 
 /* eslint-disable */
 const resolveBooleanOrFunction = (parameter: undefined | boolean | Function, ...functionParameters: any[]): boolean => {

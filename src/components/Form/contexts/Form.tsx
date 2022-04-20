@@ -12,7 +12,7 @@ import FieldResolveInterface from "../../../components/Form/definitions/FieldRes
 import FieldResolvedInterface from "../../../components/Form/definitions/FieldResolvedInterface";
 import FieldPlaceholderResolveInterface from "../../../components/Form/definitions/FieldPlaceholderResolveInterface";
 import FieldPlaceholderResolvedInterface from "../../../components/Form/definitions/FieldPlaceholderResolvedInterface";
-import EndpointType from "../../../components/Form/definitions/EndpointType";
+import EndpointType from "../../../definitions/EndpointType";
 import { filterInitialValues, transformInitialValues } from "../../../utils/common";
 import {
     resolveBooleanOrFunction,

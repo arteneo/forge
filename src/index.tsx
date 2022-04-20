@@ -51,8 +51,10 @@ import TableContent, { TableContentProps } from "./components/Table/components/T
 import TableFilters, { TableFiltersProps } from "./components/Table/components/TableFilters";
 import TableFiltersFieldset, { TableFiltersFieldsetProps } from "./components/Table/components/TableFiltersFieldset";
 import TableFiltersButtons from "./components/Table/components/TableFiltersButtons";
-import TablePagination from "./components/Table/components/TablePagination";
-import TablePaginationActions from "./components/Table/components/TablePaginationActions";
+import TableResults from "./components/Table/components/TableResults";
+import TableResultsPagination from "./components/Table/components/TableResultsPagination";
+import TableResultsPaginationActions from "./components/Table/components/TableResultsPaginationActions";
+import { getColumns } from "./components/Table/utilities/common";
 import TextColumn, { TextColumnProps } from "./components/Table/columns/TextColumn";
 import TextTruncateColumn, { TextTruncateColumnProps } from "./components/Table/columns/TextTruncateColumn";
 import BooleanColumn, { BooleanColumnProps } from "./components/Table/columns/BooleanColumn";
@@ -96,7 +98,7 @@ import FiltersInterface from "./components/Table/definitions/FiltersInterface";
 import FilterType from "./components/Table/definitions/FilterType";
 import FilterValuesInterface from "./components/Table/definitions/FilterValuesInterface";
 import ResultInterface from "./components/Table/definitions/ResultInterface";
-import RowInterface from "./components/Table/definitions/RowInterface";
+import ColumnsInterface from "./components/Table/definitions/ColumnsInterface";
 import QueryInterface from "./components/Table/definitions/QueryInterface";
 import QuerySortingDefinitionInterface from "./components/Table/definitions/QuerySortingDefinitionInterface";
 import QuerySortingInterface from "./components/Table/definitions/QuerySortingInterface";
@@ -107,7 +109,6 @@ import TableColumnDisableSortingInterface from "./components/Table/definitions/T
 import TableColumnPathType from "./components/Table/definitions/TableColumnPathType";
 import TableColumnType from "./components/Table/definitions/TableColumnType";
 import TableColumnsType from "./components/Table/definitions/TableColumnsType";
-import TableColumnDefaultHideInterface from "./components/Table/definitions/TableColumnDefaultHideInterface";
 import TableQueriesInterface from "./components/Table/definitions/TableQueriesInterface";
 import TableQueryInterface from "./components/Table/definitions/TableQueryInterface";
 import TableResultActionInterface from "./components/Table/definitions/TableResultActionInterface";
@@ -224,8 +225,10 @@ export {
     TableFiltersFieldset,
     TableFiltersFieldsetProps,
     TableFiltersButtons,
-    TablePagination,
-    TablePaginationActions,
+    TableResults,
+    TableResultsPagination,
+    TableResultsPaginationActions,
+    getColumns,
     BatchQueryInterface,
     BatchSelectedType,
     DeniedAccessBehaviorType,
@@ -290,7 +293,7 @@ export {
     // TODO
     // BatchForm,
     // BatchFormProps,
-    RowInterface,
+    ColumnsInterface,
     ExportQueryInterface,
     TableContext,
     TableContextProps,
@@ -301,7 +304,6 @@ export {
     TableColumnPathType,
     TableColumnType,
     TableColumnsType,
-    TableColumnDefaultHideInterface,
     TableQueriesInterface,
     TableQueryInterface,
     TableResultActionInterface,

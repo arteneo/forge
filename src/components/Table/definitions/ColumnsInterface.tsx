@@ -1,8 +1,8 @@
 import React from "react";
 
-interface RowInterface {
+interface ColumnsInterface {
     // eslint-disable-next-line
     [key: string]: React.ReactElement<any>;
 }
 
-export default RowInterface;
+export default ColumnsInterface;

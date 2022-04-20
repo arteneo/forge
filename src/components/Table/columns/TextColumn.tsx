@@ -1,18 +1,18 @@
 import React from "react";
 import { getIn } from "formik";
-import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
+import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
 
-const TextColumn = ({ result, field, path }: TableColumnPathType) => {
-    if (typeof field === "undefined") {
-        throw new Error("TextColumn component: Missing required field prop");
+const TextColumn = ({ result, columnName, path }: ColumnPathInterface) => {
+    if (typeof columnName === "undefined") {
+        throw new Error("TextColumn component: Missing required columnName prop");
     }
 
     if (typeof result === "undefined") {
         throw new Error("TextColumn component: Missing required result prop");
     }
 
-    return <>{getIn(result, path ? path : field)}</>;
+    return <>{getIn(result, path ? path : columnName)}</>;
 };
 
 export default TextColumn;
-export { TableColumnPathType as TextColumnProps };
+export { ColumnPathInterface as TextColumnProps };

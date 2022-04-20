@@ -1,27 +1,17 @@
 import React from "react";
 import { useTable } from "../../../components/Table/contexts/Table";
-import { IconButton, useTheme } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { Box, IconButton, useTheme } from "@mui/material";
 import { FirstPage, LastPage, KeyboardArrowRight, KeyboardArrowLeft } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexShrink: 0,
-        marginLeft: 12.5, // TODO theme.spacing(2.5),
-    },
-}));
-
-// TODO Remove component
-const TablePaginationActions = () => {
+const TableResultsPaginationActions = () => {
     const { t } = useTranslation();
     const { page, rowCount, rowsPerPage, onChangePage } = useTable();
 
-    const classes = useStyles();
     const theme = useTheme();
 
     const handleFirstPageButtonClick = (event: React.MouseEvent<HTMLButtonElement> | null) => {
-        onChangePage(event, 0);
+        onChangePage(event, 1);
     };
 
     const handleBackButtonClick = (event: React.MouseEvent<HTMLButtonElement> | null) => {
@@ -33,33 +23,41 @@ const TablePaginationActions = () => {
     };
 
     const handleLastPageButtonClick = (event: React.MouseEvent<HTMLButtonElement> | null) => {
-        onChangePage(event, Math.max(0, Math.ceil(rowCount / rowsPerPage) - 1));
+        onChangePage(event, Math.max(1, Math.ceil(rowCount / rowsPerPage) - 1));
     };
 
     return (
-        <div className={classes.root}>
-            <IconButton onClick={handleFirstPageButtonClick} disabled={page === 0} aria-label={t("crud.firstPage")}>
+        <Box>
+            <IconButton
+                onClick={handleFirstPageButtonClick}
+                disabled={page === 1}
+                aria-label={t("table.tablePagination.firstPage")}
+            >
                 {theme.direction === "rtl" ? <LastPage /> : <FirstPage />}
             </IconButton>
-            <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label={t("crud.previousPage")}>
+            <IconButton
+                onClick={handleBackButtonClick}
+                disabled={page === 1}
+                aria-label={t("table.tablePagination.previousPage")}
+            >
                 {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             </IconButton>
             <IconButton
                 onClick={handleNextButtonClick}
                 disabled={page >= Math.ceil(rowCount / rowsPerPage) - 1}
-                aria-label={t("crud.nextPage")}
+                aria-label={t("table.tablePagination.nextPage")}
             >
                 {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </IconButton>
             <IconButton
                 onClick={handleLastPageButtonClick}
                 disabled={page >= Math.ceil(rowCount / rowsPerPage) - 1}
-                aria-label={t("crud.lastPage")}
+                aria-label={t("table.tablePagination.lastPage")}
             >
                 {theme.direction === "rtl" ? <FirstPage /> : <LastPage />}
             </IconButton>
-        </div>
+        </Box>
     );
 };
 
-export default TablePaginationActions;
+export default TableResultsPaginationActions;

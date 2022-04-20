@@ -1,5 +1,5 @@
 import { FormikValues } from "formik";
-import EndpointType from "../../../components/Form/definitions/EndpointType";
+import EndpointType from "../../../definitions/EndpointType";
 
 type FieldEndpointType = EndpointType | ((values: FormikValues) => EndpointType);
 

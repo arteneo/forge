@@ -1,10 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { FormikHelpers, FormikValues } from "formik";
+import { useLocation } from "react-router-dom";
+import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { useLoader } from "../../../contexts/Loader";
 import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
-import RowInterface from "../../../components/Table/definitions/RowInterface";
+import ColumnsInterface from "../../../components/Table/definitions/ColumnsInterface";
 import QueryInterface from "../../../components/Table/definitions/QueryInterface";
 import QuerySortingInterface from "../../../components/Table/definitions/QuerySortingInterface";
 import SortingDirection from "../../../components/Table/definitions/SortingDirection";
@@ -13,26 +15,26 @@ import SortingInterface from "../../../components/Table/definitions/SortingInter
 import FiltersInterface from "../../../components/Table/definitions/FiltersInterface";
 import FilterValuesInterface from "../../../components/Table/definitions/FilterValuesInterface";
 import { useTableQuery } from "../../../components/Table/contexts/TableQuery";
-import { useLocation } from "react-router-dom";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import BatchSelectedType from "../../../components/Table/definitions/BatchSelectedType";
 import BatchQueryInterface from "../../../components/Table/definitions/BatchQueryInterface";
-import TableColumnsType from "../../../components/Table/definitions/TableColumnsType";
+import ColumnNamesType from "../../../components/Table/definitions/ColumnNamesType";
+import EndpointType from "../../../definitions/EndpointType";
+import { resolveEndpoint } from "../../../utils/resolve";
 
 interface TableContextProps {
-    row: RowInterface;
+    columns: ColumnsInterface;
     results: ResultInterface[];
     page: number;
     rowCount: number;
     rowsPerPage: number;
     rowsPerPageOptions: number[];
+    disablePagination: boolean;
     onChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void;
     // eslint-disable-next-line
     onChangeRowsPerPage: (event: any) => void;
     filters: FiltersInterface;
     filterClass?: { accordion: string; accordionActive: string };
-    filtersExpanded: boolean;
-    setFiltersExpanded: (filtersExpanded: boolean) => void;
     onSubmitFilters: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
     isFiltersActive: () => boolean;
     // eslint-disable-next-line
@@ -54,9 +56,9 @@ interface TableContextProps {
     reload: () => void;
     query: QueryInterface;
     batchQuery: BatchQueryInterface;
-    columns: RowInterface;
-    defaultColumns: RowInterface;
-    updateColumns: (tableColumns: ResultInterface[]) => void;
+    visibleColumns: ColumnNamesType;
+    defaultColumns: ColumnNamesType;
+    // updateColumns: (tableColumns: ResultInterface[]) => void;
     tableKey?: string;
     tableColumnEndpoint?: string;
     // eslint-disable-next-line
@@ -64,13 +66,14 @@ interface TableContextProps {
 }
 
 interface TableProviderProps {
-    row: RowInterface;
+    columns: ColumnsInterface;
+    defaultColumns?: ColumnNamesType;
     children: React.ReactNode;
-    endpoint: string;
+    endpoint: EndpointType;
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
+    disablePagination?: boolean;
     filterFields?: FieldsInterface;
-    filterClass?: { accordion: string; accordionActive: string };
     defaultFilters?: FilterValuesInterface;
     additionalFilters?: FiltersInterface;
     defaultSorting?: SortingInterface;
@@ -85,12 +88,13 @@ interface TableProviderProps {
 }
 
 const contextInitial = {
-    row: {},
+    columns: {},
     results: [],
-    page: 0,
+    page: 1,
     rowCount: 0,
     rowsPerPage: 10,
     rowsPerPageOptions: [5, 10, 25, 50],
+    disablePagination: false,
     onChangePage: () => {
         return;
     },
@@ -98,10 +102,6 @@ const contextInitial = {
         return;
     },
     filters: {},
-    filtersExpanded: false,
-    setFiltersExpanded: () => {
-        return;
-    },
     onSubmitFilters: () => {
         return;
     },
@@ -124,13 +124,13 @@ const contextInitial = {
         return;
     },
     query: {
-        page: 0,
+        page: 1,
         rowsPerPage: 10,
         sorting: [],
         filters: {},
     },
     batchQuery: {
-        page: 0,
+        page: 1,
         rowsPerPage: 10,
         sorting: [],
         filters: {},
@@ -157,23 +157,21 @@ const contextInitial = {
     reload: () => {
         return;
     },
-    columns: {},
-    defaultColumns: {},
-    updateColumns: () => {
-        return;
-    },
+    visibleColumns: [],
+    defaultColumns: [],
 };
 
 const TableContext = React.createContext<TableContextProps>(contextInitial);
 
 const TableProvider = ({
     children,
-    row,
+    columns,
+    defaultColumns: _defaultColumns,
     endpoint,
     rowsPerPage: _rowsPerPage = 10,
     rowsPerPageOptions = [5, 10, 25, 50],
+    disablePagination = false,
     filterFields,
-    filterClass,
     defaultFilters = {},
     additionalFilters,
     defaultSorting = {},
@@ -187,22 +185,25 @@ const TableProvider = ({
 }: TableProviderProps) => {
     const location = useLocation();
     const queryKey = typeof _queryKey !== "undefined" ? _queryKey : location.pathname;
+    const defaultColumns = typeof _defaultColumns === "undefined" ? Object.keys(columns) : _defaultColumns;
+
     const { setQuery, getQueryPage, getQueryRowsPerPage, getQueryFilters, getQuerySorting } = useTableQuery();
+    const handleCatch = useHandleCatch();
+    const { showLoader, hideLoader } = useLoader();
 
     const [results, setResults] = React.useState<ResultInterface[]>([]);
-    const [page, setPage] = React.useState(getQueryPage(queryKey, 0));
+    const [page, setPage] = React.useState(getQueryPage(queryKey, 1));
     const [sorting, setSorting] = React.useState<SortingInterface>(getQuerySorting(queryKey, defaultSorting));
     const [filters, setFilters] = React.useState<FilterValuesInterface>(getQueryFilters(queryKey, defaultFilters));
     const [rowsPerPage, setRowsPerPage] = React.useState(getQueryRowsPerPage(queryKey, _rowsPerPage));
     const [rowCount, setRowCount] = React.useState(0);
-    const [filtersExpanded, setFiltersExpanded] = React.useState(false);
     const [selected, setSelected] = React.useState<BatchSelectedType>([]);
-    const [columns, setColumns] = React.useState<TableColumnsType>(undefined);
+    const [visibleColumns, setVisibleColumns] = React.useState<ColumnNamesType>(defaultColumns);
 
-    const handleCatch = useHandleCatch();
-    const { showLoader, hideLoader } = useLoader();
+    const requestConfig = resolveEndpoint(endpoint);
 
-    React.useEffect(() => load(page, rowsPerPage, sorting, filters), [endpoint, page, rowsPerPage, sorting]);
+    useDeepCompareEffectNoCheck(() => load(page, rowsPerPage, sorting, filters), [requestConfig]);
+    React.useEffect(() => load(page, rowsPerPage, sorting, filters), [page, rowsPerPage, sorting]);
     React.useEffect(() => loadColumns(), [tableKey, tableColumnEndpoint]);
 
     const load = (
@@ -218,11 +219,13 @@ const TableProvider = ({
         setQuery(queryKey, page, rowsPerPage, sorting, filters);
 
         const axiosSource = axios.CancelToken.source();
+        // requestConfig needs to be copied to avoid firing useDeepCompareEffectNoCheck
+        const axiosRequestConfig = Object.assign({ cancelToken: axiosSource.token }, requestConfig);
+        axiosRequestConfig.method = axiosRequestConfig.method ?? "post";
+        axiosRequestConfig.data = getQuery(page, rowsPerPage, sorting, filters);
 
         axios
-            .post(endpoint, getQuery(page, rowsPerPage, sorting, filters), {
-                cancelToken: axiosSource.token,
-            })
+            .request(axiosRequestConfig)
             .then((response) => {
                 setResults(response.data.results);
                 setRowCount(response.data.rowCount);
@@ -260,15 +263,15 @@ const TableProvider = ({
                     return;
                 }
 
-                setColumns(undefined);
+                setVisibleColumns(defaultColumns);
             })
             .catch((error) => handleCatch(error));
     };
 
     const reload = (): void => {
-        if (page !== 0) {
+        if (page !== 1) {
             // Enough to trigger load
-            setPage(0);
+            setPage(1);
             return;
         }
 
@@ -351,7 +354,7 @@ const TableProvider = ({
     const onChangeRowsPerPage = (event: any): void => {
         const _rowsPerPage = parseInt(event?.target?.value, 10);
         setRowsPerPage(_rowsPerPage);
-        setPage(0);
+        setPage(1);
     };
 
     const onSubmitFilters = (values: FormikValues, helpers: FormikHelpers<FormikValues>): void => {
@@ -368,7 +371,7 @@ const TableProvider = ({
         });
 
         setFilters({});
-        setPage(0);
+        setPage(1);
         load(page, rowsPerPage, sorting, {});
     };
 
@@ -451,52 +454,52 @@ const TableProvider = ({
         }
     };
 
-    const updateColumns = (tableColumns: ResultInterface[]): void => {
-        setColumns(tableColumns.map((result) => result.representation));
-    };
+    // const updateColumns = (tableColumns: ResultInterface[]): void => {
+    //     setColumns(tableColumns.map((result) => result.representation));
+    // };
 
-    const getDefaultColumns = (): RowInterface => {
-        if (typeof tableKey !== "undefined") {
-            return Object.keys(row).reduce((rowResult, column) => {
-                if (row[column]?.props?.defaultHide) {
-                    return rowResult;
-                }
+    // const getDefaultColumns = (): ColumnsInterface => {
+    //     if (typeof tableKey !== "undefined") {
+    //         return Object.keys(row).reduce((rowResult, column) => {
+    //             if (row[column]?.props?.defaultHide) {
+    //                 return rowResult;
+    //             }
 
-                return {
-                    ...rowResult,
-                    [column]: row[column],
-                };
-            }, {});
-        }
+    //             return {
+    //                 ...rowResult,
+    //                 [column]: row[column],
+    //             };
+    //         }, {});
+    //     }
 
-        return row;
-    };
+    //     return row;
+    // };
 
-    const getColumns = (): RowInterface => {
-        if (typeof tableKey !== "undefined") {
-            if (typeof columns !== "undefined") {
-                return columns.reduce((rowResult, column) => {
-                    if (typeof row?.[column] === "undefined") {
-                        return rowResult;
-                    }
+    // const getColumns = (): ColumnsInterface => {
+    //     if (typeof tableKey !== "undefined") {
+    //         if (typeof columns !== "undefined") {
+    //             return columns.reduce((rowResult, column) => {
+    //                 if (typeof row?.[column] === "undefined") {
+    //                     return rowResult;
+    //                 }
 
-                    return {
-                        ...rowResult,
-                        [column]: row[column],
-                    };
-                }, {});
-            }
+    //                 return {
+    //                     ...rowResult,
+    //                     [column]: row[column],
+    //                 };
+    //             }, {});
+    //         }
 
-            return getDefaultColumns();
-        }
+    //         return getDefaultColumns();
+    //     }
 
-        return row;
-    };
+    //     return row;
+    // };
 
     return (
         <TableContext.Provider
             value={{
-                row,
+                columns,
                 query: getQuery(page, rowsPerPage, sorting, filters),
                 batchQuery: getBatchQuery(page, rowsPerPage, sorting, filters, selected),
                 results,
@@ -506,10 +509,8 @@ const TableProvider = ({
                 rowsPerPageOptions,
                 onChangePage,
                 onChangeRowsPerPage,
+                disablePagination,
                 filters,
-                filterClass,
-                filtersExpanded,
-                setFiltersExpanded,
                 isFiltersActive,
                 onSubmitFilters,
                 clearFilters,
@@ -528,9 +529,9 @@ const TableProvider = ({
                 removeSelected,
                 toggleSelected,
                 reload,
-                columns: getColumns(),
-                defaultColumns: getDefaultColumns(),
-                updateColumns,
+                visibleColumns,
+                defaultColumns,
+                // updateColumns,
                 tableKey,
                 tableColumnEndpoint,
                 custom,

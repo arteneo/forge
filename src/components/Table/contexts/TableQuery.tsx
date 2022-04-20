@@ -30,8 +30,8 @@ const contextInitial = {
     setQuery: () => {
         return;
     },
-    getQueryPage: () => 0,
-    getQueryRowsPerPage: () => 0,
+    getQueryPage: () => 1,
+    getQueryRowsPerPage: () => 10,
     getQueryFilters: () => ({}),
     getQuerySorting: () => ({}),
     setQueryPage: () => {
