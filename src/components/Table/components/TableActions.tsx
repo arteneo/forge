@@ -1,38 +1,19 @@
 import React from "react";
-import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
+import { useTable } from "../../../components/Table/contexts/Table";
 
-interface TableActionsProps {
-    children?: React.ReactNode;
-    pbCustom?: number;
-}
+const TableActions = () => {
+    const { actions } = useTable();
 
-const TableActions = ({ children, pbCustom }: TableActionsProps) => {
-    if (typeof children === "undefined") {
+    if (typeof actions === "undefined") {
         return null;
     }
 
-    const theme = useTheme();
-    const isSm = useMediaQuery(theme.breakpoints.down("sm"));
-    const defaultPb = isSm ? 2 : 4;
-
     return (
-        <Box pb={pbCustom !== undefined ? pbCustom : defaultPb}>
-            <Grid container spacing={1}>
-                {React.Children.map(children, (child, key) => (
-                    <React.Fragment key={key}>
-                        {React.isValidElement(child) &&
-                            React.cloneElement(child, {
-                                wrapperComponent: Grid,
-                                wrapperComponentProps: {
-                                    item: true,
-                                },
-                            })}
-                    </React.Fragment>
-                ))}
-            </Grid>
+        <Box mb={2} sx={{ display: "flex", gap: 2 }}>
+            {actions}
         </Box>
     );
 };
 
 export default TableActions;
-export { TableActionsProps };
