@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
 import { useLocation } from "react-router-dom";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
@@ -72,6 +72,14 @@ interface TableProviderProps {
     defaultColumns?: ColumnNamesType;
     children: React.ReactNode;
     endpoint: EndpointType;
+    onLoadSuccess?: (
+        defaultOnLoadSuccess: () => void,
+        response: AxiosResponse,
+        setResults: React.Dispatch<React.SetStateAction<ResultInterface[]>>,
+        setRowCount: React.Dispatch<React.SetStateAction<number>>,
+        setSelected: React.Dispatch<React.SetStateAction<BatchSelectedType>>,
+        setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>
+    ) => void;
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     disablePagination?: boolean;
@@ -172,6 +180,7 @@ const TableProvider = ({
     columns,
     defaultColumns: _defaultColumns,
     endpoint,
+    onLoadSuccess,
     rowsPerPage: _rowsPerPage = 10,
     rowsPerPageOptions = [5, 10, 25, 50],
     disablePagination = false,
@@ -217,7 +226,7 @@ const TableProvider = ({
         sorting: SortingInterface,
         filters: FilterValuesInterface,
         // eslint-disable-next-line
-        onLoadSuccess?: Function
+        extraOnLoadSuccess?: Function
     ) => {
         showLoader();
 
@@ -232,15 +241,31 @@ const TableProvider = ({
         axios
             .request(axiosRequestConfig)
             .then((response) => {
-                setResults(response.data.results);
-                setRowCount(response.data.rowCount);
-                setSelected([]);
-
-                hideLoader();
-
-                if (onLoadSuccess) {
-                    onLoadSuccess();
+                if (typeof extraOnLoadSuccess !== "undefined") {
+                    extraOnLoadSuccess();
                 }
+
+                const defaultOnLoadSuccess = () => {
+                    setResults(response.data.results);
+                    setRowCount(response.data.rowCount);
+                    setSelected([]);
+
+                    hideLoader();
+                };
+
+                if (typeof onLoadSuccess !== "undefined") {
+                    onLoadSuccess(
+                        defaultOnLoadSuccess,
+                        response,
+                        setResults,
+                        setRowCount,
+                        setSelected,
+                        setVisibleColumns
+                    );
+                    return;
+                }
+
+                defaultOnLoadSuccess();
             })
             .catch((error) => handleCatch(error));
 
