@@ -1,6 +1,6 @@
 {
     "name": "@arteneo/forge",
-    "version": "2.0.1-alpha.2",
+    "version": "2.0.1-alpha.4",
     "description": "Forge",
     "license": "MIT",
     "author": "Arteneo",
@@ -94,5 +94,8 @@
         "webpack": "^5.67.0",
         "webpack-cli": "^4.9.1",
         "yup": "^0.32.11"
-    }
+    },
+    "files": [
+        "/dist"
+    ]
 }
