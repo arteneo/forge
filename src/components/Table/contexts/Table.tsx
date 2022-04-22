@@ -282,7 +282,7 @@ const TableProvider = ({
         };
     };
 
-    const loadVisibleColumns = (): void => {
+    const loadVisibleColumns = () => {
         if (typeof visibleColumnsKey === "undefined") {
             return;
         }
@@ -321,6 +321,10 @@ const TableProvider = ({
                 defaultOnVisibleColumnsLoadSuccess();
             })
             .catch((error) => handleCatch(error));
+
+        return () => {
+            axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
+        };
     };
 
     const reload = (): void => {
