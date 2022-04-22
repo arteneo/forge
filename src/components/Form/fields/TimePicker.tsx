@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TimePicker as MuiTimePicker, TimePickerProps as MuiTimePickerProps } from "@mui/lab";
 import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@mui/material";
+import { useUtils } from "@mui/lab/internal/pickers/hooks/useUtils";
 import { formatRFC3339, isValid } from "date-fns";
 import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import { useForm } from "../../../components/Form/contexts/Form";
@@ -39,6 +40,7 @@ const TimePicker = ({
     },
     ...field
 }: TimePickerProps) => {
+    const utils = useUtils();
     const {
         values,
         touched,
@@ -125,6 +127,7 @@ const TimePicker = ({
         disabled,
         ampm: false,
         renderInput,
+        inputFormat: utils.formats.fullTime24h,
     };
 
     const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);

@@ -15,7 +15,7 @@ const ActionsColumn = ({ children, result, columnName }: ActionsColumnProps) => 
         throw new Error("ActionsColumn component: Missing required result prop");
     }
 
-    return <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>{children}</Box>;
+    return <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>{children}</Box>;
 };
 
 // * It has to be done via .defaultProps so disableSorting is passed openly to this component and can be read by TableContent

@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { DatePicker as MuiDatePicker, DatePickerProps as MuiDatePickerProps } from "@mui/lab";
 import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@mui/material";
+import { useUtils } from "@mui/lab/internal/pickers/hooks/useUtils";
 import { formatRFC3339, isValid } from "date-fns";
 import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import { useForm } from "../../../components/Form/contexts/Form";
@@ -39,6 +40,7 @@ const DatePicker = ({
     },
     ...field
 }: DatePickerProps) => {
+    const utils = useUtils();
     const {
         values,
         touched,
@@ -124,6 +126,7 @@ const DatePicker = ({
         label,
         disabled,
         renderInput,
+        inputFormat: utils.formats.fullDate,
     };
 
     const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);

@@ -1,25 +1,12 @@
 import React from "react";
-import { useUtils } from "@mui/lab/internal/pickers/hooks/useUtils";
-import { getIn } from "formik";
-import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
+import DateFormatColumn, { DateFormatColumnProps } from "../../../components/Table/columns/DateFormatColumn";
+import { Optional } from "../../../utils/TypescriptOperators";
 
-const DateTimeColumn = ({ result, field, path }: TableColumnPathType) => {
-    if (typeof field === "undefined") {
-        throw new Error("DateTimeColumn component: Missing required field prop");
-    }
+type DateTimeColumnProps = Optional<DateFormatColumnProps, "format">;
 
-    if (typeof result === "undefined") {
-        throw new Error("DateTimeColumn component: Missing required result prop");
-    }
-
-    // We force TS to think this is any object to silence issue with missing function formatDateTime
-    // utils is class from ../../../utils/AppDateFnsUtils. Can be extended in specific projects
-    // eslint-disable-next-line
-    const utils: any = useUtils();
-
-    const value = getIn(result, path ? path : field);
-    return <>{utils.formatDateTime(value)}</>;
+const DateTimeColumn = ({ format = "fullDateTime24h", ...props }: DateTimeColumnProps) => {
+    return <DateFormatColumn {...{ format, ...props }} />;
 };
 
 export default DateTimeColumn;
-export { TableColumnPathType as DateTimeColumnProps };
+export { DateTimeColumnProps };
