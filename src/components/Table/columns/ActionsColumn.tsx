@@ -1,38 +1,21 @@
 import React from "react";
-import { Grid, GridProps } from "@mui/material";
-import TableColumnType from "../../../components/Table/definitions/TableColumnType";
+import { Box } from "@mui/material";
+import ColumnInterface from "../../../components/Table/definitions/ColumnInterface";
 
-interface ActionsColumnProps extends TableColumnType {
+interface ActionsColumnProps extends ColumnInterface {
     children: React.ReactNode;
-    gridContainerProps?: GridProps;
 }
 
-const ActionsColumn = ({ children, result, field, gridContainerProps }: ActionsColumnProps) => {
-    if (typeof field === "undefined") {
-        throw new Error("ActionsColumn component: Missing required field prop");
+const ActionsColumn = ({ children, result, columnName }: ActionsColumnProps) => {
+    if (typeof columnName === "undefined") {
+        throw new Error("ActionsColumn component: Missing required columnName prop");
     }
 
     if (typeof result === "undefined") {
         throw new Error("ActionsColumn component: Missing required result prop");
     }
 
-    return (
-        <Grid container spacing={1} justifyContent="center" alignItems="center" wrap="nowrap" {...gridContainerProps}>
-            {React.Children.map(children, (child, key) => (
-                <React.Fragment key={key}>
-                    {React.isValidElement(child) &&
-                        React.cloneElement(child, {
-                            result: result,
-                            field: field,
-                            wrapperComponent: Grid,
-                            wrapperComponentProps: {
-                                item: true,
-                            },
-                        })}
-                </React.Fragment>
-            ))}
-        </Grid>
-    );
+    return <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>{children}</Box>;
 };
 
 // * It has to be done via .defaultProps so disableSorting is passed openly to this component and can be read by TableContent

@@ -3,25 +3,15 @@ import { Chip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
+import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
 import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
 import ChipFieldInterface from "../../../components/Table/definitions/ChipFieldInterface";
 
-type BooleanColumnProps = TableColumnPathType & ChipFieldInterface;
+type BooleanColumnProps = ColumnPathInterface & ChipFieldInterface;
 
-const useStyles = makeStyles((theme) => ({
-    yes: {
-        borderColor: "blue", //theme.palette.success.dark,
-        color: "blue", //theme.palette.success.dark,
-    },
-    no: {
-        borderColor: "blue", //theme.palette.error.dark,
-        color: "blue", //theme.palette.error.dark,
-    },
-}));
-
-const BooleanColumn = ({ result, field, path, chipProps }: BooleanColumnProps) => {
-    if (typeof field === "undefined") {
-        throw new Error("BooleanColumn component: Missing required field prop");
+const BooleanColumn = ({ result, columnName, path, chipProps }: BooleanColumnProps) => {
+    if (typeof columnName === "undefined") {
+        throw new Error("BooleanColumn component: Missing required columnName prop");
     }
 
     if (typeof result === "undefined") {
@@ -29,19 +19,15 @@ const BooleanColumn = ({ result, field, path, chipProps }: BooleanColumnProps) =
     }
 
     const { t } = useTranslation();
-    const classes = useStyles();
 
-    const value = getIn(result, path ? path : field);
+    const value = getIn(result, path ? path : columnName);
+    if (value) {
+        return (
+            <Chip {...{ label: t("label.yes"), color: "success", size: "small", variant: "outlined", ...chipProps }} />
+        );
+    }
 
-    return (
-        <>
-            {value ? (
-                <Chip label={t("label.yes")} className={classes.yes} {...chipProps} />
-            ) : (
-                <Chip label={t("label.no")} className={classes.no} {...chipProps} />
-            )}
-        </>
-    );
+    return <Chip {...{ label: t("label.no"), color: "error", size: "small", variant: "outlined", ...chipProps }} />;
 };
 
 export default BooleanColumn;

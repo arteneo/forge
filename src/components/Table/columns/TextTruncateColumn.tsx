@@ -1,10 +1,10 @@
 import React from "react";
-import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
 import { getIn, isString } from "formik";
 import { useTranslation } from "react-i18next";
+import { Box, SxProps } from "@mui/material";
+import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
 
-interface TextTruncateColumnProps extends TableColumnPathType {
-    defaultExpandInternal?: boolean;
+interface TextTruncateColumnProps extends ColumnPathInterface {
     stripTags?: boolean;
     stripLength?: number;
     stripSuffix?: string;
@@ -15,9 +15,8 @@ interface TextTruncateColumnProps extends TableColumnPathType {
 
 const TextTruncateColumn = ({
     result,
-    field,
+    columnName,
     path,
-    defaultExpandInternal = false,
     stripTags = true,
     stripLength = 50,
     stripSuffix = "...",
@@ -25,21 +24,21 @@ const TextTruncateColumn = ({
     nowrap = false,
     emptyText = "label.emptyField",
 }: TextTruncateColumnProps) => {
-    if (typeof field === "undefined") {
-        throw new Error("TextTruncateColumn component: Missing required field prop");
+    if (typeof columnName === "undefined") {
+        throw new Error("TextTruncateColumn component: Missing required columnName prop");
     }
 
     if (typeof result === "undefined") {
         throw new Error("TextTruncateColumn component: Missing required result prop");
     }
 
-    const [showFull, setShowFull] = React.useState(false);
+    const [truncated, setTruncated] = React.useState(false);
     const { t } = useTranslation();
 
-    const initialValue = getIn(result, path ? path : field);
+    const initialValue = getIn(result, path ? path : columnName);
     let shortValue = initialValue;
 
-    if (initialValue !== undefined && isString(initialValue)) {
+    if (typeof initialValue !== "undefined" && isString(initialValue)) {
         shortValue = shortValue.toString();
 
         if (shortValue && stripTags) {
@@ -51,36 +50,37 @@ const TextTruncateColumn = ({
         }
     }
 
-    const needShorten = initialValue !== shortValue;
-    // eslint-disable-next-line
-    const style: any = { wordBreak: "break-all" };
+    const needTruncate = initialValue !== shortValue;
+    const sx: SxProps = { wordBreak: "break-all" };
 
     if (maxWidth) {
-        style.maxWidth = maxWidth;
+        sx.maxWidth = maxWidth;
     }
 
     if (nowrap) {
-        style.whiteSpace = "nowrap";
+        sx.whiteSpace = "nowrap";
     }
 
-    const showedText = showFull ? <span style={style}>{initialValue}</span> : shortValue;
+    const text = truncated ? <Box {...{ sx }}>{initialValue}</Box> : shortValue;
 
-    return (
-        <>
-            {defaultExpandInternal && needShorten ? (
-                <span
-                    onClick={() => {
-                        setShowFull(!showFull);
-                    }}
-                    style={{ cursor: "pointer" }}
-                >
-                    {showedText}
-                </span>
-            ) : (
-                <>{!showedText ? showedText : t(emptyText)}</>
-            )}
-        </>
-    );
+    if (needTruncate) {
+        return (
+            <Box
+                {...{
+                    onClick: () => setTruncated(!truncated),
+                    sx: { cursor: "pointer" },
+                }}
+            >
+                {text}
+            </Box>
+        );
+    }
+
+    if (text) {
+        return <>{text}</>;
+    }
+
+    return <>{t(emptyText)}</>;
 };
 
 export default TextTruncateColumn;

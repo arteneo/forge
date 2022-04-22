@@ -10,7 +10,7 @@ const TableActions = () => {
     }
 
     return (
-        <Box mb={2} sx={{ display: "flex", gap: 2 }}>
+        <Box mb={2} sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
             {actions}
         </Box>
     );
