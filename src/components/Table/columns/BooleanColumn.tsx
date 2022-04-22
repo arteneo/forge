@@ -1,10 +1,8 @@
 import React from "react";
 import { Chip } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
 import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
-import TableColumnPathType from "../../../components/Table/definitions/TableColumnPathType";
 import ChipFieldInterface from "../../../components/Table/definitions/ChipFieldInterface";
 
 type BooleanColumnProps = ColumnPathInterface & ChipFieldInterface;

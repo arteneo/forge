@@ -3,13 +3,13 @@ import * as webpack from "webpack";
 const ESLintPlugin = require("eslint-webpack-plugin");
 
 const peerDependencies = {
-    "@date-io/date-fns": "^2.11.0",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/icons-material": "^5.3.0",
-    "@mui/lab": "^5.0.0-alpha.65",
-    "@mui/material": "^5.3.0",
-    "@mui/styles": "^5.3.0",
+    "@date-io/date-fns": "^2.13.1",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.6.2",
+    "@mui/material": "^5.6.2",
+    "@mui/system": "^5.6.2",
+    "@mui/x-date-pickers": "^5.0.0-alpha.1",
     "axios": "^0.25.0",
     "date-fns": "^2.28.0",
     "formik": "^2.2.9",

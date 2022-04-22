@@ -1,14 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { Alert, Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useTable } from "../../../../components/Table/contexts/Table";
 import Button, { ButtonProps } from "../../../../components/Common/Button";
-import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { useSnackbar } from "../../../../contexts/Snackbar";
 import { useHandleCatch } from "../../../../contexts/HandleCatch";
 import { useLoader } from "../../../../contexts/Loader";
 import { resolveStringOrFunction } from "../../../../utils/resolve";
-import { Alert } from "@mui/lab";
 import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
 
 interface BatchProps extends ButtonProps {

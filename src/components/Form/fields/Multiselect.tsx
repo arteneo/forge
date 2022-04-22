@@ -192,8 +192,10 @@ const Multiselect = ({
         loadingText: t("placeholder.loading"),
         noOptionsText: t("placeholder.selectMultipleEmpty"),
         disableCloseOnSelect: true,
-        getOptionLabel: (option: OptionInterface) =>
-            disableTranslateOption ? option.representation : t(option.representation),
+        getOptionLabel: (option: string | OptionInterface) => {
+            const label = typeof option === "string" ? option : option.representation;
+            return disableTranslateOption ? label : t(label);
+        },
         disabled,
         onChange: callableOnChange,
         renderOption: (props, option, { selected }) => (

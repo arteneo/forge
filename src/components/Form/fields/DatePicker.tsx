@@ -1,9 +1,9 @@
 import React from "react";
 import * as Yup from "yup";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { DatePicker as MuiDatePicker, DatePickerProps as MuiDatePickerProps } from "@mui/lab";
+import { DatePicker as MuiDatePicker, DatePickerProps as MuiDatePickerProps } from "@mui/x-date-pickers";
+import { useUtils } from "@mui/x-date-pickers/internals/hooks/useUtils";
 import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@mui/material";
-import { useUtils } from "@mui/lab/internal/pickers/hooks/useUtils";
 import { formatRFC3339, isValid } from "date-fns";
 import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import { useForm } from "../../../components/Form/contexts/Form";
@@ -120,14 +120,18 @@ const DatePicker = ({
         );
     };
 
+    const format = utils.formats.fullDate;
     const internalFieldProps: MuiDatePickerProps = {
         value: getIn(values, path, null),
         onChange: callableOnChange,
         label,
         disabled,
         renderInput,
-        inputFormat: utils.formats.fullDate,
+        inputFormat: format,
+        mask: utils.getFormatHelperText(format).replace(/[a-zA-Z]/g, "_"),
     };
+
+    console.log(utils.getFormatHelperText("fullDate"));
 
     const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);
 

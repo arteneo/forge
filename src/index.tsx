@@ -41,7 +41,6 @@ import {
     SnackbarVariant,
 } from "./contexts/Snackbar";
 import { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader } from "./contexts/Loader";
-import AppDateFnsUtils from "./utils/AppDateFnsUtils";
 import WrapperInterface from "./definitions/WrapperInterface";
 import TranslateVariablesInterface from "./definitions/TranslateVariablesInterface";
 import Wrapper, { WrapperProps } from "./components/Table/components/Wrapper";
@@ -205,7 +204,6 @@ export {
     // TODO
     // IconButtonDialogForm,
     // IconButtonDialogFormProps,
-    AppDateFnsUtils,
     Wrapper,
     WrapperProps,
     WrapperInterface,

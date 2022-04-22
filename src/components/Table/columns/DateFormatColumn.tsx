@@ -1,5 +1,5 @@
 import React from "react";
-import { useUtils } from "@mui/lab/internal/pickers/hooks/useUtils";
+import { useUtils } from "@mui/x-date-pickers/internals/hooks/useUtils";
 import { getIn } from "formik";
 import { DateIOFormats } from "@date-io/core/IUtils";
 import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
