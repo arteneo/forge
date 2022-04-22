@@ -35,7 +35,7 @@ interface TableContextProps {
     onChangeRowsPerPage: (event: any) => void;
     actions?: React.ReactNode;
     filters: FiltersInterface;
-    filterFields: FieldsInterface;
+    filterFields?: FieldsInterface;
     filterClass?: { accordion: string; accordionActive: string };
     onSubmitFilters: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
     isFiltersActive: () => boolean;
@@ -60,9 +60,9 @@ interface TableContextProps {
     batchQuery: BatchQueryInterface;
     visibleColumns: ColumnNamesType;
     defaultColumns: ColumnNamesType;
-    // updateColumns: (tableColumns: ResultInterface[]) => void;
     tableKey?: string;
     tableColumnEndpoint?: string;
+    setVisibleColumns?: React.Dispatch<React.SetStateAction<ColumnNamesType>>;
     // eslint-disable-next-line
     custom?: any;
 }
@@ -92,8 +92,14 @@ interface TableProviderProps {
     queryKey?: string;
     enableMultipleColumnsSorting?: boolean;
     enableBatchSelect?: boolean;
-    tableKey?: string;
-    tableColumnEndpoint?: string;
+    visibleColumnsKey?: string;
+    visibleColumnsEndpoint?: EndpointType;
+    onVisibleColumnsLoadSuccess?: (
+        defaultOnVisibleColumnsLoadSuccess: () => void,
+        response: AxiosResponse,
+        setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>,
+        visibleColumns: ColumnNamesType
+    ) => void;
     // eslint-disable-next-line
     custom?: any;
 }
@@ -193,8 +199,9 @@ const TableProvider = ({
     queryKey: _queryKey,
     enableMultipleColumnsSorting,
     enableBatchSelect,
-    tableKey,
-    tableColumnEndpoint,
+    visibleColumnsKey,
+    visibleColumnsEndpoint,
+    onVisibleColumnsLoadSuccess,
     custom,
 }: TableProviderProps) => {
     const location = useLocation();
@@ -215,10 +222,11 @@ const TableProvider = ({
     const [visibleColumns, setVisibleColumns] = React.useState<ColumnNamesType>(defaultColumns);
 
     const requestConfig = resolveEndpoint(endpoint);
+    const visibleColumnsRequestConfig = resolveEndpoint(visibleColumnsEndpoint);
 
     useDeepCompareEffectNoCheck(() => load(page, rowsPerPage, sorting, filters), [requestConfig]);
     React.useEffect(() => load(page, rowsPerPage, sorting, filters), [page, rowsPerPage, sorting]);
-    React.useEffect(() => loadColumns(), [tableKey, tableColumnEndpoint]);
+    useDeepCompareEffectNoCheck(() => loadVisibleColumns(), [visibleColumnsKey, visibleColumnsRequestConfig]);
 
     const load = (
         page: number,
@@ -274,26 +282,43 @@ const TableProvider = ({
         };
     };
 
-    const loadColumns = (): void => {
-        if (typeof tableKey === "undefined") {
+    const loadVisibleColumns = (): void => {
+        if (typeof visibleColumnsKey === "undefined") {
             return;
         }
 
-        if (typeof tableColumnEndpoint === "undefined") {
-            throw Error("Please provide tableColumnEndpoint prop when using tableKey");
+        if (typeof visibleColumnsRequestConfig === "undefined") {
+            throw Error("Please provide visibleColumnsEndpoint prop when using visibleColumnsKey");
         }
 
+        const axiosSource = axios.CancelToken.source();
+        // requestConfig needs to be copied to avoid firing useDeepCompareEffectNoCheck
+        const axiosRequestConfig = Object.assign({ cancelToken: axiosSource.token }, visibleColumnsRequestConfig);
+        axiosRequestConfig.data = axiosRequestConfig.data ?? { key: visibleColumnsKey };
+
         axios
-            .post(tableColumnEndpoint, {
-                tableKey,
-            })
+            .request(axiosRequestConfig)
             .then((response) => {
-                if (response.status !== 204) {
-                    updateColumns(response.data);
+                const defaultOnVisibleColumnsLoadSuccess = () => {
+                    if (response.status !== 204) {
+                        setVisibleColumns(response.data);
+                        return;
+                    }
+
+                    setVisibleColumns(defaultColumns);
+                };
+
+                if (typeof onVisibleColumnsLoadSuccess !== "undefined") {
+                    onVisibleColumnsLoadSuccess(
+                        defaultOnVisibleColumnsLoadSuccess,
+                        response,
+                        setVisibleColumns,
+                        defaultColumns
+                    );
                     return;
                 }
 
-                setVisibleColumns(defaultColumns);
+                defaultOnVisibleColumnsLoadSuccess();
             })
             .catch((error) => handleCatch(error));
     };
@@ -484,48 +509,6 @@ const TableProvider = ({
         }
     };
 
-    // const updateColumns = (tableColumns: ResultInterface[]): void => {
-    //     setColumns(tableColumns.map((result) => result.representation));
-    // };
-
-    // const getDefaultColumns = (): ColumnsInterface => {
-    //     if (typeof tableKey !== "undefined") {
-    //         return Object.keys(row).reduce((rowResult, column) => {
-    //             if (row[column]?.props?.defaultHide) {
-    //                 return rowResult;
-    //             }
-
-    //             return {
-    //                 ...rowResult,
-    //                 [column]: row[column],
-    //             };
-    //         }, {});
-    //     }
-
-    //     return row;
-    // };
-
-    // const getColumns = (): ColumnsInterface => {
-    //     if (typeof tableKey !== "undefined") {
-    //         if (typeof columns !== "undefined") {
-    //             return columns.reduce((rowResult, column) => {
-    //                 if (typeof row?.[column] === "undefined") {
-    //                     return rowResult;
-    //                 }
-
-    //                 return {
-    //                     ...rowResult,
-    //                     [column]: row[column],
-    //                 };
-    //             }, {});
-    //         }
-
-    //         return getDefaultColumns();
-    //     }
-
-    //     return row;
-    // };
-
     return (
         <TableContext.Provider
             value={{
@@ -562,10 +545,8 @@ const TableProvider = ({
                 toggleSelected,
                 reload,
                 visibleColumns,
+                setVisibleColumns,
                 defaultColumns,
-                // updateColumns,
-                tableKey,
-                tableColumnEndpoint,
                 custom,
             }}
         >

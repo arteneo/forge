@@ -26,7 +26,7 @@ const ExportCsv = ({
     ...props
 }: ExportCsvProps) => {
     const { t } = useTranslation();
-    const { custom, row, query } = useTable();
+    const { custom, visibleColumns, query } = useTable();
 
     if (typeof endpoint === "undefined" && typeof custom?.endpoints?.exportCsv === "undefined") {
         throw new Error(
@@ -58,7 +58,7 @@ const ExportCsv = ({
         sheetName: resolvedSheetName,
     };
 
-    Object.keys(row).map((field) => {
+    Object.keys(visibleColumns).map((field) => {
         exportQuery.fields.push({
             field,
             label: t("label." + field),

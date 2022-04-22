@@ -46,7 +46,7 @@ import WrapperInterface from "./definitions/WrapperInterface";
 import TranslateVariablesInterface from "./definitions/TranslateVariablesInterface";
 import Wrapper, { WrapperProps } from "./components/Table/components/Wrapper";
 import Table, { TableProps } from "./components/Table/components/Table";
-import TableActions, { TableActionsProps } from "./components/Table/components/TableActions";
+import TableActions from "./components/Table/components/TableActions";
 import TableContent from "./components/Table/components/TableContent";
 import TableFilters from "./components/Table/components/TableFilters";
 import TableFiltersFieldset, { TableFiltersFieldsetProps } from "./components/Table/components/TableFiltersFieldset";
@@ -80,10 +80,6 @@ import Delete, { DeleteProps } from "./components/Table/actions/result/Delete";
 import Create, { CreateProps } from "./components/Table/actions/table/Create";
 import ExportCsv, { ExportCsvProps } from "./components/Table/actions/table/ExportCsv";
 import ExportExcel, { ExportExcelProps } from "./components/Table/actions/table/ExportExcel";
-import EditTableColumns, {
-    EditTableColumnsProps,
-    EditTableColumnsSortableColumn,
-} from "./components/Table/actions/table/EditTableColumns";
 import Batch, { BatchProps } from "./components/Table/actions/table/Batch";
 import BatchDelete, { BatchDeleteProps } from "./components/Table/actions/table/BatchDelete";
 // TODO
@@ -217,7 +213,6 @@ export {
     Table,
     TableProps,
     TableActions,
-    TableActionsProps,
     TableContent,
     TableFilters,
     TableFiltersFieldset,
@@ -280,9 +275,6 @@ export {
     ExportCsvProps,
     ExportExcel,
     ExportExcelProps,
-    EditTableColumns,
-    EditTableColumnsProps,
-    EditTableColumnsSortableColumn,
     Batch,
     BatchProps,
     BatchDelete,
