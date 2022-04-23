@@ -1,25 +1,21 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { IconButton as MuiIconButton, IconButtonProps as MuiIconButtonProps, Tooltip } from "@mui/material";
-import WrapperInterface from "../../definitions/WrapperInterface";
-import Wrapper from "../../components/Table/components/Wrapper";
 import DeniedAccessInterface from "../../components/Table/definitions/DeniedAccessInterface";
 
-type InternalWrapperMuiIconButtonProps = Omit<MuiIconButtonProps, "children"> & WrapperInterface;
+type InternalMuiIconButtonProps = Omit<MuiIconButtonProps, "children">;
 
 interface IconProps {
     icon: React.ReactNode;
 }
 
-type IconButtonProps = InternalWrapperMuiIconButtonProps & IconProps & DeniedAccessInterface;
+type IconButtonProps = InternalMuiIconButtonProps & IconProps & DeniedAccessInterface;
 
 const IconButton = ({
     icon,
     deniedAccessList,
     accessKey,
     deniedAccessBehavior = "disable",
-    wrapperComponent,
-    wrapperComponentProps,
     ...muiIconButtonProps
 }: IconButtonProps) => {
     const { t } = useTranslation();
@@ -48,15 +44,7 @@ const IconButton = ({
         );
     }
 
-    return (
-        <Wrapper
-            {...{
-                children: button,
-                wrapperComponent,
-                wrapperComponentProps,
-            }}
-        />
-    );
+    return button;
 };
 
 export default IconButton;

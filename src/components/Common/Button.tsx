@@ -2,11 +2,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button as MuiButton, ButtonProps as MuiButtonProps, Tooltip } from "@mui/material";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import WrapperInterface from "../../definitions/WrapperInterface";
-import Wrapper from "../../components/Table/components/Wrapper";
 import DeniedAccessInterface from "../../components/Table/definitions/DeniedAccessInterface";
 
-type InternalWrapperMuiButtonProps = Omit<MuiButtonProps, "children"> & WrapperInterface;
+type InternalMuiButtonProps = Omit<MuiButtonProps, "children">;
 
 interface LabelChildrenProps {
     /** The description for myProp */
@@ -18,7 +16,7 @@ interface LabelChildrenProps {
     children?: React.ReactNode;
 }
 
-type ButtonProps = InternalWrapperMuiButtonProps & LabelChildrenProps & DeniedAccessInterface;
+type ButtonProps = InternalMuiButtonProps & LabelChildrenProps & DeniedAccessInterface;
 
 const Button = ({
     label,
@@ -27,8 +25,6 @@ const Button = ({
     deniedAccessList,
     accessKey,
     deniedAccessBehavior = "disable",
-    wrapperComponent,
-    wrapperComponentProps,
     ...muiButtonProps
 }: ButtonProps) => {
     const { t } = useTranslation();
@@ -72,15 +68,7 @@ const Button = ({
         );
     }
 
-    return (
-        <Wrapper
-            {...{
-                children: button,
-                wrapperComponent,
-                wrapperComponentProps,
-            }}
-        />
-    );
+    return button;
 };
 
 export default Button;

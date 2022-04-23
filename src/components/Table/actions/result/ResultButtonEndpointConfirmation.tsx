@@ -8,7 +8,6 @@ import TableResultActionResolveType from "../../../../components/Table/definitio
 import { resolveAnyOrFunction } from "../../../../utils/resolve";
 import { getIn } from "formik";
 import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
-import WrapperInterface from "../../../../definitions/WrapperInterface";
 import { useTable } from "../../../../components/Table/contexts/Table";
 
 interface EndpointConfirmationProps {
@@ -24,11 +23,9 @@ interface EndpointConfirmationProps {
     ) => void;
 }
 
-// Wrapper interface props are passed directly by ActionsColumn. We need to pass the further to buttonProps
 type ResultButtonEndpointConfirmationProps = Omit<ButtonEndpointConfirmationProps, "requestConfig" | "onSuccess"> &
     TableResultActionPathInterface &
-    EndpointConfirmationProps &
-    WrapperInterface;
+    EndpointConfirmationProps;
 
 const ResultButtonEndpointConfirmation = ({
     requestConfig,
@@ -38,8 +35,6 @@ const ResultButtonEndpointConfirmation = ({
     field,
     path,
     buttonProps,
-    wrapperComponent,
-    wrapperComponentProps,
     ...props
 }: ResultButtonEndpointConfirmationProps) => {
     if (typeof field === "undefined") {
@@ -78,8 +73,6 @@ const ResultButtonEndpointConfirmation = ({
                 onSuccess: resolvedOnSuccess,
                 buttonProps: {
                     deniedAccessList: result?.deniedAccessList,
-                    wrapperComponent,
-                    wrapperComponentProps,
                     ...buttonProps,
                 },
                 confirmationLabelVariables: {
