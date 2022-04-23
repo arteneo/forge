@@ -131,8 +131,6 @@ const DatePicker = ({
         mask: utils.getFormatHelperText(format).replace(/[a-zA-Z]/g, "_"),
     };
 
-    console.log(utils.getFormatHelperText("fullDate"));
-
     const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);
 
     return <MuiDatePicker {...mergedFieldProps} />;

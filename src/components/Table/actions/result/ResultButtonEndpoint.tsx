@@ -6,7 +6,6 @@ import TableResultActionResolveType from "../../../../components/Table/definitio
 import { resolveAnyOrFunction } from "../../../../utils/resolve";
 import { getIn } from "formik";
 import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
-import WrapperInterface from "../../../../definitions/WrapperInterface";
 import { useTable } from "../../../../components/Table/contexts/Table";
 
 interface EndpointProps {
@@ -22,11 +21,9 @@ interface EndpointProps {
     ) => void;
 }
 
-// Wrapper interface props are passed directly by ActionsColumn. We need to pass the further to buttonProps
 type ResultButtonEndpointProps = Omit<ButtonEndpointProps, "requestConfig" | "onSuccess"> &
     TableResultActionPathInterface &
-    EndpointProps &
-    WrapperInterface;
+    EndpointProps;
 
 const ResultButtonEndpoint = ({
     requestConfig,

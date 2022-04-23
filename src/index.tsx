@@ -41,9 +41,7 @@ import {
     SnackbarVariant,
 } from "./contexts/Snackbar";
 import { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader } from "./contexts/Loader";
-import WrapperInterface from "./definitions/WrapperInterface";
 import TranslateVariablesInterface from "./definitions/TranslateVariablesInterface";
-import Wrapper, { WrapperProps } from "./components/Table/components/Wrapper";
 import Table, { TableProps } from "./components/Table/components/Table";
 import TableActions from "./components/Table/components/TableActions";
 import TableContent from "./components/Table/components/TableContent";
@@ -205,9 +203,6 @@ export {
     // TODO
     // IconButtonDialogForm,
     // IconButtonDialogFormProps,
-    Wrapper,
-    WrapperProps,
-    WrapperInterface,
     TranslateVariablesInterface,
     Table,
     TableProps,
