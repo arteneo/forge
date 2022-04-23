@@ -109,6 +109,7 @@ import TableResultActionInterface from "./components/Table/definitions/TableResu
 import TableResultActionPathInterface from "./components/Table/definitions/TableResultActionPathInterface";
 import TableResultActionResolveType from "./components/Table/definitions/TableResultActionResolveType";
 import FilterFieldInterface from "./components/Table/definitions/FilterFieldInterface";
+import ColumnNamesType from "./components/Table/definitions/ColumnNamesType";
 import FilterDefinition from "./components/Table/definitions/FilterDefinition";
 import {
     TableContext,
@@ -229,6 +230,7 @@ export {
     FilterValuesInterface,
     ResultInterface,
     QueryInterface,
+    ColumnNamesType,
     QuerySortingDefinitionInterface,
     QuerySortingInterface,
     SortingDirection,
