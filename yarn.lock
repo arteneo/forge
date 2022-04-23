@@ -18,6 +18,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@arteneo/forge@workspace:."
   dependencies:
+    "@date-io/date-fns": ^2.13.1
     "@emotion/react": ^11.9.0
     "@emotion/styled": ^11.8.1
     "@mui/icons-material": ^5.6.2
@@ -516,7 +517,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@date-io/date-fns@npm:^2.11.0":
+"@date-io/date-fns@npm:^2.11.0, @date-io/date-fns@npm:^2.13.1":
   version: 2.13.1
   resolution: "@date-io/date-fns@npm:2.13.1"
   dependencies:

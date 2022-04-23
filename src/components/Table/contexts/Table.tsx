@@ -82,32 +82,32 @@ interface TableProviderProps {
     ) => void;
     onGetQuery?: (
         defaultOnGetQuery: () => QueryInterface,
-        getFiltersDefinitions: (filterValues: FilterValuesInterface)=> FiltersInterface ,
+        getFiltersDefinitions: (filterValues: FilterValuesInterface) => FiltersInterface,
         page: number,
         rowsPerPage: number,
         sorting: SortingInterface,
         filters: FilterValuesInterface,
-        additionalSorting?:SortingInterface,
-        additionalFilters?: FiltersInterface,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
     ) => QueryInterface;
     onGetBatchQuery?: (
         defaultOnGetBatchQuery: () => QueryInterface,
-        getFiltersDefinitions: (filterValues: FilterValuesInterface)=> FiltersInterface ,
+        getFiltersDefinitions: (filterValues: FilterValuesInterface) => FiltersInterface,
         getQuery: (
             page: number,
             rowsPerPage: number,
             sorting: SortingInterface,
             filters: FilterValuesInterface,
-            additionalSorting?:SortingInterface,
-            additionalFilters?: FiltersInterface,
+            additionalSorting?: SortingInterface,
+            additionalFilters?: FiltersInterface
         ) => QueryInterface,
         page: number,
         rowsPerPage: number,
         sorting: SortingInterface,
         filters: FilterValuesInterface,
         selected: BatchSelectedType,
-        additionalSorting?:SortingInterface,
-        additionalFilters?: FiltersInterface,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
     ) => BatchQueryInterface;
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
@@ -399,38 +399,36 @@ const TableProvider = ({
         rowsPerPage: number,
         sorting: SortingInterface,
         filters: FilterValuesInterface,
-        additionalSorting?:SortingInterface,
-        additionalFilters?: FiltersInterface,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
     ): QueryInterface => {
-
         const defaultOnGetQuery = () => {
             return defaultGetQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters);
         };
-    
-        if (typeof onGetQuery !== "undefined") {
-            return onGetQuery( 
-                    defaultOnGetQuery,      
-                    getFiltersDefinitions,      
-                    page,
-                    rowsPerPage,
-                    sorting,
-                    filters, 
-                    additionalSorting,
-                    additionalFilters,                           
-                );
-        }
-    
-       return defaultOnGetQuery();
 
-    }
+        if (typeof onGetQuery !== "undefined") {
+            return onGetQuery(
+                defaultOnGetQuery,
+                getFiltersDefinitions,
+                page,
+                rowsPerPage,
+                sorting,
+                filters,
+                additionalSorting,
+                additionalFilters
+            );
+        }
+
+        return defaultOnGetQuery();
+    };
 
     const defaultGetQuery = (
         page: number,
         rowsPerPage: number,
         sorting: SortingInterface,
         filters: FilterValuesInterface,
-        additionalSorting?:SortingInterface,
-        additionalFilters?: FiltersInterface,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
     ): QueryInterface => {
         const joinedSorting: SortingInterface = {
             ...sorting,
@@ -461,32 +459,38 @@ const TableProvider = ({
         sorting: SortingInterface,
         filters: FilterValuesInterface,
         selected: BatchSelectedType,
-        additionalSorting?:SortingInterface,
-        additionalFilters?: FiltersInterface,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
     ): BatchQueryInterface => {
-
         const defaultOnGetBatchQuery = () => {
-            return defaultGetBatchQuery(page, rowsPerPage, sorting, filters, selected, additionalSorting, additionalFilters);
+            return defaultGetBatchQuery(
+                page,
+                rowsPerPage,
+                sorting,
+                filters,
+                selected,
+                additionalSorting,
+                additionalFilters
+            );
         };
-    
-        if (typeof onGetBatchQuery !== "undefined") {
-            return onGetBatchQuery( 
-                    defaultOnGetBatchQuery,      
-                    getFiltersDefinitions,    
-                    getQuery,  
-                    page,
-                    rowsPerPage,
-                    sorting,
-                    filters, 
-                    selected,
-                    additionalSorting,
-                    additionalFilters,                           
-                );
-        }
-    
-       return defaultOnGetBatchQuery();
 
-    }
+        if (typeof onGetBatchQuery !== "undefined") {
+            return onGetBatchQuery(
+                defaultOnGetBatchQuery,
+                getFiltersDefinitions,
+                getQuery,
+                page,
+                rowsPerPage,
+                sorting,
+                filters,
+                selected,
+                additionalSorting,
+                additionalFilters
+            );
+        }
+
+        return defaultOnGetBatchQuery();
+    };
 
     const defaultGetBatchQuery = (
         page: number,
@@ -495,7 +499,7 @@ const TableProvider = ({
         filters: FilterValuesInterface,
         selected: BatchSelectedType,
         additionalSorting?: SortingInterface,
-        additionalFilters?: FiltersInterface,
+        additionalFilters?: FiltersInterface
     ): BatchQueryInterface => {
         return {
             ...getQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters),
@@ -616,7 +620,15 @@ const TableProvider = ({
             value={{
                 columns,
                 query: getQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters),
-                batchQuery: getBatchQuery(page, rowsPerPage, sorting, filters, selected, additionalSorting, additionalFilters),
+                batchQuery: getBatchQuery(
+                    page,
+                    rowsPerPage,
+                    sorting,
+                    filters,
+                    selected,
+                    additionalSorting,
+                    additionalFilters
+                ),
                 results,
                 page,
                 rowCount,
