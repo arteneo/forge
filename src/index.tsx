@@ -152,6 +152,7 @@ import Radio, { RadioProps } from "./components/Form/fields/Radio";
 import RadioApi, { RadioApiProps } from "./components/Form/fields/RadioApi";
 import TrueFalse, { TrueFalseProps } from "./components/Form/fields/TrueFalse";
 import Select, { SelectProps } from "./components/Form/fields/Select";
+import SelectEnum, { SelectEnumProps } from "./components/Form/fields/SelectEnum";
 import SelectApi, { SelectApiProps } from "./components/Form/fields/SelectApi";
 import Multiselect, { MultiselectProps } from "./components/Form/fields/Multiselect";
 import MultiselectApi, { MultiselectApiProps } from "./components/Form/fields/MultiselectApi";
@@ -381,6 +382,8 @@ export {
     TrueFalseProps,
     Select,
     SelectProps,
+    SelectEnum,
+    SelectEnumProps,
     SelectApi,
     SelectApiProps,
     Multiselect,
