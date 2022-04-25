@@ -55,7 +55,6 @@ import { getColumns } from "./components/Table/utilities/common";
 import TextColumn, { TextColumnProps } from "./components/Table/columns/TextColumn";
 import TextTruncateColumn, { TextTruncateColumnProps } from "./components/Table/columns/TextTruncateColumn";
 import BooleanColumn, { BooleanColumnProps } from "./components/Table/columns/BooleanColumn";
-import ConstColumn, { ConstColumnProps } from "./components/Table/columns/ConstColumn";
 import EnumColumn, { EnumColumnProps } from "./components/Table/columns/EnumColumn";
 import RepresentationColumn, { RepresentationColumnProps } from "./components/Table/columns/RepresentationColumn";
 import DateColumn, { DateColumnProps } from "./components/Table/columns/DateColumn";
@@ -242,8 +241,6 @@ export {
     TextTruncateColumnProps,
     BooleanColumn,
     BooleanColumnProps,
-    ConstColumn,
-    ConstColumnProps,
     EnumColumn,
     EnumColumnProps,
     RepresentationColumn,
