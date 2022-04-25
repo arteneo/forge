@@ -129,9 +129,11 @@ import NumberFilter, { NumberFilterProps } from "./components/Table/filters/Numb
 import NumberFromFilter, { NumberFromFilterProps } from "./components/Table/filters/NumberFromFilter";
 import NumberToFilter, { NumberToFilterProps } from "./components/Table/filters/NumberToFilter";
 import RadioFilter, { RadioFilterProps } from "./components/Table/filters/RadioFilter";
+import RadioEnumFilter, { RadioEnumFilterProps } from "./components/Table/filters/RadioEnumFilter";
 import RadioApiFilter, { RadioApiFilterProps } from "./components/Table/filters/RadioApiFilter";
 import BooleanFilter, { BooleanFilterProps } from "./components/Table/filters/BooleanFilter";
 import SelectFilter, { SelectFilterProps } from "./components/Table/filters/SelectFilter";
+import SelectEnumFilter, { SelectEnumFilterProps } from "./components/Table/filters/SelectEnumFilter";
 import SelectApiFilter, { SelectApiFilterProps } from "./components/Table/filters/SelectApiFilter";
 import DateFromFilter, { DateFromFilterProps } from "./components/Table/filters/DateFromFilter";
 import DateToFilter, { DateToFilterProps } from "./components/Table/filters/DateToFilter";
@@ -316,12 +318,16 @@ export {
     NumberToFilterProps,
     RadioFilter,
     RadioFilterProps,
+    RadioEnumFilter,
+    RadioEnumFilterProps,
     RadioApiFilter,
     RadioApiFilterProps,
     BooleanFilter,
     BooleanFilterProps,
     SelectFilter,
     SelectFilterProps,
+    SelectEnumFilter,
+    SelectEnumFilterProps,
     SelectApiFilter,
     SelectApiFilterProps,
     DateFromFilter,
