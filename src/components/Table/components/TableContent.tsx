@@ -8,7 +8,7 @@ const TableContent = () => {
     return (
         <>
             <TableFilters />
-            <Paper sx={{ px: { xs: 2, md: 3 }, pt: 3, pb: 2 }}>
+            <Paper sx={{ px: { xs: 2, md: 3 }, pt: 3, pb: 3 }}>
                 <TableActions />
                 <TableResults />
             </Paper>

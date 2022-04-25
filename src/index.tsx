@@ -1,3 +1,4 @@
+import Enum, { EnumType } from "./classes/Enum";
 import Button, { ButtonProps } from "./components/Common/Button";
 import ButtonLink, { ButtonLinkProps } from "./components/Common/ButtonLink";
 import ButtonDownload, { ButtonDownloadProps } from "./components/Common/ButtonDownload";
@@ -55,6 +56,7 @@ import TextColumn, { TextColumnProps } from "./components/Table/columns/TextColu
 import TextTruncateColumn, { TextTruncateColumnProps } from "./components/Table/columns/TextTruncateColumn";
 import BooleanColumn, { BooleanColumnProps } from "./components/Table/columns/BooleanColumn";
 import ConstColumn, { ConstColumnProps } from "./components/Table/columns/ConstColumn";
+import EnumColumn, { EnumColumnProps } from "./components/Table/columns/EnumColumn";
 import RepresentationColumn, { RepresentationColumnProps } from "./components/Table/columns/RepresentationColumn";
 import DateColumn, { DateColumnProps } from "./components/Table/columns/DateColumn";
 import DateTimeColumn, { DateTimeColumnProps } from "./components/Table/columns/DateTimeColumn";
@@ -176,6 +178,8 @@ import {
 import { renderField, filterInitialValues, transformInitialValues } from "./utils/common";
 import { Optional } from "./utils/TypescriptOperators";
 export {
+    Enum,
+    EnumType,
     Button,
     ButtonProps,
     ButtonLink,
@@ -236,6 +240,8 @@ export {
     BooleanColumnProps,
     ConstColumn,
     ConstColumnProps,
+    EnumColumn,
+    EnumColumnProps,
     RepresentationColumn,
     RepresentationColumnProps,
     DateColumn,
