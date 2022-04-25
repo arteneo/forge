@@ -149,6 +149,7 @@ import { getFields } from "./components/Form/utilities/common";
 import OptionsType from "./components/Form/definitions/OptionsType";
 import OptionInterface from "./components/Form/definitions/OptionInterface";
 import Radio, { RadioProps } from "./components/Form/fields/Radio";
+import RadioEnum, { RadioEnumProps } from "./components/Form/fields/RadioEnum";
 import RadioApi, { RadioApiProps } from "./components/Form/fields/RadioApi";
 import TrueFalse, { TrueFalseProps } from "./components/Form/fields/TrueFalse";
 import Select, { SelectProps } from "./components/Form/fields/Select";
@@ -376,6 +377,8 @@ export {
     FieldHelpType,
     Radio,
     RadioProps,
+    RadioEnum,
+    RadioEnumProps,
     RadioApi,
     RadioApiProps,
     TrueFalse,
