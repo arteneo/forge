@@ -2,29 +2,25 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button as MuiButton, ButtonProps as MuiButtonProps, Tooltip } from "@mui/material";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import DeniedAccessInterface from "../../components/Table/definitions/DeniedAccessInterface";
+import DenyPropInterface from "../../components/Table/definitions/DenyPropInterface";
 
 type InternalMuiButtonProps = Omit<MuiButtonProps, "children">;
 
 interface LabelChildrenProps {
-    /** The description for myProp */
     label?: string;
-    /**
-     * A description of the prop that you seem fit :)
-     */
     labelVariables?: TranslateVariablesInterface;
     children?: React.ReactNode;
 }
 
-type ButtonProps = InternalMuiButtonProps & LabelChildrenProps & DeniedAccessInterface;
+type ButtonProps = InternalMuiButtonProps & LabelChildrenProps & DenyPropInterface;
 
 const Button = ({
     label,
     labelVariables = {},
     children,
-    deniedAccessList,
-    accessKey,
-    deniedAccessBehavior = "disable",
+    deny,
+    denyKey,
+    denyBeheviour = "disable",
     ...muiButtonProps
 }: ButtonProps) => {
     const { t } = useTranslation();
@@ -44,25 +40,25 @@ const Button = ({
         children = t(label, labelVariables);
     }
 
-    let denyResult: undefined | string = undefined;
+    let denyMessage: undefined | string = undefined;
 
-    if (typeof accessKey !== "undefined" && typeof deniedAccessList?.[accessKey] !== "undefined") {
-        if (deniedAccessBehavior === "hide") {
+    if (typeof denyKey !== "undefined" && typeof deny?.[denyKey] !== "undefined") {
+        if (denyBeheviour === "hide") {
             return null;
         }
 
-        if (deniedAccessBehavior === "disable") {
-            denyResult = deniedAccessList[accessKey];
+        if (denyBeheviour === "disable") {
+            denyMessage = deny[denyKey];
             muiButtonProps.disabled = true;
         }
     }
 
     let button = <MuiButton {...{ children, ...muiButtonProps }} />;
 
-    if (typeof denyResult !== "undefined") {
+    if (typeof denyMessage !== "undefined") {
         button = (
             // t(denyResult) ?? "" just to satisfy TypeScript
-            <Tooltip title={t(denyResult) ?? ""}>
+            <Tooltip title={t(denyMessage) ?? ""}>
                 <span>{button}</span>
             </Tooltip>
         );

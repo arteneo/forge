@@ -6,6 +6,7 @@ import ButtonEndpoint, { ButtonEndpointProps } from "./components/Common/ButtonE
 import ButtonEndpointConfirmation, {
     ButtonEndpointConfirmationProps,
 } from "./components/Common/ButtonEndpointConfirmation";
+import ButtonEndpointConfirm, { ButtonEndpointConfirmProps } from "./components/Common/ButtonEndpointConfirm";
 // TODO
 // import ButtonDialogForm, { ButtonDialogFormProps } from "./components/Common/ButtonDialogForm";
 import IconButton, { IconButtonProps } from "./components/Common/IconButton";
@@ -84,9 +85,9 @@ import BatchDelete, { BatchDeleteProps } from "./components/Table/actions/table/
 // import BatchForm, { BatchFormProps } from "./components/Table/actions/table/BatchForm";
 import BatchQueryInterface from "./components/Table/definitions/BatchQueryInterface";
 import BatchSelectedType from "./components/Table/definitions/BatchSelectedType";
-import DeniedAccessBehaviorType from "./components/Table/definitions/DeniedAccessBehaviorType";
-import DeniedAccessInterface from "./components/Table/definitions/DeniedAccessInterface";
-import DeniedAccessListInterface from "./components/Table/definitions/DeniedAccessListInterface";
+import DenyBehaviorType from "./components/Table/definitions/DenyBehaviorType";
+import DenyPropInterface from "./components/Table/definitions/DenyPropInterface";
+import DenyInterface from "./components/Table/definitions/DenyInterface";
 import FiltersInterface from "./components/Table/definitions/FiltersInterface";
 import FilterType from "./components/Table/definitions/FilterType";
 import FilterValuesInterface from "./components/Table/definitions/FilterValuesInterface";
@@ -191,6 +192,8 @@ export {
     ButtonDownloadProps,
     ButtonEndpoint,
     ButtonEndpointProps,
+    ButtonEndpointConfirm,
+    ButtonEndpointConfirmProps,
     ButtonEndpointConfirmation,
     ButtonEndpointConfirmationProps,
     // TODO
@@ -223,9 +226,9 @@ export {
     getColumns,
     BatchQueryInterface,
     BatchSelectedType,
-    DeniedAccessBehaviorType,
-    DeniedAccessInterface,
-    DeniedAccessListInterface,
+    DenyBehaviorType,
+    DenyPropInterface,
+    DenyInterface,
     FiltersInterface,
     FilterType,
     FilterValuesInterface,

@@ -1,9 +1,9 @@
-import DeniedAccessListInterface from "../../../components/Table/definitions/DeniedAccessListInterface";
+import DenyInterface from "../../../components/Table/definitions/DenyInterface";
 
 interface ResultInterface {
     id: number;
     representation: string;
-    deniedAccessList?: DeniedAccessListInterface;
+    deny?: DenyInterface;
     // eslint-disable-next-line
     [key: string]: any;
 }

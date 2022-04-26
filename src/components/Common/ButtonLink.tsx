@@ -1,17 +1,13 @@
 import React from "react";
 import Button, { ButtonProps } from "../../components/Common/Button";
-import { Link, To } from "react-router-dom";
+import { Link, LinkProps } from "react-router-dom";
 
-interface ButtonLinkToProps {
-    to: To;
-}
+type ButtonLinkProps = LinkProps & ButtonProps;
 
-type ButtonLinkProps = ButtonLinkToProps & ButtonProps;
-
-const ButtonLink = ({ to, ...props }: ButtonLinkProps) => {
+const ButtonLink = (props: ButtonLinkProps) => {
     // eslint-disable-next-line
     // @ts-ignore: see https://github.com/mui-org/material-ui/issues/7877
-    return <Button component={Link} to={to} {...props} />;
+    return <Button component={Link} {...props} />;
 };
 
 export default ButtonLink;
