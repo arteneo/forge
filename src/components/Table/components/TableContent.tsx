@@ -1,7 +1,7 @@
 import React from "react";
 import { Paper } from "@mui/material";
 import TableFilters from "../../../components/Table/components/TableFilters";
-import TableActions from "../../../components/Table/components/TableActions";
+import TableToolbar from "../../../components/Table/components/TableToolbar";
 import TableResults from "../../../components/Table/components/TableResults";
 
 const TableContent = () => {
@@ -9,7 +9,7 @@ const TableContent = () => {
         <>
             <TableFilters />
             <Paper sx={{ px: { xs: 2, md: 3 }, pt: 3, pb: 3 }}>
-                <TableActions />
+                <TableToolbar />
                 <TableResults />
             </Paper>
         </>

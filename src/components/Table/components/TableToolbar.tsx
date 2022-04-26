@@ -2,18 +2,18 @@ import React from "react";
 import { Box } from "@mui/material";
 import { useTable } from "../../../components/Table/contexts/Table";
 
-const TableActions = () => {
-    const { actions } = useTable();
+const TableToolbar = () => {
+    const { toolbar } = useTable();
 
-    if (typeof actions === "undefined") {
+    if (typeof toolbar === "undefined") {
         return null;
     }
 
     return (
         <Box mb={2} sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-            {actions}
+            {toolbar}
         </Box>
     );
 };
 
-export default TableActions;
+export default TableToolbar;

@@ -47,7 +47,7 @@ import {
 import { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader } from "./contexts/Loader";
 import TranslateVariablesInterface from "./definitions/TranslateVariablesInterface";
 import Table, { TableProps } from "./components/Table/components/Table";
-import TableActions from "./components/Table/components/TableActions";
+import TableToolbar from "./components/Table/components/TableToolbar";
 import TableContent from "./components/Table/components/TableContent";
 import TableFilters from "./components/Table/components/TableFilters";
 import TableFiltersFieldset, { TableFiltersFieldsetProps } from "./components/Table/components/TableFiltersFieldset";
@@ -218,7 +218,7 @@ export {
     TranslateVariablesInterface,
     Table,
     TableProps,
-    TableActions,
+    TableToolbar,
     TableContent,
     TableFilters,
     TableFiltersFieldset,

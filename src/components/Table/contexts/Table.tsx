@@ -33,7 +33,7 @@ interface TableContextProps {
     onChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, page: number) => void;
     // eslint-disable-next-line
     onChangeRowsPerPage: (event: any) => void;
-    actions?: React.ReactNode;
+    toolbar?: React.ReactNode;
     filters: FiltersInterface;
     filterFields?: FieldsInterface;
     filterClass?: { accordion: string; accordionActive: string };
@@ -83,7 +83,7 @@ interface TableProviderProps {
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     disablePagination?: boolean;
-    actions?: React.ReactNode;
+    toolbar?: React.ReactNode;
     filters?: FieldsInterface;
     defaultFilters?: FilterValuesInterface;
     additionalFilters?: FiltersInterface;
@@ -190,7 +190,7 @@ const TableProvider = ({
     rowsPerPage: _rowsPerPage = 10,
     rowsPerPageOptions = [5, 10, 25, 50],
     disablePagination = false,
-    actions,
+    toolbar,
     filters: filterFields,
     defaultFilters = {},
     additionalFilters,
@@ -527,7 +527,7 @@ const TableProvider = ({
                 onChangePage,
                 onChangeRowsPerPage,
                 disablePagination,
-                actions,
+                toolbar,
                 filterFields,
                 filters,
                 isFiltersActive,
