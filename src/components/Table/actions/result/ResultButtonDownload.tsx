@@ -3,7 +3,7 @@ import { AxiosRequestConfig } from "axios";
 import ButtonDownload, { ButtonDownloadProps } from "../../../../components/Common/ButtonDownload";
 import TableResultActionPathInterface from "../../../../components/Table/definitions/TableResultActionPathInterface";
 import TableResultActionResolveType from "../../../../components/Table/definitions/TableResultActionResolveType";
-import { resolveAnyOrFunction } from "../../../../utils/resolve";
+import { resolveAnyOrFunction } from "../../../../utilities/resolve";
 import { getIn } from "formik";
 
 interface DownloadProps {

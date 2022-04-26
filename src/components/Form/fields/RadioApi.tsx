@@ -1,7 +1,7 @@
 import React from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveFieldEndpoint } from "../../../utils/resolve";
+import { resolveFieldEndpoint } from "../../../utilities/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
 import OptionsType from "../../../components/Form/definitions/OptionsType";

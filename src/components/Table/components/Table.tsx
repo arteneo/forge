@@ -1,7 +1,7 @@
 import React from "react";
 import { TableProvider, TableProviderProps } from "../../../components/Table/contexts/Table";
 import TableContent from "../../../components/Table/components/TableContent";
-import { Optional } from "../../../utils/TypescriptOperators";
+import { Optional } from "../../../utilities/TypescriptOperators";
 
 type TableProps = Optional<TableProviderProps, "children">;
 

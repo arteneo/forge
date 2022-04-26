@@ -7,7 +7,7 @@ import Button, { ButtonProps } from "../../../../components/Common/Button";
 import { useSnackbar } from "../../../../contexts/Snackbar";
 import { useHandleCatch } from "../../../../contexts/HandleCatch";
 import { useLoader } from "../../../../contexts/Loader";
-import { resolveStringOrFunction } from "../../../../utils/resolve";
+import { resolveStringOrFunction } from "../../../../utilities/resolve";
 import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
 
 interface BatchProps extends ButtonProps {

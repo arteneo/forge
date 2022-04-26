@@ -1,6 +1,6 @@
 import React from "react";
 import { useTable } from "../../../../components/Table/contexts/Table";
-import { Optional } from "../../../../utils/TypescriptOperators";
+import { Optional } from "../../../../utilities/TypescriptOperators";
 import ResultButtonLink, { ResultButtonLinkProps } from "../../../../components/Table/actions/result/ResultButtonLink";
 
 type EditProps = Optional<ResultButtonLinkProps, "to">;

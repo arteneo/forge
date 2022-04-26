@@ -7,7 +7,7 @@ import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import { Optional } from "../../utils/TypescriptOperators";
+import { Optional } from "../../utilities/TypescriptOperators";
 
 interface ButtonEndpointConfirmationProps {
     requestConfig: AxiosRequestConfig;

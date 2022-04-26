@@ -7,7 +7,7 @@ import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import DialogConfirm from "../../components/Common/DialogConfirm";
 import EndpointType from "../../components/Form/definitions/EndpointType";
-import { resolveEndpoint } from "../../utils/resolve";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface RenderDialogParams {
     open: boolean;

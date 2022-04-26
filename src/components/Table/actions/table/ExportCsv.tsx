@@ -4,7 +4,7 @@ import ExportQueryInterface from "../../../../components/Table/definitions/Expor
 import { useTable } from "../../../../components/Table/contexts/Table";
 import ButtonDownload, { ButtonDownloadProps } from "../../../../components/Common/ButtonDownload";
 import { AxiosRequestConfig } from "axios";
-import { Optional } from "../../../../utils/TypescriptOperators";
+import { Optional } from "../../../../utilities/TypescriptOperators";
 
 interface ExportCsvInterface {
     // eslint-disable-next-line

@@ -4,7 +4,7 @@ import { useFormikContext } from "formik";
 import { useTable } from "../../../components/Table/contexts/Table";
 import Button from "../../../components/Common/Button";
 import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
-import { renderField } from "../../../utils/common";
+import { renderField } from "../../../utilities/common";
 
 interface TableFiltersFieldsetProps {
     fields: FieldsInterface;

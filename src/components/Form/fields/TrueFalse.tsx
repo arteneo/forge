@@ -1,7 +1,7 @@
 import React from "react";
 import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
 import OptionsType from "../../../components/Form/definitions/OptionsType";
-import { Optional } from "../../../utils/TypescriptOperators";
+import { Optional } from "../../../utilities/TypescriptOperators";
 
 type TrueFalseProps = Optional<RadioProps, "options">;
 

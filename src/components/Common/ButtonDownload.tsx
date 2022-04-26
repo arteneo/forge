@@ -4,7 +4,7 @@ import Button, { ButtonProps } from "../../components/Common/Button";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
 import EndpointType from "../../components/Form/definitions/EndpointType";
-import { resolveEndpoint } from "../../utils/resolve";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface ButtonDownloadInterface {
     endpoint: EndpointType;

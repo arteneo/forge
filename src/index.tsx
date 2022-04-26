@@ -55,7 +55,7 @@ import TableFiltersFieldset, { TableFiltersFieldsetProps } from "./components/Ta
 import TableResults from "./components/Table/components/TableResults";
 import TableResultsPagination from "./components/Table/components/TableResultsPagination";
 import TableResultsPaginationActions from "./components/Table/components/TableResultsPaginationActions";
-import { getColumns } from "./components/Table/utilities/common";
+import { getColumns } from "./utilities/common";
 import TextColumn, { TextColumnProps } from "./components/Table/columns/TextColumn";
 import TextTruncateColumn, { TextTruncateColumnProps } from "./components/Table/columns/TextTruncateColumn";
 import BooleanColumn, { BooleanColumnProps } from "./components/Table/columns/BooleanColumn";
@@ -150,7 +150,7 @@ import FieldPlaceholderType from "./components/Form/definitions/FieldPlaceholder
 import FieldsInterface from "./components/Form/definitions/FieldsInterface";
 import Form, { FormProps } from "./components/Form/components/Form";
 import FormContent, { FormContentProps } from "./components/Form/components/FormContent";
-import { getFields } from "./components/Form/utilities/common";
+import { getFields } from "./utilities/common";
 import OptionsType from "./components/Form/definitions/OptionsType";
 import OptionInterface from "./components/Form/definitions/OptionInterface";
 import Radio, { RadioProps } from "./components/Form/fields/Radio";
@@ -181,9 +181,9 @@ import {
     resolveAxiosRequestConfigOrFunction,
     resolveEndpoint,
     resolveFieldEndpoint,
-} from "./utils/resolve";
-import { renderField, filterInitialValues, transformInitialValues } from "./utils/common";
-import { Optional } from "./utils/TypescriptOperators";
+} from "./utilities/resolve";
+import { renderField, filterInitialValues, transformInitialValues } from "./utilities/common";
+import { Optional } from "./utilities/TypescriptOperators";
 export {
     Enum,
     EnumType,

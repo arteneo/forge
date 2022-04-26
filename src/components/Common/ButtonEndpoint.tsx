@@ -6,7 +6,7 @@ import { useLoader } from "../../contexts/Loader";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import EndpointType from "../../components/Form/definitions/EndpointType";
-import { resolveEndpoint } from "../../utils/resolve";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface ButtonEndpointInterface {
     endpoint: EndpointType;

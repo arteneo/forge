@@ -3,10 +3,10 @@ import { useTable } from "../../../../components/Table/contexts/Table";
 import ResultButtonEndpointConfirmation, {
     ResultButtonEndpointConfirmationProps,
 } from "../../../../components/Table/actions/result/ResultButtonEndpointConfirmation";
-import { Optional } from "../../../../utils/TypescriptOperators";
+import { Optional } from "../../../../utilities/TypescriptOperators";
 import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
 import TableResultActionResolveType from "../../../../components/Table/definitions/TableResultActionResolveType";
-import { resolveAnyOrFunction } from "../../../../utils/resolve";
+import { resolveAnyOrFunction } from "../../../../utilities/resolve";
 
 interface DeleteInterface {
     endpoint?: TableResultActionResolveType<string>;

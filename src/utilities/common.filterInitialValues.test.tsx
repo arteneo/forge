@@ -1,7 +1,7 @@
 import React from "react";
 import Text from "../components/Form/fields/Text";
 import Collection from "../components/Form/fields/Collection";
-import { filterInitialValues } from "../utils/common";
+import { filterInitialValues } from "../utilities/common";
 
 // Collection fields
 

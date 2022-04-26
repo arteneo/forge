@@ -2,7 +2,7 @@ import React from "react";
 import Text from "../components/Form/fields/Text";
 import SelectApi from "../components/Form/fields/SelectApi";
 import Collection from "../components/Form/fields/Collection";
-import { transformInitialValues } from "../utils/common";
+import { transformInitialValues } from "../utilities/common";
 
 // Collection fields
 

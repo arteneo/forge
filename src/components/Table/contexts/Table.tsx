@@ -20,7 +20,7 @@ import BatchSelectedType from "../../../components/Table/definitions/BatchSelect
 import BatchQueryInterface from "../../../components/Table/definitions/BatchQueryInterface";
 import ColumnNamesType from "../../../components/Table/definitions/ColumnNamesType";
 import EndpointType from "../../../definitions/EndpointType";
-import { resolveEndpoint } from "../../../utils/resolve";
+import { resolveEndpoint } from "../../../utilities/resolve";
 
 interface TableContextProps {
     columns: ColumnsInterface;

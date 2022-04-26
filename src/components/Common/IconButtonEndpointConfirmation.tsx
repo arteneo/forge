@@ -8,7 +8,7 @@ import { useLoader } from "../../contexts/Loader";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import { Optional } from "../../utils/TypescriptOperators";
+import { Optional } from "../../utilities/TypescriptOperators";
 
 interface IconButtonEndpointConfirmationProps {
     requestConfig: AxiosRequestConfig;

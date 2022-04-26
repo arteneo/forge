@@ -4,8 +4,9 @@ import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogPro
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import { Optional } from "../../utilities/TypescriptOperators";
+import Form, { FormProps } from "../../components/Form/components/Form";
 
-interface DialogConfirmProps {
+interface DialogFormProps {
     open: boolean;
     onClose: () => void;
     onConfirm: () => void;
@@ -19,7 +20,7 @@ interface DialogConfirmProps {
     dialogProps?: Optional<DialogProps, "open">;
 }
 
-const DialogConfirm = ({
+const DialogForm = ({
     open,
     onClose,
     onConfirm,
@@ -41,18 +42,18 @@ const DialogConfirm = ({
         fullWidth: true,
         maxWidth: "sm",
     },
-}: DialogConfirmProps) => {
+}: DialogFormProps) => {
     const { t } = useTranslation();
 
-    // Using DialogConfirmProps typing definition that allows only label OR only children to be defined
+    // Using DialogFormProps typing definition that allows only label OR only children to be defined
     // gives missleading error when using none of them or both of them
     // Decided to go with Error throwing to make it easier for developers
     if (children === undefined && label === undefined) {
-        throw new Error("DialogConfirm component: Missing children or label prop");
+        throw new Error("DialogForm component: Missing children or label prop");
     }
 
     if (children !== undefined && label !== undefined) {
-        throw new Error("DialogConfirm component: It is not possible to use children and label prop at the same time");
+        throw new Error("DialogForm component: It is not possible to use children and label prop at the same time");
     }
 
     if (children === undefined && label !== undefined) {
@@ -67,17 +68,24 @@ const DialogConfirm = ({
                 ...dialogProps,
             }}
         >
-            <DialogTitle>{t(title, titleVariables)}</DialogTitle>
-            <DialogContent>{children}</DialogContent>
-            <DialogActions>
-                <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
-                    <Button onClick={() => onClose()} {...buttonBackProps} />
-                    <Button onClick={() => onConfirm()} {...buttonConfirmProps} />
-                </Box>
-            </DialogActions>
+            <Form
+                {...{
+                    fields,
+                    endpoint,
+                }}
+            >
+                <DialogTitle>{t(title, titleVariables)}</DialogTitle>
+                <DialogContent>{children}</DialogContent>
+                <DialogActions>
+                    <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
+                        <Button onClick={() => onClose()} {...buttonBackProps} />
+                        <Button onClick={() => onConfirm()} {...buttonConfirmProps} />
+                    </Box>
+                </DialogActions>
+            </Form>
         </Dialog>
     );
 };
 
-export default DialogConfirm;
-export { DialogConfirmProps };
+export default DialogForm;
+export { DialogFormProps };

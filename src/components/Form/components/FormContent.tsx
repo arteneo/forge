@@ -3,10 +3,10 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
 import { useForm } from "../../../components/Form/contexts/Form";
 import { useHandleCatch } from "../../../contexts/HandleCatch";
-import { resolveFieldEndpoint } from "../../../utils/resolve";
+import { resolveFieldEndpoint } from "../../../utilities/resolve";
 import { useSnackbar } from "../../../contexts/Snackbar";
 import { useLoader } from "../../../contexts/Loader";
-import { Optional } from "../../../utils/TypescriptOperators";
+import { Optional } from "../../../utilities/TypescriptOperators";
 import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
 
 interface FormContentProps {

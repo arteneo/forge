@@ -1,6 +1,6 @@
 import React from "react";
 import DateFormatColumn, { DateFormatColumnProps } from "../../../components/Table/columns/DateFormatColumn";
-import { Optional } from "../../../utils/TypescriptOperators";
+import { Optional } from "../../../utilities/TypescriptOperators";
 
 type DateTimeColumnProps = Optional<DateFormatColumnProps, "format">;
 

@@ -1,6 +1,43 @@
 import React from "react";
 import FieldsInterface from "../components/Form/definitions/FieldsInterface";
+import ColumnsInterface from "../components/Table/definitions/ColumnsInterface";
 import { FormikValues, getIn } from "formik";
+
+export const getFields = <T,>(names: undefined | T[], fields: FieldsInterface): FieldsInterface => {
+    const _fields: FieldsInterface = {};
+    const fieldNames = typeof names === "undefined" ? Object.keys(fields) : names;
+
+    fieldNames.forEach((fieldName) => {
+        if (typeof fieldName !== "string") {
+            throw new Error("Column name " + fieldName + " not supported");
+        }
+        if (typeof fields[fieldName] === "undefined") {
+            throw new Error("Column name " + fieldName + " not supported");
+        }
+
+        _fields[fieldName] = fields[fieldName];
+    });
+
+    return _fields;
+};
+
+export const getColumns = <T,>(names: undefined | T[], columns: ColumnsInterface): ColumnsInterface => {
+    const _columns: ColumnsInterface = {};
+    const columnNames = typeof names === "undefined" ? Object.keys(columns) : names;
+
+    columnNames.forEach((columnName) => {
+        if (typeof columnName !== "string") {
+            throw new Error("Column name " + columnName + " not supported");
+        }
+        if (typeof columns[columnName] === "undefined") {
+            throw new Error("Column name " + columnName + " not supported");
+        }
+
+        _columns[columnName] = columns[columnName];
+    });
+
+    return _columns;
+};
 
 export const renderField = (fields: FieldsInterface) => {
     // eslint-disable-next-line
