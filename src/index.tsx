@@ -65,7 +65,6 @@ import DateTimeColumn, { DateTimeColumnProps } from "./components/Table/columns/
 import TimeColumn, { TimeColumnProps } from "./components/Table/columns/TimeColumn";
 import ActionsColumn, { ActionsColumnProps } from "./components/Table/columns/ActionsColumn";
 import ResultButton, { ResultButtonProps } from "./components/Table/actions/ResultButton";
-import ResultButtonOnClick, { ResultButtonOnClickProps } from "./components/Table/actions/ResultButtonOnClick";
 import ResultButtonLink, { ResultButtonLinkProps } from "./components/Table/actions/ResultButtonLink";
 import ResultButtonDownload, { ResultButtonDownloadProps } from "./components/Table/actions/ResultButtonDownload";
 import ResultButtonEndpoint, { ResultButtonEndpointProps } from "./components/Table/actions/ResultButtonEndpoint";
@@ -257,8 +256,6 @@ export {
     ActionsColumnProps,
     ResultButton,
     ResultButtonProps,
-    ResultButtonOnClick,
-    ResultButtonOnClickProps,
     ResultButtonLink,
     ResultButtonLinkProps,
     ResultButtonDownload,
