@@ -15,9 +15,9 @@ import IconButton, { IconButtonProps } from "./components/Common/IconButton";
 import IconButtonLink, { IconButtonLinkProps } from "./components/Common/IconButtonLink";
 import IconButtonDownload, { IconButtonDownloadProps } from "./components/Common/IconButtonDownload";
 import IconButtonEndpoint, { IconButtonEndpointProps } from "./components/Common/IconButtonEndpoint";
-import IconButtonEndpointConfirmation, {
-    IconButtonEndpointConfirmationProps,
-} from "./components/Common/IconButtonEndpointConfirmation";
+import IconButtonEndpointDialogConfirm, {
+    IconButtonEndpointDialogConfirmProps,
+} from "./components/Common/IconButtonEndpointDialogConfirm";
 // TODO
 // import IconButtonDialogForm, { IconButtonDialogFormProps } from "./components/Common/IconButtonDialogForm";
 import {
@@ -210,8 +210,8 @@ export {
     IconButtonDownloadProps,
     IconButtonEndpoint,
     IconButtonEndpointProps,
-    IconButtonEndpointConfirmation,
-    IconButtonEndpointConfirmationProps,
+    IconButtonEndpointDialogConfirm,
+    IconButtonEndpointDialogConfirmProps,
     // TODO
     // IconButtonDialogForm,
     // IconButtonDialogFormProps,

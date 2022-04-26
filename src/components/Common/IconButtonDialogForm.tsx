@@ -1,141 +1,87 @@
-// TODO
-// import React from "react";
-// import { AxiosResponse } from "axios";
-// import { useTranslation } from "react-i18next";
-// import { Box, Dialog, DialogActions, DialogContent, DialogProps, DialogTitle } from "@mui/material";
-// import { makeStyles } from "@mui/styles";
-// import { useSnackbar } from "../../contexts/Snackbar";
-// import { useLoader } from "../../contexts/Loader";
-// import Button, { ButtonProps } from "../../components/Common/Button";
-// import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
-// import Form, { FormProps } from "../../components/Form/components/Form";
-// import FormContentFields from "../../components/Form/components/FormContentFields";
-// import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-// import { Optional } from "../../utils/TypescriptOperators";
-// import { FormikContext, FormikHelpers, FormikValues } from "formik";
+import React from "react";
+import axios, { AxiosResponse } from "axios";
+import { useSnackbar } from "../../contexts/Snackbar";
+import { useHandleCatch } from "../../contexts/HandleCatch";
+import { useLoader } from "../../contexts/Loader";
+import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import DialogConfirm from "../../components/Common/DialogConfirm";
+import EndpointType from "../../components/Form/definitions/EndpointType";
+import { resolveEndpoint } from "../../utilities/resolve";
 
-// interface IconButtonDialogFormProps {
-//     iconButtonProps: IconButtonProps;
-//     dialogButtonBackProps?: ButtonProps;
-//     dialogButtonProps?: ButtonProps;
-//     dialogTitle?: string;
-//     dialogTitleVariables?: TranslateVariablesInterface;
-//     dialogDialogProps?: Optional<DialogProps, "open">;
-//     snackbarLabel?: string;
-//     snackbarLabelVariables?: TranslateVariablesInterface;
-//     formProps: FormProps;
-//     children?: React.ReactNode;
-// }
+interface RenderDialogConfirmParams {
+    open: boolean;
+    onClose: () => void;
+    onConfirm: () => void;
+}
 
-// const useStyles = makeStyles(() => ({
-//     dialogContent: {
-//         "&:first-child": {
-//             paddingTop: 0,
-//         },
-//     },
-// }));
+interface IconButtonEndpointDialogConfirmProps extends IconButtonProps {
+    endpoint: EndpointType;
+    onSuccess?: (defaultOnSuccess: () => void, response: AxiosResponse) => void;
+    snackbarLabel?: string;
+    snackbarLabelVariables?: TranslateVariablesInterface;
+    renderDialog?: (params: RenderDialogConfirmParams) => React.ReactNode;
+}
 
-// const IconButtonDialogForm = ({
-//     iconButtonProps,
-//     dialogButtonBackProps = {
-//         label: "action.back",
-//         variant: "contained",
-//     },
-//     dialogButtonProps = {
-//         label: "action.save",
-//         variant: "contained",
-//         color: "primary",
-//     },
-//     dialogTitle = "crud.iconButtonDialogForm.title",
-//     dialogTitleVariables = {},
-//     dialogDialogProps = {
-//         fullWidth: true,
-//         maxWidth: "md",
-//     },
-//     snackbarLabel = "snackbar.iconButtonDialogFormSuccess",
-//     snackbarLabelVariables = {},
-//     formProps,
-//     children,
-// }: IconButtonDialogFormProps) => {
-//     const { t } = useTranslation();
-//     const classes = useStyles();
-//     const { showSuccess } = useSnackbar();
-//     const { hideLoader } = useLoader();
-//     const [showDialog, setShowDialog] = React.useState(false);
+const IconButtonEndpointDialogConfirm = ({
+    endpoint,
+    onSuccess,
+    snackbarLabel = "iconbuttonEndpointDialogConfirm.snackbar.success",
+    snackbarLabelVariables = {},
+    renderDialog = (params) => (
+        <DialogConfirm {...{ label: "iconbuttonEndpointDialogConfirm.dialog.confirm", ...params }} />
+    ),
+    ...iconButtonProps
+}: IconButtonEndpointDialogConfirmProps) => {
+    const { showSuccess } = useSnackbar();
+    const handleCatch = useHandleCatch();
+    const { showLoader, hideLoader } = useLoader();
+    const [showConfirmation, setShowConfirmation] = React.useState(false);
 
-//     const onSubmitSuccess = (
-//         defaultOnSubmitSuccess: () => void,
-//         // eslint-disable-next-line
-//         submitAction: any,
-//         helpers: FormikHelpers<FormikValues>,
-//         response: AxiosResponse,
-//         // eslint-disable-next-line
-//         setObject: (object: any) => void
-//     ) => {
-//         const currentDefaultOnSubmitSuccess = () => {
-//             helpers.setSubmitting(false);
-//             showSuccess(snackbarLabel, snackbarLabelVariables);
-//             setShowDialog(false);
-//             hideLoader();
-//             setObject(response.data);
-//         };
+    const requestConfig = resolveEndpoint(endpoint);
+    if (typeof requestConfig === "undefined") {
+        throw new Error("Resolved requestConfig is undefined");
+    }
 
-//         if (typeof formProps?.onSubmitSuccess !== "undefined") {
-//             formProps?.onSubmitSuccess(currentDefaultOnSubmitSuccess, submitAction, helpers, response, setObject);
-//             return;
-//         }
+    const onConfirm = (): void => {
+        showLoader();
 
-//         currentDefaultOnSubmitSuccess();
-//     };
+        axios
+            .request(requestConfig)
+            .then((response: AxiosResponse) => {
+                const defaultOnSuccess = () => {
+                    showSuccess(snackbarLabel, snackbarLabelVariables);
+                    setShowConfirmation(false);
+                    hideLoader();
+                };
 
-//     if (!children && !formProps.fields) {
-//         throw new Error("IconButtonDialogForm component: children or formProps.fields prop is required.");
-//     }
+                if (typeof onSuccess !== "undefined") {
+                    onSuccess(defaultOnSuccess, response);
+                    return;
+                }
 
-//     return (
-//         <>
-//             <IconButton
-//                 {...{
-//                     onClick: () => setShowDialog(true),
-//                     ...iconButtonProps,
-//                 }}
-//             />
+                defaultOnSuccess();
+            })
+            .catch((error) => handleCatch(error));
+    };
 
-//             <Dialog open={showDialog} onClose={() => setShowDialog(false)} {...dialogDialogProps}>
-//                 <DialogTitle>{t(dialogTitle, dialogTitleVariables)}</DialogTitle>
-//                 <Form
-//                     {...{
-//                         buttons: null,
-//                         ...formProps,
-//                         onSubmitSuccess,
-//                     }}
-//                 >
-//                     <DialogContent className={classes.dialogContent}>
-//                         {children && children}
-//                         {!children && formProps.fields && <FormContentFields {...{ fields: formProps.fields }} />}
-//                     </DialogContent>
-//                     <DialogActions>
-//                         <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
-//                             <Button onClick={() => setShowDialog(false)} {...dialogButtonBackProps} />
+    return (
+        <>
+            <IconButton
+                {...{
+                    onClick: () => setShowConfirmation(true),
+                    ...iconButtonProps,
+                }}
+            />
 
-//                             <FormikContext.Consumer>
-//                                 {({ isSubmitting }) => (
-//                                     <Button
-//                                         {...{
-//                                             type: "submit",
-//                                             disabled: isSubmitting,
-//                                             ...dialogButtonProps,
-//                                         }}
-//                                     />
-//                                 )}
-//                             </FormikContext.Consumer>
-//                         </Box>
-//                     </DialogActions>
-//                 </Form>
-//             </Dialog>
-//         </>
-//     );
-// };
+            {renderDialog({
+                open: showConfirmation,
+                onClose: () => setShowConfirmation(false),
+                onConfirm: () => onConfirm(),
+            })}
+        </>
+    );
+};
 
-// export default IconButtonDialogForm;
-// export { IconButtonDialogFormProps };
+export default IconButtonEndpointDialogConfirm;
+export { IconButtonEndpointDialogConfirmProps, RenderDialogConfirmParams };

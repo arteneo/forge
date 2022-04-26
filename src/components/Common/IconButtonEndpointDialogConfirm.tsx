@@ -5,35 +5,45 @@ import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
 import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import DialogConfirm from "../../components/Common/DialogConfirm";
 import EndpointType from "../../components/Form/definitions/EndpointType";
 import { resolveEndpoint } from "../../utilities/resolve";
 
-interface IconButtonEndpointInterface {
+interface RenderDialogConfirmParams {
+    open: boolean;
+    onClose: () => void;
+    onConfirm: () => void;
+}
+
+interface IconButtonEndpointDialogConfirmProps extends IconButtonProps {
     endpoint: EndpointType;
     onSuccess?: (defaultOnSuccess: () => void, response: AxiosResponse) => void;
     snackbarLabel?: string;
     snackbarLabelVariables?: TranslateVariablesInterface;
+    renderDialog?: (params: RenderDialogConfirmParams) => React.ReactNode;
 }
 
-type IconButtonEndpointProps = IconButtonEndpointInterface & IconButtonProps;
-
-const IconButtonEndpoint = ({
+const IconButtonEndpointDialogConfirm = ({
     endpoint,
     onSuccess,
-    snackbarLabel = "iconButtonEndpoint.snackbar.success",
+    snackbarLabel = "iconButtonEndpointDialogConfirm.snackbar.success",
     snackbarLabelVariables = {},
-    ...props
-}: IconButtonEndpointProps) => {
+    renderDialog = (params) => (
+        <DialogConfirm {...{ label: "iconButtonEndpointDialogConfirm.dialog.confirm", ...params }} />
+    ),
+    ...iconButtonProps
+}: IconButtonEndpointDialogConfirmProps) => {
     const { showSuccess } = useSnackbar();
     const handleCatch = useHandleCatch();
     const { showLoader, hideLoader } = useLoader();
+    const [showConfirmation, setShowConfirmation] = React.useState(false);
 
     const requestConfig = resolveEndpoint(endpoint);
     if (typeof requestConfig === "undefined") {
         throw new Error("Resolved requestConfig is undefined");
     }
 
-    const onClick = (): void => {
+    const onConfirm = (): void => {
         showLoader();
 
         axios
@@ -41,6 +51,7 @@ const IconButtonEndpoint = ({
             .then((response: AxiosResponse) => {
                 const defaultOnSuccess = () => {
                     showSuccess(snackbarLabel, snackbarLabelVariables);
+                    setShowConfirmation(false);
                     hideLoader();
                 };
 
@@ -55,14 +66,22 @@ const IconButtonEndpoint = ({
     };
 
     return (
-        <IconButton
-            {...{
-                onClick: () => onClick(),
-                ...props,
-            }}
-        />
+        <>
+            <IconButton
+                {...{
+                    onClick: () => setShowConfirmation(true),
+                    ...iconButtonProps,
+                }}
+            />
+
+            {renderDialog({
+                open: showConfirmation,
+                onClose: () => setShowConfirmation(false),
+                onConfirm: () => onConfirm(),
+            })}
+        </>
     );
 };
 
-export default IconButtonEndpoint;
-export { IconButtonEndpointProps };
+export default IconButtonEndpointDialogConfirm;
+export { IconButtonEndpointDialogConfirmProps, RenderDialogConfirmParams };

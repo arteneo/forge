@@ -1,24 +1,33 @@
 import React from "react";
 import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
+import EndpointType from "../../components/Form/definitions/EndpointType";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface IconButtonDownloadInterface {
-    requestConfig: AxiosRequestConfig;
+    endpoint: EndpointType;
 }
 
 type IconButtonDownloadProps = IconButtonDownloadInterface & IconButtonProps;
 
-const IconButtonDownload = ({ requestConfig, ...props }: IconButtonDownloadProps) => {
+const IconButtonDownload = ({ endpoint, ...props }: IconButtonDownloadProps) => {
     const { showLoader, hideLoader } = useLoader();
     const handleCatch = useHandleCatch();
+
+    const requestConfig = resolveEndpoint(endpoint);
+    if (typeof requestConfig === "undefined") {
+        throw new Error("Resolved requestConfig is undefined");
+    }
 
     const onClick = () => {
         showLoader();
 
+        requestConfig.responseType = requestConfig.responseType ?? "blob";
+
         axios
-            .request(Object.assign({ responseType: "blob" }, requestConfig))
+            .request(requestConfig)
             .then((response) => {
                 hideLoader();
 
