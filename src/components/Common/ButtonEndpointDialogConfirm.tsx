@@ -39,7 +39,6 @@ const ButtonEndpointDialogConfirm = ({
     const [showConfirmation, setShowConfirmation] = React.useState(false);
 
     const requestConfig = resolveEndpoint(endpoint);
-
     if (typeof requestConfig === "undefined") {
         throw new Error("Resolved requestConfig is undefined");
     }

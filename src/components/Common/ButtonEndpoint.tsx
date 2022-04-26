@@ -29,7 +29,6 @@ const ButtonEndpoint = ({
     const { showLoader, hideLoader } = useLoader();
 
     const requestConfig = resolveEndpoint(endpoint);
-
     if (typeof requestConfig === "undefined") {
         throw new Error("Resolved requestConfig is undefined");
     }
