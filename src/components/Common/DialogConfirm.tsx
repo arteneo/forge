@@ -1,15 +1,11 @@
 import React from "react";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useTranslation } from "react-i18next";
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogProps, DialogTitle } from "@mui/material";
-import { useSnackbar } from "../../contexts/Snackbar";
-import { useHandleCatch } from "../../contexts/HandleCatch";
-import { useLoader } from "../../contexts/Loader";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import { Optional } from "../../utils/TypescriptOperators";
 
-interface ConfirmDialogProps {
+interface DialogConfirmProps {
     open: boolean;
     onClose: () => void;
     onConfirm: () => void;
@@ -17,39 +13,50 @@ interface ConfirmDialogProps {
     buttonConfirmProps?: ButtonProps;
     title?: string;
     titleVariables?: TranslateVariablesInterface;
-    confirmationContent?: React.ReactNode;
-    confirmationLabel?: string;
-    confirmationLabelVariables?: TranslateVariablesInterface;
+    children?: React.ReactNode;
+    label?: string;
+    labelVariables?: TranslateVariablesInterface;
     dialogProps?: Optional<DialogProps, "open">;
 }
 
-const ConfirmDialog = ({
+const DialogConfirm = ({
     open,
     onClose,
     onConfirm,
     buttonBackProps = {
         label: "action.back",
-        variant: "contained",
+        variant: "outlined",
     },
     buttonConfirmProps = {
         label: "action.confirm",
         variant: "contained",
         color: "primary",
     },
-    title = "crud.confirmation.title",
-    titleVariables = {},
-    confirmationContent,
-    confirmationLabel = "crud.confirmation.label",
-    confirmationLabelVariables = {},
+    title = "dialog.confirm.title",
+    titleVariables,
+    children,
+    label,
+    labelVariables,
     dialogProps = {
         fullWidth: true,
         maxWidth: "sm",
     },
-}: ConfirmDialogProps) => {
+}: DialogConfirmProps) => {
     const { t } = useTranslation();
 
-    if (typeof confirmationContent === "undefined") {
-        confirmationContent = <DialogContentText>{t(confirmationLabel, confirmationLabelVariables)}</DialogContentText>;
+    // Using DialogConfirmProps typing definition that allows only label OR only children to be defined
+    // gives missleading error when using none of them or both of them
+    // Decided to go with Error throwing to make it easier for developers
+    if (children === undefined && label === undefined) {
+        throw new Error("DialogConfirm component: Missing children or label prop");
+    }
+
+    if (children !== undefined && label !== undefined) {
+        throw new Error("DialogConfirm component: It is not possible to use children and label prop at the same time");
+    }
+
+    if (children === undefined && label !== undefined) {
+        children = <DialogContentText>{t(label, labelVariables)}</DialogContentText>;
     }
 
     return (
@@ -61,7 +68,7 @@ const ConfirmDialog = ({
             }}
         >
             <DialogTitle>{t(title, titleVariables)}</DialogTitle>
-            <DialogContent>{confirmationContent}</DialogContent>
+            <DialogContent>{children}</DialogContent>
             <DialogActions>
                 <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
                     <Button onClick={() => onClose()} {...buttonBackProps} />
@@ -72,9 +79,5 @@ const ConfirmDialog = ({
     );
 };
 
-export default ConfirmDialog;
-export { ConfirmDialogProps };
-
-// InformationDialog
-// ConfirmationDialog
-// FormDialog
+export default DialogConfirm;
+export { DialogConfirmProps };

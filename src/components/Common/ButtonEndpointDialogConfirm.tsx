@@ -1,14 +1,11 @@
 import React from "react";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
-import { useTranslation } from "react-i18next";
-import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogProps, DialogTitle } from "@mui/material";
+import axios, { AxiosResponse } from "axios";
 import { useSnackbar } from "../../contexts/Snackbar";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import { Optional } from "../../utils/TypescriptOperators";
-import ConfirmDialog from "../../components/Common/ConfirmDialog";
+import DialogConfirm from "../../components/Common/DialogConfirm";
 import EndpointType from "../../components/Form/definitions/EndpointType";
 import { resolveEndpoint } from "../../utils/resolve";
 
@@ -18,27 +15,24 @@ interface RenderDialogParams {
     onConfirm: () => void;
 }
 
-interface ButtonEndpointConfirmProps {
+interface ButtonEndpointDialogConfirmProps extends ButtonProps {
     endpoint: EndpointType;
     onSuccess?: (defaultOnSuccess: () => void, response: AxiosResponse) => void;
-    buttonProps?: ButtonProps;
     snackbarLabel?: string;
     snackbarLabelVariables?: TranslateVariablesInterface;
-    renderDialog: (params: RenderDialogParams) => React.ReactNode;
+    renderDialog?: (params: RenderDialogParams) => React.ReactNode;
 }
 
-const ButtonEndpointConfirm = ({
+const ButtonEndpointDialogConfirm = ({
     endpoint,
     onSuccess,
-    buttonProps = {
-        variant: "contained",
-        color: "primary",
-    },
-    snackbarLabel = "snackbar.ButtonEndpointConfirmSuccess",
+    snackbarLabel = "buttonEndpointDialogConfirm.snackbar.success",
     snackbarLabelVariables = {},
-    renderDialog = (params) => <ConfirmDialog {...params} />,
-}: ButtonEndpointConfirmProps) => {
-    const { t } = useTranslation();
+    renderDialog = (params) => (
+        <DialogConfirm {...{ label: "buttonEndpointDialogConfirm.dialog.confirm", ...params }} />
+    ),
+    ...buttonProps
+}: ButtonEndpointDialogConfirmProps) => {
     const { showSuccess } = useSnackbar();
     const handleCatch = useHandleCatch();
     const { showLoader, hideLoader } = useLoader();
@@ -90,5 +84,5 @@ const ButtonEndpointConfirm = ({
     );
 };
 
-export default ButtonEndpointConfirm;
-export { ButtonEndpointConfirmProps, RenderDialogParams };
+export default ButtonEndpointDialogConfirm;
+export { ButtonEndpointDialogConfirmProps, RenderDialogParams };

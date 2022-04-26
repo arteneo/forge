@@ -16,7 +16,7 @@ type ButtonProps = InternalMuiButtonProps & LabelChildrenProps & DenyPropInterfa
 
 const Button = ({
     label,
-    labelVariables = {},
+    labelVariables,
     children,
     deny,
     denyKey,
