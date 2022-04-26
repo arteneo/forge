@@ -1,12 +1,12 @@
 import React from "react";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
-import ButtonEndpoint, { ButtonEndpointProps } from "../../../../components/Common/ButtonEndpoint";
-import TableResultActionPathInterface from "../../../../components/Table/definitions/TableResultActionPathInterface";
-import TableResultActionResolveType from "../../../../components/Table/definitions/TableResultActionResolveType";
-import { resolveAnyOrFunction } from "../../../../utilities/resolve";
+import ButtonEndpoint, { ButtonEndpointProps } from "../../../components/Common/ButtonEndpoint";
+import TableResultActionPathInterface from "../../../components/Table/definitions/TableResultActionPathInterface";
+import TableResultActionResolveType from "../../../components/Table/definitions/TableResultActionResolveType";
+import { resolveAnyOrFunction } from "../../../utilities/resolve";
 import { getIn } from "formik";
-import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
-import { useTable } from "../../../../components/Table/contexts/Table";
+import ResultInterface from "../../../components/Table/definitions/ResultInterface";
+import { useTable } from "../../../components/Table/contexts/Table";
 
 interface EndpointProps {
     requestConfig: TableResultActionResolveType<AxiosRequestConfig>;

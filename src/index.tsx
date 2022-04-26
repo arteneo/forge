@@ -64,27 +64,23 @@ import DateColumn, { DateColumnProps } from "./components/Table/columns/DateColu
 import DateTimeColumn, { DateTimeColumnProps } from "./components/Table/columns/DateTimeColumn";
 import TimeColumn, { TimeColumnProps } from "./components/Table/columns/TimeColumn";
 import ActionsColumn, { ActionsColumnProps } from "./components/Table/columns/ActionsColumn";
-import ResultButton, { ResultButtonProps } from "./components/Table/actions/result/ResultButton";
-import ResultButtonOnClick, { ResultButtonOnClickProps } from "./components/Table/actions/result/ResultButtonOnClick";
-import ResultButtonLink, { ResultButtonLinkProps } from "./components/Table/actions/result/ResultButtonLink";
-import ResultButtonDownload, {
-    ResultButtonDownloadProps,
-} from "./components/Table/actions/result/ResultButtonDownload";
-import ResultButtonEndpoint, {
-    ResultButtonEndpointProps,
-} from "./components/Table/actions/result/ResultButtonEndpoint";
+import ResultButton, { ResultButtonProps } from "./components/Table/actions/ResultButton";
+import ResultButtonOnClick, { ResultButtonOnClickProps } from "./components/Table/actions/ResultButtonOnClick";
+import ResultButtonLink, { ResultButtonLinkProps } from "./components/Table/actions/ResultButtonLink";
+import ResultButtonDownload, { ResultButtonDownloadProps } from "./components/Table/actions/ResultButtonDownload";
+import ResultButtonEndpoint, { ResultButtonEndpointProps } from "./components/Table/actions/ResultButtonEndpoint";
 import ResultButtonEndpointConfirmation, {
     ResultButtonEndpointConfirmationProps,
-} from "./components/Table/actions/result/ResultButtonEndpointConfirmation";
-import Edit, { EditProps } from "./components/Table/actions/result/Edit";
-import Delete, { DeleteProps } from "./components/Table/actions/result/Delete";
-import Create, { CreateProps } from "./components/Table/actions/table/Create";
-import ExportCsv, { ExportCsvProps } from "./components/Table/actions/table/ExportCsv";
-import ExportExcel, { ExportExcelProps } from "./components/Table/actions/table/ExportExcel";
-import Batch, { BatchProps } from "./components/Table/actions/table/Batch";
-import BatchDelete, { BatchDeleteProps } from "./components/Table/actions/table/BatchDelete";
+} from "./components/Table/actions/ResultButtonEndpointConfirmation";
+import Edit, { EditProps } from "./components/Table/actions/Edit";
+import Delete, { DeleteProps } from "./components/Table/actions/Delete";
+import Create, { CreateProps } from "./components/Table/toolbar/Create";
+import ExportCsv, { ExportCsvProps } from "./components/Table/toolbar/ExportCsv";
+import ExportExcel, { ExportExcelProps } from "./components/Table/toolbar/ExportExcel";
+import Batch, { BatchProps } from "./components/Table/toolbar/Batch";
+import BatchDelete, { BatchDeleteProps } from "./components/Table/toolbar/BatchDelete";
 // TODO
-// import BatchForm, { BatchFormProps } from "./components/Table/actions/table/BatchForm";
+// import BatchForm, { BatchFormProps } from "./components/Table/toolbar/BatchForm";
 import BatchQueryInterface from "./components/Table/definitions/BatchQueryInterface";
 import BatchSelectedType from "./components/Table/definitions/BatchSelectedType";
 import DenyBehaviorType from "./components/Table/definitions/DenyBehaviorType";

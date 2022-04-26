@@ -1,7 +1,7 @@
 import React from "react";
-import { useTable } from "../../../../components/Table/contexts/Table";
-import Batch, { BatchProps } from "../../../../components/Table/actions/table/Batch";
-import { Optional } from "../../../../utilities/TypescriptOperators";
+import { useTable } from "../../../components/Table/contexts/Table";
+import Batch, { BatchProps } from "../../../components/Table/toolbar/Batch";
+import { Optional } from "../../../utilities/TypescriptOperators";
 
 type BatchDeleteProps = Optional<BatchProps, "endpoint" | "confirmationLabel" | "snackbarLabel">;
 

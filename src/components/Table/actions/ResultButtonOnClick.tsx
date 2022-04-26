@@ -1,7 +1,7 @@
 import React from "react";
-import Button, { ButtonProps } from "../../../../components/Common/Button";
-import TableResultActionPathInterface from "../../../../components/Table/definitions/TableResultActionPathInterface";
-import ResultInterface from "../../../../components/Table/definitions/ResultInterface";
+import Button, { ButtonProps } from "../../../components/Common/Button";
+import TableResultActionPathInterface from "../../../components/Table/definitions/TableResultActionPathInterface";
+import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { getIn } from "formik";
 
 interface OnClickProps {

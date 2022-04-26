@@ -1,10 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import ExportQueryInterface from "../../../../components/Table/definitions/ExportQueryInterface";
-import { useTable } from "../../../../components/Table/contexts/Table";
-import ButtonDownload, { ButtonDownloadProps } from "../../../../components/Common/ButtonDownload";
+import ExportQueryInterface from "../../../components/Table/definitions/ExportQueryInterface";
+import { useTable } from "../../../components/Table/contexts/Table";
+import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
 import { AxiosRequestConfig } from "axios";
-import { Optional } from "../../../../utilities/TypescriptOperators";
+import { Optional } from "../../../utilities/TypescriptOperators";
 
 interface ExportExcelInterface {
     // eslint-disable-next-line
