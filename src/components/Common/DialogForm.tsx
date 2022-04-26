@@ -1,64 +1,62 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogProps, DialogTitle } from "@mui/material";
-import Button, { ButtonProps } from "../../components/Common/Button";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { AxiosResponse } from "axios";
+import { FormikHelpers, FormikValues } from "formik";
+import { Dialog, DialogProps } from "@mui/material";
 import { Optional } from "../../utilities/TypescriptOperators";
 import Form, { FormProps } from "../../components/Form/components/Form";
+import DialogFieldset, { DialogFieldsetProps } from "../../components/Form/fieldsets/DialogFieldset";
+
+interface DialogFormFormProps extends Omit<Optional<FormProps, "children">, "onSubmit" | "onSubmitSuccess"> {
+    onSubmitSuccess?: (
+        defaultOnSubmitSuccess: () => void,
+        helpers: FormikHelpers<FormikValues>,
+        response: AxiosResponse,
+        onClose: () => void
+    ) => void;
+    onSubmit?: (values: FormikValues, helpers: FormikHelpers<FormikValues>, onClose: () => void) => void;
+}
 
 interface DialogFormProps {
     open: boolean;
     onClose: () => void;
-    onConfirm: () => void;
-    buttonBackProps?: ButtonProps;
-    buttonConfirmProps?: ButtonProps;
-    title?: string;
-    titleVariables?: TranslateVariablesInterface;
-    children?: React.ReactNode;
-    label?: string;
-    labelVariables?: TranslateVariablesInterface;
+    formProps: DialogFormFormProps;
+    dialogFieldsetProps?: Omit<DialogFieldsetProps, "fields" | "onClose">;
     dialogProps?: Optional<DialogProps, "open">;
 }
 
 const DialogForm = ({
     open,
     onClose,
-    onConfirm,
-    buttonBackProps = {
-        label: "action.back",
-        variant: "outlined",
-    },
-    buttonConfirmProps = {
-        label: "action.confirm",
-        variant: "contained",
-        color: "primary",
-    },
-    title = "dialog.confirm.title",
-    titleVariables,
-    children,
-    label,
-    labelVariables,
+    formProps,
+    dialogFieldsetProps,
     dialogProps = {
         fullWidth: true,
-        maxWidth: "sm",
+        maxWidth: "md",
     },
 }: DialogFormProps) => {
-    const { t } = useTranslation();
+    const { onSubmit, onSubmitSuccess, ...otherFormProps } = formProps;
 
-    // Using DialogFormProps typing definition that allows only label OR only children to be defined
-    // gives missleading error when using none of them or both of them
-    // Decided to go with Error throwing to make it easier for developers
-    if (children === undefined && label === undefined) {
-        throw new Error("DialogForm component: Missing children or label prop");
-    }
+    const _onSubmitSuccess = (
+        defaultOnSubmitSuccess: () => void,
+        helpers: FormikHelpers<FormikValues>,
+        response: AxiosResponse
+    ) => {
+        const currentDefaultOnSubmitSuccess = () => {
+            defaultOnSubmitSuccess();
+            onClose();
+        };
 
-    if (children !== undefined && label !== undefined) {
-        throw new Error("DialogForm component: It is not possible to use children and label prop at the same time");
-    }
+        if (typeof onSubmitSuccess !== "undefined") {
+            onSubmitSuccess(currentDefaultOnSubmitSuccess, helpers, response, onClose);
+            return;
+        }
 
-    if (children === undefined && label !== undefined) {
-        children = <DialogContentText>{t(label, labelVariables)}</DialogContentText>;
-    }
+        currentDefaultOnSubmitSuccess();
+    };
+
+    const _onSubmit = onSubmit
+        ? (values: FormikValues, helpers: FormikHelpers<FormikValues>) => onSubmit(values, helpers, onClose)
+        : undefined;
 
     return (
         <Dialog
@@ -70,22 +68,15 @@ const DialogForm = ({
         >
             <Form
                 {...{
-                    fields,
-                    endpoint,
+                    children: <DialogFieldset {...{ onClose, fields: formProps.fields, ...dialogFieldsetProps }} />,
+                    onSubmit: _onSubmit,
+                    onSubmitSuccess: _onSubmitSuccess,
+                    ...otherFormProps,
                 }}
-            >
-                <DialogTitle>{t(title, titleVariables)}</DialogTitle>
-                <DialogContent>{children}</DialogContent>
-                <DialogActions>
-                    <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
-                        <Button onClick={() => onClose()} {...buttonBackProps} />
-                        <Button onClick={() => onConfirm()} {...buttonConfirmProps} />
-                    </Box>
-                </DialogActions>
-            </Form>
+            />
         </Dialog>
     );
 };
 
 export default DialogForm;
-export { DialogFormProps };
+export { DialogFormProps, DialogFormFormProps };

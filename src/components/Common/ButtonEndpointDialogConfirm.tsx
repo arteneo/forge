@@ -9,7 +9,7 @@ import DialogConfirm from "../../components/Common/DialogConfirm";
 import EndpointType from "../../components/Form/definitions/EndpointType";
 import { resolveEndpoint } from "../../utilities/resolve";
 
-interface RenderDialogParams {
+interface RenderDialogConfirmParams {
     open: boolean;
     onClose: () => void;
     onConfirm: () => void;
@@ -20,7 +20,7 @@ interface ButtonEndpointDialogConfirmProps extends ButtonProps {
     onSuccess?: (defaultOnSuccess: () => void, response: AxiosResponse) => void;
     snackbarLabel?: string;
     snackbarLabelVariables?: TranslateVariablesInterface;
-    renderDialog?: (params: RenderDialogParams) => React.ReactNode;
+    renderDialog?: (params: RenderDialogConfirmParams) => React.ReactNode;
 }
 
 const ButtonEndpointDialogConfirm = ({
@@ -84,4 +84,4 @@ const ButtonEndpointDialogConfirm = ({
 };
 
 export default ButtonEndpointDialogConfirm;
-export { ButtonEndpointDialogConfirmProps, RenderDialogParams };
+export { ButtonEndpointDialogConfirmProps, RenderDialogConfirmParams };
