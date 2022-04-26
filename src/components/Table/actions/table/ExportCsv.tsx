@@ -15,7 +15,7 @@ interface ExportCsvInterface {
     removeFields?: string[];
 }
 
-type ExportCsvProps = Optional<ExportCsvInterface & ButtonDownloadProps, "requestConfig">;
+type ExportCsvProps = Optional<ExportCsvInterface & ButtonDownloadProps, "endpoint">;
 
 const ExportCsv = ({
     endpoint,
@@ -81,7 +81,7 @@ const ExportCsv = ({
     return (
         <ButtonDownload
             {...{
-                requestConfig,
+                endpoint: requestConfig,
                 label: "action.exportCsv",
                 color: "primary",
                 variant: "contained",

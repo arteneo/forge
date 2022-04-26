@@ -15,7 +15,7 @@ interface ExportExcelInterface {
     removeFields?: string[];
 }
 
-type ExportExcelProps = Optional<ExportExcelInterface & ButtonDownloadProps, "requestConfig">;
+type ExportExcelProps = Optional<ExportExcelInterface & ButtonDownloadProps, "endpoint">;
 
 const ExportExcel = ({
     endpoint,
@@ -81,7 +81,7 @@ const ExportExcel = ({
     return (
         <ButtonDownload
             {...{
-                requestConfig,
+                endpoint: requestConfig,
                 label: "action.exportExcel",
                 color: "primary",
                 variant: "contained",
