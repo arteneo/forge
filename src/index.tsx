@@ -3,9 +3,6 @@ import Button, { ButtonProps } from "./components/Common/Button";
 import ButtonLink, { ButtonLinkProps } from "./components/Common/ButtonLink";
 import ButtonDownload, { ButtonDownloadProps } from "./components/Common/ButtonDownload";
 import ButtonEndpoint, { ButtonEndpointProps } from "./components/Common/ButtonEndpoint";
-import ButtonEndpointConfirmation, {
-    ButtonEndpointConfirmationProps,
-} from "./components/Common/ButtonEndpointConfirmation";
 import ButtonEndpointDialogConfirm, {
     ButtonEndpointDialogConfirmProps,
 } from "./components/Common/ButtonEndpointDialogConfirm";
@@ -194,8 +191,6 @@ export {
     ButtonEndpointDialogConfirmProps,
     DialogConfirm,
     DialogConfirmProps,
-    ButtonEndpointConfirmation,
-    ButtonEndpointConfirmationProps,
     ButtonDialogForm,
     ButtonDialogFormProps,
     IconButton,
