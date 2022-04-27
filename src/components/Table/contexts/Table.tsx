@@ -255,8 +255,10 @@ const TableProvider = ({
     const requestConfig = resolveEndpoint(endpoint);
     const visibleColumnsRequestConfig = resolveEndpoint(visibleColumnsEndpoint);
 
-    useDeepCompareEffectNoCheck(() => load(page, rowsPerPage, sorting, filters), [requestConfig]);
-    React.useEffect(() => load(page, rowsPerPage, sorting, filters), [page, rowsPerPage, sorting]);
+    useDeepCompareEffectNoCheck(
+        () => load(page, rowsPerPage, sorting, filters),
+        [requestConfig, page, rowsPerPage, sorting]
+    );
     useDeepCompareEffectNoCheck(() => loadVisibleColumns(), [visibleColumnsKey, visibleColumnsRequestConfig]);
 
     const load = (
