@@ -1,22 +1,22 @@
 import React from "react";
-import { AxiosRequestConfig } from "axios";
 import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
-import TableResultActionPathInterface from "../../../components/Table/definitions/TableResultActionPathInterface";
-import TableResultActionResolveType from "../../../components/Table/definitions/TableResultActionResolveType";
+import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
+import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
+import EndpointType from "../../../components/Form/definitions/EndpointType";
 import { getIn } from "formik";
 
-interface DownloadProps {
-    requestConfig: TableResultActionResolveType<AxiosRequestConfig>;
+interface ResultButtonDownloadSpecificProps {
+    endpoint: ResultResolveType<EndpointType>;
 }
 
-type ResultButtonDownloadProps = Omit<ButtonDownloadProps, "requestConfig"> &
-    TableResultActionPathInterface &
-    DownloadProps;
+type ResultButtonDownloadProps = Omit<ButtonDownloadProps, "endpoint"> &
+    ColumnActionPathInterface &
+    ResultButtonDownloadSpecificProps;
 
-const ResultButtonDownload = ({ requestConfig, result, field, path, ...props }: ResultButtonDownloadProps) => {
-    if (typeof field === "undefined") {
-        throw new Error("ResultButtonDownload component: Missing required field prop");
+const ResultButtonDownload = ({ endpoint, result, columnName, path, ...props }: ResultButtonDownloadProps) => {
+    if (typeof columnName === "undefined") {
+        throw new Error("ResultButtonDownload component: Missing required columnName prop");
     }
 
     if (typeof result === "undefined") {
@@ -24,12 +24,12 @@ const ResultButtonDownload = ({ requestConfig, result, field, path, ...props }: 
     }
 
     const value = path ? getIn(result, path) : result;
-    const resolvedRequestConfig: AxiosRequestConfig = resolveAnyOrFunction(requestConfig, value, result, field);
+    const resolvedEndpoint: EndpointType = resolveAnyOrFunction(endpoint, value, result, columnName);
 
     return (
         <ButtonDownload
             {...{
-                requestConfig: resolvedRequestConfig,
+                endpoint: resolvedEndpoint,
                 deniedAccessList: result?.deniedAccessList,
                 ...props,
             }}
@@ -38,4 +38,4 @@ const ResultButtonDownload = ({ requestConfig, result, field, path, ...props }: 
 };
 
 export default ResultButtonDownload;
-export { ResultButtonDownloadProps };
+export { ResultButtonDownloadProps, ResultButtonDownloadSpecificProps };
