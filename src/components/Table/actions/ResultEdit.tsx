@@ -3,14 +3,14 @@ import { useTable } from "../../../components/Table/contexts/Table";
 import { Optional } from "../../../utilities/TypescriptOperators";
 import ResultButtonLink, { ResultButtonLinkProps } from "../../../components/Table/actions/ResultButtonLink";
 
-type EditProps = Optional<ResultButtonLinkProps, "to">;
+type ResultEditProps = Optional<ResultButtonLinkProps, "to">;
 
-const Edit = ({ to, denyKey = "edit", ...props }: EditProps) => {
+const ResultEdit = ({ to, ...props }: ResultEditProps) => {
     const { custom } = useTable();
 
     if (typeof to === "undefined" && typeof custom?.paths?.edit === "undefined") {
         throw new Error(
-            "Edit component: Missing required to prop or paths.edit definition in custom variable used by Table context"
+            "ResultEdit component: Missing required to prop or paths.edit definition in custom variable used by Table context"
         );
     }
 
@@ -21,12 +21,12 @@ const Edit = ({ to, denyKey = "edit", ...props }: EditProps) => {
                 to: to ?? custom.paths.edit,
                 color: "primary",
                 variant: "contained",
-                denyKey,
+                denyKey: "edit",
                 ...props,
             }}
         />
     );
 };
 
-export default Edit;
-export { EditProps };
+export default ResultEdit;
+export { ResultEditProps };

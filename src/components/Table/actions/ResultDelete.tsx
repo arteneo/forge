@@ -11,19 +11,19 @@ import ResultInterface from "../../../components/Table/definitions/ResultInterfa
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
 import DialogConfirm from "../../../components/Common/DialogConfirm";
 
-type DeleteProps = Optional<ResultButtonEndpointDialogConfirmProps, "endpoint">;
+type ResultDeleteProps = Optional<ResultButtonEndpointDialogConfirmProps, "endpoint">;
 
-const Delete = ({ result, endpoint, renderDialog, ...props }: DeleteProps) => {
+const ResultDelete = ({ result, endpoint, renderDialog, ...props }: ResultDeleteProps) => {
     const { t } = useTranslation();
     const { custom } = useTable();
 
     if (typeof result === "undefined") {
-        throw new Error("Delete component: Missing required result prop");
+        throw new Error("ResultDelete component: Missing required result prop");
     }
 
     if (typeof endpoint === "undefined" && typeof custom?.endpoints?.delete === "undefined") {
         throw new Error(
-            "Delete component: Missing required endpoint prop or endpoints.delete definition in custom variable used by Table context"
+            "ResultDelete component: Missing required endpoint prop or endpoints.delete definition in custom variable used by Table context"
         );
     }
 
@@ -54,8 +54,8 @@ const Delete = ({ result, endpoint, renderDialog, ...props }: DeleteProps) => {
                         : custom.endpoints.delete(value),
                 }),
                 result,
-                label: "action.delete",
                 denyKey: "delete",
+                label: "action.delete",
                 color: "error",
                 variant: "contained",
                 snackbarLabel: "snackbar.delete.success",
@@ -69,5 +69,5 @@ const Delete = ({ result, endpoint, renderDialog, ...props }: DeleteProps) => {
     );
 };
 
-export default Delete;
-export { DeleteProps };
+export default ResultDelete;
+export { ResultDeleteProps };
