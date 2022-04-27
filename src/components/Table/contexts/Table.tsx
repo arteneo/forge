@@ -80,6 +80,35 @@ interface TableProviderProps {
         setSelected: React.Dispatch<React.SetStateAction<BatchSelectedType>>,
         setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>
     ) => void;
+    getQuery?: (
+        defaultGetQuery: () => QueryInterface,
+        getFiltersDefinitions: (filterValues: FilterValuesInterface) => FiltersInterface,
+        page: number,
+        rowsPerPage: number,
+        sorting: SortingInterface,
+        filters: FilterValuesInterface,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
+    ) => QueryInterface;
+    getBatchQuery?: (
+        defaultGetBatchQuery: () => QueryInterface,
+        getFiltersDefinitions: (filterValues: FilterValuesInterface) => FiltersInterface,
+        getQuery: (
+            page: number,
+            rowsPerPage: number,
+            sorting: SortingInterface,
+            filters: FilterValuesInterface,
+            additionalSorting?: SortingInterface,
+            additionalFilters?: FiltersInterface
+        ) => QueryInterface,
+        page: number,
+        rowsPerPage: number,
+        sorting: SortingInterface,
+        filters: FilterValuesInterface,
+        selected: BatchSelectedType,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
+    ) => BatchQueryInterface;
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
     disablePagination?: boolean;
@@ -187,6 +216,8 @@ const TableProvider = ({
     defaultColumns: _defaultColumns,
     endpoint,
     onLoadSuccess,
+    getQuery: _getQuery,
+    getBatchQuery: _getBatchQuery,
     rowsPerPage: _rowsPerPage = 10,
     rowsPerPageOptions = [5, 10, 25, 50],
     disablePagination = false,
@@ -244,7 +275,7 @@ const TableProvider = ({
         // requestConfig needs to be copied to avoid firing useDeepCompareEffectNoCheck
         const axiosRequestConfig = Object.assign({ cancelToken: axiosSource.token }, requestConfig);
         axiosRequestConfig.method = axiosRequestConfig.method ?? "post";
-        axiosRequestConfig.data = getQuery(page, rowsPerPage, sorting, filters);
+        axiosRequestConfig.data = getQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters);
 
         axios
             .request(axiosRequestConfig)
@@ -367,7 +398,36 @@ const TableProvider = ({
         page: number,
         rowsPerPage: number,
         sorting: SortingInterface,
-        filters: FilterValuesInterface
+        filters: FilterValuesInterface,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
+    ): QueryInterface => {
+        const callableGetQuery = () =>
+            defaultGetQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters);
+
+        if (typeof _getQuery !== "undefined") {
+            return _getQuery(
+                callableGetQuery,
+                getFiltersDefinitions,
+                page,
+                rowsPerPage,
+                sorting,
+                filters,
+                additionalSorting,
+                additionalFilters
+            );
+        }
+
+        return callableGetQuery();
+    };
+
+    const defaultGetQuery = (
+        page: number,
+        rowsPerPage: number,
+        sorting: SortingInterface,
+        filters: FilterValuesInterface,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
     ): QueryInterface => {
         const joinedSorting: SortingInterface = {
             ...sorting,
@@ -397,10 +457,51 @@ const TableProvider = ({
         rowsPerPage: number,
         sorting: SortingInterface,
         filters: FilterValuesInterface,
-        selected: BatchSelectedType
+        selected: BatchSelectedType,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
+    ): BatchQueryInterface => {
+        const callableGetBatchQuery = () => {
+            return defaultGetBatchQuery(
+                page,
+                rowsPerPage,
+                sorting,
+                filters,
+                selected,
+                additionalSorting,
+                additionalFilters
+            );
+        };
+
+        if (typeof _getBatchQuery !== "undefined") {
+            return _getBatchQuery(
+                callableGetBatchQuery,
+                getFiltersDefinitions,
+                getQuery,
+                page,
+                rowsPerPage,
+                sorting,
+                filters,
+                selected,
+                additionalSorting,
+                additionalFilters
+            );
+        }
+
+        return callableGetBatchQuery();
+    };
+
+    const defaultGetBatchQuery = (
+        page: number,
+        rowsPerPage: number,
+        sorting: SortingInterface,
+        filters: FilterValuesInterface,
+        selected: BatchSelectedType,
+        additionalSorting?: SortingInterface,
+        additionalFilters?: FiltersInterface
     ): BatchQueryInterface => {
         return {
-            ...getQuery(page, rowsPerPage, sorting, filters),
+            ...getQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters),
             selected,
         };
     };
@@ -517,8 +618,16 @@ const TableProvider = ({
         <TableContext.Provider
             value={{
                 columns,
-                query: getQuery(page, rowsPerPage, sorting, filters),
-                batchQuery: getBatchQuery(page, rowsPerPage, sorting, filters, selected),
+                query: getQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters),
+                batchQuery: getBatchQuery(
+                    page,
+                    rowsPerPage,
+                    sorting,
+                    filters,
+                    selected,
+                    additionalSorting,
+                    additionalFilters
+                ),
                 results,
                 page,
                 rowCount,
