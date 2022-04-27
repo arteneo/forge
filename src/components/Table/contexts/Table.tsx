@@ -80,8 +80,8 @@ interface TableProviderProps {
         setSelected: React.Dispatch<React.SetStateAction<BatchSelectedType>>,
         setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>
     ) => void;
-    onGetQuery?: (
-        defaultOnGetQuery: () => QueryInterface,
+    getQuery?: (
+        defaultGetQuery: () => QueryInterface,
         getFiltersDefinitions: (filterValues: FilterValuesInterface) => FiltersInterface,
         page: number,
         rowsPerPage: number,
@@ -90,8 +90,8 @@ interface TableProviderProps {
         additionalSorting?: SortingInterface,
         additionalFilters?: FiltersInterface
     ) => QueryInterface;
-    onGetBatchQuery?: (
-        defaultOnGetBatchQuery: () => QueryInterface,
+    getBatchQuery?: (
+        defaultGetBatchQuery: () => QueryInterface,
         getFiltersDefinitions: (filterValues: FilterValuesInterface) => FiltersInterface,
         getQuery: (
             page: number,
@@ -216,8 +216,8 @@ const TableProvider = ({
     defaultColumns: _defaultColumns,
     endpoint,
     onLoadSuccess,
-    onGetQuery,
-    onGetBatchQuery,
+    getQuery: _getQuery,
+    getBatchQuery: _getBatchQuery,
     rowsPerPage: _rowsPerPage = 10,
     rowsPerPageOptions = [5, 10, 25, 50],
     disablePagination = false,
@@ -402,13 +402,12 @@ const TableProvider = ({
         additionalSorting?: SortingInterface,
         additionalFilters?: FiltersInterface
     ): QueryInterface => {
-        const defaultOnGetQuery = () => {
-            return defaultGetQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters);
-        };
+        const callableGetQuery = () =>
+            defaultGetQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters);
 
-        if (typeof onGetQuery !== "undefined") {
-            return onGetQuery(
-                defaultOnGetQuery,
+        if (typeof _getQuery !== "undefined") {
+            return _getQuery(
+                callableGetQuery,
                 getFiltersDefinitions,
                 page,
                 rowsPerPage,
@@ -419,7 +418,7 @@ const TableProvider = ({
             );
         }
 
-        return defaultOnGetQuery();
+        return callableGetQuery();
     };
 
     const defaultGetQuery = (
@@ -462,7 +461,7 @@ const TableProvider = ({
         additionalSorting?: SortingInterface,
         additionalFilters?: FiltersInterface
     ): BatchQueryInterface => {
-        const defaultOnGetBatchQuery = () => {
+        const callableGetBatchQuery = () => {
             return defaultGetBatchQuery(
                 page,
                 rowsPerPage,
@@ -474,9 +473,9 @@ const TableProvider = ({
             );
         };
 
-        if (typeof onGetBatchQuery !== "undefined") {
-            return onGetBatchQuery(
-                defaultOnGetBatchQuery,
+        if (typeof _getBatchQuery !== "undefined") {
+            return _getBatchQuery(
+                callableGetBatchQuery,
                 getFiltersDefinitions,
                 getQuery,
                 page,
@@ -489,7 +488,7 @@ const TableProvider = ({
             );
         }
 
-        return defaultOnGetBatchQuery();
+        return callableGetBatchQuery();
     };
 
     const defaultGetBatchQuery = (
