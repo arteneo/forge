@@ -68,8 +68,7 @@ import ResultButtonEndpointDialogConfirm, {
     ResultButtonEndpointDialogConfirmProps,
 } from "./components/Table/actions/ResultButtonEndpointDialogConfirm";
 import Edit, { EditProps } from "./components/Table/actions/Edit";
-// TODO
-// import Delete, { DeleteProps } from "./components/Table/actions/Delete";
+import Delete, { DeleteProps } from "./components/Table/actions/Delete";
 import Create, { CreateProps } from "./components/Table/toolbar/Create";
 import ExportCsv, { ExportCsvProps } from "./components/Table/toolbar/ExportCsv";
 import ExportExcel, { ExportExcelProps } from "./components/Table/toolbar/ExportExcel";
@@ -260,8 +259,8 @@ export {
     ResultButtonEndpointDialogConfirmProps,
     Edit,
     EditProps,
-    // Delete,
-    // DeleteProps,
+    Delete,
+    DeleteProps,
     Create,
     CreateProps,
     ExportCsv,

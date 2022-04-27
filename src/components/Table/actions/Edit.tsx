@@ -5,7 +5,7 @@ import ResultButtonLink, { ResultButtonLinkProps } from "../../../components/Tab
 
 type EditProps = Optional<ResultButtonLinkProps, "to">;
 
-const Edit = ({ to, accessKey = "edit", ...props }: EditProps) => {
+const Edit = ({ to, denyKey = "edit", ...props }: EditProps) => {
     const { custom } = useTable();
 
     if (typeof to === "undefined" && typeof custom?.paths?.edit === "undefined") {
@@ -18,10 +18,10 @@ const Edit = ({ to, accessKey = "edit", ...props }: EditProps) => {
         <ResultButtonLink
             {...{
                 label: "action.edit",
-                to: to ? to : custom.paths.edit,
+                to: to ?? custom.paths.edit,
                 color: "primary",
                 variant: "contained",
-                accessKey,
+                denyKey,
                 ...props,
             }}
         />
