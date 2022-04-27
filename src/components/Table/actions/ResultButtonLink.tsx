@@ -1,20 +1,20 @@
 import React from "react";
-import ButtonLink, { ButtonLinkProps } from "../../../components/Common/ButtonLink";
-import TableResultActionPathInterface from "../../../components/Table/definitions/TableResultActionPathInterface";
-import TableResultActionResolveType from "../../../components/Table/definitions/TableResultActionResolveType";
-import { resolveAnyOrFunction } from "../../../utilities/resolve";
 import { getIn } from "formik";
 import { To } from "react-router-dom";
+import ButtonLink, { ButtonLinkProps } from "../../../components/Common/ButtonLink";
+import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
+import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
+import { resolveAnyOrFunction } from "../../../utilities/resolve";
 
-interface ToProps {
-    to: TableResultActionResolveType<To>;
+interface ResultButtonLinkSpecificProps {
+    to: ResultResolveType<To>;
 }
 
-type ResultButtonLinkProps = Omit<ButtonLinkProps, "to"> & TableResultActionPathInterface & ToProps;
+type ResultButtonLinkProps = Omit<ButtonLinkProps, "to"> & ColumnActionPathInterface & ResultButtonLinkSpecificProps;
 
-const ResultButtonLink = ({ to, result, field, path, ...props }: ResultButtonLinkProps) => {
-    if (typeof field === "undefined") {
-        throw new Error("ResultButtonLink component: Missing required field prop");
+const ResultButtonLink = ({ to, result, columnName, path, ...props }: ResultButtonLinkProps) => {
+    if (typeof columnName === "undefined") {
+        throw new Error("ResultButtonLink component: Missing required columnName prop");
     }
 
     if (typeof result === "undefined") {
@@ -22,13 +22,13 @@ const ResultButtonLink = ({ to, result, field, path, ...props }: ResultButtonLin
     }
 
     const value = path ? getIn(result, path) : result;
-    const resolvedTo: To = resolveAnyOrFunction(to, value, result, field);
+    const resolvedTo: To = resolveAnyOrFunction(to, value, result, columnName);
 
     return (
         <ButtonLink
             {...{
                 to: resolvedTo,
-                deniedAccessList: result?.deniedAccessList,
+                deny: result?.deny,
                 ...props,
             }}
         />
@@ -36,4 +36,4 @@ const ResultButtonLink = ({ to, result, field, path, ...props }: ResultButtonLin
 };
 
 export default ResultButtonLink;
-export { ResultButtonLinkProps };
+export { ResultButtonLinkProps, ResultButtonLinkSpecificProps };
