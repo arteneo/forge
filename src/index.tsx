@@ -15,8 +15,7 @@ import IconButtonEndpoint, { IconButtonEndpointProps } from "./components/Common
 import IconButtonEndpointDialogConfirm, {
     IconButtonEndpointDialogConfirmProps,
 } from "./components/Common/IconButtonEndpointDialogConfirm";
-// TODO
-// import IconButtonDialogForm, { IconButtonDialogFormProps } from "./components/Common/IconButtonDialogForm";
+import IconButtonDialogForm, { IconButtonDialogFormProps } from "./components/Common/IconButtonDialogForm";
 import {
     FormContext,
     FormContextProps,
@@ -203,9 +202,8 @@ export {
     IconButtonEndpointProps,
     IconButtonEndpointDialogConfirm,
     IconButtonEndpointDialogConfirmProps,
-    // TODO
-    // IconButtonDialogForm,
-    // IconButtonDialogFormProps,
+    IconButtonDialogForm,
+    IconButtonDialogFormProps,
     TranslateVariablesInterface,
     Table,
     TableProps,

@@ -15,7 +15,7 @@ interface ButtonDialogFormProps extends ButtonProps {
 
 const ButtonDialogForm = ({
     formProps,
-    renderDialog = (params) => <DialogForm {...{ ...params }} />,
+    renderDialog = (params) => <DialogForm {...params} />,
     ...buttonProps
 }: ButtonDialogFormProps) => {
     const [showDialog, setShowDialog] = React.useState(false);
