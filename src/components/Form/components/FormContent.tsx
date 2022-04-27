@@ -3,11 +3,12 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
 import { useForm } from "../../../components/Form/contexts/Form";
 import { useHandleCatch } from "../../../contexts/HandleCatch";
-import { resolveFieldEndpoint } from "../../../utils/resolve";
+import { resolveFieldEndpoint } from "../../../utilities/resolve";
 import { useSnackbar } from "../../../contexts/Snackbar";
 import { useLoader } from "../../../contexts/Loader";
-import { Optional } from "../../../utils/TypescriptOperators";
+import Optional from "../../../definitions/Optional";
 import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
+import TranslateVariablesInterface from "../../../definitions/TranslateVariablesInterface";
 
 interface FormContentProps {
     children: React.ReactNode;
@@ -19,6 +20,8 @@ interface FormContentProps {
     ) => void;
     onSubmit?: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
     endpoint?: FieldEndpointType;
+    snackbarLabel?: string;
+    snackbarLabelVariables?: TranslateVariablesInterface;
     formikProps?: Optional<Optional<FormikConfig<FormikValues>, "initialValues">, "onSubmit">;
 }
 
@@ -28,6 +31,8 @@ const FormContent = ({
     onSubmitSuccess,
     endpoint,
     onSubmit,
+    snackbarLabel = "snackbar.form.submitted",
+    snackbarLabelVariables,
     formikProps,
 }: FormContentProps) => {
     const { formikInitialValues } = useForm();
@@ -51,7 +56,7 @@ const FormContent = ({
             .request(requestConfig)
             .then((response: AxiosResponse) => {
                 const defaultOnSubmitSuccess = () => {
-                    showSuccess("snackbar.form.submitted");
+                    showSuccess(snackbarLabel, snackbarLabelVariables);
                     helpers.setSubmitting(false);
 
                     hideLoader();

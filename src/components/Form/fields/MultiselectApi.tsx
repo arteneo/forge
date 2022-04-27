@@ -1,8 +1,8 @@
 import React from "react";
 import useDeepCompareEffect from "use-deep-compare-effect";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { resolveFieldEndpoint } from "../../../utils/resolve";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
+import { resolveFieldEndpoint } from "../../../utilities/resolve";
 import Multiselect, { MultiselectProps } from "../../../components/Form/fields/Multiselect";
 import OptionsType from "../../../components/Form/definitions/OptionsType";
 import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";

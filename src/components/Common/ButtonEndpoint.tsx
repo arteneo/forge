@@ -1,13 +1,15 @@
 import React from "react";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useSnackbar } from "../../contexts/Snackbar";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import EndpointType from "../../definitions/EndpointType";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface ButtonEndpointInterface {
-    requestConfig: AxiosRequestConfig;
+    endpoint: EndpointType;
     onSuccess?: (defaultOnSuccess: () => void, response: AxiosResponse) => void;
     snackbarLabel?: string;
     snackbarLabelVariables?: TranslateVariablesInterface;
@@ -16,15 +18,20 @@ interface ButtonEndpointInterface {
 type ButtonEndpointProps = ButtonEndpointInterface & ButtonProps;
 
 const ButtonEndpoint = ({
-    requestConfig,
+    endpoint,
     onSuccess,
-    snackbarLabel = "snackbar.buttonEndpointSuccess",
+    snackbarLabel = "buttonEndpoint.snackbar.success",
     snackbarLabelVariables = {},
     ...props
 }: ButtonEndpointProps) => {
     const { showSuccess } = useSnackbar();
     const handleCatch = useHandleCatch();
     const { showLoader, hideLoader } = useLoader();
+
+    const requestConfig = resolveEndpoint(endpoint);
+    if (typeof requestConfig === "undefined") {
+        throw new Error("Resolved requestConfig is undefined");
+    }
 
     const onClick = (): void => {
         showLoader();

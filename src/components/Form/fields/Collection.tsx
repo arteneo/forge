@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { Add, Delete } from "@mui/icons-material";
 import { useForm } from "../../../components/Form/contexts/Form";
-import { resolveAnyOrFunction, resolveBooleanOrFunction } from "../../../utils/resolve";
+import { resolveAnyOrFunction, resolveBooleanOrFunction } from "../../../utilities/resolve";
 import FieldInterface from "../../../components/Form/definitions/FieldInterface";
 import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
 

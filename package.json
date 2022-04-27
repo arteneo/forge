@@ -1,6 +1,6 @@
 {
     "name": "@arteneo/forge",
-    "version": "2.0.1-alpha.6",
+    "version": "2.0.1-alpha.7",
     "description": "Forge",
     "license": "MIT",
     "author": "Arteneo",
@@ -61,6 +61,7 @@
         "@types/react-beautiful-dnd": "^13.1.2",
         "@types/react-dom": "^17.0.11",
         "@types/react-highlight-words": "^0.16.4",
+        "@types/react-router-dom": "^5.3.3",
         "@types/webpack": "^5.28.0",
         "@types/yup": "^0.29.13",
         "@typescript-eslint/eslint-plugin": "^5.10.1",

@@ -13,14 +13,14 @@ import FieldResolvedInterface from "../../../components/Form/definitions/FieldRe
 import FieldPlaceholderResolveInterface from "../../../components/Form/definitions/FieldPlaceholderResolveInterface";
 import FieldPlaceholderResolvedInterface from "../../../components/Form/definitions/FieldPlaceholderResolvedInterface";
 import EndpointType from "../../../definitions/EndpointType";
-import { filterInitialValues, transformInitialValues } from "../../../utils/common";
+import { filterInitialValues, transformInitialValues } from "../../../utilities/common";
 import {
     resolveBooleanOrFunction,
     resolveStringOrFunction,
     resolveReactNodeOrFunction,
     resolveAnyOrFunction,
     resolveEndpoint,
-} from "../../../utils/resolve";
+} from "../../../utilities/resolve";
 
 interface FormContextProps {
     formikInitialValues: FormikValues;
@@ -366,7 +366,6 @@ const FormProvider = ({
                 formikInitialValues,
                 resolveField,
                 resolvePlaceholderField,
-                // TODO Remove below
                 hasError,
                 getError,
                 getLabel,
