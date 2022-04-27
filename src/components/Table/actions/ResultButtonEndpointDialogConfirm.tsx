@@ -1,15 +1,23 @@
 import React from "react";
 import { AxiosResponse } from "axios";
-import { getIn } from "formik";
-import ButtonEndpoint, { ButtonEndpointProps } from "../../../components/Common/ButtonEndpoint";
+import ButtonEndpointDialogConfirm, {
+    ButtonEndpointDialogConfirmProps,
+    RenderDialogConfirmParams,
+} from "../../../components/Common/ButtonEndpointDialogConfirm";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
 import EndpointType from "../../../components/Form/definitions/EndpointType";
+import { getIn } from "formik";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
+import DialogConfirm from "../../../components/Common/DialogConfirm";
 
-interface ResultButtonEndpointSpecificProps {
+interface RenderDialogResultConfirmParams extends RenderDialogConfirmParams {
+    result: ResultInterface;
+}
+
+interface ResultButtonEndpointDialogConfirmSpecificProps {
     endpoint: ResultResolveType<EndpointType>;
     disableOnSuccessReload?: boolean;
     onSuccess?: (
@@ -20,27 +28,40 @@ interface ResultButtonEndpointSpecificProps {
         result: ResultInterface,
         path?: string
     ) => void;
+    renderDialog?: (params: RenderDialogResultConfirmParams) => React.ReactNode;
 }
 
-type ResultButtonEndpointProps = Omit<ButtonEndpointProps, "endpoint" | "onSuccess"> &
+type ResultButtonEndpointDialogConfirmProps = Omit<
+    ButtonEndpointDialogConfirmProps,
+    "endpoint" | "onSuccess" | "renderDialog"
+> &
     ColumnActionPathInterface &
-    ResultButtonEndpointSpecificProps;
+    ResultButtonEndpointDialogConfirmSpecificProps;
 
-const ResultButtonEndpoint = ({
+const ResultButtonEndpointDialogConfirm = ({
     endpoint,
     disableOnSuccessReload,
     onSuccess,
     result,
     columnName,
     path,
+    renderDialog = (params) => (
+        <DialogConfirm
+            {...{
+                label: "buttonEndpointDialogConfirm.dialog.confirm",
+                labelVariables: { name: params.result?.representation },
+                ...params,
+            }}
+        />
+    ),
     ...props
-}: ResultButtonEndpointProps) => {
+}: ResultButtonEndpointDialogConfirmProps) => {
     if (typeof columnName === "undefined") {
-        throw new Error("ResultButtonEndpoint component: Missing required columnName prop");
+        throw new Error("ResultButtonEndpointDialogConfirm component: Missing required columnName prop");
     }
 
     if (typeof result === "undefined") {
-        throw new Error("ResultButtonEndpoint component: Missing required result prop");
+        throw new Error("ResultButtonEndpointDialogConfirm component: Missing required result prop");
     }
 
     const { reload } = useTable();
@@ -65,16 +86,21 @@ const ResultButtonEndpoint = ({
     }
 
     return (
-        <ButtonEndpoint
+        <ButtonEndpointDialogConfirm
             {...{
                 endpoint: resolvedEndpoint,
                 onSuccess: resolvedOnSuccess,
                 deny: result?.deny,
+                renderDialog: (params) => renderDialog({ ...params, result }),
                 ...props,
             }}
         />
     );
 };
 
-export default ResultButtonEndpoint;
-export { ResultButtonEndpointProps, ResultButtonEndpointSpecificProps };
+export default ResultButtonEndpointDialogConfirm;
+export {
+    ResultButtonEndpointDialogConfirmProps,
+    ResultButtonEndpointDialogConfirmSpecificProps,
+    RenderDialogResultConfirmParams,
+};

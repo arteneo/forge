@@ -68,11 +68,12 @@ import ResultButton, { ResultButtonProps } from "./components/Table/actions/Resu
 import ResultButtonLink, { ResultButtonLinkProps } from "./components/Table/actions/ResultButtonLink";
 import ResultButtonDownload, { ResultButtonDownloadProps } from "./components/Table/actions/ResultButtonDownload";
 import ResultButtonEndpoint, { ResultButtonEndpointProps } from "./components/Table/actions/ResultButtonEndpoint";
-import ResultButtonEndpointConfirmation, {
-    ResultButtonEndpointConfirmationProps,
-} from "./components/Table/actions/ResultButtonEndpointConfirmation";
+import ResultButtonEndpointDialogConfirm, {
+    ResultButtonEndpointDialogConfirmProps,
+} from "./components/Table/actions/ResultButtonEndpointDialogConfirm";
 import Edit, { EditProps } from "./components/Table/actions/Edit";
-import Delete, { DeleteProps } from "./components/Table/actions/Delete";
+// TODO
+// import Delete, { DeleteProps } from "./components/Table/actions/Delete";
 import Create, { CreateProps } from "./components/Table/toolbar/Create";
 import ExportCsv, { ExportCsvProps } from "./components/Table/toolbar/ExportCsv";
 import ExportExcel, { ExportExcelProps } from "./components/Table/toolbar/ExportExcel";
@@ -262,12 +263,12 @@ export {
     ResultButtonDownloadProps,
     ResultButtonEndpoint,
     ResultButtonEndpointProps,
-    ResultButtonEndpointConfirmation,
-    ResultButtonEndpointConfirmationProps,
+    ResultButtonEndpointDialogConfirm,
+    ResultButtonEndpointDialogConfirmProps,
     Edit,
     EditProps,
-    Delete,
-    DeleteProps,
+    // Delete,
+    // DeleteProps,
     Create,
     CreateProps,
     ExportCsv,
