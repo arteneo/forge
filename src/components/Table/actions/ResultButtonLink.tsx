@@ -22,7 +22,7 @@ const ResultButtonLink = ({ to, result, columnName, path, ...props }: ResultButt
     }
 
     const value = path ? getIn(result, path) : result;
-    const resolvedTo: To = resolveAnyOrFunction(to, value, result, columnName);
+    const resolvedTo: To = resolveAnyOrFunction(to, value, result, path);
 
     return (
         <ButtonLink

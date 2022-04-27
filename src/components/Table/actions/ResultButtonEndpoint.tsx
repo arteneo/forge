@@ -1,15 +1,16 @@
 import React from "react";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import ButtonEndpoint, { ButtonEndpointProps } from "../../../components/Common/ButtonEndpoint";
-import TableResultActionPathInterface from "../../../components/Table/definitions/TableResultActionPathInterface";
-import TableResultActionResolveType from "../../../components/Table/definitions/TableResultActionResolveType";
+import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
+import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
+import EndpointType from "../../../components/Form/definitions/EndpointType";
 import { getIn } from "formik";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
 
-interface EndpointProps {
-    requestConfig: TableResultActionResolveType<AxiosRequestConfig>;
+interface ResultButtonEndpointSpecificProps {
+    endpoint: ResultResolveType<EndpointType>;
     disableOnSuccessReload?: boolean;
     onSuccess?: (
         defaultOnSuccess: () => void,
@@ -17,25 +18,25 @@ interface EndpointProps {
         // eslint-disable-next-line
         value: any,
         result: ResultInterface,
-        field: string
+        path?: string
     ) => void;
 }
 
-type ResultButtonEndpointProps = Omit<ButtonEndpointProps, "requestConfig" | "onSuccess"> &
-    TableResultActionPathInterface &
-    EndpointProps;
+type ResultButtonEndpointProps = Omit<ButtonEndpointProps, "endpoint" | "onSuccess"> &
+    ColumnActionPathInterface &
+    ResultButtonEndpointSpecificProps;
 
 const ResultButtonEndpoint = ({
-    requestConfig,
+    endpoint,
     disableOnSuccessReload,
     onSuccess,
     result,
-    field,
+    columnName,
     path,
     ...props
 }: ResultButtonEndpointProps) => {
-    if (typeof field === "undefined") {
-        throw new Error("ResultButtonEndpoint component: Missing required field prop");
+    if (typeof columnName === "undefined") {
+        throw new Error("ResultButtonEndpoint component: Missing required columnName prop");
     }
 
     if (typeof result === "undefined") {
@@ -44,7 +45,7 @@ const ResultButtonEndpoint = ({
 
     const { reload } = useTable();
     const value = path ? getIn(result, path) : result;
-    const resolvedRequestConfig: AxiosRequestConfig = resolveAnyOrFunction(requestConfig, value, result, field);
+    const resolvedEndpoint: EndpointType = resolveAnyOrFunction(endpoint, value, result, path);
 
     const internalOnSuccess = (defaultOnSuccess: () => void) => {
         defaultOnSuccess();
@@ -58,7 +59,7 @@ const ResultButtonEndpoint = ({
     let resolvedOnSuccess;
     if (onSuccess) {
         resolvedOnSuccess = (defaultOnSuccess: () => void, response: AxiosResponse) =>
-            onSuccess(() => internalOnSuccess(defaultOnSuccess), response, value, result, field);
+            onSuccess(() => internalOnSuccess(defaultOnSuccess), response, value, result, path);
     } else {
         resolvedOnSuccess = internalOnSuccess;
     }
@@ -66,9 +67,9 @@ const ResultButtonEndpoint = ({
     return (
         <ButtonEndpoint
             {...{
-                requestConfig: resolvedRequestConfig,
+                endpoint: resolvedEndpoint,
                 onSuccess: resolvedOnSuccess,
-                deniedAccessList: result?.deniedAccessList,
+                deny: result?.deny,
                 ...props,
             }}
         />

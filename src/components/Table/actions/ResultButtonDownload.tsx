@@ -24,13 +24,13 @@ const ResultButtonDownload = ({ endpoint, result, columnName, path, ...props }: 
     }
 
     const value = path ? getIn(result, path) : result;
-    const resolvedEndpoint: EndpointType = resolveAnyOrFunction(endpoint, value, result, columnName);
+    const resolvedEndpoint: EndpointType = resolveAnyOrFunction(endpoint, value, result, path);
 
     return (
         <ButtonDownload
             {...{
                 endpoint: resolvedEndpoint,
-                deniedAccessList: result?.deniedAccessList,
+                deny: result?.deny,
                 ...props,
             }}
         />
