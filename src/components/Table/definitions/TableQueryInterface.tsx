@@ -1,10 +1,10 @@
-import FiltersInterface from "../../../components/Table/definitions/FiltersInterface";
+import FilterValuesInterface from "../../../components/Table/definitions/FilterValuesInterface";
 import SortingInterface from "../../../components/Table/definitions/SortingInterface";
 
 interface TableQueryInterface {
     page: undefined | number;
     rowsPerPage: undefined | number;
-    filters: undefined | FiltersInterface;
+    filters: undefined | FilterValuesInterface;
     sorting: undefined | SortingInterface;
 }
 
