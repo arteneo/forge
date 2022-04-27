@@ -2,7 +2,7 @@ import React from "react";
 import { AxiosResponse } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
 import { Dialog, DialogProps } from "@mui/material";
-import { Optional } from "../../utilities/TypescriptOperators";
+import Optional from "../../definitions/Optional";
 import Form, { FormProps } from "../../components/Form/components/Form";
 import DialogFieldset, { DialogFieldsetProps } from "../../components/Form/fieldsets/DialogFieldset";
 

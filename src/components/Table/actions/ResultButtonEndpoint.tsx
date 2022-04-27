@@ -5,7 +5,7 @@ import ButtonEndpoint, { ButtonEndpointProps } from "../../../components/Common/
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
-import EndpointType from "../../../components/Form/definitions/EndpointType";
+import EndpointType from "../../../definitions/EndpointType";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
 

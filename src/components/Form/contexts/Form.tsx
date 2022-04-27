@@ -366,7 +366,6 @@ const FormProvider = ({
                 formikInitialValues,
                 resolveField,
                 resolvePlaceholderField,
-                // TODO Remove below
                 hasError,
                 getError,
                 getLabel,

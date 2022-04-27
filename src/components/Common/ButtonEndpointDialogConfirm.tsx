@@ -6,10 +6,10 @@ import { useLoader } from "../../contexts/Loader";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import DialogConfirm from "../../components/Common/DialogConfirm";
-import EndpointType from "../../components/Form/definitions/EndpointType";
+import EndpointType from "../../definitions/EndpointType";
 import { resolveEndpoint } from "../../utilities/resolve";
 
-interface RenderDialogConfirmParams {
+interface ButtonEndpointDialogConfirmRenderDialogParams {
     open: boolean;
     onClose: () => void;
     onConfirm: () => void;
@@ -20,7 +20,7 @@ interface ButtonEndpointDialogConfirmProps extends ButtonProps {
     onSuccess?: (defaultOnSuccess: () => void, response: AxiosResponse) => void;
     snackbarLabel?: string;
     snackbarLabelVariables?: TranslateVariablesInterface;
-    renderDialog?: (params: RenderDialogConfirmParams) => React.ReactNode;
+    renderDialog?: (params: ButtonEndpointDialogConfirmRenderDialogParams) => React.ReactNode;
 }
 
 const ButtonEndpointDialogConfirm = ({
@@ -84,4 +84,4 @@ const ButtonEndpointDialogConfirm = ({
 };
 
 export default ButtonEndpointDialogConfirm;
-export { ButtonEndpointDialogConfirmProps, RenderDialogConfirmParams };
+export { ButtonEndpointDialogConfirmProps, ButtonEndpointDialogConfirmRenderDialogParams };

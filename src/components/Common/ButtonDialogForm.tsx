@@ -2,7 +2,7 @@ import React from "react";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import DialogForm, { DialogFormFormProps } from "../../components/Common/DialogForm";
 
-interface RenderDialogFormParams {
+interface ButtonDialogFormRenderDialogParams {
     open: boolean;
     onClose: () => void;
     formProps: DialogFormFormProps;
@@ -10,7 +10,7 @@ interface RenderDialogFormParams {
 
 interface ButtonDialogFormProps extends ButtonProps {
     formProps: DialogFormFormProps;
-    renderDialog?: (params: RenderDialogFormParams) => React.ReactNode;
+    renderDialog?: (params: ButtonDialogFormRenderDialogParams) => React.ReactNode;
 }
 
 const ButtonDialogForm = ({
@@ -39,4 +39,4 @@ const ButtonDialogForm = ({
 };
 
 export default ButtonDialogForm;
-export { ButtonDialogFormProps, RenderDialogFormParams };
+export { ButtonDialogFormProps, ButtonDialogFormRenderDialogParams };

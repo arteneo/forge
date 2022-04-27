@@ -4,9 +4,9 @@ import { Alert } from "@mui/material";
 import { useTable } from "../../../components/Table/contexts/Table";
 import ResultButtonEndpointDialogConfirm, {
     ResultButtonEndpointDialogConfirmProps,
-    RenderDialogResultConfirmParams,
+    ResultButtonEndpointDialogConfirmRenderDialogParams,
 } from "../../../components/Table/actions/ResultButtonEndpointDialogConfirm";
-import { Optional } from "../../../utilities/TypescriptOperators";
+import Optional from "../../../definitions/Optional";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
 import DialogConfirm from "../../../components/Common/DialogConfirm";
@@ -27,7 +27,7 @@ const ResultDelete = ({ result, endpoint, renderDialog, ...props }: ResultDelete
         );
     }
 
-    const defaultRenderDialog = (params: RenderDialogResultConfirmParams) => (
+    const defaultRenderDialog = (params: ResultButtonEndpointDialogConfirmRenderDialogParams) => (
         <DialogConfirm
             {...{
                 buttonConfirmProps: {

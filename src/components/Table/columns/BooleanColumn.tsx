@@ -1,11 +1,12 @@
 import React from "react";
-import { Chip } from "@mui/material";
+import { Chip, ChipProps } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
 import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
-import ChipFieldInterface from "../../../components/Table/definitions/ChipFieldInterface";
 
-type BooleanColumnProps = ColumnPathInterface & ChipFieldInterface;
+interface BooleanColumnProps extends ColumnPathInterface {
+    chipProps?: ChipProps;
+}
 
 const BooleanColumn = ({ result, columnName, path, chipProps }: BooleanColumnProps) => {
     if (typeof columnName === "undefined") {

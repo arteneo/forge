@@ -1,10 +1,10 @@
 import React from "react";
+import { getIn } from "formik";
 import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
-import EndpointType from "../../../components/Form/definitions/EndpointType";
-import { getIn } from "formik";
+import EndpointType from "../../../definitions/EndpointType";
 
 interface ResultButtonDownloadSpecificProps {
     endpoint: ResultResolveType<EndpointType>;

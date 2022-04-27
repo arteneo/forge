@@ -1,8 +1,8 @@
 import React from "react";
 import { TableFooter, TableRow, TablePagination } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { useTable } from "../../../components/Table/contexts/Table";
 import TableResultsPaginationActions from "../../../components/Table/components/TableResultsPaginationActions";
-import { useTranslation } from "react-i18next";
 
 const TableResultsPagination = () => {
     const { t } = useTranslation();

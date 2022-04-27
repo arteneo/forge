@@ -1,7 +1,7 @@
 import React from "react";
 import { useTable } from "../../../components/Table/contexts/Table";
 import ButtonLink, { ButtonLinkProps } from "../../../components/Common/ButtonLink";
-import { Optional } from "../../../utilities/TypescriptOperators";
+import Optional from "../../../definitions/Optional";
 
 type CreateProps = Optional<ButtonLinkProps, "to">;
 

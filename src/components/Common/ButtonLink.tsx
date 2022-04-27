@@ -1,6 +1,6 @@
 import React from "react";
-import Button, { ButtonProps } from "../../components/Common/Button";
 import { Link, LinkProps } from "react-router-dom";
+import Button, { ButtonProps } from "../../components/Common/Button";
 
 type ButtonLinkProps = LinkProps & ButtonProps;
 

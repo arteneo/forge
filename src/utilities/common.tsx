@@ -1,7 +1,7 @@
 import React from "react";
+import { FormikValues, getIn } from "formik";
 import FieldsInterface from "../components/Form/definitions/FieldsInterface";
 import ColumnsInterface from "../components/Table/definitions/ColumnsInterface";
-import { FormikValues, getIn } from "formik";
 
 export const getFields = <T,>(names: undefined | T[], fields: FieldsInterface): FieldsInterface => {
     const _fields: FieldsInterface = {};

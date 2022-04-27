@@ -1,13 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { AxiosRequestConfig } from "axios";
 import ExportQueryInterface from "../../../components/Table/definitions/ExportQueryInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
 import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
-import { AxiosRequestConfig } from "axios";
-import { Optional } from "../../../utilities/TypescriptOperators";
+import Optional from "../../../definitions/Optional";
 
 interface ExportExcelInterface {
-    // eslint-disable-next-line
     endpoint?: string;
     fileName?: string;
     sheetName?: string;
@@ -92,4 +91,4 @@ const ExportExcel = ({
 };
 
 export default ExportExcel;
-export { ExportExcelProps };
+export { ExportExcelProps, ExportExcelInterface };

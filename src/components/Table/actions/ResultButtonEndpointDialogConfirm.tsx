@@ -1,19 +1,19 @@
 import React from "react";
 import { AxiosResponse } from "axios";
+import { getIn } from "formik";
 import ButtonEndpointDialogConfirm, {
     ButtonEndpointDialogConfirmProps,
-    RenderDialogConfirmParams,
+    ButtonEndpointDialogConfirmRenderDialogParams,
 } from "../../../components/Common/ButtonEndpointDialogConfirm";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
-import EndpointType from "../../../components/Form/definitions/EndpointType";
-import { getIn } from "formik";
+import EndpointType from "../../../definitions/EndpointType";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
 import DialogConfirm from "../../../components/Common/DialogConfirm";
 
-interface RenderDialogResultConfirmParams extends RenderDialogConfirmParams {
+interface ResultButtonEndpointDialogConfirmRenderDialogParams extends ButtonEndpointDialogConfirmRenderDialogParams {
     result: ResultInterface;
 }
 
@@ -28,7 +28,7 @@ interface ResultButtonEndpointDialogConfirmSpecificProps {
         result: ResultInterface,
         path?: string
     ) => void;
-    renderDialog?: (params: RenderDialogResultConfirmParams) => React.ReactNode;
+    renderDialog?: (params: ResultButtonEndpointDialogConfirmRenderDialogParams) => React.ReactNode;
 }
 
 type ResultButtonEndpointDialogConfirmProps = Omit<
@@ -102,5 +102,5 @@ export default ResultButtonEndpointDialogConfirm;
 export {
     ResultButtonEndpointDialogConfirmProps,
     ResultButtonEndpointDialogConfirmSpecificProps,
-    RenderDialogResultConfirmParams,
+    ResultButtonEndpointDialogConfirmRenderDialogParams,
 };

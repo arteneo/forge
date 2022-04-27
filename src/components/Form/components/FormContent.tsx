@@ -6,7 +6,7 @@ import { useHandleCatch } from "../../../contexts/HandleCatch";
 import { resolveFieldEndpoint } from "../../../utilities/resolve";
 import { useSnackbar } from "../../../contexts/Snackbar";
 import { useLoader } from "../../../contexts/Loader";
-import { Optional } from "../../../utilities/TypescriptOperators";
+import Optional from "../../../definitions/Optional";
 import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
 import TranslateVariablesInterface from "../../../definitions/TranslateVariablesInterface";
 

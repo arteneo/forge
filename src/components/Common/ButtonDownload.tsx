@@ -3,7 +3,7 @@ import axios from "axios";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
-import EndpointType from "../../components/Form/definitions/EndpointType";
+import EndpointType from "../../definitions/EndpointType";
 import { resolveEndpoint } from "../../utilities/resolve";
 
 interface ButtonDownloadInterface {

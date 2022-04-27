@@ -5,7 +5,7 @@ import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
 import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import EndpointType from "../../components/Form/definitions/EndpointType";
+import EndpointType from "../../definitions/EndpointType";
 import { resolveEndpoint } from "../../utilities/resolve";
 
 interface IconButtonEndpointInterface {

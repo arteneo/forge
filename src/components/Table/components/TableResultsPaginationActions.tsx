@@ -1,8 +1,8 @@
 import React from "react";
-import { useTable } from "../../../components/Table/contexts/Table";
 import { Box, IconButton, useTheme } from "@mui/material";
-import { FirstPage, LastPage, KeyboardArrowRight, KeyboardArrowLeft } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import { FirstPage, LastPage, KeyboardArrowRight, KeyboardArrowLeft } from "@mui/icons-material";
+import { useTable } from "../../../components/Table/contexts/Table";
 
 const TableResultsPaginationActions = () => {
     const { t } = useTranslation();

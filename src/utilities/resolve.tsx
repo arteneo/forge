@@ -68,9 +68,9 @@ const resolveFieldEndpoint = (parameter: FieldEndpointType, values: FormikValues
 };
 
 export {
-    resolveAnyOrFunction,
     resolveBooleanOrFunction,
     resolveStringOrFunction,
+    resolveAnyOrFunction,
     resolveReactNodeOrFunction,
     resolveAxiosRequestConfigOrFunction,
     resolveEndpoint,

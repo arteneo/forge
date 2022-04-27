@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogProps, DialogTitle } from "@mui/material";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import { Optional } from "../../utilities/TypescriptOperators";
+import Optional from "../../definitions/Optional";
 
 interface DialogConfirmProps {
     open: boolean;

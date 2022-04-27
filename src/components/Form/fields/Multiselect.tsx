@@ -14,8 +14,8 @@ import {
 } from "@mui/material";
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
-import { useForm } from "../../../components/Form/contexts/Form";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import { useForm } from "../../../components/Form/contexts/Form";
 import OptionsType from "../../../components/Form/definitions/OptionsType";
 import OptionInterface from "../../../components/Form/definitions/OptionInterface";
 import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
