@@ -2,16 +2,27 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { IconButton as MuiIconButton, IconButtonProps as MuiIconButtonProps, Tooltip } from "@mui/material";
 import DenyPropInterface from "../../components/Table/definitions/DenyPropInterface";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 
 type InternalMuiIconButtonProps = Omit<MuiIconButtonProps, "children">;
 
 interface IconProps {
     icon: React.ReactNode;
+    tooltip?: string;
+    tooltipVariables?: TranslateVariablesInterface;
 }
 
 type IconButtonProps = InternalMuiIconButtonProps & IconProps & DenyPropInterface;
 
-const IconButton = ({ icon, deny, denyKey, denyBeheviour = "disable", ...muiIconButtonProps }: IconButtonProps) => {
+const IconButton = ({
+    icon,
+    tooltip,
+    tooltipVariables,
+    deny,
+    denyKey,
+    denyBeheviour = "disable",
+    ...muiIconButtonProps
+}: IconButtonProps) => {
     const { t } = useTranslation();
 
     let denyMessage: undefined | string = undefined;
@@ -29,10 +40,16 @@ const IconButton = ({ icon, deny, denyKey, denyBeheviour = "disable", ...muiIcon
 
     let button = <MuiIconButton {...{ children: icon, ...muiIconButtonProps }} />;
 
+    let tooltipTitle: undefined | string = undefined;
     if (typeof denyMessage !== "undefined") {
+        tooltipTitle = t(denyMessage);
+    } else if (tooltip) {
+        tooltipTitle = t(tooltip, tooltipVariables);
+    }
+
+    if (typeof tooltipTitle !== "undefined") {
         button = (
-            // t(denyMessage) ?? "" just to satisfy TypeScript
-            <Tooltip title={t(denyMessage) ?? ""}>
+            <Tooltip title={tooltipTitle}>
                 <span>{button}</span>
             </Tooltip>
         );
