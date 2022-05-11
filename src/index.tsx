@@ -109,6 +109,11 @@ import ResultButtonLink, {
 } from "./components/Table/actions/ResultButtonLink";
 import ResultDelete, { ResultDeleteProps } from "./components/Table/actions/ResultDelete";
 import ResultEdit, { ResultEditProps } from "./components/Table/actions/ResultEdit";
+import ResultIconButtonDialog, {
+    ResultIconButtonDialogProps,
+    ResultIconButtonDialogSpecificProps,
+    ResultIconButtonDialogRenderDialogParams,
+} from "./components/Table/actions/ResultIconButtonDialog";
 import ActionsColumn, { ActionsColumnProps } from "./components/Table/columns/ActionsColumn";
 import BooleanColumn, { BooleanColumnProps } from "./components/Table/columns/BooleanColumn";
 import DateColumn, { DateColumnProps } from "./components/Table/columns/DateColumn";
@@ -373,6 +378,10 @@ export {
     ResultDeleteProps,
     ResultEdit,
     ResultEditProps,
+    ResultIconButtonDialog,
+    ResultIconButtonDialogProps,
+    ResultIconButtonDialogSpecificProps,
+    ResultIconButtonDialogRenderDialogParams,
     ActionsColumn,
     ActionsColumnProps,
     BooleanColumn,
