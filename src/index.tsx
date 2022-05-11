@@ -1,5 +1,6 @@
 import Enum, { EnumType } from "./classes/Enum";
 import Button, { ButtonProps } from "./components/Common/Button";
+import ButtonDialog, { ButtonDialogProps, ButtonDialogRenderDialogParams } from "./components/Common/ButtonDialog";
 import ButtonDialogForm, {
     ButtonDialogFormProps,
     ButtonDialogFormRenderDialogParams,
@@ -11,9 +12,14 @@ import ButtonEndpointDialogConfirm, {
     ButtonEndpointDialogConfirmRenderDialogParams,
 } from "./components/Common/ButtonEndpointDialogConfirm";
 import ButtonLink, { ButtonLinkProps } from "./components/Common/ButtonLink";
+import Dialog, { DialogProps } from "./components/Common/Dialog";
 import DialogConfirm, { DialogConfirmProps } from "./components/Common/DialogConfirm";
 import DialogForm, { DialogFormProps } from "./components/Common/DialogForm";
 import IconButton, { IconButtonProps } from "./components/Common/IconButton";
+import IconButtonDialog, {
+    IconButtonDialogProps,
+    IconButtonDialogRenderDialogParams,
+} from "./components/Common/IconButtonDialog";
 import IconButtonDialogForm, {
     IconButtonDialogFormProps,
     IconButtonDialogFormRenderDialogParams,
@@ -79,6 +85,11 @@ import TrueFalse, { TrueFalseProps } from "./components/Form/fields/TrueFalse";
 import DialogFieldset, { DialogFieldsetProps } from "./components/Form/fieldsets/DialogFieldset";
 import DialogFormView, { DialogFormViewProps } from "./components/Form/views/DialogFormView";
 import ResultButton, { ResultButtonProps } from "./components/Table/actions/ResultButton";
+import ResultButtonDialog, {
+    ResultButtonDialogProps,
+    ResultButtonDialogSpecificProps,
+    ResultButtonDialogRenderDialogParams,
+} from "./components/Table/actions/ResultButtonDialog";
 import ResultButtonDownload, {
     ResultButtonDownloadProps,
     ResultButtonDownloadSpecificProps,
@@ -219,6 +230,9 @@ export {
     EnumType,
     Button,
     ButtonProps,
+    ButtonDialog,
+    ButtonDialogProps,
+    ButtonDialogRenderDialogParams,
     ButtonDialogForm,
     ButtonDialogFormProps,
     ButtonDialogFormRenderDialogParams,
@@ -231,12 +245,17 @@ export {
     ButtonEndpointDialogConfirmRenderDialogParams,
     ButtonLink,
     ButtonLinkProps,
+    Dialog,
+    DialogProps,
     DialogConfirm,
     DialogConfirmProps,
     DialogForm,
     DialogFormProps,
     IconButton,
     IconButtonProps,
+    IconButtonDialog,
+    IconButtonDialogProps,
+    IconButtonDialogRenderDialogParams,
     IconButtonDialogForm,
     IconButtonDialogFormProps,
     IconButtonDialogFormRenderDialogParams,
@@ -333,6 +352,10 @@ export {
     DialogFormViewProps,
     ResultButton,
     ResultButtonProps,
+    ResultButtonDialog,
+    ResultButtonDialogProps,
+    ResultButtonDialogSpecificProps,
+    ResultButtonDialogRenderDialogParams,
     ResultButtonDownload,
     ResultButtonDownloadProps,
     ResultButtonDownloadSpecificProps,

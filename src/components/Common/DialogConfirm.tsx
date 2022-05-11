@@ -32,7 +32,7 @@ const DialogConfirm = ({
         variant: "contained",
         color: "primary",
     },
-    title = "dialog.confirm.title",
+    title = "dialogConfirm.title",
     titleVariables,
     children,
     label,
