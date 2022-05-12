@@ -1,5 +1,5 @@
 import React from "react";
-import useDeepCompareEffect from "use-deep-compare-effect";
+import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import { resolveFieldEndpoint } from "../../../utilities/resolve";
@@ -32,7 +32,7 @@ const MultiselectApi = ({
 
     const requestConfig = resolveFieldEndpoint(endpoint, values);
 
-    useDeepCompareEffect(() => load(), [requestConfig, loadUseEffectDependency]);
+    useDeepCompareEffectNoCheck(() => load(), [requestConfig, loadUseEffectDependency]);
 
     const load = () => {
         if (typeof requestConfig === "undefined") {
@@ -41,7 +41,7 @@ const MultiselectApi = ({
         }
 
         const axiosSource = axios.CancelToken.source();
-        // requestConfig needs to be copied to avoid firing useDeepCompareEffect
+        // requestConfig needs to be copied to avoid firing useDeepCompareEffectNoCheck
         const axiosRequestConfig = Object.assign({ cancelToken: axiosSource.token }, requestConfig);
 
         axios
