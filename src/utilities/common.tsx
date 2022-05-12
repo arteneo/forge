@@ -1,5 +1,5 @@
 import React from "react";
-import { FormikValues, getIn } from "formik";
+import { FormikValues, getIn, setIn } from "formik";
 import FieldsInterface from "../components/Form/definitions/FieldsInterface";
 import ColumnsInterface from "../components/Table/definitions/ColumnsInterface";
 
@@ -61,26 +61,28 @@ export const filterInitialValues = (
     initialValues?: FormikValues,
     loadedInitialValues?: FormikValues
 ): FormikValues => {
-    const values: FormikValues = {};
+    let values: FormikValues = {};
 
     Object.keys(fields).forEach((fieldName) => {
         const field = fields[fieldName];
+        const path = field?.props?.path ?? fieldName;
+
         if (typeof field?.props?.fields !== "undefined") {
             // Collection field
-            const collectionValues: FormikValues[] = getIn(
-                loadedInitialValues,
-                fieldName,
-                getIn(initialValues, fieldName, [])
+            const collectionValues: FormikValues[] = getIn(loadedInitialValues, path, getIn(initialValues, path, []));
+            values = setIn(
+                values,
+                path,
+                collectionValues
+                    .map((collectionValue) => filterInitialValues(field?.props?.fields, collectionValue))
+                    .filter((collectionValue) => Object.keys(collectionValue).length > 0)
             );
-            values[fieldName] = collectionValues
-                .map((collectionValue) => filterInitialValues(field?.props?.fields, collectionValue))
-                .filter((collectionValue) => Object.keys(collectionValue).length > 0);
             return;
         }
 
-        const value = getIn(loadedInitialValues, fieldName, getIn(initialValues, fieldName, undefined));
+        const value = getIn(loadedInitialValues, path, getIn(initialValues, path, undefined));
         if (typeof value !== "undefined") {
-            values[fieldName] = value;
+            values = setIn(values, path, value);
         }
     });
 
@@ -88,24 +90,30 @@ export const filterInitialValues = (
 };
 
 export const transformInitialValues = (fields: FieldsInterface, initialValues: FormikValues): FormikValues => {
-    const values: FormikValues = Object.assign({}, initialValues);
+    let values: FormikValues = Object.assign({}, initialValues);
 
     Object.keys(fields).forEach((fieldName) => {
         const field = fields[fieldName];
+        const path = field?.props?.path ?? fieldName;
+
         if (typeof field?.props?.fields !== "undefined") {
             // Collection field
-            const collectionValues: undefined | FormikValues[] = getIn(initialValues, fieldName, undefined);
+            const collectionValues: undefined | FormikValues[] = getIn(initialValues, path, undefined);
 
             if (typeof collectionValues !== "undefined") {
-                values[fieldName] = collectionValues.map((collectionValue) =>
-                    transformInitialValues(field?.props?.fields, collectionValue)
+                values = setIn(
+                    values,
+                    path,
+                    collectionValues.map((collectionValue) =>
+                        transformInitialValues(field?.props?.fields, collectionValue)
+                    )
                 );
             }
             return;
         }
 
         if (typeof field?.props?.transformInitialValue !== "undefined") {
-            values[fieldName] = field?.props?.transformInitialValue(getIn(initialValues, fieldName));
+            values = setIn(values, path, field?.props?.transformInitialValue(getIn(initialValues, path)));
         }
     });
 
