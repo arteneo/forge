@@ -1,7 +1,8 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useFormikContext } from "formik";
-import { Box, DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { DialogActions, DialogContent, DialogTitle } from "@mui/material";
+import { Check, Close } from "@mui/icons-material";
 import Button, { ButtonProps } from "../../../components/Common/Button";
 import TranslateVariablesInterface from "../../../definitions/TranslateVariablesInterface";
 
@@ -17,13 +18,16 @@ interface DialogFormViewProps {
 const DialogFormView = ({
     onClose,
     buttonBackProps = {
-        label: "action.back",
+        label: "action.close",
         variant: "outlined",
+        color: "warning",
+        startIcon: <Close />,
     },
     buttonConfirmProps = {
-        label: "action.confirm",
+        label: "action.save",
         variant: "contained",
         color: "primary",
+        endIcon: <Check />,
     },
     title = "dialog.form.title",
     titleVariables,
@@ -36,11 +40,9 @@ const DialogFormView = ({
         <>
             <DialogTitle>{t(title, titleVariables)}</DialogTitle>
             <DialogContent>{children}</DialogContent>
-            <DialogActions>
-                <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
-                    <Button onClick={() => onClose()} {...buttonBackProps} />
-                    <Button type="submit" {...{ disabled: isSubmitting, ...buttonConfirmProps }} />
-                </Box>
+            <DialogActions {...{ sx: { justifyContent: "space-between" } }}>
+                <Button onClick={() => onClose()} {...buttonBackProps} />
+                <Button type="submit" {...{ disabled: isSubmitting, ...buttonConfirmProps }} />
             </DialogActions>
         </>
     );

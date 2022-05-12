@@ -1,13 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import {
-    Box,
     Dialog as MuiDialog,
     DialogActions,
     DialogContent,
     DialogProps as MuiDialogProps,
     DialogTitle,
 } from "@mui/material";
+import { Close } from "@mui/icons-material";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import Optional from "../../definitions/Optional";
@@ -26,8 +26,10 @@ const Dialog = ({
     open,
     onClose,
     buttonBackProps = {
-        label: "action.back",
+        label: "action.close",
         variant: "outlined",
+        color: "warning",
+        startIcon: <Close />,
     },
     title = "dialog.title",
     titleVariables,
@@ -49,10 +51,8 @@ const Dialog = ({
         >
             <DialogTitle>{t(title, titleVariables)}</DialogTitle>
             <DialogContent>{children}</DialogContent>
-            <DialogActions>
-                <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
-                    <Button onClick={() => onClose()} {...buttonBackProps} />
-                </Box>
+            <DialogActions {...{ sx: { justifyContent: "flex-start" } }}>
+                <Button onClick={() => onClose()} {...buttonBackProps} />
             </DialogActions>
         </MuiDialog>
     );

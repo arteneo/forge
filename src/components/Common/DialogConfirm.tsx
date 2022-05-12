@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogProps, DialogTitle } from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogProps, DialogTitle } from "@mui/material";
+import { Check, Close } from "@mui/icons-material";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import Optional from "../../definitions/Optional";
@@ -24,13 +25,16 @@ const DialogConfirm = ({
     onClose,
     onConfirm,
     buttonBackProps = {
-        label: "action.back",
+        label: "action.close",
         variant: "outlined",
+        color: "warning",
+        startIcon: <Close />,
     },
     buttonConfirmProps = {
         label: "action.confirm",
         variant: "contained",
         color: "primary",
+        endIcon: <Check />,
     },
     title = "dialogConfirm.title",
     titleVariables,
@@ -69,11 +73,9 @@ const DialogConfirm = ({
         >
             <DialogTitle>{t(title, titleVariables)}</DialogTitle>
             <DialogContent>{children}</DialogContent>
-            <DialogActions>
-                <Box display="flex" justifyContent="space-between" flexGrow={1} px={2} pb={2}>
-                    <Button onClick={() => onClose()} {...buttonBackProps} />
-                    <Button onClick={() => onConfirm()} {...buttonConfirmProps} />
-                </Box>
+            <DialogActions {...{ sx: { justifyContent: "space-between" } }}>
+                <Button onClick={() => onClose()} {...buttonBackProps} />
+                <Button onClick={() => onConfirm()} {...buttonConfirmProps} />
             </DialogActions>
         </Dialog>
     );
