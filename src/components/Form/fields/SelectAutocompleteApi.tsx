@@ -48,7 +48,7 @@ interface SelectAutocompleteApiSpecificProps {
         initializedValuesResponse?: AxiosResponse
     ) => undefined | OptionInterface;
     getOptionRepresentation?: (option: OptionInterface) => string;
-    renderOption: (
+    renderOption?: (
         inputValue: string,
         props: React.HTMLAttributes<HTMLLIElement>,
         option: OptionInterface,
