@@ -121,8 +121,9 @@ const DatePicker = ({
     };
 
     const format = utils.formats.fullDate;
+    const value = getIn(values, path, "");
     const internalFieldProps: MuiDatePickerProps = {
-        value: getIn(values, path, null),
+        value: value ? value : null,
         onChange: callableOnChange,
         label,
         disabled,

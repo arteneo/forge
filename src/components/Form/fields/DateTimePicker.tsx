@@ -124,8 +124,9 @@ const DateTimePicker = ({
     };
 
     const format = utils.formats.fullDateTime24h;
+    const value = getIn(values, path, "");
     const internalFieldProps: MuiDateTimePickerProps = {
-        value: getIn(values, path, null),
+        value: value ? value : null,
         onChange: callableOnChange,
         label,
         disabled,

@@ -121,8 +121,9 @@ const TimePicker = ({
     };
 
     const format = utils.formats.fullTime24h;
+    const value = getIn(values, path, "");
     const internalFieldProps: MuiTimePickerProps = {
-        value: getIn(values, path, null),
+        value: value ? value : null,
         onChange: callableOnChange,
         label,
         disabled,
