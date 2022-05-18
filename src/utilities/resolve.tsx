@@ -2,6 +2,7 @@ import React from "react";
 import { AxiosRequestConfig } from "axios";
 import { FormikValues } from "formik";
 import FieldEndpointType from "../components/Form/definitions/FieldEndpointType";
+import FieldAutocompleteEndpointType from "../components/Form/definitions/FieldAutocompleteEndpointType";
 import EndpointType from "../definitions/EndpointType";
 
 /* eslint-disable */
@@ -67,6 +68,16 @@ const resolveFieldEndpoint = (parameter: FieldEndpointType, values: FormikValues
     return resolveEndpoint(resolved);
 };
 
+const resolveFieldAutocompleteEndpoint = (
+    parameter: FieldAutocompleteEndpointType,
+    inputValue: string,
+    values: FormikValues
+): undefined | AxiosRequestConfig => {
+    const resolved = typeof parameter === "function" ? parameter(inputValue, values) : parameter;
+
+    return resolveEndpoint(resolved);
+};
+
 export {
     resolveBooleanOrFunction,
     resolveStringOrFunction,
@@ -75,4 +86,5 @@ export {
     resolveAxiosRequestConfigOrFunction,
     resolveEndpoint,
     resolveFieldEndpoint,
+    resolveFieldAutocompleteEndpoint,
 };

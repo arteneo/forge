@@ -48,13 +48,21 @@ interface SelectSpecificProps {
     ) => void;
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
+    renderInput?: (params: SelectElementRenderInputProps) => React.ReactNode;
     autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
 
 type SelectProps = SelectSpecificProps & FieldPlaceholderInterface;
 
-const SelectElementRenderInput = (params: AutocompleteRenderInputParams) => <MuiTextField {...params} />;
+interface SelectElementRenderInputProps extends AutocompleteRenderInputParams {
+    label?: React.ReactNode;
+    required: boolean;
+    placeholder?: string;
+    error: boolean; // This is hasError from FieldResolvedInterface
+}
+
+const SelectElementRenderInput = (params: SelectElementRenderInputProps) => <MuiTextField {...params} />;
 
 const Select = ({
     options,
@@ -62,6 +70,7 @@ const Select = ({
     onChange,
     groupBy,
     disableTranslateGroupBy,
+    renderInput,
     autocompleteProps,
     formControlProps,
     // eslint-disable-next-line
@@ -156,12 +165,24 @@ const Select = ({
     };
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
-    const renderInput = (params: AutocompleteRenderInputParams) => (
-        <SelectElementRenderInput {...{ label, required, placeholder, error: hasError, ...params }} />
-    );
+    const callableRenderInput = (params: AutocompleteRenderInputParams) => {
+        const renderInputParams: SelectElementRenderInputProps = {
+            label,
+            required,
+            placeholder,
+            error: hasError,
+            ...params,
+        };
+
+        if (renderInput) {
+            return renderInput(renderInputParams);
+        }
+
+        return <SelectElementRenderInput {...renderInputParams} />;
+    };
 
     const internalAutocompleteProps: SelectElementAutocompleteProps = {
-        renderInput,
+        renderInput: callableRenderInput,
         options,
         value: null,
         loadingText: t("placeholder.loading"),
@@ -210,4 +231,4 @@ const Select = ({
 };
 
 export default Select;
-export { SelectProps, SelectSpecificProps };
+export { SelectProps, SelectSpecificProps, SelectElementRenderInput, SelectElementRenderInputProps };

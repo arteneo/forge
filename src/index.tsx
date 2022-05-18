@@ -15,6 +15,7 @@ import ButtonLink, { ButtonLinkProps } from "./components/Common/ButtonLink";
 import Dialog, { DialogProps } from "./components/Common/Dialog";
 import DialogConfirm, { DialogConfirmProps } from "./components/Common/DialogConfirm";
 import DialogForm, { DialogFormProps } from "./components/Common/DialogForm";
+import HighlightTag, { HighlightTagProps } from "./components/Common/HighlightTag";
 import IconButton, { IconButtonProps } from "./components/Common/IconButton";
 import IconButtonDialog, {
     IconButtonDialogProps,
@@ -41,6 +42,7 @@ import {
     useForm,
 } from "./components/Form/contexts/Form";
 import { SelectValueType } from "./components/Form/definitions/AutocompleteTypes";
+import FieldAutocompleteEndpointType from "./components/Form/definitions/FieldAutocompleteEndpointType";
 import FieldDisabledType from "./components/Form/definitions/FieldDisabledType";
 import FieldEndpointType from "./components/Form/definitions/FieldEndpointType";
 import FieldHelpType from "./components/Form/definitions/FieldHelpType";
@@ -75,8 +77,18 @@ import Password, { PasswordProps } from "./components/Form/fields/Password";
 import Radio, { RadioProps, RadioSpecificProps } from "./components/Form/fields/Radio";
 import RadioApi, { RadioApiProps, RadioApiSpecificProps } from "./components/Form/fields/RadioApi";
 import RadioEnum, { RadioEnumProps, RadioEnumSpecificProps } from "./components/Form/fields/RadioEnum";
-import Select, { SelectProps, SelectSpecificProps } from "./components/Form/fields/Select";
+import Select, {
+    SelectProps,
+    SelectSpecificProps,
+    SelectElementRenderInput,
+    SelectElementRenderInputProps,
+} from "./components/Form/fields/Select";
 import SelectApi, { SelectApiProps, SelectApiSpecificProps } from "./components/Form/fields/SelectApi";
+import SelectAutocompleteApi, {
+    SelectAutocompleteApiProps,
+    SelectAutocompleteApiSpecificProps,
+    SelectAutocompleteApiElementRenderInputProps,
+} from "./components/Form/fields/SelectAutocompleteApi";
 import SelectEnum, { SelectEnumProps, SelectEnumSpecificProps } from "./components/Form/fields/SelectEnum";
 import Text, { TextProps, TextSpecificProps } from "./components/Form/fields/Text";
 import Textarea, { TextareaProps, TextareaSpecificProps } from "./components/Form/fields/Textarea";
@@ -228,6 +240,7 @@ import {
     resolveAxiosRequestConfigOrFunction,
     resolveEndpoint,
     resolveFieldEndpoint,
+    resolveFieldAutocompleteEndpoint,
 } from "./utilities/resolve";
 
 export {
@@ -256,6 +269,8 @@ export {
     DialogConfirmProps,
     DialogForm,
     DialogFormProps,
+    HighlightTag,
+    HighlightTagProps,
     IconButton,
     IconButtonProps,
     IconButtonDialog,
@@ -283,6 +298,7 @@ export {
     FormProviderProps,
     useForm,
     SelectValueType,
+    FieldAutocompleteEndpointType,
     FieldDisabledType,
     FieldEndpointType,
     FieldHelpType,
@@ -334,9 +350,15 @@ export {
     Select,
     SelectProps,
     SelectSpecificProps,
+    SelectElementRenderInput,
+    SelectElementRenderInputProps,
     SelectApi,
     SelectApiProps,
     SelectApiSpecificProps,
+    SelectAutocompleteApi,
+    SelectAutocompleteApiProps,
+    SelectAutocompleteApiSpecificProps,
+    SelectAutocompleteApiElementRenderInputProps,
     SelectEnum,
     SelectEnumProps,
     SelectEnumSpecificProps,
@@ -536,5 +558,6 @@ export {
     resolveAxiosRequestConfigOrFunction,
     resolveEndpoint,
     resolveFieldEndpoint,
+    resolveFieldAutocompleteEndpoint,
     Optional,
 };

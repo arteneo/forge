@@ -23,6 +23,8 @@ import {
 } from "../../../utilities/resolve";
 
 interface FormContextProps {
+    initialValues?: FormikValues;
+    initializedValuesResponse?: AxiosResponse;
     formikInitialValues: FormikValues;
     hasError: (
         path: string,
@@ -84,6 +86,8 @@ interface FormProviderProps {
 }
 
 const contextInitial = {
+    initialValues: {},
+    initializedValuesResponse: undefined,
     formikInitialValues: {},
     hasError: () => {
         return false;
@@ -133,21 +137,29 @@ const FormProvider = ({
     translateLabelPrefix = "form.",
 }: FormProviderProps) => {
     const { t } = useTranslation();
-
-    const [formikInitialValues, setFormikInitialValues] = React.useState({});
     const handleCatch = useHandleCatch();
+
+    const [initialized, setInitialized] = React.useState(false);
+    const [formikInitialValues, setFormikInitialValues] = React.useState({});
+    const [initializedValuesResponse, setInitializedValuesResponse] = React.useState<undefined | AxiosResponse>(
+        undefined
+    );
 
     const requestConfig = resolveEndpoint(initializeEndpoint);
 
     useDeepCompareEffectNoCheck(() => initializeValues(), [requestConfig, initialValues]);
 
     const initializeValues = () => {
+        setInitialized(false);
+
         if (typeof initialValues !== "undefined" && typeof requestConfig === "undefined") {
             setFormikInitialValues(callableProcessInitialValues(fields, initialValues));
+            setInitialized(true);
             return;
         }
 
         if (typeof requestConfig === "undefined") {
+            setInitialized(true);
             return;
         }
 
@@ -157,10 +169,15 @@ const FormProvider = ({
 
         axios
             .request(axiosRequestConfig)
-            .then((response: AxiosResponse) =>
-                setFormikInitialValues(callableProcessInitialValues(fields, initialValues, response))
-            )
-            .catch((error: AxiosError) => handleCatch(error));
+            .then((response: AxiosResponse) => {
+                setInitializedValuesResponse(response);
+                setFormikInitialValues(callableProcessInitialValues(fields, initialValues, response));
+                setInitialized(true);
+            })
+            .catch((error: AxiosError) => {
+                setInitialized(true);
+                handleCatch(error);
+            });
 
         return () => {
             axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
@@ -363,6 +380,8 @@ const FormProvider = ({
     return (
         <FormContext.Provider
             value={{
+                initialValues,
+                initializedValuesResponse,
                 formikInitialValues,
                 resolveField,
                 resolvePlaceholderField,
@@ -373,7 +392,7 @@ const FormProvider = ({
                 getHelp,
             }}
         >
-            {children}
+            {initialized && children}
         </FormContext.Provider>
     );
 };
