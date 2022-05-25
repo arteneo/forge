@@ -85,7 +85,7 @@ const Text = ({
     };
 
     const internalFieldProps: TextFieldProps = {
-        value: getIn(values, path, ""),
+        value: getIn(values, path, "") ?? "",
         onChange: callableOnChange,
         error: hasError,
         label,
