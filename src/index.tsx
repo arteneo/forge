@@ -68,11 +68,21 @@ import DateTimePicker, {
     DateTimePickerSpecificProps,
 } from "./components/Form/fields/DateTimePicker";
 import Email, { EmailProps } from "./components/Form/fields/Email";
-import Multiselect, { MultiselectProps, MultiselectSpecificProps } from "./components/Form/fields/Multiselect";
+import Multiselect, {
+    MultiselectProps,
+    MultiselectSpecificProps,
+    MultiselectRenderInput,
+    MultiselectRenderInputProps,
+} from "./components/Form/fields/Multiselect";
 import MultiselectApi, {
     MultiselectApiProps,
     MultiselectApiSpecificProps,
 } from "./components/Form/fields/MultiselectApi";
+import MultiselectAutocompleteApi, {
+    MultiselectAutocompleteApiProps,
+    MultiselectAutocompleteApiSpecificProps,
+    MultiselectAutocompleteApiRenderInputProps,
+} from "./components/Form/fields/MultiselectAutocompleteApi";
 import Password, { PasswordProps } from "./components/Form/fields/Password";
 import Radio, { RadioProps, RadioSpecificProps } from "./components/Form/fields/Radio";
 import RadioApi, { RadioApiProps, RadioApiSpecificProps } from "./components/Form/fields/RadioApi";
@@ -80,14 +90,14 @@ import RadioEnum, { RadioEnumProps, RadioEnumSpecificProps } from "./components/
 import Select, {
     SelectProps,
     SelectSpecificProps,
-    SelectElementRenderInput,
-    SelectElementRenderInputProps,
+    SelectRenderInput,
+    SelectRenderInputProps,
 } from "./components/Form/fields/Select";
 import SelectApi, { SelectApiProps, SelectApiSpecificProps } from "./components/Form/fields/SelectApi";
 import SelectAutocompleteApi, {
     SelectAutocompleteApiProps,
     SelectAutocompleteApiSpecificProps,
-    SelectAutocompleteApiElementRenderInputProps,
+    SelectAutocompleteApiRenderInputProps,
 } from "./components/Form/fields/SelectAutocompleteApi";
 import SelectEnum, { SelectEnumProps, SelectEnumSpecificProps } from "./components/Form/fields/SelectEnum";
 import Text, { TextProps, TextSpecificProps } from "./components/Form/fields/Text";
@@ -333,9 +343,15 @@ export {
     Multiselect,
     MultiselectProps,
     MultiselectSpecificProps,
+    MultiselectRenderInput,
+    MultiselectRenderInputProps,
     MultiselectApi,
     MultiselectApiProps,
     MultiselectApiSpecificProps,
+    MultiselectAutocompleteApi,
+    MultiselectAutocompleteApiProps,
+    MultiselectAutocompleteApiSpecificProps,
+    MultiselectAutocompleteApiRenderInputProps,
     Password,
     PasswordProps,
     Radio,
@@ -350,15 +366,15 @@ export {
     Select,
     SelectProps,
     SelectSpecificProps,
-    SelectElementRenderInput,
-    SelectElementRenderInputProps,
+    SelectRenderInput,
+    SelectRenderInputProps,
     SelectApi,
     SelectApiProps,
     SelectApiSpecificProps,
     SelectAutocompleteApi,
     SelectAutocompleteApiProps,
     SelectAutocompleteApiSpecificProps,
-    SelectAutocompleteApiElementRenderInputProps,
+    SelectAutocompleteApiRenderInputProps,
     SelectEnum,
     SelectEnumProps,
     SelectEnumSpecificProps,

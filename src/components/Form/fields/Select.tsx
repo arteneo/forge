@@ -48,21 +48,21 @@ interface SelectSpecificProps {
     ) => void;
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
-    renderInput?: (params: SelectElementRenderInputProps) => React.ReactNode;
+    renderInput?: (params: SelectRenderInputProps) => React.ReactNode;
     autocompleteProps?: SelectElementAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
 
 type SelectProps = SelectSpecificProps & FieldPlaceholderInterface;
 
-interface SelectElementRenderInputProps extends AutocompleteRenderInputParams {
+interface SelectRenderInputProps extends AutocompleteRenderInputParams {
     label?: React.ReactNode;
     required: boolean;
     placeholder?: string;
     error: boolean; // This is hasError from FieldResolvedInterface
 }
 
-const SelectElementRenderInput = (params: SelectElementRenderInputProps) => <MuiTextField {...params} />;
+const SelectRenderInput = (params: SelectRenderInputProps) => <MuiTextField {...params} />;
 
 const Select = ({
     options,
@@ -166,7 +166,7 @@ const Select = ({
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
     const callableRenderInput = (params: AutocompleteRenderInputParams) => {
-        const renderInputParams: SelectElementRenderInputProps = {
+        const renderInputParams: SelectRenderInputProps = {
             label,
             required,
             placeholder,
@@ -178,7 +178,7 @@ const Select = ({
             return renderInput(renderInputParams);
         }
 
-        return <SelectElementRenderInput {...renderInputParams} />;
+        return <SelectRenderInput {...renderInputParams} />;
     };
 
     const internalAutocompleteProps: SelectElementAutocompleteProps = {
@@ -231,4 +231,4 @@ const Select = ({
 };
 
 export default Select;
-export { SelectProps, SelectSpecificProps, SelectElementRenderInput, SelectElementRenderInputProps };
+export { SelectProps, SelectSpecificProps, SelectRenderInput, SelectRenderInputProps };

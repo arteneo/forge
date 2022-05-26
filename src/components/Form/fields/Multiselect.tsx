@@ -56,7 +56,14 @@ interface MultiselectSpecificProps {
 
 type MultiselectProps = MultiselectSpecificProps & FieldPlaceholderInterface;
 
-const MultiselectRenderInput = (params: AutocompleteRenderInputParams) => <MuiTextField {...params} />;
+interface MultiselectRenderInputProps extends AutocompleteRenderInputParams {
+    label?: React.ReactNode;
+    required: boolean;
+    placeholder?: string;
+    error: boolean; // This is hasError from FieldResolvedInterface
+}
+
+const MultiselectRenderInput = (params: MultiselectRenderInputProps) => <MuiTextField {...params} />;
 
 const Multiselect = ({
     options,
@@ -248,4 +255,4 @@ const Multiselect = ({
 };
 
 export default Multiselect;
-export { MultiselectProps, MultiselectSpecificProps };
+export { MultiselectProps, MultiselectSpecificProps, MultiselectRenderInput, MultiselectRenderInputProps };
