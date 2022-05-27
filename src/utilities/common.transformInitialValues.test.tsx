@@ -12,7 +12,7 @@ const collectionSimpleFields = {
 };
 
 const collectionFields = {
-    names: <Collection fields={collectionSimpleFields} />,
+    names: <Collection {...{ fields: collectionSimpleFields }} />,
 };
 
 test("Collection fields | No parameters", () => {
@@ -53,6 +53,52 @@ test("Collection fields | Simple mixed with already transformed initialValues", 
     });
 });
 
+// Collection fields with path
+
+const collectionPathFields = {
+    names: <Collection {...{ path: "nested.names", fields: collectionSimpleFields }} />,
+};
+
+test("Collection fields with path | No parameters", () => {
+    expect(transformInitialValues(collectionPathFields, {})).toEqual({});
+});
+
+test("Collection fields with path | Simple initialValues", () => {
+    expect(
+        transformInitialValues(collectionPathFields, {
+            nested: { names: [{ name: "John", select: { representation: "Option 1", id: 1 } }] },
+        })
+    ).toEqual({
+        nested: { names: [{ name: "John", select: 1 }] },
+    });
+});
+
+test("Collection fields with path | Simple already transformed initialValues", () => {
+    expect(
+        transformInitialValues(collectionPathFields, {
+            nested: { names: [{ name: "John", select: 1 }] },
+        })
+    ).toEqual({
+        nested: { names: [{ name: "John", select: 1 }] },
+    });
+});
+
+test("Collection fields with path | Simple mixed with already transformed initialValues", () => {
+    expect(
+        transformInitialValues(collectionPathFields, {
+            nested: {
+                names: [
+                    { name: "John" },
+                    { name: "Jack", select: 2 },
+                    { name: "Jill", select: { representation: "Option 1", id: 1 } },
+                ],
+            },
+        })
+    ).toEqual({
+        nested: { names: [{ name: "John" }, { name: "Jack", select: 2 }, { name: "Jill", select: 1 }] },
+    });
+});
+
 // Simple fields
 
 const simpleFields = {
@@ -72,6 +118,31 @@ test("Simple fields | Simple initialValues", () => {
 
 test("Simple fields | Simple already transformed initialValues", () => {
     expect(transformInitialValues(simpleFields, { name: "John", select: 1 })).toEqual({ name: "John", select: 1 });
+});
+
+// Simple fields with path
+
+const simplePathFields = {
+    name: <Text {...{ path: "nested.name" }} />,
+    select: <SelectApi {...{ path: "nested.select", endpoint: "" }} />,
+};
+
+test("Simple fields with path | Empty initialValues", () => {
+    expect(transformInitialValues(simplePathFields, {})).toEqual({});
+});
+
+test("Simple fields with path | Simple initialValues", () => {
+    expect(
+        transformInitialValues(simplePathFields, {
+            nested: { name: "John", select: { representation: "Option 1", id: 1 } },
+        })
+    ).toEqual({ nested: { name: "John", select: 1 } });
+});
+
+test("Simple fields with path | Simple already transformed initialValues", () => {
+    expect(transformInitialValues(simplePathFields, { nested: { name: "John", select: 1 } })).toEqual({
+        nested: { name: "John", select: 1 },
+    });
 });
 
 // Empty fields

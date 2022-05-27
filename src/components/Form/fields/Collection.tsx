@@ -23,7 +23,9 @@ interface CollectionSpecificProps {
     fields: FieldsInterface;
     disableAddRow?:
         | ((
+              value: FormikValues,
               values: FormikValues,
+              path: string,
               touched: FormikTouched<FormikValues>,
               errors: FormikErrors<FormikValues>,
               name: string
@@ -31,7 +33,9 @@ interface CollectionSpecificProps {
         | boolean;
     disableDeleteRow?:
         | ((
+              value: FormikValues,
               values: FormikValues,
+              path: string,
               touched: FormikTouched<FormikValues>,
               errors: FormikErrors<FormikValues>,
               name: string
@@ -41,24 +45,27 @@ interface CollectionSpecificProps {
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         values: FormikValues,
+        path: string,
+        defaultAddRow: () => void,
         name: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>,
-        defaultAddRow: () => void
+        errors: FormikErrors<FormikValues>
     ) => void;
     onDeleteRow?: (
         key: number,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
         values: FormikValues,
+        path: string,
+        defaultDeleteRow: () => void,
         name: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>,
-        defaultDeleteRow: () => void
+        errors: FormikErrors<FormikValues>
     ) => void;
     initialValues?:
         | ((
               values: FormikValues,
+              path: string,
               name: string,
               touched: FormikTouched<FormikValues>,
               errors: FormikErrors<FormikValues>
@@ -122,11 +129,11 @@ const Collection = ({
         return null;
     }
 
-    const collectionRows: FormikValues[] = getIn(values, name, []);
+    const collectionRows: FormikValues[] = getIn(values, path, []);
 
     const addRow = () => {
         if (onAddRow) {
-            onAddRow(setFieldValue, values, name, touched, errors, () => defaultAddRow());
+            onAddRow(setFieldValue, values, path, () => defaultAddRow(), name, touched, errors);
             return;
         }
 
@@ -134,13 +141,13 @@ const Collection = ({
     };
 
     const defaultAddRow = () => {
-        collectionRows.push(resolveAnyOrFunction(initialValues, values, name, touched, errors));
-        setFieldValue(name, collectionRows);
+        collectionRows.push(resolveAnyOrFunction(initialValues, values, path, name, touched, errors));
+        setFieldValue(path, collectionRows);
     };
 
     const deleteRow = (key: number) => {
         if (onDeleteRow) {
-            onDeleteRow(key, setFieldValue, values, name, touched, errors, () => defaultDeleteRow(key));
+            onDeleteRow(key, setFieldValue, values, path, () => defaultDeleteRow(key), name, touched, errors);
             return;
         }
 
@@ -149,7 +156,7 @@ const Collection = ({
 
     const defaultDeleteRow = (key: number) => {
         collectionRows.splice(key, 1);
-        setFieldValue(name, collectionRows);
+        setFieldValue(path, collectionRows);
     };
 
     const fieldPropsOverride: FormikValues = {
@@ -160,8 +167,24 @@ const Collection = ({
         fieldPropsOverride.disabled = true;
     }
 
-    const disableAddRow = resolveBooleanOrFunction(disableAddRowProp, values, touched, errors, name);
-    const disableDeleteRow = resolveBooleanOrFunction(disableDeleteRowProp, values, touched, errors, name);
+    const disableAddRow = resolveBooleanOrFunction(
+        disableAddRowProp,
+        collectionRows,
+        values,
+        path,
+        touched,
+        errors,
+        name
+    );
+    const disableDeleteRow = resolveBooleanOrFunction(
+        disableDeleteRowProp,
+        collectionRows,
+        values,
+        path,
+        touched,
+        errors,
+        name
+    );
 
     return (
         <div className="ForgeCollectionTable-root">
