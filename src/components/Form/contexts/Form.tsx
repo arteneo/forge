@@ -134,7 +134,7 @@ const FormProvider = ({
     initialValues,
     initializeEndpoint,
     processInitialValues,
-    translateLabelPrefix = "form.",
+    translateLabelPrefix = "label.",
 }: FormProviderProps) => {
     const { t } = useTranslation();
     const handleCatch = useHandleCatch();
