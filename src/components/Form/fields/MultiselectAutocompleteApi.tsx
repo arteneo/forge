@@ -48,12 +48,6 @@ interface MultiselectAutocompleteApiSpecificProps {
         initialValues?: FormikValues,
         initializedValuesResponse?: AxiosResponse
     ) => undefined | OptionInterface[];
-    renderOption?: (
-        inputValue: string,
-        props: React.HTMLAttributes<HTMLLIElement>,
-        option: OptionInterface,
-        state: AutocompleteRenderOptionState
-    ) => React.ReactNode;
     renderInput?: (params: MultiselectAutocompleteApiRenderInputProps) => React.ReactNode;
     // Used to reload options on demand
     // eslint-disable-next-line
@@ -84,7 +78,6 @@ const MultiselectAutocompleteApi = ({
 
         return getIn(initialValues, path, undefined);
     },
-    renderOption,
     renderInput,
     ...multiselectProps
 }: MultiselectAutocompleteApiProps) => {
@@ -203,11 +196,10 @@ const MultiselectAutocompleteApi = ({
         defaultOnChange(value, multiselectOnChange);
     };
 
-    const defaultRenderOption = (
-        inputValue: string,
+    const renderOption = (
         props: React.HTMLAttributes<HTMLLIElement>,
         option: OptionInterface,
-        { selected }: AutocompleteRenderOptionState
+        { inputValue, selected }: AutocompleteRenderOptionState
     ) => (
         <li {...props}>
             <MuiCheckbox
@@ -228,18 +220,6 @@ const MultiselectAutocompleteApi = ({
             />
         </li>
     );
-
-    const callableRenderOption = (
-        props: React.HTMLAttributes<HTMLLIElement>,
-        option: OptionInterface,
-        state: AutocompleteRenderOptionState
-    ) => {
-        if (renderOption) {
-            return renderOption(inputValue, props, option, state);
-        }
-
-        return defaultRenderOption(inputValue, props, option, state);
-    };
 
     const callableRenderInput = (params: MultiselectRenderInputProps) => {
         const renderInputParams: MultiselectRenderInputProps = {
@@ -303,7 +283,7 @@ const MultiselectAutocompleteApi = ({
                             setInputValue(value);
                         }
                     },
-                    renderOption: callableRenderOption,
+                    renderOption,
                     ...multiselectProps.autocompleteProps,
                 },
             }}
