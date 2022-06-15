@@ -50,6 +50,7 @@ interface MultiselectSpecificProps {
     ) => void;
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
+    renderInput?: (params: MultiselectRenderInputProps) => React.ReactNode;
     autocompleteProps?: MultiselectAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
@@ -71,6 +72,7 @@ const Multiselect = ({
     onChange,
     groupBy,
     disableTranslateGroupBy,
+    renderInput,
     autocompleteProps,
     formControlProps,
     // eslint-disable-next-line
@@ -173,26 +175,31 @@ const Multiselect = ({
     };
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
-    const renderInput = (params: AutocompleteRenderInputParams) => (
-        // inputProps are additionally processed and set required prop based on currently selected values
-        // This allows to allows proper submitting when required = true
-        <MultiselectRenderInput
-            {...{
-                label,
-                required,
-                placeholder,
-                error: hasError,
-                ...params,
-                inputProps: {
-                    ...params.inputProps,
+    const callableRenderInput = (params: AutocompleteRenderInputParams) => {
+        const renderInputParams: MultiselectRenderInputProps = {
+            label,
+            required,
+            placeholder,
+            error: hasError,
+            ...params,
+            inputProps: {
+                // Do not know why TypeScript has a problem with passing required directly
+                ...{
                     required: required ? value.length === 0 : false,
                 },
-            }}
-        />
-    );
+                ...params.inputProps,
+            },
+        };
+
+        if (renderInput) {
+            return renderInput(renderInputParams);
+        }
+
+        return <MultiselectRenderInput {...renderInputParams} />;
+    };
 
     const internalAutocompleteProps: MultiselectAutocompleteProps = {
-        renderInput,
+        renderInput: callableRenderInput,
         options,
         value: [],
         multiple: true,
