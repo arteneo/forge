@@ -185,8 +185,8 @@ const Select = ({
         renderInput: callableRenderInput,
         options,
         value: null,
-        loadingText: t("placeholder.loading"),
-        noOptionsText: t("placeholder.selectSingleEmpty"),
+        loadingText: t("select.loading"),
+        noOptionsText: t("select.noOptions"),
         getOptionLabel: (option: string | OptionInterface) => {
             const label = typeof option === "string" ? option : option.representation;
             return disableTranslateOption ? label : t(label);

@@ -9,6 +9,7 @@ import {
     AutocompleteRenderOptionState,
     CircularProgress,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import Highlighter from "react-highlight-words";
 import { resolveFieldAutocompleteEndpoint } from "../../../utilities/resolve";
 import Select, { SelectProps, SelectRenderInput, SelectRenderInputProps } from "../../../components/Form/fields/Select";
@@ -51,6 +52,8 @@ interface SelectAutocompleteApiSpecificProps {
         state: AutocompleteRenderOptionState
     ) => React.ReactNode;
     renderInput?: (params: SelectAutocompleteApiRenderInputProps) => React.ReactNode;
+    noOptionsText?: (inputValue: string, loading: boolean) => string;
+    disableNoOptionsTextTranslate?: boolean;
     // Used to reload options on demand
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
@@ -89,9 +92,22 @@ const SelectAutocompleteApi = ({
     getOptionRepresentation = (option: OptionInterface) => option.representation,
     renderOption,
     renderInput,
+    noOptionsText = (inputValue, loading) => {
+        if (loading) {
+            return "selectAutocompleteApi.loading";
+        }
+
+        if (inputValue) {
+            return "selectAutocompleteApi.noOptions";
+        }
+
+        return "selectAutocompleteApi.inputValueEmpty";
+    },
+    disableNoOptionsTextTranslate,
     ...selectProps
 }: SelectAutocompleteApiProps) => {
     const handleCatch = useHandleCatch();
+    const { t } = useTranslation();
     const { values }: FormikProps<FormikValues> = useFormikContext();
     const { initialValues, initializedValuesResponse } = useForm();
 
@@ -299,6 +315,9 @@ const SelectAutocompleteApi = ({
                         setInputValue("");
                     },
                     renderOption: callableRenderOption,
+                    noOptionsText: disableNoOptionsTextTranslate
+                        ? noOptionsText(inputValue, loading)
+                        : t(noOptionsText(inputValue, loading)),
                     ...selectProps.autocompleteProps,
                 },
             }}

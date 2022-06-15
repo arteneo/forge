@@ -196,8 +196,8 @@ const Multiselect = ({
         options,
         value: [],
         multiple: true,
-        loadingText: t("placeholder.loading"),
-        noOptionsText: t("placeholder.selectMultipleEmpty"),
+        loadingText: t("multiselect.loading"),
+        noOptionsText: t("multiselect.noOptions"),
         disableCloseOnSelect: true,
         getOptionLabel: (option: string | OptionInterface) => {
             const label = typeof option === "string" ? option : option.representation;

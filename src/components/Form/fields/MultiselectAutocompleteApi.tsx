@@ -10,6 +10,7 @@ import {
     Checkbox as MuiCheckbox,
     CircularProgress,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import Highlighter from "react-highlight-words";
 import { resolveFieldAutocompleteEndpoint } from "../../../utilities/resolve";
@@ -49,6 +50,8 @@ interface MultiselectAutocompleteApiSpecificProps {
         initializedValuesResponse?: AxiosResponse
     ) => undefined | OptionInterface[];
     renderInput?: (params: MultiselectAutocompleteApiRenderInputProps) => React.ReactNode;
+    noOptionsText?: (inputValue: string, loading: boolean) => string;
+    disableNoOptionsTextTranslate?: boolean;
     // Used to reload options on demand
     // eslint-disable-next-line
     loadUseEffectDependency?: any;
@@ -79,9 +82,22 @@ const MultiselectAutocompleteApi = ({
         return getIn(initialValues, path, undefined);
     },
     renderInput,
+    noOptionsText = (inputValue, loading) => {
+        if (loading) {
+            return "multiselectAutocompleteApi.loading";
+        }
+
+        if (inputValue) {
+            return "multiselectAutocompleteApi.noOptions";
+        }
+
+        return "multiselectAutocompleteApi.inputValueEmpty";
+    },
+    disableNoOptionsTextTranslate,
     ...multiselectProps
 }: MultiselectAutocompleteApiProps) => {
     const handleCatch = useHandleCatch();
+    const { t } = useTranslation();
     const { values }: FormikProps<FormikValues> = useFormikContext();
     const { initialValues, initializedValuesResponse } = useForm();
 
@@ -284,6 +300,9 @@ const MultiselectAutocompleteApi = ({
                         }
                     },
                     renderOption,
+                    noOptionsText: disableNoOptionsTextTranslate
+                        ? noOptionsText(inputValue, loading)
+                        : t(noOptionsText(inputValue, loading)),
                     ...multiselectProps.autocompleteProps,
                 },
             }}
