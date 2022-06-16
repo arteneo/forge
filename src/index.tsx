@@ -145,6 +145,9 @@ import EnumColumn, { EnumColumnProps } from "./components/Table/columns/EnumColu
 import RepresentationColumn, { RepresentationColumnProps } from "./components/Table/columns/RepresentationColumn";
 import TextColumn, { TextColumnProps } from "./components/Table/columns/TextColumn";
 import TextTruncateColumn, { TextTruncateColumnProps } from "./components/Table/columns/TextTruncateColumn";
+import TextTruncateTooltipColumn, {
+    TextTruncateTooltipColumnProps,
+} from "./components/Table/columns/TextTruncateTooltipColumn";
 import TimeColumn, { TimeColumnProps } from "./components/Table/columns/TimeColumn";
 import Table, { TableProps } from "./components/Table/components/Table";
 import TableContent from "./components/Table/components/TableContent";
@@ -438,6 +441,8 @@ export {
     TextColumnProps,
     TextTruncateColumn,
     TextTruncateColumnProps,
+    TextTruncateTooltipColumn,
+    TextTruncateTooltipColumnProps,
     TimeColumn,
     TimeColumnProps,
     Table,
