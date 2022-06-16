@@ -61,6 +61,7 @@ type MultiselectAutocompleteApiProps = MultiselectAutocompleteApiSpecificProps &
     Omit<MultiselectProps, "options" | "onChange" | "renderInput">;
 
 interface MultiselectAutocompleteApiRenderInputProps extends MultiselectRenderInputProps {
+    options?: undefined | OptionInterface[];
     loading: boolean;
 }
 
@@ -252,7 +253,7 @@ const MultiselectAutocompleteApi = ({
         };
 
         if (renderInput) {
-            return renderInput({ loading, ...renderInputParams });
+            return renderInput({ options: selectedOptions, loading, ...renderInputParams });
         }
 
         return <MultiselectRenderInput {...renderInputParams} />;

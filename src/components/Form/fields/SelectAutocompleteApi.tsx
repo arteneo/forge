@@ -63,6 +63,7 @@ type SelectAutocompleteApiProps = SelectAutocompleteApiSpecificProps &
     Omit<SelectProps, "options" | "onChange" | "renderInput">;
 
 interface SelectAutocompleteApiRenderInputProps extends SelectRenderInputProps {
+    option?: OptionInterface;
     loading: boolean;
 }
 
@@ -278,7 +279,7 @@ const SelectAutocompleteApi = ({
         };
 
         if (renderInput) {
-            return renderInput({ loading, ...renderInputParams });
+            return renderInput({ option: selectedOption, loading, ...renderInputParams });
         }
 
         return <SelectRenderInput {...renderInputParams} />;
