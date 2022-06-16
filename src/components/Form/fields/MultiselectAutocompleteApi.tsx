@@ -58,7 +58,7 @@ interface MultiselectAutocompleteApiSpecificProps {
 }
 
 type MultiselectAutocompleteApiProps = MultiselectAutocompleteApiSpecificProps &
-    Omit<MultiselectProps, "options" | "onChange">;
+    Omit<MultiselectProps, "options" | "onChange" | "renderInput">;
 
 interface MultiselectAutocompleteApiRenderInputProps extends MultiselectRenderInputProps {
     loading: boolean;

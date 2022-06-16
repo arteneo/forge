@@ -59,7 +59,8 @@ interface SelectAutocompleteApiSpecificProps {
     loadUseEffectDependency?: any;
 }
 
-type SelectAutocompleteApiProps = SelectAutocompleteApiSpecificProps & Omit<SelectProps, "options" | "onChange">;
+type SelectAutocompleteApiProps = SelectAutocompleteApiSpecificProps &
+    Omit<SelectProps, "options" | "onChange" | "renderInput">;
 
 interface SelectAutocompleteApiRenderInputProps extends SelectRenderInputProps {
     loading: boolean;
