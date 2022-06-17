@@ -86,7 +86,7 @@ const TimePicker = ({
             return;
         }
 
-        setFieldValue(path, null);
+        setFieldValue(path, date);
     };
 
     // eslint-disable-next-line
