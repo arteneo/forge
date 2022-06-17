@@ -8,6 +8,8 @@ import { formatRFC3339, isValid } from "date-fns";
 import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import { useForm } from "../../../components/Form/contexts/Form";
 
+type DatePickerFieldProps = MuiDatePickerProps<string, string>;
+
 interface DatePickerSpecificProps {
     onChange?: (
         path: string,
@@ -20,7 +22,7 @@ interface DatePickerSpecificProps {
         name: string,
         value?: string | null
     ) => void;
-    fieldProps?: Partial<MuiDatePickerProps>;
+    fieldProps?: Partial<DatePickerFieldProps>;
 }
 
 type DatePickerProps = DatePickerSpecificProps & FieldPlaceholderInterface;
@@ -122,7 +124,7 @@ const DatePicker = ({
 
     const format = utils.formats.fullDate;
     const value = getIn(values, path, "");
-    const internalFieldProps: MuiDatePickerProps = {
+    const internalFieldProps: DatePickerFieldProps = {
         value: value ? value : null,
         onChange: callableOnChange,
         label,
@@ -138,4 +140,4 @@ const DatePicker = ({
 };
 
 export default DatePicker;
-export { DatePickerProps, DatePickerSpecificProps };
+export { DatePickerProps, DatePickerSpecificProps, DatePickerFieldProps };

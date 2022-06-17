@@ -8,6 +8,8 @@ import { formatRFC3339, isValid } from "date-fns";
 import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import { useForm } from "../../../components/Form/contexts/Form";
 
+type TimePickerFieldProps = MuiTimePickerProps<string, string>;
+
 interface TimePickerSpecificProps {
     onChange?: (
         path: string,
@@ -20,7 +22,7 @@ interface TimePickerSpecificProps {
         name: string,
         value?: string | null
     ) => void;
-    fieldProps?: Partial<MuiTimePickerProps>;
+    fieldProps?: Partial<TimePickerFieldProps>;
 }
 
 type TimePickerProps = TimePickerSpecificProps & FieldPlaceholderInterface;
@@ -122,7 +124,7 @@ const TimePicker = ({
 
     const format = utils.formats.fullTime24h;
     const value = getIn(values, path, "");
-    const internalFieldProps: MuiTimePickerProps = {
+    const internalFieldProps: TimePickerFieldProps = {
         value: value ? value : null,
         onChange: callableOnChange,
         label,
@@ -139,4 +141,4 @@ const TimePicker = ({
 };
 
 export default TimePicker;
-export { TimePickerProps, TimePickerSpecificProps };
+export { TimePickerProps, TimePickerSpecificProps, TimePickerFieldProps };

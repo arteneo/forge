@@ -11,6 +11,8 @@ import { formatRFC3339, isValid } from "date-fns";
 import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import { useForm } from "../../../components/Form/contexts/Form";
 
+type DateTimePickerFieldProps = MuiDateTimePickerProps<string, string>;
+
 interface DateTimePickerSpecificProps {
     onChange?: (
         path: string,
@@ -23,7 +25,7 @@ interface DateTimePickerSpecificProps {
         name: string,
         value?: string | null
     ) => void;
-    fieldProps?: Partial<MuiDateTimePickerProps>;
+    fieldProps?: Partial<DateTimePickerFieldProps>;
 }
 
 type DateTimePickerProps = DateTimePickerSpecificProps & FieldPlaceholderInterface;
@@ -125,7 +127,7 @@ const DateTimePicker = ({
 
     const format = utils.formats.fullDateTime24h;
     const value = getIn(values, path, "");
-    const internalFieldProps: MuiDateTimePickerProps = {
+    const internalFieldProps: DateTimePickerFieldProps = {
         value: value ? value : null,
         onChange: callableOnChange,
         label,
@@ -142,4 +144,4 @@ const DateTimePicker = ({
 };
 
 export default DateTimePicker;
-export { DateTimePickerProps, DateTimePickerSpecificProps };
+export { DateTimePickerProps, DateTimePickerSpecificProps, DateTimePickerFieldProps };

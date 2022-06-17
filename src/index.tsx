@@ -62,10 +62,15 @@ import OptionInterface from "./components/Form/definitions/OptionInterface";
 import OptionsType from "./components/Form/definitions/OptionsType";
 import Checkbox, { CheckboxProps, CheckboxSpecificProps } from "./components/Form/fields/Checkbox";
 import Collection, { CollectionProps, CollectionSpecificProps } from "./components/Form/fields/Collection";
-import DatePicker, { DatePickerProps, DatePickerSpecificProps } from "./components/Form/fields/DatePicker";
+import DatePicker, {
+    DatePickerProps,
+    DatePickerSpecificProps,
+    DatePickerFieldProps,
+} from "./components/Form/fields/DatePicker";
 import DateTimePicker, {
     DateTimePickerProps,
     DateTimePickerSpecificProps,
+    DateTimePickerFieldProps,
 } from "./components/Form/fields/DateTimePicker";
 import Email, { EmailProps } from "./components/Form/fields/Email";
 import Multiselect, {
@@ -102,7 +107,11 @@ import SelectAutocompleteApi, {
 import SelectEnum, { SelectEnumProps, SelectEnumSpecificProps } from "./components/Form/fields/SelectEnum";
 import Text, { TextProps, TextSpecificProps } from "./components/Form/fields/Text";
 import Textarea, { TextareaProps, TextareaSpecificProps } from "./components/Form/fields/Textarea";
-import TimePicker, { TimePickerProps, TimePickerSpecificProps } from "./components/Form/fields/TimePicker";
+import TimePicker, {
+    TimePickerProps,
+    TimePickerSpecificProps,
+    TimePickerFieldProps,
+} from "./components/Form/fields/TimePicker";
 import TrueFalse, { TrueFalseProps } from "./components/Form/fields/TrueFalse";
 import DialogFieldset, { DialogFieldsetProps } from "./components/Form/fieldsets/DialogFieldset";
 import DialogFormView, { DialogFormViewProps } from "./components/Form/views/DialogFormView";
@@ -338,9 +347,11 @@ export {
     DatePicker,
     DatePickerProps,
     DatePickerSpecificProps,
+    DatePickerFieldProps,
     DateTimePicker,
     DateTimePickerProps,
     DateTimePickerSpecificProps,
+    DateTimePickerFieldProps,
     Email,
     EmailProps,
     Multiselect,
@@ -390,6 +401,7 @@ export {
     TimePicker,
     TimePickerProps,
     TimePickerSpecificProps,
+    TimePickerFieldProps,
     TrueFalse,
     TrueFalseProps,
     DialogFieldset,
