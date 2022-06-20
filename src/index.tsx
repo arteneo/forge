@@ -113,6 +113,7 @@ import TimePicker, {
     TimePickerFieldProps,
 } from "./components/Form/fields/TimePicker";
 import TrueFalse, { TrueFalseProps } from "./components/Form/fields/TrueFalse";
+import UploadFile, { UploadFileProps, UploadFileSpecificProps } from "./components/Form/fields/UploadFile";
 import DialogFieldset, { DialogFieldsetProps } from "./components/Form/fieldsets/DialogFieldset";
 import DialogFormView, { DialogFormViewProps } from "./components/Form/views/DialogFormView";
 import ResultButton, { ResultButtonProps } from "./components/Table/actions/ResultButton";
@@ -121,6 +122,10 @@ import ResultButtonDialog, {
     ResultButtonDialogSpecificProps,
     ResultButtonDialogRenderDialogParams,
 } from "./components/Table/actions/ResultButtonDialog";
+import ResultButtonDialogForm, {
+    ResultButtonDialogFormProps,
+    ResultButtonDialogFormSpecificProps,
+} from "./components/Table/actions/ResultButtonDialogForm";
 import ResultButtonDownload, {
     ResultButtonDownloadProps,
     ResultButtonDownloadSpecificProps,
@@ -404,6 +409,9 @@ export {
     TimePickerFieldProps,
     TrueFalse,
     TrueFalseProps,
+    UploadFile,
+    UploadFileProps,
+    UploadFileSpecificProps,
     DialogFieldset,
     DialogFieldsetProps,
     DialogFormView,
@@ -414,6 +422,9 @@ export {
     ResultButtonDialogProps,
     ResultButtonDialogSpecificProps,
     ResultButtonDialogRenderDialogParams,
+    ResultButtonDialogForm,
+    ResultButtonDialogFormProps,
+    ResultButtonDialogFormSpecificProps,
     ResultButtonDownload,
     ResultButtonDownloadProps,
     ResultButtonDownloadSpecificProps,
