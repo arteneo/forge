@@ -113,7 +113,7 @@ interface TableProviderProps {
     rowsPerPageOptions?: number[];
     disablePagination?: boolean;
     toolbar?: React.ReactNode;
-    filters?: FieldsInterface;
+    filters?: FilterValuesInterface;
     defaultFilters?: FilterValuesInterface;
     additionalFilters?: FiltersInterface;
     defaultSorting?: SortingInterface;
