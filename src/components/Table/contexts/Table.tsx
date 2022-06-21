@@ -34,7 +34,7 @@ interface TableContextProps {
     // eslint-disable-next-line
     onChangeRowsPerPage: (event: any) => void;
     toolbar?: React.ReactNode;
-    filters: FiltersInterface;
+    filters: FilterValuesInterface;
     filterFields?: FieldsInterface;
     filterClass?: { accordion: string; accordionActive: string };
     onSubmitFilters: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
@@ -113,7 +113,7 @@ interface TableProviderProps {
     rowsPerPageOptions?: number[];
     disablePagination?: boolean;
     toolbar?: React.ReactNode;
-    filters?: FilterValuesInterface;
+    filters?: FieldsInterface;
     defaultFilters?: FilterValuesInterface;
     additionalFilters?: FiltersInterface;
     defaultSorting?: SortingInterface;
