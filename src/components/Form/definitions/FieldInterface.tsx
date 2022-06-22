@@ -18,6 +18,7 @@ interface FieldInterface {
     disabled?: FieldDisabledType;
     hidden?: FieldHiddenType;
     validate?: FieldValidateType;
+    disableValidateTranslate?: boolean;
     // eslint-disable-next-line
     transformInitialValue?: (value: any) => any;
 }

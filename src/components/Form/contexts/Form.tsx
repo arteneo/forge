@@ -215,6 +215,10 @@ const FormProvider = ({
             );
         }
 
+        if (typeof validate !== "undefined" && !field.disableValidateTranslate) {
+            validate = t(validate);
+        }
+
         return {
             name,
             path,
