@@ -61,6 +61,7 @@ interface MultiselectRenderInputProps extends AutocompleteRenderInputParams {
     label?: React.ReactNode;
     required: boolean;
     placeholder?: string;
+    onBlur: () => void;
     error: boolean; // This is hasError from FieldResolvedInterface
 }
 
@@ -92,6 +93,7 @@ const Multiselect = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -180,6 +182,7 @@ const Multiselect = ({
             label,
             required,
             placeholder,
+            onBlur: () => setFieldTouched(path, true),
             error: hasError,
             ...params,
             inputProps: {

@@ -71,6 +71,7 @@ const Radio = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -124,6 +125,7 @@ const Radio = ({
         value: getIn(values, path, ""),
         row: true,
         onChange: callableOnChange,
+        onBlur: () => setFieldTouched(path, true),
     };
     const mergedRadioGroupProps = Object.assign(internalRadioGroupProps, radioGroupProps);
 

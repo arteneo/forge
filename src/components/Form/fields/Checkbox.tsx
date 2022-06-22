@@ -49,6 +49,7 @@ const Checkbox = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -114,6 +115,7 @@ const Checkbox = ({
         checked: Boolean(getIn(values, path, false)),
         control: <MuiCheckbox {...{ required }} />,
         onChange: callableOnChange,
+        onBlur: () => setFieldTouched(path, true),
         label: formControlLabel,
         disabled,
     };

@@ -49,6 +49,7 @@ const DatePicker = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -117,7 +118,15 @@ const DatePicker = ({
 
         return (
             <DatePickerRenderInput
-                {...{ label, required, placeholder, helperText, ...props, error: props.error || hasError }}
+                {...{
+                    label,
+                    required,
+                    placeholder,
+                    helperText,
+                    onBlur: () => setFieldTouched(path, true),
+                    ...props,
+                    error: props.error || hasError,
+                }}
             />
         );
     };

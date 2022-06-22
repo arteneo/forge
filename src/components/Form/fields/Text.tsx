@@ -39,6 +39,7 @@ const Text = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -87,6 +88,7 @@ const Text = ({
     const internalFieldProps: TextFieldProps = {
         value: getIn(values, path, "") ?? "",
         onChange: callableOnChange,
+        onBlur: () => setFieldTouched(path, true),
         error: hasError,
         label,
         placeholder,

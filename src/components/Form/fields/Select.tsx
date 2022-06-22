@@ -59,6 +59,7 @@ interface SelectRenderInputProps extends AutocompleteRenderInputParams {
     label?: React.ReactNode;
     required: boolean;
     placeholder?: string;
+    onBlur: () => void;
     error: boolean; // This is hasError from FieldResolvedInterface
 }
 
@@ -90,6 +91,7 @@ const Select = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -171,6 +173,7 @@ const Select = ({
             required,
             placeholder,
             error: hasError,
+            onBlur: () => setFieldTouched(path, true),
             ...params,
         };
 
