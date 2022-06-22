@@ -139,6 +139,9 @@ const DateTimePicker = ({
     const internalFieldProps: DateTimePickerFieldProps = {
         value: value ? value : null,
         onChange: callableOnChange,
+        // onError is used to revalidate after selecting correct value (from picker) when value has been invalid previosly
+        // This is kind of missing part of onBlur (onBlur should also be fired when selecting a value from picker)
+        onError: () => setFieldTouched(path, true),
         label,
         disabled,
         ampm: false,
