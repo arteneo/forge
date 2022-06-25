@@ -6,16 +6,17 @@ import {
     FormHelperText,
     IconButton,
     InputLabel,
-    TextField as MuiTextField,
-    TextFieldProps,
+    // TextField as MuiTextField,
+    // TextFieldProps,
 } from "@mui/material";
-import { StatusBar, DragDrop, useUppy } from "@uppy/react";
+// import { StatusBar, DragDrop, useUppy } from "@uppy/react";
+import { DragDrop, useUppy } from "@uppy/react";
 import Uppy from "@uppy/core";
 import Tus from "@uppy/tus";
 import ThumbnailGenerator from "@uppy/thumbnail-generator";
-import "@uppy/core/dist/style.css";
-import "@uppy/drag-drop/dist/style.css";
-import "@uppy/status-bar/dist/style.css";
+// import "@uppy/core/dist/style.css";
+// import "@uppy/drag-drop/dist/style.css";
+// import "@uppy/status-bar/dist/style.css";
 
 import { Delete, DoneOutline } from "@mui/icons-material";
 import { useForm } from "../../../components/Form/contexts/Form";
@@ -70,7 +71,8 @@ const UploadFile = ({
     }: FormikProps<FormikValues> = useFormikContext();
     const [image, setImage] = React.useState<string | undefined>(undefined);
     const { resolveField } = useForm();
-    const { name, path, label, error, hasError, help, required, disabled, hidden, validate } = resolveField({
+    // const { name, path, label, error, hasError, help, required, disabled, hidden, validate } = resolveField({
+    const { name, path, label, error, hasError, help, hidden, validate } = resolveField({
         values,
         touched,
         errors,
@@ -186,20 +188,20 @@ const UploadFile = ({
     //     setImage(preview);
     // });
 
-    const internalFieldProps: TextFieldProps = {
-        // onChange: callableOnChange, //todo
-        error: hasError,
-        label,
-        required,
-        disabled,
-    };
+    // const internalFieldProps: TextFieldProps = {
+    //     // onChange: callableOnChange, //todo
+    //     error: hasError,
+    //     label,
+    //     required,
+    //     disabled,
+    // };
 
     const thumbnailStyles = {
         width: uppyThumbnailWidth,
         height: uppyThumbnailHeight,
     };
 
-    let helperText = null;
+    let helperText: null | React.ReactNode = null;
 
     if (hasError || help) {
         helperText = (
