@@ -17,8 +17,8 @@
     },
     "table": {
         "filters": {
-            "collapse": "Show filters",
-            "expand": "Hide filters",
+            "collapse": "Hide filters",
+            "expand": "Show filters",
             "clear": "Clear",
             "submit": "Submit"
         },
