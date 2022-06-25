@@ -10,7 +10,7 @@ interface DialogFormViewProps {
     onClose: () => void;
     buttonBackProps?: ButtonProps;
     buttonConfirmProps?: ButtonProps;
-    title?: string;
+    title: string;
     titleVariables?: TranslateVariablesInterface;
     children: React.ReactNode;
 }
@@ -29,7 +29,7 @@ const DialogFormView = ({
         color: "primary",
         endIcon: <Check />,
     },
-    title = "dialog.form.title",
+    title,
     titleVariables,
     children,
 }: DialogFormViewProps) => {

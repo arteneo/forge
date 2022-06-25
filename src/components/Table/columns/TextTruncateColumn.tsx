@@ -22,7 +22,7 @@ const TextTruncateColumn = ({
     stripSuffix = "...",
     maxWidth = null,
     nowrap = false,
-    emptyText = "label.emptyField",
+    emptyText,
 }: TextTruncateColumnProps) => {
     if (typeof columnName === "undefined") {
         throw new Error("TextTruncateColumn component: Missing required columnName prop");
@@ -80,7 +80,11 @@ const TextTruncateColumn = ({
         return <>{text}</>;
     }
 
-    return <>{t(emptyText)}</>;
+    if (emptyText) {
+        return <>{t(emptyText)}</>;
+    }
+
+    return null;
 };
 
 export default TextTruncateColumn;

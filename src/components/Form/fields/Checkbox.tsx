@@ -36,7 +36,7 @@ const Checkbox = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.bool().required().oneOf([true]).isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;

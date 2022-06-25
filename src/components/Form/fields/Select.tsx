@@ -77,7 +77,7 @@ const Select = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.string().required().isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;

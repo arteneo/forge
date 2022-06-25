@@ -21,13 +21,16 @@ const ResultDelete = ({ result, endpoint, renderDialog, ...props }: ResultDelete
     const defaultRenderDialog = (params: ResultButtonEndpointDialogConfirmRenderDialogParams) => (
         <DialogConfirm
             {...{
+                title: "resultDelete.dialog.title",
                 buttonConfirmProps: {
                     label: "action.delete",
                     color: "error",
                     variant: "contained",
                 },
                 children: (
-                    <Alert severity="error">{t("result.delete", { representation: result.representation })}</Alert>
+                    <Alert severity="error">
+                        {t("resultDelete.dialog.confirm", { representation: result.representation })}
+                    </Alert>
                 ),
                 ...params,
             }}
@@ -47,7 +50,7 @@ const ResultDelete = ({ result, endpoint, renderDialog, ...props }: ResultDelete
                 label: "action.delete",
                 color: "error",
                 variant: "contained",
-                snackbarLabel: "snackbar.delete.success",
+                snackbarLabel: "resultDelete.snackbar.success",
                 snackbarLabelVariables: {
                     result: result.representation,
                 },

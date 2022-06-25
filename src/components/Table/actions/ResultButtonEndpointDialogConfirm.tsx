@@ -48,6 +48,7 @@ const ResultButtonEndpointDialogConfirm = ({
     renderDialog = (params) => (
         <DialogConfirm
             {...{
+                title: "buttonEndpointDialogConfirm.dialog.title",
                 label: "buttonEndpointDialogConfirm.dialog.confirm",
                 labelVariables: { name: params.result?.representation },
                 ...params,

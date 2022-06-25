@@ -12,7 +12,7 @@ interface DialogConfirmProps {
     onConfirm: () => void;
     buttonBackProps?: ButtonProps;
     buttonConfirmProps?: ButtonProps;
-    title?: string;
+    title: string;
     titleVariables?: TranslateVariablesInterface;
     children?: React.ReactNode;
     label?: string;
@@ -36,7 +36,7 @@ const DialogConfirm = ({
         color: "primary",
         endIcon: <Check />,
     },
-    title = "dialogConfirm.title",
+    title,
     titleVariables,
     children,
     label,

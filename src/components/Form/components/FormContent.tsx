@@ -31,7 +31,7 @@ const FormContent = ({
     onSubmitSuccess,
     endpoint,
     onSubmit,
-    snackbarLabel = "snackbar.form.submitted",
+    snackbarLabel = "form.snackbar.success",
     snackbarLabelVariables,
     formikProps,
 }: FormContentProps) => {

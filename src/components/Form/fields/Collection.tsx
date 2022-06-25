@@ -85,7 +85,7 @@ const Collection = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.array().min(1).required().isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;

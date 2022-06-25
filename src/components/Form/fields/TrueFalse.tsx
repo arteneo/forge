@@ -9,11 +9,11 @@ const TrueFalse = (radioProps: TrueFalseProps) => {
     const options: OptionsType = [
         {
             id: "true",
-            representation: "label.yes",
+            representation: "trueFalse.yes",
         },
         {
             id: "false",
-            representation: "label.no",
+            representation: "trueFalse.no",
         },
     ];
 
