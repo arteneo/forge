@@ -61,6 +61,7 @@ interface MultiselectRenderInputProps extends AutocompleteRenderInputParams {
     label?: React.ReactNode;
     required: boolean;
     placeholder?: string;
+    onBlur: () => void;
     error: boolean; // This is hasError from FieldResolvedInterface
 }
 
@@ -78,7 +79,7 @@ const Multiselect = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.array().min(1).required().isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;
@@ -92,6 +93,7 @@ const Multiselect = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -111,14 +113,14 @@ const Multiselect = ({
             return;
         }
 
-        registerField(name, {
+        registerField(path, {
             validate: () => validate,
         });
 
         return () => {
-            unregisterField(name);
+            unregisterField(path);
         };
-    }, [hidden, registerField, unregisterField, name, validate]);
+    }, [hidden, registerField, unregisterField, path, validate]);
 
     if (hidden) {
         return null;
@@ -180,6 +182,7 @@ const Multiselect = ({
             label,
             required,
             placeholder,
+            onBlur: () => setFieldTouched(path, true),
             error: hasError,
             ...params,
             inputProps: {

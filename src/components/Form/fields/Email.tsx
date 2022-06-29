@@ -11,10 +11,10 @@ const Email = (textProps: EmailProps) => {
                 // eslint-disable-next-line
                 validate: (value: any, required: boolean) => {
                     if (required && !Yup.string().required().isValidSync(value)) {
-                        return "validate.required";
+                        return "validation.required";
                     }
 
-                    return !Yup.string().email().isValidSync(value) ? "validate.emailInvalid" : undefined;
+                    return !Yup.string().email().isValidSync(value) ? "validation.emailInvalid" : undefined;
                 },
                 ...textProps,
                 fieldProps: {

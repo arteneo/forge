@@ -85,7 +85,7 @@ const Collection = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.array().min(1).required().isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;
@@ -116,14 +116,14 @@ const Collection = ({
             return;
         }
 
-        registerField(name, {
+        registerField(path, {
             validate: () => validate,
         });
 
         return () => {
-            unregisterField(name);
+            unregisterField(path);
         };
-    }, [hidden, registerField, unregisterField, name, validate]);
+    }, [hidden, registerField, unregisterField, path, validate]);
 
     if (hidden) {
         return null;

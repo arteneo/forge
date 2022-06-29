@@ -36,7 +36,7 @@ const Checkbox = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.bool().required().oneOf([true]).isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;
@@ -49,6 +49,7 @@ const Checkbox = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -67,14 +68,14 @@ const Checkbox = ({
             return;
         }
 
-        registerField(name, {
+        registerField(path, {
             validate: () => validate,
         });
 
         return () => {
-            unregisterField(name);
+            unregisterField(path);
         };
-    }, [hidden, registerField, unregisterField, name, validate]);
+    }, [hidden, registerField, unregisterField, path, validate]);
 
     if (hidden) {
         return null;
@@ -114,6 +115,7 @@ const Checkbox = ({
         checked: Boolean(getIn(values, path, false)),
         control: <MuiCheckbox {...{ required }} />,
         onChange: callableOnChange,
+        onBlur: () => setFieldTouched(path, true),
         label: formControlLabel,
         disabled,
     };

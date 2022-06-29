@@ -1,24 +1,24 @@
 import React from "react";
-import { useTable } from "../../../components/Table/contexts/Table";
 import Optional from "../../../definitions/Optional";
-import ResultButtonLink, { ResultButtonLinkProps } from "../../../components/Table/actions/ResultButtonLink";
+import ColumnInterface from "../../../components/Table/definitions/ColumnInterface";
+import ButtonLink, { ButtonLinkProps } from "../../../components/Common/ButtonLink";
 
-type ResultEditProps = Optional<ResultButtonLinkProps, "to">;
+type ResultEditProps = Optional<ButtonLinkProps, "to"> & ColumnInterface;
 
-const ResultEdit = ({ to, ...props }: ResultEditProps) => {
-    const { custom } = useTable();
+const ResultEdit = ({ result, columnName, ...props }: ResultEditProps) => {
+    if (typeof columnName === "undefined") {
+        throw new Error("ResultEdit component: Missing required columnName prop");
+    }
 
-    if (typeof to === "undefined" && typeof custom?.paths?.edit === "undefined") {
-        throw new Error(
-            "ResultEdit component: Missing required to prop or paths.edit definition in custom variable used by Table context"
-        );
+    if (typeof result === "undefined") {
+        throw new Error("ResultEdit component: Missing required result prop");
     }
 
     return (
-        <ResultButtonLink
+        <ButtonLink
             {...{
                 label: "action.edit",
-                to: to ?? custom.paths.edit,
+                to: "../edit/" + result?.id,
                 color: "primary",
                 variant: "contained",
                 denyKey: "edit",

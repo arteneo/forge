@@ -38,7 +38,7 @@ const DateTimePicker = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.string().required().isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;
@@ -52,6 +52,7 @@ const DateTimePicker = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -71,14 +72,14 @@ const DateTimePicker = ({
             return;
         }
 
-        registerField(name, {
+        registerField(path, {
             validate: () => validate,
         });
 
         return () => {
-            unregisterField(name);
+            unregisterField(path);
         };
-    }, [hidden, registerField, unregisterField, name, validate]);
+    }, [hidden, registerField, unregisterField, path, validate]);
 
     if (hidden) {
         return null;
@@ -120,7 +121,15 @@ const DateTimePicker = ({
 
         return (
             <DateTimePickerRenderInput
-                {...{ label, required, placeholder, helperText, ...props, error: props.error || hasError }}
+                {...{
+                    label,
+                    required,
+                    placeholder,
+                    helperText,
+                    onBlur: () => setFieldTouched(path, true),
+                    ...props,
+                    error: props.error || hasError,
+                }}
             />
         );
     };
@@ -130,6 +139,9 @@ const DateTimePicker = ({
     const internalFieldProps: DateTimePickerFieldProps = {
         value: value ? value : null,
         onChange: callableOnChange,
+        // onError is used to revalidate after selecting correct value (from picker) when value has been invalid previosly
+        // This is kind of missing part of onBlur (onBlur should also be fired when selecting a value from picker)
+        onError: () => setFieldTouched(path, true),
         label,
         disabled,
         ampm: false,

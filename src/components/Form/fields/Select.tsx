@@ -59,6 +59,7 @@ interface SelectRenderInputProps extends AutocompleteRenderInputParams {
     label?: React.ReactNode;
     required: boolean;
     placeholder?: string;
+    onBlur: () => void;
     error: boolean; // This is hasError from FieldResolvedInterface
 }
 
@@ -76,7 +77,7 @@ const Select = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.string().required().isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;
@@ -90,6 +91,7 @@ const Select = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -109,14 +111,14 @@ const Select = ({
             return;
         }
 
-        registerField(name, {
+        registerField(path, {
             validate: () => validate,
         });
 
         return () => {
-            unregisterField(name);
+            unregisterField(path);
         };
-    }, [hidden, registerField, unregisterField, name, validate]);
+    }, [hidden, registerField, unregisterField, path, validate]);
 
     if (hidden) {
         return null;
@@ -171,6 +173,7 @@ const Select = ({
             required,
             placeholder,
             error: hasError,
+            onBlur: () => setFieldTouched(path, true),
             ...params,
         };
 

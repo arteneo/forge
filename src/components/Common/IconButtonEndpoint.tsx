@@ -20,7 +20,7 @@ type IconButtonEndpointProps = IconButtonEndpointInterface & IconButtonProps;
 const IconButtonEndpoint = ({
     endpoint,
     onSuccess,
-    snackbarLabel = "iconButtonEndpoint.snackbar.success",
+    snackbarLabel = "buttonEndpoint.snackbar.success",
     snackbarLabelVariables = {},
     ...props
 }: IconButtonEndpointProps) => {

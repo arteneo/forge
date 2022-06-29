@@ -82,7 +82,6 @@ interface FormProviderProps {
         initialValues?: FormikValues,
         response?: AxiosResponse
     ) => FormikValues;
-    translateLabelPrefix?: string;
 }
 
 const contextInitial = {
@@ -134,7 +133,6 @@ const FormProvider = ({
     initialValues,
     initializeEndpoint,
     processInitialValues,
-    translateLabelPrefix = "label.",
 }: FormProviderProps) => {
     const { t } = useTranslation();
     const handleCatch = useHandleCatch();
@@ -213,6 +211,10 @@ const FormProvider = ({
                 touched,
                 errors
             );
+        }
+
+        if (typeof validate !== "undefined" && !field.disableValidateTranslate) {
+            validate = t(validate);
         }
 
         return {
@@ -320,7 +322,7 @@ const FormProvider = ({
         }
 
         if (typeof resolvedLabel === "string" && !disableTranslateLabel) {
-            return t(translateLabelPrefix + resolvedLabel);
+            return t("label." + resolvedLabel);
         }
 
         return resolvedLabel;
@@ -341,7 +343,7 @@ const FormProvider = ({
             resolvedPlaceholder = name;
 
             if (!disableTranslatePlaceholder) {
-                return t(translateLabelPrefix + resolvedPlaceholder);
+                return t("label." + resolvedPlaceholder);
             }
         }
 

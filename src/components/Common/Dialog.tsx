@@ -16,7 +16,7 @@ interface DialogProps {
     open: boolean;
     onClose: () => void;
     buttonBackProps?: ButtonProps;
-    title?: string;
+    title: string;
     titleVariables?: TranslateVariablesInterface;
     children: React.ReactNode;
     dialogProps?: Optional<MuiDialogProps, "open">;
@@ -31,7 +31,7 @@ const Dialog = ({
         color: "warning",
         startIcon: <Close />,
     },
-    title = "dialog.title",
+    title,
     titleVariables,
     children,
     dialogProps = {

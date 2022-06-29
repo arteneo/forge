@@ -11,14 +11,13 @@ const Form = ({
     initialValues,
     initializeEndpoint,
     processInitialValues,
-    translateLabelPrefix,
     changeSubmitValues,
     onSubmitSuccess,
     onSubmit,
     formikProps,
 }: FormProps) => {
     return (
-        <FormProvider {...{ fields, initialValues, initializeEndpoint, processInitialValues, translateLabelPrefix }}>
+        <FormProvider {...{ fields, initialValues, initializeEndpoint, processInitialValues }}>
             <FormContent {...{ onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, formikProps }}>
                 {children}
             </FormContent>

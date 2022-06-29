@@ -26,10 +26,16 @@ interface IconButtonEndpointDialogConfirmProps extends IconButtonProps {
 const IconButtonEndpointDialogConfirm = ({
     endpoint,
     onSuccess,
-    snackbarLabel = "iconButtonEndpointDialogConfirm.snackbar.success",
+    snackbarLabel = "buttonEndpointDialogConfirm.snackbar.success",
     snackbarLabelVariables = {},
     renderDialog = (params) => (
-        <DialogConfirm {...{ label: "iconButtonEndpointDialogConfirm.dialog.confirm", ...params }} />
+        <DialogConfirm
+            {...{
+                title: "buttonEndpointDialogConfirm.dialog.title",
+                label: "buttonEndpointDialogConfirm.dialog.confirm",
+                ...params,
+            }}
+        />
     ),
     ...iconButtonProps
 }: IconButtonEndpointDialogConfirmProps) => {

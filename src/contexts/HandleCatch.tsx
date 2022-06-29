@@ -71,7 +71,7 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
             }
 
             if (error?.response?.status === 400) {
-                showError("snackbar.form.validationError");
+                showError("form.snackbar.validationError");
 
                 if (helpers && error?.response?.data?.errors?.children) {
                     updateValidationErrors(error.response.data.errors.children, helpers);
@@ -92,7 +92,7 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
 
         switch (error?.response?.status) {
             case 400:
-                showError("snackbar.form.validationError");
+                showError("form.snackbar.validationError");
                 if (helpers) {
                     updateValidationErrors(error.response.data.errors.children, helpers);
                 }

@@ -1,42 +1,36 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "@mui/material";
-import { useTable } from "../../../components/Table/contexts/Table";
 import ResultButtonEndpointDialogConfirm, {
     ResultButtonEndpointDialogConfirmProps,
     ResultButtonEndpointDialogConfirmRenderDialogParams,
 } from "../../../components/Table/actions/ResultButtonEndpointDialogConfirm";
-import Optional from "../../../definitions/Optional";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
 import DialogConfirm from "../../../components/Common/DialogConfirm";
 
-type ResultDeleteProps = Optional<ResultButtonEndpointDialogConfirmProps, "endpoint">;
+type ResultDeleteProps = ResultButtonEndpointDialogConfirmProps;
 
 const ResultDelete = ({ result, endpoint, renderDialog, ...props }: ResultDeleteProps) => {
     const { t } = useTranslation();
-    const { custom } = useTable();
 
     if (typeof result === "undefined") {
         throw new Error("ResultDelete component: Missing required result prop");
     }
 
-    if (typeof endpoint === "undefined" && typeof custom?.endpoints?.delete === "undefined") {
-        throw new Error(
-            "ResultDelete component: Missing required endpoint prop or endpoints.delete definition in custom variable used by Table context"
-        );
-    }
-
     const defaultRenderDialog = (params: ResultButtonEndpointDialogConfirmRenderDialogParams) => (
         <DialogConfirm
             {...{
+                title: "resultDelete.dialog.title",
                 buttonConfirmProps: {
                     label: "action.delete",
                     color: "error",
                     variant: "contained",
                 },
                 children: (
-                    <Alert severity="error">{t("result.delete", { representation: result.representation })}</Alert>
+                    <Alert severity="error">
+                        {t("resultDelete.dialog.confirm", { representation: result.representation })}
+                    </Alert>
                 ),
                 ...params,
             }}
@@ -49,16 +43,14 @@ const ResultDelete = ({ result, endpoint, renderDialog, ...props }: ResultDelete
                 // eslint-disable-next-line
                 endpoint: (value: any, result: ResultInterface, path?: string) => ({
                     method: "delete",
-                    url: endpoint
-                        ? resolveAnyOrFunction(endpoint, value, result, path)
-                        : custom.endpoints.delete(value),
+                    url: resolveAnyOrFunction(endpoint, value, result, path),
                 }),
                 result,
                 denyKey: "delete",
                 label: "action.delete",
                 color: "error",
                 variant: "contained",
-                snackbarLabel: "snackbar.delete.success",
+                snackbarLabel: "resultDelete.snackbar.success",
                 snackbarLabelVariables: {
                     result: result.representation,
                 },

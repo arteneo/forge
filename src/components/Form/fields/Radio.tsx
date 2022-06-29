@@ -48,7 +48,7 @@ const Radio = ({
     options,
     disableTranslateOption,
     enableClear = false,
-    clearLabel = "label.radioClear",
+    clearLabel = "radio.clear",
     onChange,
     formLabelProps,
     radioGroupProps,
@@ -57,7 +57,7 @@ const Radio = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.string().required().isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;
@@ -71,6 +71,7 @@ const Radio = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -89,14 +90,14 @@ const Radio = ({
             return;
         }
 
-        registerField(name, {
+        registerField(path, {
             validate: () => validate,
         });
 
         return () => {
-            unregisterField(name);
+            unregisterField(path);
         };
-    }, [hidden, registerField, unregisterField, name, validate]);
+    }, [hidden, registerField, unregisterField, path, validate]);
 
     if (hidden) {
         return null;
@@ -124,6 +125,7 @@ const Radio = ({
         value: getIn(values, path, ""),
         row: true,
         onChange: callableOnChange,
+        onBlur: () => setFieldTouched(path, true),
     };
     const mergedRadioGroupProps = Object.assign(internalRadioGroupProps, radioGroupProps);
 

@@ -22,11 +22,21 @@ const BooleanColumn = ({ result, columnName, path, chipProps }: BooleanColumnPro
     const value = getIn(result, path ? path : columnName);
     if (value) {
         return (
-            <Chip {...{ label: t("label.yes"), color: "success", size: "small", variant: "outlined", ...chipProps }} />
+            <Chip
+                {...{
+                    label: t("booleanColumn.yes"),
+                    color: "success",
+                    size: "small",
+                    variant: "outlined",
+                    ...chipProps,
+                }}
+            />
         );
     }
 
-    return <Chip {...{ label: t("label.no"), color: "error", size: "small", variant: "outlined", ...chipProps }} />;
+    return (
+        <Chip {...{ label: t("booleanColumn.no"), color: "error", size: "small", variant: "outlined", ...chipProps }} />
+    );
 };
 
 export default BooleanColumn;

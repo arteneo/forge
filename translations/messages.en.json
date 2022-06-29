@@ -1,0 +1,98 @@
+{
+    "action": {
+        "confirm": "Confirm",
+        "close": "Close",
+        "create": "Create",
+        "delete": "Delete",
+        "edit": "Edit",
+        "exportCsv": "Export CSV",
+        "exportExcel": "Export Excel",
+        "save": "Save"
+    },
+    "form": {
+        "snackbar": {
+            "success": "Form submitted successfully",
+            "validationError": "Invalid data submitted. Please fix it and try again"
+        }
+    },
+    "table": {
+        "filters": {
+            "collapse": "Hide filters",
+            "expand": "Show filters",
+            "clear": "Clear",
+            "submit": "Submit"
+        },
+        "results": {
+            "empty": "No results"
+        },
+        "pagination": {
+            "firstPage": "First page",
+            "lastPage": "Last page",
+            "previousPage": "Previous page",
+            "nextPage": "Next page",
+            "rowsPerPage": "Rows per page",
+            "displayedRows": "{{ from }}-{{ to }} of {{ count }}"
+        }
+    },
+    "multiselect": {
+        "loading": "Loading...",
+        "noOptions": "No results"
+    },
+    "multiselectAutocompleteApi": {
+        "loading": "Loading...",
+        "noOptions": "No results",
+        "inputValueEmpty": "Start typing to search"
+    },
+    "radio": {
+        "clear": "Clear selected"
+    },
+    "select": {
+        "loading": "Loading...",
+        "noOptions": "No results"
+    },
+    "selectAutocompleteApi": {
+        "loading": "Loading...",
+        "noOptions": "No results",
+        "inputValueEmpty": "Start typing to search"
+    },
+    "trueFalse": {
+        "yes": "Yes",
+        "no": "No"
+    },
+    "buttonEndpoint": {
+        "snackbar": {
+            "success": "Operation successful"
+        }
+    },
+    "buttonEndpointDialogConfirm": {
+        "dialog": {
+            "title": "Confirmation required",
+            "confirm": "Are you sure you want to proceed?"
+        },
+        "snackbar": {
+            "success": "Operation successful"
+        }
+    },
+    "resultDelete": {
+        "dialog": {
+            "title": "Confirmation required",
+            "confirm": "Are you sure you want to delete \"{{ representation }}\"?"
+        },
+        "snackbar": {
+            "success": "Delete operation successful"
+        }
+    },
+    "dialogForm": {
+        "dialog": {
+            "title": "Form"
+        }
+    },
+    "booleanColumn": {
+        "yes": "Yes",
+        "no": "No"
+    },
+    "validation": {
+        "required": "Required",
+        "emailInvalid": "Please enter a valid e-mail address"
+    }
+}

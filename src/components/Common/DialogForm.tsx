@@ -28,7 +28,9 @@ const DialogForm = ({
     open,
     onClose,
     formProps,
-    dialogFieldsetProps,
+    dialogFieldsetProps = {
+        title: "dialogForm.dialog.title",
+    },
     dialogProps = {
         fullWidth: true,
         maxWidth: "md",

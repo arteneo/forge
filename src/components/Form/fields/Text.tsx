@@ -26,7 +26,7 @@ const Text = ({
     // eslint-disable-next-line
     validate: fieldValidate = (value: any, required: boolean) => {
         if (required && !Yup.string().required().isValidSync(value)) {
-            return "validate.required";
+            return "validation.required";
         }
 
         return undefined;
@@ -39,6 +39,7 @@ const Text = ({
         errors,
         submitCount,
         setFieldValue,
+        setFieldTouched,
         registerField,
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
@@ -58,14 +59,14 @@ const Text = ({
             return;
         }
 
-        registerField(name, {
+        registerField(path, {
             validate: () => validate,
         });
 
         return () => {
-            unregisterField(name);
+            unregisterField(path);
         };
-    }, [hidden, registerField, unregisterField, name, validate]);
+    }, [hidden, registerField, unregisterField, path, validate]);
 
     if (hidden) {
         return null;
@@ -87,6 +88,7 @@ const Text = ({
     const internalFieldProps: TextFieldProps = {
         value: getIn(values, path, "") ?? "",
         onChange: callableOnChange,
+        onBlur: () => setFieldTouched(path, true),
         error: hasError,
         label,
         placeholder,

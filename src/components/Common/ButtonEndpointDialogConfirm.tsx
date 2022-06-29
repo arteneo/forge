@@ -29,7 +29,13 @@ const ButtonEndpointDialogConfirm = ({
     snackbarLabel = "buttonEndpointDialogConfirm.snackbar.success",
     snackbarLabelVariables = {},
     renderDialog = (params) => (
-        <DialogConfirm {...{ label: "buttonEndpointDialogConfirm.dialog.confirm", ...params }} />
+        <DialogConfirm
+            {...{
+                title: "buttonEndpointDialogConfirm.dialog.title",
+                label: "buttonEndpointDialogConfirm.dialog.confirm",
+                ...params,
+            }}
+        />
     ),
     ...buttonProps
 }: ButtonEndpointDialogConfirmProps) => {
