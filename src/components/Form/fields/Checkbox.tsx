@@ -68,14 +68,14 @@ const Checkbox = ({
             return;
         }
 
-        registerField(name, {
+        registerField(path, {
             validate: () => validate,
         });
 
         return () => {
-            unregisterField(name);
+            unregisterField(path);
         };
-    }, [hidden, registerField, unregisterField, name, validate]);
+    }, [hidden, registerField, unregisterField, path, validate]);
 
     if (hidden) {
         return null;

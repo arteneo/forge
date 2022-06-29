@@ -224,8 +224,8 @@ const FormProvider = ({
             required,
             disabled,
             help: getHelp(values, touched, errors, name, field.help, field.disableTranslateHelp),
-            error: getError(name, touched, errors, submitCount),
-            hasError: hasError(name, touched, errors, submitCount),
+            error: getError(path, touched, errors, submitCount),
+            hasError: hasError(path, touched, errors, submitCount),
             label: getLabel(
                 field.label,
                 values,
