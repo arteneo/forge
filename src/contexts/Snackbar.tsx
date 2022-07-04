@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Close } from "@mui/icons-material";
-import { Snackbar, SnackbarProps, SnackbarContent, IconButton } from "@mui/material";
+import { Snackbar, SnackbarProps, IconButton, Alert } from "@mui/material";
 import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
 
 type SnackbarVariant = "success" | "info" | "warning" | "error";
@@ -40,6 +40,7 @@ interface SnackbarContextProps {
         autoHideDuration?: null | number
     ) => void;
     close: () => void;
+    snackbar: React.ReactNode;
 }
 
 interface SnackbarProviderProps {
@@ -66,6 +67,7 @@ const contextInitial = {
     close: (): void => {
         return;
     },
+    snackbar: null,
 };
 
 const SnackbarContext = React.createContext<SnackbarContextProps>(contextInitial);
@@ -119,8 +121,7 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
         show(message, "error", messageVariables, autoHideDuration);
     };
 
-    // eslint-disable-next-line
-    const onClose = (event: React.SyntheticEvent<any> | Event, reason: string) => {
+    const onClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === "clickaway") {
             return;
         }
@@ -132,10 +133,6 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
         setSnackbarMessage(undefined);
     };
 
-    const getVariantClassname = (variant: string): string => {
-        return variant.charAt(0).toUpperCase() + variant.slice(1);
-    };
-
     const internalSnackbarProps = {
         anchorOrigin: {
             vertical: "top",
@@ -144,11 +141,42 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
     };
 
     const mergedFieldProps = Object.assign(internalSnackbarProps, snackbarProps);
+    let snackbar: React.ReactNode = null;
+    if (typeof snackbarMessage !== "undefined") {
+        snackbar = (
+            <Snackbar
+                {...{
+                    autoHideDuration: snackbarMessage.autoHideDuration,
+                    message: snackbarMessage.message,
+                    open: true,
+                    onClose,
+                    action: (
+                        <IconButton
+                            {...{
+                                "aria-label": t("action.close"),
+                                size: "small",
+                                color: "inherit",
+                                onClick: () => close(),
+                            }}
+                        >
+                            <Close />
+                        </IconButton>
+                    ),
+                    ...mergedFieldProps,
+                }}
+            >
+                <Alert {...{ onClose, severity: snackbarMessage.variant, sx: { width: "100%" } }}>
+                    {snackbarMessage.message}
+                </Alert>
+            </Snackbar>
+        );
+    }
 
     return (
         <>
             <SnackbarContext.Provider
                 value={{
+                    snackbar,
                     show,
                     showSuccess,
                     showInfo,
@@ -159,39 +187,6 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
             >
                 {children}
             </SnackbarContext.Provider>
-            {typeof snackbarMessage !== "undefined" && (
-                <Snackbar
-                    {...{
-                        className: "MuiSnackbar-variant" + getVariantClassname(snackbarMessage.variant),
-                        autoHideDuration: snackbarMessage.autoHideDuration,
-                        message: snackbarMessage.message,
-                        open: true,
-                        onClose,
-                        ...mergedFieldProps,
-                    }}
-                >
-                    <SnackbarContent
-                        {...{
-                            className: "MuiSnackbarContent-variant" + getVariantClassname(snackbarMessage.variant),
-                            "aria-describedby": "client-snackbar",
-                            message: <span id="client-snackbar">{snackbarMessage.message}</span>,
-                            action: [
-                                <IconButton
-                                    key="close"
-                                    {...{
-                                        "aria-label": t("action.close"),
-                                        size: "small",
-                                        color: "inherit",
-                                        onClick: () => close(),
-                                    }}
-                                >
-                                    <Close />
-                                </IconButton>,
-                            ],
-                        }}
-                    />
-                </Snackbar>
-            )}
         </>
     );
 };
