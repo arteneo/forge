@@ -1,3 +1,4 @@
+import OptionInterface from "../components/Form/definitions/OptionInterface";
 import OptionsType from "../components/Form/definitions/OptionsType";
 
 type EnumType = string;
@@ -18,6 +19,17 @@ class Enum {
             id: enumName,
             representation: this.getLabel(enumName),
         }));
+    }
+
+    getOption(enumName: EnumType): undefined | OptionInterface {
+        if (!this.isValid(enumName)) {
+            return undefined;
+        }
+
+        return {
+            id: enumName,
+            representation: this.getLabel(enumName),
+        };
     }
 
     getLabel(enumName: EnumType): string {
