@@ -14,6 +14,10 @@ class Enum {
         this.invalidLabel = invalidLabel;
     }
 
+    getEnums(): EnumType[] {
+        return this.enums;
+    }
+
     getOptions(): OptionsType {
         return this.enums.map((enumName) => ({
             id: enumName,
