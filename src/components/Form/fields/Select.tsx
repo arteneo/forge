@@ -24,12 +24,12 @@ import {
     FreeSolo,
 } from "../../../components/Form/definitions/AutocompleteTypes";
 
-type SelectElementAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
-type SelectElementAutocompletePartialProps<T> = {
+type SelectAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
+type SelectAutocompletePartialProps<T> = {
     [P in keyof T]?: T[P];
 };
 // We need to allow passing autocomplete props without required ones. They are filled by component.
-type SelectElementAutocompleteOptionalProps = SelectElementAutocompletePartialProps<SelectElementAutocompleteProps>;
+type SelectAutocompleteOptionalProps = SelectAutocompletePartialProps<SelectAutocompleteProps>;
 
 interface SelectSpecificProps {
     options: OptionsType;
@@ -49,7 +49,7 @@ interface SelectSpecificProps {
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
     renderInput?: (params: SelectRenderInputProps) => React.ReactNode;
-    autocompleteProps?: SelectElementAutocompleteOptionalProps;
+    autocompleteProps?: SelectAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
 
@@ -184,7 +184,7 @@ const Select = ({
         return <SelectRenderInput {...renderInputParams} />;
     };
 
-    const internalAutocompleteProps: SelectElementAutocompleteProps = {
+    const internalAutocompleteProps: SelectAutocompleteProps = {
         renderInput: callableRenderInput,
         options,
         value: null,
@@ -234,4 +234,11 @@ const Select = ({
 };
 
 export default Select;
-export { SelectProps, SelectSpecificProps, SelectRenderInput, SelectRenderInputProps };
+export {
+    SelectProps,
+    SelectSpecificProps,
+    SelectRenderInput,
+    SelectRenderInputProps,
+    SelectAutocompleteProps,
+    SelectAutocompleteOptionalProps,
+};

@@ -78,6 +78,8 @@ import Multiselect, {
     MultiselectSpecificProps,
     MultiselectRenderInput,
     MultiselectRenderInputProps,
+    MultiselectAutocompleteProps,
+    MultiselectAutocompleteOptionalProps,
 } from "./components/Form/fields/Multiselect";
 import MultiselectApi, {
     MultiselectApiProps,
@@ -97,6 +99,8 @@ import Select, {
     SelectSpecificProps,
     SelectRenderInput,
     SelectRenderInputProps,
+    SelectAutocompleteProps,
+    SelectAutocompleteOptionalProps,
 } from "./components/Form/fields/Select";
 import SelectApi, { SelectApiProps, SelectApiSpecificProps } from "./components/Form/fields/SelectApi";
 import SelectAutocompleteApi, {
@@ -359,6 +363,8 @@ export {
     MultiselectSpecificProps,
     MultiselectRenderInput,
     MultiselectRenderInputProps,
+    MultiselectAutocompleteProps,
+    MultiselectAutocompleteOptionalProps,
     MultiselectApi,
     MultiselectApiProps,
     MultiselectApiSpecificProps,
@@ -382,6 +388,8 @@ export {
     SelectSpecificProps,
     SelectRenderInput,
     SelectRenderInputProps,
+    SelectAutocompleteProps,
+    SelectAutocompleteOptionalProps,
     SelectApi,
     SelectApiProps,
     SelectApiSpecificProps,

@@ -265,4 +265,11 @@ const Multiselect = ({
 };
 
 export default Multiselect;
-export { MultiselectProps, MultiselectSpecificProps, MultiselectRenderInput, MultiselectRenderInputProps };
+export {
+    MultiselectProps,
+    MultiselectSpecificProps,
+    MultiselectRenderInput,
+    MultiselectRenderInputProps,
+    MultiselectAutocompleteProps,
+    MultiselectAutocompleteOptionalProps,
+};
