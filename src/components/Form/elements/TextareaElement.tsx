@@ -67,7 +67,7 @@ const TextareaElement = ({
         required,
         disabled,
         multiline: true,
-        minRows: 3,
+        // minRows: 3,
         maxRows: 6,
         fullWidth: true,
         margin: "normal",

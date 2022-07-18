@@ -63,7 +63,19 @@ const TextTruncateColumn = ({
         style.whiteSpace = "nowrap";
     }
 
-    const showedText = showFull ? <span style={style}>{initialValue}</span> : shortValue;
+    const showedText = showFull ? (
+        <span
+            style={{
+                wordBreak: "break-all",
+                maxWidth: maxWidth ? maxWidth : undefined,
+                whiteSpace: nowrap ? "nowrap" : undefined,
+            }}
+        >
+            {initialValue}
+        </span>
+    ) : (
+        shortValue
+    );
 
     return (
         <>
