@@ -125,6 +125,10 @@ import ResultButtonDialog, {
     ResultButtonDialogSpecificProps,
     ResultButtonDialogRenderDialogParams,
 } from "./components/Table/actions/ResultButtonDialog";
+import ResultButtonDialogForm, {
+    ResultButtonDialogFormProps,
+    ResultButtonDialogFormSpecificProps,
+} from "./components/Table/actions/ResultButtonDialogForm";
 import ResultButtonDownload, {
     ResultButtonDownloadProps,
     ResultButtonDownloadSpecificProps,
@@ -422,6 +426,9 @@ export {
     ResultButtonDialogProps,
     ResultButtonDialogSpecificProps,
     ResultButtonDialogRenderDialogParams,
+    ResultButtonDialogForm,
+    ResultButtonDialogFormProps,
+    ResultButtonDialogFormSpecificProps,
     ResultButtonDownload,
     ResultButtonDownloadProps,
     ResultButtonDownloadSpecificProps,
