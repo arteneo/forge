@@ -27,10 +27,10 @@ interface FormContentProps {
 
 const FormContent = ({
     children,
-    changeSubmitValues,
-    onSubmitSuccess,
     endpoint,
     onSubmit,
+    onSubmitSuccess,
+    changeSubmitValues,
     snackbarLabel = "form.snackbar.success",
     snackbarLabelVariables,
     formikProps,

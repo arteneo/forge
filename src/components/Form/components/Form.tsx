@@ -5,22 +5,33 @@ import { FormProvider, FormProviderProps } from "../../../components/Form/contex
 type FormProps = FormContentProps & Omit<FormProviderProps, "children">;
 
 const Form = ({
-    children,
-    endpoint,
     fields,
     initialValues,
     initializeEndpoint,
     processInitialValues,
-    changeSubmitValues,
-    onSubmitSuccess,
+    children,
+    endpoint,
     onSubmit,
+    onSubmitSuccess,
+    changeSubmitValues,
+    snackbarLabel,
+    snackbarLabelVariables,
     formikProps,
 }: FormProps) => {
     return (
         <FormProvider {...{ fields, initialValues, initializeEndpoint, processInitialValues }}>
-            <FormContent {...{ onSubmit, changeSubmitValues, onSubmitSuccess, endpoint, formikProps }}>
-                {children}
-            </FormContent>
+            <FormContent
+                {...{
+                    children,
+                    endpoint,
+                    onSubmit,
+                    onSubmitSuccess,
+                    changeSubmitValues,
+                    snackbarLabel,
+                    snackbarLabelVariables,
+                    formikProps,
+                }}
+            />
         </FormProvider>
     );
 };
