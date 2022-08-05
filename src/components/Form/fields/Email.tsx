@@ -14,7 +14,7 @@ const Email = (textProps: EmailProps) => {
                         return "validation.required";
                     }
 
-                    return !Yup.string().email().isValidSync(value) ? "validation.emailInvalid" : undefined;
+                    return !Yup.string().email().isValidSync(value) ? "validation.email" : undefined;
                 },
                 ...textProps,
                 fieldProps: {
