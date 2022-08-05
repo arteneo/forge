@@ -91,8 +91,11 @@
         "yes": "Yes",
         "no": "No"
     },
+    "enum": {
+        "invalid": "This is not a valid value"
+    },
     "validation": {
-        "required": "Required",
-        "emailInvalid": "Please enter a valid e-mail address"
+        "required": "This value is required",
+        "email": "Please enter a valid e-mail address"
     }
 }

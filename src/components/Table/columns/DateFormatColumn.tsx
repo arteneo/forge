@@ -10,11 +10,11 @@ interface DateFormatColumnProps extends ColumnPathInterface {
 
 const DateFormatColumn = ({ format, result, columnName, path }: DateFormatColumnProps) => {
     if (typeof columnName === "undefined") {
-        throw new Error("DateTimeColumn component: Missing required columnName prop");
+        throw new Error("DateFormatColumn component: Missing required columnName prop");
     }
 
     if (typeof result === "undefined") {
-        throw new Error("DateTimeColumn component: Missing required result prop");
+        throw new Error("DateFormatColumn component: Missing required result prop");
     }
 
     const utils = useUtils();
@@ -26,7 +26,7 @@ const DateFormatColumn = ({ format, result, columnName, path }: DateFormatColumn
 
     const dateValue = utils.date(value);
     if (dateValue == "Invalid Date") {
-        console.warn("DateTimeColumn component: Could not parse date");
+        console.warn("DateFormatColumn component: Could not parse date");
         return null;
     }
 
