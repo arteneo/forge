@@ -3,17 +3,17 @@ import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
 import OptionsType from "../../../components/Form/definitions/OptionsType";
 import Optional from "../../../definitions/Optional";
 
-type TrueFalseProps = Optional<RadioProps, "options">;
+type RadioTrueFalseProps = Optional<RadioProps, "options">;
 
-const TrueFalse = (radioProps: TrueFalseProps) => {
+const RadioTrueFalse = (radioProps: RadioTrueFalseProps) => {
     const options: OptionsType = [
         {
             id: "true",
-            representation: "trueFalse.yes",
+            representation: "radioTrueFalse.yes",
         },
         {
             id: "false",
-            representation: "trueFalse.no",
+            representation: "radioTrueFalse.no",
         },
     ];
 
@@ -44,7 +44,7 @@ const TrueFalse = (radioProps: TrueFalseProps) => {
     );
 };
 
-TrueFalse.defaultProps = {
+RadioTrueFalse.defaultProps = {
     // eslint-disable-next-line
     transformInitialValue: (value: any) => {
         if (typeof value === "undefined") {
@@ -60,5 +60,5 @@ TrueFalse.defaultProps = {
     },
 };
 
-export default TrueFalse;
-export { TrueFalseProps };
+export default RadioTrueFalse;
+export { RadioTrueFalseProps };

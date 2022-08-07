@@ -55,7 +55,7 @@
         "noOptions": "No results",
         "inputValueEmpty": "Start typing to search"
     },
-    "trueFalse": {
+    "radioTrueFalse": {
         "yes": "Yes",
         "no": "No"
     },

@@ -1,3 +1,10 @@
+// Keep import/export structure as it is here (easier to read). Adjust older import/exports when time allows
+import RadioFalseTrue, { RadioFalseTrueProps } from "./components/Form/fields/RadioFalseTrue";
+export { RadioFalseTrue, RadioFalseTrueProps };
+
+import RadioTrueFalse, { RadioTrueFalseProps } from "./components/Form/fields/RadioTrueFalse";
+export { RadioTrueFalse, RadioTrueFalseProps };
+
 import Enum, { EnumType } from "./classes/Enum";
 import Button, { ButtonProps } from "./components/Common/Button";
 import ButtonDialog, { ButtonDialogProps, ButtonDialogRenderDialogParams } from "./components/Common/ButtonDialog";
@@ -116,7 +123,6 @@ import TimePicker, {
     TimePickerSpecificProps,
     TimePickerFieldProps,
 } from "./components/Form/fields/TimePicker";
-import TrueFalse, { TrueFalseProps } from "./components/Form/fields/TrueFalse";
 import DialogFieldset, { DialogFieldsetProps } from "./components/Form/fieldsets/DialogFieldset";
 import DialogFormView, { DialogFormViewProps } from "./components/Form/views/DialogFormView";
 import ResultButton, { ResultButtonProps } from "./components/Table/actions/ResultButton";
@@ -414,8 +420,6 @@ export {
     TimePickerProps,
     TimePickerSpecificProps,
     TimePickerFieldProps,
-    TrueFalse,
-    TrueFalseProps,
     DialogFieldset,
     DialogFieldsetProps,
     DialogFormView,
