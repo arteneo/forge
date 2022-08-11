@@ -1,4 +1,7 @@
 // Keep import/export structure as it is here (easier to read). Adjust older import/exports when time allows
+import ColorPicker, { ColorPickerProps } from "./components/Form/fields/ColorPicker";
+export { ColorPicker, ColorPickerProps };
+
 import RadioFalseTrue, { RadioFalseTrueProps } from "./components/Form/fields/RadioFalseTrue";
 export { RadioFalseTrue, RadioFalseTrueProps };
 
