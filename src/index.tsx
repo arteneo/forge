@@ -8,11 +8,16 @@ export { RadioFalseTrue, RadioFalseTrueProps };
 import RadioTrueFalse, { RadioTrueFalseProps } from "./components/Form/fields/RadioTrueFalse";
 export { RadioTrueFalse, RadioTrueFalseProps };
 
-import GetFieldsExportFunction from "./definitions/GetFieldsExportFunction";
-export { GetFieldsExportFunction };
-
-import GetColumnsExportFunction from "./definitions/GetColumnsExportFunction";
-export { GetColumnsExportFunction };
+import {
+    pickFields,
+    getFields,
+    pickColumns,
+    getColumns,
+    renderField,
+    filterInitialValues,
+    transformInitialValues,
+} from "./utilities/common";
+export { pickFields, getFields, pickColumns, getColumns, renderField, filterInitialValues, transformInitialValues };
 
 import Enum, { EnumType } from "./classes/Enum";
 import Button, { ButtonProps } from "./components/Common/Button";
@@ -276,7 +281,6 @@ import {
 import EndpointType from "./definitions/EndpointType";
 import Optional from "./definitions/Optional";
 import TranslateVariablesInterface from "./definitions/TranslateVariablesInterface";
-import { getFields, getColumns, renderField, filterInitialValues, transformInitialValues } from "./utilities/common";
 import {
     resolveBooleanOrFunction,
     resolveStringOrFunction,
@@ -607,11 +611,6 @@ export {
     SnackbarVariant,
     EndpointType,
     TranslateVariablesInterface,
-    getFields,
-    getColumns,
-    renderField,
-    filterInitialValues,
-    transformInitialValues,
     resolveBooleanOrFunction,
     resolveStringOrFunction,
     resolveAnyOrFunction,

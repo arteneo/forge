@@ -3,7 +3,7 @@ import { FormikValues, getIn, setIn } from "formik";
 import FieldsInterface from "../components/Form/definitions/FieldsInterface";
 import ColumnsInterface from "../components/Table/definitions/ColumnsInterface";
 
-export const getFields = (
+export const pickFields = (
     names: undefined | string[],
     skipNames: undefined | string[],
     fields: FieldsInterface
@@ -28,7 +28,10 @@ export const getFields = (
     return _fields;
 };
 
-export const getColumns = (
+export const getFields = (fields: FieldsInterface) => (names?: string[], skipNames?: string[]) =>
+    pickFields(names, skipNames, fields);
+
+export const pickColumns = (
     names: undefined | string[],
     skipNames: undefined | string[],
     columns: ColumnsInterface
@@ -52,6 +55,9 @@ export const getColumns = (
 
     return _columns;
 };
+
+export const getColumns = (columns: ColumnsInterface) => (names?: string[], skipNames?: string[]) =>
+    pickColumns(names, skipNames, columns);
 
 export const renderField = (fields: FieldsInterface) => {
     // eslint-disable-next-line
