@@ -8,6 +8,12 @@ export { RadioFalseTrue, RadioFalseTrueProps };
 import RadioTrueFalse, { RadioTrueFalseProps } from "./components/Form/fields/RadioTrueFalse";
 export { RadioTrueFalse, RadioTrueFalseProps };
 
+import GetFieldsExportFunction from "./definitions/GetFieldsExportFunction";
+export { GetFieldsExportFunction };
+
+import GetColumnsExportFunction from "./definitions/GetColumnsExportFunction";
+export { GetColumnsExportFunction };
+
 import Enum, { EnumType } from "./classes/Enum";
 import Button, { ButtonProps } from "./components/Common/Button";
 import ButtonDialog, { ButtonDialogProps, ButtonDialogRenderDialogParams } from "./components/Common/ButtonDialog";

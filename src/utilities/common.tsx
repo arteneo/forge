@@ -3,7 +3,11 @@ import { FormikValues, getIn, setIn } from "formik";
 import FieldsInterface from "../components/Form/definitions/FieldsInterface";
 import ColumnsInterface from "../components/Table/definitions/ColumnsInterface";
 
-export const getFields = <T,>(names: undefined | T[], fields: FieldsInterface): FieldsInterface => {
+export const getFields = (
+    names: undefined | string[],
+    skipNames: undefined | string[],
+    fields: FieldsInterface
+): FieldsInterface => {
     const _fields: FieldsInterface = {};
     const fieldNames = typeof names === "undefined" ? Object.keys(fields) : names;
 
@@ -14,6 +18,9 @@ export const getFields = <T,>(names: undefined | T[], fields: FieldsInterface): 
         if (typeof fields[fieldName] === "undefined") {
             throw new Error("Column name " + fieldName + " not supported");
         }
+        if (typeof skipNames !== "undefined" && skipNames.includes(fieldName)) {
+            return;
+        }
 
         _fields[fieldName] = fields[fieldName];
     });
@@ -21,7 +28,11 @@ export const getFields = <T,>(names: undefined | T[], fields: FieldsInterface): 
     return _fields;
 };
 
-export const getColumns = <T,>(names: undefined | T[], columns: ColumnsInterface): ColumnsInterface => {
+export const getColumns = (
+    names: undefined | string[],
+    skipNames: undefined | string[],
+    columns: ColumnsInterface
+): ColumnsInterface => {
     const _columns: ColumnsInterface = {};
     const columnNames = typeof names === "undefined" ? Object.keys(columns) : names;
 
@@ -31,6 +42,9 @@ export const getColumns = <T,>(names: undefined | T[], columns: ColumnsInterface
         }
         if (typeof columns[columnName] === "undefined") {
             throw new Error("Column name " + columnName + " not supported");
+        }
+        if (typeof skipNames !== "undefined" && skipNames.includes(columnName)) {
+            return;
         }
 
         _columns[columnName] = columns[columnName];
