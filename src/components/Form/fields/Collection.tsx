@@ -198,6 +198,7 @@ const Collection = ({
                         {Object.keys(fields).map((fieldName) => {
                             const field = fields[fieldName];
                             const fieldLabel = field?.props?.label;
+                            const fieldLabelVariables = field?.props?.labelVariables;
                             const fieldDisableAutoLabel = field?.props?.disableAutoLabel;
                             const fieldDisableTranslateLabel = field?.props?.disableTranslateLabel;
 
@@ -207,6 +208,7 @@ const Collection = ({
                                 touched,
                                 errors,
                                 fieldName,
+                                fieldLabelVariables,
                                 fieldDisableAutoLabel,
                                 fieldDisableTranslateLabel
                             );

@@ -6,6 +6,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "../../../contexts/HandleCatch";
 import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
 import FieldLabelType from "../../../components/Form/definitions/FieldLabelType";
+import FieldLabelVariablesType from "../../../components/Form/definitions/FieldLabelVariablesType";
 import FieldPlaceholderType from "../../../components/Form/definitions/FieldPlaceholderType";
 import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
 import FieldResolveInterface from "../../../components/Form/definitions/FieldResolveInterface";
@@ -44,6 +45,7 @@ interface FormContextProps {
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>,
         name: string,
+        labelVariables?: FieldLabelVariablesType,
         disableAutoLabel?: boolean,
         disableTranslateLabel?: boolean
     ) => undefined | React.ReactNode;
@@ -232,6 +234,7 @@ const FormProvider = ({
                 touched,
                 errors,
                 name,
+                field.labelVariables,
                 field.disableAutoLabel,
                 field.disableTranslateLabel
             ),
@@ -312,6 +315,7 @@ const FormProvider = ({
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>,
         name: string,
+        labelVariables?: FieldLabelVariablesType,
         disableAutoLabel?: boolean,
         disableTranslateLabel?: boolean
     ): undefined | React.ReactNode => {
@@ -322,7 +326,12 @@ const FormProvider = ({
         }
 
         if (typeof resolvedLabel === "string" && !disableTranslateLabel) {
-            return t("label." + resolvedLabel);
+            const resolvedLabelVariables =
+                typeof labelVariables !== "undefined"
+                    ? resolveAnyOrFunction(labelVariables, values, touched, errors, name)
+                    : undefined;
+
+            return t("label." + resolvedLabel, resolvedLabelVariables);
         }
 
         return resolvedLabel;

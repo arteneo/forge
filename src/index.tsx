@@ -70,6 +70,7 @@ import FieldHelpType from "./components/Form/definitions/FieldHelpType";
 import FieldHiddenType from "./components/Form/definitions/FieldHiddenType";
 import FieldInterface from "./components/Form/definitions/FieldInterface";
 import FieldLabelType from "./components/Form/definitions/FieldLabelType";
+import FieldLabelVariablesType from "./components/Form/definitions/FieldLabelVariablesType";
 import FieldPlaceholderInterface from "./components/Form/definitions/FieldPlaceholderInterface";
 import FieldPlaceholderResolvedInterface from "./components/Form/definitions/FieldPlaceholderResolvedInterface";
 import FieldPlaceholderResolveInterface from "./components/Form/definitions/FieldPlaceholderResolveInterface";
@@ -354,6 +355,7 @@ export {
     FieldHiddenType,
     FieldInterface,
     FieldLabelType,
+    FieldLabelVariablesType,
     FieldPlaceholderInterface,
     FieldPlaceholderResolvedInterface,
     FieldPlaceholderResolveInterface,
