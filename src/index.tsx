@@ -1,4 +1,9 @@
 // Keep import/export structure as it is here (easier to read). Adjust older import/exports when time allows
+import ResultRedirectTableQuery, {
+    ResultRedirectTableQueryProps,
+} from "./components/Table/actions/ResultRedirectTableQuery";
+export { ResultRedirectTableQuery, ResultRedirectTableQueryProps };
+
 import ColorPicker, { ColorPickerProps } from "./components/Form/fields/ColorPicker";
 export { ColorPicker, ColorPickerProps };
 
