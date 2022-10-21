@@ -43,6 +43,7 @@ const ResultDelete = ({ result, endpoint, renderDialog, ...props }: ResultDelete
                 // eslint-disable-next-line
                 endpoint: (value: any, result: ResultInterface, path?: string) => ({
                     method: "delete",
+                    // TODO It seems endpoint can be also AxiosRequestConfig which means it will not work here. Test and fix
                     url: resolveAnyOrFunction(endpoint, value, result, path),
                 }),
                 result,

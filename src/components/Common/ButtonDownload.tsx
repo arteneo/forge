@@ -18,7 +18,7 @@ const ButtonDownload = ({ endpoint, ...props }: ButtonDownloadProps) => {
 
     const requestConfig = resolveEndpoint(endpoint);
     if (typeof requestConfig === "undefined") {
-        throw new Error("Resolved requestConfig is undefined");
+        throw new Error("ButtonDownload component: Resolved requestConfig is undefined");
     }
 
     const onClick = () => {
