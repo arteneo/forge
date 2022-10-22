@@ -9,6 +9,11 @@ export { RadioFalseTrue, RadioFalseTrueProps };
 // < ./component/Form
 
 // > ./component/Table
+import ResultRedirectTableQuery, {
+    ResultRedirectTableQueryProps,
+} from "./components/Table/actions/ResultRedirectTableQuery";
+export { ResultRedirectTableQuery, ResultRedirectTableQueryProps };
+
 import ExportCsvQueryInterface from "./components/Table/definitions/ExportCsvQueryInterface";
 export { ExportCsvQueryInterface };
 
