@@ -1,81 +1,61 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { AxiosRequestConfig } from "axios";
-import ExportQueryInterface from "../../../components/Table/definitions/ExportQueryInterface";
+import ExportExcelQueryInterface from "../../../components/Table/definitions/ExportExcelQueryInterface";
+import ExportQueryFieldInterface from "../../../components/Table/definitions/ExportQueryFieldInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
 import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
 import Optional from "../../../definitions/Optional";
+import { resolveEndpoint } from "../../../utilities/resolve";
 
 interface ExportExcelInterface {
-    endpoint?: string;
-    fileName?: string;
-    sheetName?: string;
-    changeQuery?: (query: ExportQueryInterface) => ExportQueryInterface;
-    removeFields?: string[];
+    filename: string;
+    sheetName: string;
+    modifyQuery?: (query: ExportExcelQueryInterface) => ExportExcelQueryInterface;
+    skipFields?: string[];
 }
 
 type ExportExcelProps = Optional<ExportExcelInterface & ButtonDownloadProps, "endpoint">;
 
 const ExportExcel = ({
     endpoint,
-    fileName,
+    filename,
     sheetName,
-    changeQuery,
-    removeFields = ["actions"],
+    modifyQuery,
+    skipFields = ["actions"],
     ...props
 }: ExportExcelProps) => {
     const { t } = useTranslation();
-    const { custom, visibleColumns, query } = useTable();
+    const { visibleColumns, query } = useTable();
 
-    if (typeof endpoint === "undefined" && typeof custom?.endpoints?.exportExcel === "undefined") {
-        throw new Error(
-            "ExportExcel component: Missing required endpoint prop or endpoints.exportExcel definition in custom variable used by Table context"
-        );
-    }
+    const fields: ExportQueryFieldInterface[] = visibleColumns
+        .filter((column) => !skipFields.includes(column))
+        .map((column) => ({
+            field: column,
+            label: t("label." + column),
+        }));
 
-    if (typeof fileName === "undefined" && typeof custom?.export?.excelFileName === "undefined") {
-        throw new Error(
-            "ExportExcel component: Missing required fileName prop or export.excelFileName definition in custom variable used by Table context"
-        );
-    }
-
-    if (typeof sheetName === "undefined" && typeof custom?.export?.excelSheetName === "undefined") {
-        throw new Error(
-            "ExportExcel component: Missing required sheetName prop or export.excelSheetName definition in custom variable used by Table context"
-        );
-    }
-
-    const resolvedEndpoint = endpoint ? endpoint : custom.endpoints.exportExcel;
-    const resolvedFileName = fileName ? fileName : custom.export.excelFileName;
-    const resolvedSheetName = sheetName ? sheetName : custom.export.excelSheetName;
-
-    let exportQuery: ExportQueryInterface = {
+    const exportQuery: ExportExcelQueryInterface = {
         sorting: query.sorting,
         filters: query.filters,
-        fields: [],
-        fileName: resolvedFileName,
-        sheetName: resolvedSheetName,
+        fields,
+        filename,
+        sheetName,
     };
 
-    Object.keys(visibleColumns).map((field) => {
-        exportQuery.fields.push({
-            field,
-            label: t("label." + field),
-        });
-    });
-
-    if (changeQuery) {
-        exportQuery = changeQuery(exportQuery);
-    } else if (removeFields) {
-        exportQuery.fields = exportQuery.fields.filter((field) => !removeFields.includes(field.field));
+    const resolvedRequestConfig: undefined | AxiosRequestConfig = resolveEndpoint(endpoint);
+    if (typeof resolvedRequestConfig === "undefined") {
+        throw new Error("ExportExcel component: Resolved requestConfig is undefined");
     }
 
-    const requestConfig: AxiosRequestConfig = {
-        method: "post",
-        url: resolvedEndpoint,
-        data: exportQuery,
-        responseType: "blob",
-    };
+    const requestConfig: AxiosRequestConfig = Object.assign(
+        {
+            method: "post",
+            data: typeof modifyQuery !== "undefined" ? modifyQuery(exportQuery) : exportQuery,
+            responseType: "blob",
+        },
+        resolvedRequestConfig
+    );
 
     return (
         <ButtonDownload
