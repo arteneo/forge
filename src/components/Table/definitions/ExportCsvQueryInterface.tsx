@@ -1,18 +1,12 @@
 import QuerySortingInterface from "../../../components/Table/definitions/QuerySortingInterface";
 import FiltersInterface from "../../../components/Table/definitions/FiltersInterface";
+import ExportQueryFieldInterface from "../../../components/Table/definitions/ExportQueryFieldInterface";
 
-interface ExportQueryFieldInterface {
-    field: string;
-    label: string;
-}
-
-interface ExportQueryInterface {
+interface ExportCsvQueryInterface {
     sorting: QuerySortingInterface;
     filters: FiltersInterface;
     fields: ExportQueryFieldInterface[];
-    fileName: string;
-    sheetName: string;
+    filename: string;
 }
 
-export default ExportQueryInterface;
-export { ExportQueryFieldInterface };
+export default ExportCsvQueryInterface;

@@ -20,7 +20,9 @@ const ActionsColumn = ({ children, result, columnName }: ActionsColumnProps) => 
             {React.Children.map(children, (child, key) => (
                 <React.Fragment key={key}>
                     {React.isValidElement(child) &&
-                        React.cloneElement(child, {
+                        // Do not know how to solve TS problem here
+                        // eslint-disable-next-line
+                        React.cloneElement(child as React.ReactElement<any>, {
                             result: result,
                             columnName: columnName,
                         })}

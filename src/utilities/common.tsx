@@ -139,3 +139,17 @@ export const transformInitialValues = (fields: FieldsInterface, initialValues: F
 
     return values;
 };
+
+export const responseHeaderExtractFilename = (contentDisposition: string): undefined | string => {
+    // Complex regex that detects filename from content-disposition header
+    // There are multiple ways that filename might be sent in this content-disposition header
+    if (contentDisposition && contentDisposition.indexOf("attachment") !== -1) {
+        const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+        const matches = filenameRegex.exec(contentDisposition);
+        if (matches != null && matches[1]) {
+            return matches[1].replace(/['"]/g, "");
+        }
+    }
+
+    return undefined;
+};

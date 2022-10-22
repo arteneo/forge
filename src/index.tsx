@@ -1,18 +1,25 @@
 // Keep import/export structure as it is here (easier to read). Adjust older import/exports when time allows
-import ResultRedirectTableQuery, {
-    ResultRedirectTableQueryProps,
-} from "./components/Table/actions/ResultRedirectTableQuery";
-export { ResultRedirectTableQuery, ResultRedirectTableQueryProps };
 
+// > ./component/Form
 import ColorPicker, { ColorPickerProps } from "./components/Form/fields/ColorPicker";
 export { ColorPicker, ColorPickerProps };
 
 import RadioFalseTrue, { RadioFalseTrueProps } from "./components/Form/fields/RadioFalseTrue";
 export { RadioFalseTrue, RadioFalseTrueProps };
+// < ./component/Form
 
-import RadioTrueFalse, { RadioTrueFalseProps } from "./components/Form/fields/RadioTrueFalse";
-export { RadioTrueFalse, RadioTrueFalseProps };
+// > ./component/Table
+import ExportCsvQueryInterface from "./components/Table/definitions/ExportCsvQueryInterface";
+export { ExportCsvQueryInterface };
 
+import ExportExcelQueryInterface from "./components/Table/definitions/ExportExcelQueryInterface";
+export { ExportExcelQueryInterface };
+
+import ExportQueryFieldInterface from "./components/Table/definitions/ExportQueryFieldInterface";
+export { ExportQueryFieldInterface };
+// < ./component/Table
+
+// > ./utilities
 import {
     pickFields,
     getFields,
@@ -21,8 +28,19 @@ import {
     renderField,
     filterInitialValues,
     transformInitialValues,
+    responseHeaderExtractFilename,
 } from "./utilities/common";
-export { pickFields, getFields, pickColumns, getColumns, renderField, filterInitialValues, transformInitialValues };
+export {
+    pickFields,
+    getFields,
+    pickColumns,
+    getColumns,
+    renderField,
+    filterInitialValues,
+    transformInitialValues,
+    responseHeaderExtractFilename,
+};
+// < ./utilities
 
 import Enum, { EnumType } from "./classes/Enum";
 import Button, { ButtonProps } from "./components/Common/Button";
@@ -225,7 +243,6 @@ import ColumnsInterface from "./components/Table/definitions/ColumnsInterface";
 import DenyBehaviorType from "./components/Table/definitions/DenyBehaviorType";
 import DenyInterface from "./components/Table/definitions/DenyInterface";
 import DenyPropInterface from "./components/Table/definitions/DenyPropInterface";
-import ExportQueryInterface, { ExportQueryFieldInterface } from "./components/Table/definitions/ExportQueryInterface";
 import FilterDefinition from "./components/Table/definitions/FilterDefinition";
 import FilterFieldInterface from "./components/Table/definitions/FilterFieldInterface";
 import FiltersInterface from "./components/Table/definitions/FiltersInterface";
@@ -527,8 +544,6 @@ export {
     DenyBehaviorType,
     DenyInterface,
     DenyPropInterface,
-    ExportQueryInterface,
-    ExportQueryFieldInterface,
     FilterDefinition,
     FilterFieldInterface,
     FiltersInterface,
