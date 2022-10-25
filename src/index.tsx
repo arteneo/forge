@@ -22,6 +22,9 @@ export { ExportExcelQueryInterface };
 
 import ExportQueryFieldInterface from "./components/Table/definitions/ExportQueryFieldInterface";
 export { ExportQueryFieldInterface };
+
+import ExportQueryFieldTranslatedInterface from "./components/Table/definitions/ExportQueryFieldTranslatedInterface";
+export { ExportQueryFieldTranslatedInterface };
 // < ./component/Table
 
 // > ./utilities
