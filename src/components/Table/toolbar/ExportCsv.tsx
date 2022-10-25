@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { AxiosRequestConfig } from "axios";
 import ExportCsvQueryInterface from "../../../components/Table/definitions/ExportCsvQueryInterface";
 import ExportQueryFieldInterface from "../../../components/Table/definitions/ExportQueryFieldInterface";
+import ExportQueryFieldTranslatedInterface from "../../../components/Table/definitions/ExportQueryFieldTranslatedInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
 import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
 import Optional from "../../../definitions/Optional";
@@ -10,27 +11,44 @@ import { resolveEndpoint } from "../../../utilities/resolve";
 
 interface ExportCsvInterface {
     filename: string;
+    modifyFields?: (fields: ExportQueryFieldInterface[]) => ExportQueryFieldInterface[];
     modifyQuery?: (query: ExportCsvQueryInterface) => ExportCsvQueryInterface;
     skipFields?: string[];
 }
 
 type ExportCsvProps = Optional<ExportCsvInterface & ButtonDownloadProps, "endpoint">;
 
-const ExportCsv = ({ endpoint, filename, modifyQuery, skipFields = ["actions"], ...props }: ExportCsvProps) => {
+const ExportCsv = ({
+    endpoint,
+    filename,
+    modifyFields,
+    skipFields = ["actions"],
+    modifyQuery,
+    ...props
+}: ExportCsvProps) => {
     const { t } = useTranslation();
     const { visibleColumns, query } = useTable();
 
-    const fields: ExportQueryFieldInterface[] = visibleColumns
+    let fields: ExportQueryFieldInterface[] = visibleColumns
         .filter((column) => !skipFields.includes(column))
-        .map((column) => ({
-            field: column,
-            label: t("label." + column),
+        .map((field) => ({
+            field,
+            label: field,
         }));
+
+    if (typeof modifyFields !== "undefined") {
+        fields = modifyFields(fields);
+    }
+
+    const translatedFields: ExportQueryFieldTranslatedInterface[] = fields.map((field) => ({
+        field: field.field,
+        label: field.disableTranslateLabel ? field.label : t("label." + field.label),
+    }));
 
     const exportQuery: ExportCsvQueryInterface = {
         sorting: query.sorting,
         filters: query.filters,
-        fields,
+        fields: translatedFields,
         filename,
     };
 
