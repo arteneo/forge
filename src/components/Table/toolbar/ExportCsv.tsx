@@ -33,7 +33,7 @@ const ExportCsv = ({
         .filter((column) => !skipFields.includes(column))
         .map((field) => ({
             field,
-            label: field,
+            label: "label." + field,
         }));
 
     if (typeof modifyFields !== "undefined") {
@@ -42,7 +42,7 @@ const ExportCsv = ({
 
     const translatedFields: ExportQueryFieldTranslatedInterface[] = fields.map((field) => ({
         field: field.field,
-        label: field.disableTranslateLabel ? field.label : t("label." + field.label),
+        label: field.disableTranslateLabel ? field.label : t(field.label),
     }));
 
     const exportQuery: ExportCsvQueryInterface = {
