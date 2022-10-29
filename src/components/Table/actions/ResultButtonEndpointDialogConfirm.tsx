@@ -43,7 +43,6 @@ const ResultButtonEndpointDialogConfirm = ({
     disableOnSuccessReload,
     onSuccess,
     result,
-    columnName,
     path,
     renderDialog = (params) => (
         <DialogConfirm
@@ -57,10 +56,6 @@ const ResultButtonEndpointDialogConfirm = ({
     ),
     ...props
 }: ResultButtonEndpointDialogConfirmProps) => {
-    if (typeof columnName === "undefined") {
-        throw new Error("ResultButtonEndpointDialogConfirm component: Missing required columnName prop");
-    }
-
     if (typeof result === "undefined") {
         throw new Error("ResultButtonEndpointDialogConfirm component: Missing required result prop");
     }

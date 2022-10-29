@@ -18,7 +18,6 @@ interface ResultRedirectTableQueryProps extends ResultRedirectProps {
 }
 
 const ResultRedirectTableQuery = ({
-    columnName,
     result,
     to,
     queryKey,
@@ -28,10 +27,6 @@ const ResultRedirectTableQuery = ({
     filters,
     ...props
 }: ResultRedirectTableQueryProps) => {
-    if (typeof columnName === "undefined") {
-        throw new Error("ResultRedirectTableQuery component: Missing required columnName prop");
-    }
-
     if (typeof result === "undefined") {
         throw new Error("ResultRedirectTableQuery component: Missing required result prop");
     }

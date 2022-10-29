@@ -31,14 +31,9 @@ const ResultButtonEndpoint = ({
     disableOnSuccessReload,
     onSuccess,
     result,
-    columnName,
     path,
     ...props
 }: ResultButtonEndpointProps) => {
-    if (typeof columnName === "undefined") {
-        throw new Error("ResultButtonEndpoint component: Missing required columnName prop");
-    }
-
     if (typeof result === "undefined") {
         throw new Error("ResultButtonEndpoint component: Missing required result prop");
     }

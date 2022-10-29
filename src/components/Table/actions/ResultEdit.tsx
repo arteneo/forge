@@ -5,11 +5,7 @@ import ButtonLink, { ButtonLinkProps } from "../../../components/Common/ButtonLi
 
 type ResultEditProps = Optional<ButtonLinkProps, "to"> & ColumnInterface;
 
-const ResultEdit = ({ result, columnName, ...props }: ResultEditProps) => {
-    if (typeof columnName === "undefined") {
-        throw new Error("ResultEdit component: Missing required columnName prop");
-    }
-
+const ResultEdit = ({ result, ...props }: ResultEditProps) => {
     if (typeof result === "undefined") {
         throw new Error("ResultEdit component: Missing required result prop");
     }

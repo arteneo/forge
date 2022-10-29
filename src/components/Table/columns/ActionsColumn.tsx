@@ -24,7 +24,6 @@ const ActionsColumn = ({ children, result, columnName }: ActionsColumnProps) => 
                         // eslint-disable-next-line
                         React.cloneElement(child as React.ReactElement<any>, {
                             result: result,
-                            columnName: columnName,
                         })}
                 </React.Fragment>
             ))}

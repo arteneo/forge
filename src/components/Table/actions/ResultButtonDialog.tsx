@@ -18,11 +18,7 @@ type ResultButtonDialogProps = Omit<ButtonDialogProps, "renderDialog"> &
     ResultButtonDialogSpecificProps &
     ColumnActionPathInterface;
 
-const ResultButtonDialog = ({ result, columnName, renderDialog, ...props }: ResultButtonDialogProps) => {
-    if (typeof columnName === "undefined") {
-        throw new Error("ResultButtonDialog component: Missing required columnName prop");
-    }
-
+const ResultButtonDialog = ({ result, renderDialog, ...props }: ResultButtonDialogProps) => {
     if (typeof result === "undefined") {
         throw new Error("ResultButtonDialog component: Missing required result prop");
     }

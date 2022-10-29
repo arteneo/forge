@@ -12,11 +12,7 @@ interface ResultButtonLinkSpecificProps {
 
 type ResultButtonLinkProps = Omit<ButtonLinkProps, "to"> & ColumnActionPathInterface & ResultButtonLinkSpecificProps;
 
-const ResultButtonLink = ({ to, result, columnName, path, ...props }: ResultButtonLinkProps) => {
-    if (typeof columnName === "undefined") {
-        throw new Error("ResultButtonLink component: Missing required columnName prop");
-    }
-
+const ResultButtonLink = ({ to, result, path, ...props }: ResultButtonLinkProps) => {
     if (typeof result === "undefined") {
         throw new Error("ResultButtonLink component: Missing required result prop");
     }
