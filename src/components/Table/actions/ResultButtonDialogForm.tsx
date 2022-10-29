@@ -46,9 +46,6 @@ const ResultButtonDialogForm = ({
     renderDialog,
     fields,
     result,
-    //to remove columnName from props variable
-    // eslint-disable-next-line
-    columnName,
     ...props
 }: ResultButtonDialogFormProps) => {
     if (typeof result === "undefined") {

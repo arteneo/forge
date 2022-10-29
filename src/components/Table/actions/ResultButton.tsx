@@ -4,11 +4,7 @@ import ColumnActionInterface from "../../../components/Table/definitions/ColumnA
 
 type ResultButtonProps = ButtonProps & ColumnActionInterface;
 
-const ResultButton = ({ result, columnName, ...props }: ResultButtonProps) => {
-    if (typeof columnName === "undefined") {
-        throw new Error("ResultButton component: Missing required columnName prop");
-    }
-
+const ResultButton = ({ result, ...props }: ResultButtonProps) => {
     if (typeof result === "undefined") {
         throw new Error("ResultButton component: Missing required result prop");
     }

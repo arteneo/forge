@@ -14,11 +14,7 @@ type ResultButtonDownloadProps = Omit<ButtonDownloadProps, "endpoint"> &
     ColumnActionPathInterface &
     ResultButtonDownloadSpecificProps;
 
-const ResultButtonDownload = ({ endpoint, result, columnName, path, ...props }: ResultButtonDownloadProps) => {
-    if (typeof columnName === "undefined") {
-        throw new Error("ResultButtonDownload component: Missing required columnName prop");
-    }
-
+const ResultButtonDownload = ({ endpoint, result, path, ...props }: ResultButtonDownloadProps) => {
     if (typeof result === "undefined") {
         throw new Error("ResultButtonDownload component: Missing required result prop");
     }
