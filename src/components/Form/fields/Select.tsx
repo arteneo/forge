@@ -190,6 +190,7 @@ const Select = ({
         value: null,
         loadingText: t("select.loading"),
         noOptionsText: t("select.noOptions"),
+        getOptionDisabled: (option: OptionInterface) => (option.disabled ? true : false),
         getOptionLabel: (option: string | OptionInterface) => {
             const label = typeof option === "string" ? option : option.representation;
             return disableTranslateOption ? label : t(label);
