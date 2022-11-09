@@ -14,6 +14,11 @@ import ResultRedirectTableQuery, {
 } from "./components/Table/actions/ResultRedirectTableQuery";
 export { ResultRedirectTableQuery, ResultRedirectTableQueryProps };
 
+import CollectionRepresentationColumn, {
+    CollectionRepresentationColumnProps,
+} from "./components/Table/columns/CollectionRepresentationColumn";
+export { CollectionRepresentationColumn, CollectionRepresentationColumnProps };
+
 import ExportCsvQueryInterface from "./components/Table/definitions/ExportCsvQueryInterface";
 export { ExportCsvQueryInterface };
 
