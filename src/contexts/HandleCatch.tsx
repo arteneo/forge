@@ -38,7 +38,7 @@ const AXIOS_CANCELLED_UNMOUNTED = "unmounted";
 const HandleCatchContext = React.createContext<HandleCatchContextProps>(contextInitial);
 
 const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
-    const { setError } = useError();
+    const { setError, setMessage, setDetailedErrors } = useError();
     const { showError } = useSnackbar();
     const { t } = useTranslation();
 
@@ -62,7 +62,13 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
         });
     };
 
-    const handleCatch = (error: AxiosError, helpers?: FormikHelpers<FormikValues>): void => {
+    const handleCatch = async (error: AxiosError, helpers?: FormikHelpers<FormikValues>): Promise<void> => {
+        let data = error?.response?.data || {};
+        if (data instanceof Blob && data.type === "application/json") {
+            const text = await error?.response?.data?.text();
+            data = typeof text === "string" ? JSON.parse(text) : text;
+        }
+
         if (mode === "development") {
             console.log(error);
 
@@ -70,11 +76,17 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
                 console.log(error.response);
             }
 
+            if (error?.response?.status === 409) {
+                setError(409);
+                setMessage(data?.message);
+                setDetailedErrors(data?.errors);
+            }
+
             if (error?.response?.status === 400) {
                 showError("form.snackbar.validationError");
 
-                if (helpers && error?.response?.data?.errors?.children) {
-                    updateValidationErrors(error.response.data.errors.children, helpers);
+                if (helpers && data?.errors?.children) {
+                    updateValidationErrors(data.errors.children, helpers);
                 }
             }
 
@@ -94,7 +106,7 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
             case 400:
                 showError("form.snackbar.validationError");
                 if (helpers) {
-                    updateValidationErrors(error.response.data.errors.children, helpers);
+                    updateValidationErrors(data.errors.children, helpers);
                 }
                 break;
             case 401:
@@ -105,6 +117,11 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
                 break;
             case 403:
                 setError(403);
+                break;
+            case 409:
+                setError(409);
+                setMessage(data?.message);
+                setDetailedErrors(data?.errors);
                 break;
             case 500:
             default:
