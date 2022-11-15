@@ -173,7 +173,9 @@ const Radio = ({
                         key={key}
                         {...{
                             value: String(option.id),
-                            control: <MuiRadio {...{ required, disabled }} />,
+                            // Disabled from <FormControlLabel /> is used by control component
+                            disabled: disabled || option.disabled ? true : false,
+                            control: <MuiRadio {...{ required }} />,
                             label: disableTranslateOption
                                 ? option.representation // as string is just for TypeScript
                                 : (t(option.representation) as string),

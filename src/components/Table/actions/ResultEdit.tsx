@@ -1,9 +1,9 @@
 import React from "react";
 import Optional from "../../../definitions/Optional";
 import ColumnInterface from "../../../components/Table/definitions/ColumnInterface";
-import ButtonLink, { ButtonLinkProps } from "../../../components/Common/ButtonLink";
+import ResultButtonLink, { ResultButtonLinkProps } from "../../../components/Table/actions/ResultButtonLink";
 
-type ResultEditProps = Optional<ButtonLinkProps, "to"> & ColumnInterface;
+type ResultEditProps = Optional<ResultButtonLinkProps, "to"> & ColumnInterface;
 
 const ResultEdit = ({ result, ...props }: ResultEditProps) => {
     if (typeof result === "undefined") {
@@ -11,13 +11,14 @@ const ResultEdit = ({ result, ...props }: ResultEditProps) => {
     }
 
     return (
-        <ButtonLink
+        <ResultButtonLink
             {...{
                 label: "action.edit",
                 to: "../edit/" + result?.id,
                 color: "primary",
                 variant: "contained",
                 denyKey: "edit",
+                result,
                 ...props,
             }}
         />
