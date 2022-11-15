@@ -44,7 +44,6 @@ const ErrorDialog = ({
     React.useEffect(() => openErrorDialog(), [error]);
 
     const openErrorDialog = () => {
-        console.log(error);
         if (error == 409) {
             setOpen(true);
         } else {
