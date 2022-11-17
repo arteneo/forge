@@ -18,6 +18,7 @@ interface ButtonEndpointDialogConfirmRenderDialogParams {
 interface ButtonEndpointDialogConfirmProps extends ButtonProps {
     endpoint: EndpointType;
     onSuccess?: (defaultOnSuccess: () => void, response: AxiosResponse) => void;
+    disableDialogCloseOnError?: boolean;
     snackbarLabel?: string;
     snackbarLabelVariables?: TranslateVariablesInterface;
     renderDialog?: (params: ButtonEndpointDialogConfirmRenderDialogParams) => React.ReactNode;
@@ -26,6 +27,7 @@ interface ButtonEndpointDialogConfirmProps extends ButtonProps {
 const ButtonEndpointDialogConfirm = ({
     endpoint,
     onSuccess,
+    disableDialogCloseOnError = false,
     snackbarLabel = "buttonEndpointDialogConfirm.snackbar.success",
     snackbarLabelVariables = {},
     renderDialog = (params) => (
@@ -68,7 +70,14 @@ const ButtonEndpointDialogConfirm = ({
 
                 defaultOnSuccess();
             })
-            .catch((error) => handleCatch(error));
+            .catch((error) => {
+                if (!disableDialogCloseOnError) {
+                    if (error?.response?.status === 409) {
+                        setShowConfirmation(false);
+                    }
+                }
+                return handleCatch(error);
+            });
     };
 
     return (
