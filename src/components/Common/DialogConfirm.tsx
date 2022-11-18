@@ -88,7 +88,7 @@ const DialogConfirm = ({
             <DialogContent>
                 {enableDialogLoader && visibleLoader && (
                     <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <CircularProgress {...{ sx: { display: "flex" }, color: "inherit", size: 20 }} />
+                        <CircularProgress {...{ sx: { display: "flex", m: 2 }, color: "inherit", size: 20 }} />
                     </Box>
                 )}
                 {children}

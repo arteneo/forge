@@ -55,6 +55,49 @@ export {
 };
 // < ./utilities
 
+// > contexts
+import {
+    ErrorContext,
+    ErrorContextProps,
+    ErrorProvider,
+    ErrorProviderProps,
+    useError,
+    DetailedErrorInterface,
+} from "./contexts/Error";
+export { ErrorContext, ErrorContextProps, ErrorProvider, ErrorProviderProps, useError, DetailedErrorInterface };
+
+import {
+    HandleCatchContext,
+    HandleCatchContextProps,
+    HandleCatchProvider,
+    HandleCatchProviderProps,
+    useHandleCatch,
+    AXIOS_CANCELLED_UNMOUNTED,
+} from "./contexts/HandleCatch";
+export {
+    HandleCatchContext,
+    HandleCatchContextProps,
+    HandleCatchProvider,
+    HandleCatchProviderProps,
+    useHandleCatch,
+    AXIOS_CANCELLED_UNMOUNTED,
+};
+
+import { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader } from "./contexts/Loader";
+export { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader };
+
+import {
+    SnackbarContext,
+    SnackbarContextProps,
+    SnackbarProvider,
+    SnackbarProviderProps,
+    useSnackbar,
+    SnackbarVariant,
+} from "./contexts/Snackbar";
+export { SnackbarContext, SnackbarContextProps, SnackbarProvider, SnackbarProviderProps, useSnackbar, SnackbarVariant };
+
+// < contexts
+
 import Enum, { EnumType } from "./classes/Enum";
 import Button, { ButtonProps } from "./components/Common/Button";
 import ButtonDialog, { ButtonDialogProps, ButtonDialogRenderDialogParams } from "./components/Common/ButtonDialog";
@@ -297,24 +340,7 @@ import TimeToFilter, { TimeToFilterProps } from "./components/Table/filters/Time
 import Create, { CreateProps } from "./components/Table/toolbar/Create";
 import ExportCsv, { ExportCsvProps, ExportCsvInterface } from "./components/Table/toolbar/ExportCsv";
 import ExportExcel, { ExportExcelProps, ExportExcelInterface } from "./components/Table/toolbar/ExportExcel";
-import { ErrorContext, ErrorContextProps, ErrorProvider, ErrorProviderProps, useError } from "./contexts/Error";
-import {
-    HandleCatchContext,
-    HandleCatchContextProps,
-    HandleCatchProvider,
-    HandleCatchProviderProps,
-    useHandleCatch,
-    AXIOS_CANCELLED_UNMOUNTED,
-} from "./contexts/HandleCatch";
-import { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader } from "./contexts/Loader";
-import {
-    SnackbarContext,
-    SnackbarContextProps,
-    SnackbarProvider,
-    SnackbarProviderProps,
-    useSnackbar,
-    SnackbarVariant,
-} from "./contexts/Snackbar";
+
 import EndpointType from "./definitions/EndpointType";
 import Optional from "./definitions/Optional";
 import TranslateVariablesInterface from "./definitions/TranslateVariablesInterface";
@@ -625,28 +651,6 @@ export {
     ExportExcel,
     ExportExcelProps,
     ExportExcelInterface,
-    ErrorContext,
-    ErrorContextProps,
-    ErrorProvider,
-    ErrorProviderProps,
-    useError,
-    HandleCatchContext,
-    HandleCatchContextProps,
-    HandleCatchProvider,
-    HandleCatchProviderProps,
-    useHandleCatch,
-    AXIOS_CANCELLED_UNMOUNTED,
-    LoaderContext,
-    LoaderContextProps,
-    LoaderProvider,
-    LoaderProviderProps,
-    useLoader,
-    SnackbarContext,
-    SnackbarContextProps,
-    SnackbarProvider,
-    SnackbarProviderProps,
-    useSnackbar,
-    SnackbarVariant,
     EndpointType,
     TranslateVariablesInterface,
     resolveBooleanOrFunction,

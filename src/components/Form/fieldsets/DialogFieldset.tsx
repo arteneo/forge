@@ -13,7 +13,7 @@ const DialogFieldset = ({ fields, ...dialogFormViewProps }: DialogFieldsetProps)
 
     return (
         <DialogFormView {...dialogFormViewProps}>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
                 {Object.keys(fields).map((field) => render(field))}
             </Box>
         </DialogFormView>
