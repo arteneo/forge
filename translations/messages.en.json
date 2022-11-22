@@ -87,15 +87,15 @@
             "title": "Form"
         }
     },
-    "errorDialog": {
-        "title": "Unexpected error occured"
-    },
     "booleanColumn": {
         "yes": "Yes",
         "no": "No"
     },
     "enum": {
         "invalid": "This is not a valid value"
+    },
+    "error": {
+        "requestExecutionFailed": "Operation has failed"
     },
     "validation": {
         "required": "This value is required",

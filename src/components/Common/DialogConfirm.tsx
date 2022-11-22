@@ -13,8 +13,6 @@ import { Check, Close } from "@mui/icons-material";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import Optional from "../../definitions/Optional";
-import { useLoader } from "../../contexts/Loader";
-import { Box } from "@mui/system";
 
 interface DialogConfirmProps {
     open: boolean;
@@ -22,7 +20,6 @@ interface DialogConfirmProps {
     onConfirm: () => void;
     buttonBackProps?: ButtonProps;
     buttonConfirmProps?: ButtonProps;
-    enableDialogLoader?: boolean;
     title: string;
     titleVariables?: TranslateVariablesInterface;
     children?: React.ReactNode;
@@ -47,7 +44,6 @@ const DialogConfirm = ({
         color: "primary",
         endIcon: <Check />,
     },
-    enableDialogLoader = false,
     title,
     titleVariables,
     children,
@@ -59,7 +55,6 @@ const DialogConfirm = ({
     },
 }: DialogConfirmProps) => {
     const { t } = useTranslation();
-    const { visibleLoader } = useLoader();
 
     // Using DialogConfirmProps typing definition that allows only label OR only children to be defined
     // gives missleading error when using none of them or both of them
@@ -85,14 +80,7 @@ const DialogConfirm = ({
             }}
         >
             <DialogTitle>{t(title, titleVariables)}</DialogTitle>
-            <DialogContent>
-                {enableDialogLoader && visibleLoader && (
-                    <Box sx={{ display: "flex", justifyContent: "center" }}>
-                        <CircularProgress {...{ sx: { display: "flex", m: 2 }, color: "inherit", size: 20 }} />
-                    </Box>
-                )}
-                {children}
-            </DialogContent>
+            <DialogContent>{children}</DialogContent>
             <DialogActions {...{ sx: { justifyContent: "space-between" } }}>
                 <Button onClick={() => onClose()} {...buttonBackProps} />
                 <Button onClick={() => onConfirm()} {...buttonConfirmProps} />

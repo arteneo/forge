@@ -15,7 +15,7 @@ import Optional from "../../definitions/Optional";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import { DetailedErrorInterface, useError } from "../../contexts/Error";
 
-interface Error409DialogProps {
+interface RequestExecutionErrorDialogProps {
     onClose?: () => void;
     buttonBackProps?: ButtonProps;
     title?: (message?: string, detailedErrors?: DetailedErrorInterface[]) => string;
@@ -25,7 +25,7 @@ interface Error409DialogProps {
     dialogProps?: Optional<MuiDialogProps, "open">;
 }
 
-const Error409Dialog = ({
+const RequestExecutionErrorDialog = ({
     onClose,
     buttonBackProps = {
         label: "action.close",
@@ -33,7 +33,7 @@ const Error409Dialog = ({
         color: "error",
         startIcon: <Close />,
     },
-    title = () => "error409Dialog.title",
+    title = (message) => message ?? "error.requestExecutionFailed",
     titleVariables = () => ({}),
     disableTranslateTitle = false,
     renderContent,
@@ -41,7 +41,7 @@ const Error409Dialog = ({
         fullWidth: true,
         maxWidth: "sm",
     },
-}: Error409DialogProps) => {
+}: RequestExecutionErrorDialogProps) => {
     const { t } = useTranslation();
     const { error, message, detailedErrors, clearErrors } = useError();
     const [open, setOpen] = React.useState<boolean>(false);
@@ -97,5 +97,5 @@ const Error409Dialog = ({
     );
 };
 
-export default Error409Dialog;
-export { Error409DialogProps };
+export default RequestExecutionErrorDialog;
+export { RequestExecutionErrorDialogProps };
