@@ -81,7 +81,7 @@ const ErrorDialog = ({
             }}
         >
             <DialogTitle>
-                {renderTitle ? renderTitle(message, detailedErrors) : t(message ? message : "title.error")}
+                {renderTitle ? renderTitle(message, detailedErrors) : t(message ? message : "error.unknownError")}
             </DialogTitle>
             <DialogContent>
                 {renderContent ? renderContent(message, detailedErrors) : defaultRenderContent()}
