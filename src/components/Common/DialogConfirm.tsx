@@ -1,14 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import {
-    CircularProgress,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogProps,
-    DialogTitle,
-} from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogProps, DialogTitle } from "@mui/material";
 import { Check, Close } from "@mui/icons-material";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
