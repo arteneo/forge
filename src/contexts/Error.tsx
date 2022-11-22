@@ -8,7 +8,7 @@ interface ErrorContextProps {
     setMessage: (message: undefined | string) => void;
     detailedErrors?: DetailedErrorInterface[];
     setDetailedErrors: (detailedErrors: undefined | DetailedErrorInterface[]) => void;
-    clearDetailedErrors: () => void;
+    clearErrors: () => void;
     addDetailedError: (detailedErrors: DetailedErrorInterface) => void;
 }
 
@@ -34,7 +34,7 @@ const contextInitial = {
     setDetailedErrors: () => {
         return;
     },
-    clearDetailedErrors: () => {
+    clearErrors: () => {
         return;
     },
     addDetailedError: () => {
@@ -49,7 +49,7 @@ const ErrorProvider = ({ children }: ErrorProviderProps) => {
     const [message, setMessage] = React.useState<undefined | string>(undefined);
     const [detailedErrors, setDetailedErrors] = React.useState<undefined | DetailedErrorInterface[]>([]);
 
-    const clearDetailedErrors = () => {
+    const clearErrors = () => {
         setError(undefined);
         setMessage(undefined);
         setDetailedErrors(undefined);
@@ -71,7 +71,7 @@ const ErrorProvider = ({ children }: ErrorProviderProps) => {
                 setMessage,
                 detailedErrors,
                 setDetailedErrors,
-                clearDetailedErrors,
+                clearErrors,
                 addDetailedError,
             }}
         >

@@ -94,6 +94,9 @@
     "enum": {
         "invalid": "This is not a valid value"
     },
+    "error": {
+        "requestExecutionFailed": "Operation has failed"
+    },
     "validation": {
         "required": "This value is required",
         "email": "Please enter a valid e-mail address"

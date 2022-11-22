@@ -55,6 +55,49 @@ export {
 };
 // < ./utilities
 
+// > contexts
+import {
+    ErrorContext,
+    ErrorContextProps,
+    ErrorProvider,
+    ErrorProviderProps,
+    useError,
+    DetailedErrorInterface,
+} from "./contexts/Error";
+export { ErrorContext, ErrorContextProps, ErrorProvider, ErrorProviderProps, useError, DetailedErrorInterface };
+
+import {
+    HandleCatchContext,
+    HandleCatchContextProps,
+    HandleCatchProvider,
+    HandleCatchProviderProps,
+    useHandleCatch,
+    AXIOS_CANCELLED_UNMOUNTED,
+} from "./contexts/HandleCatch";
+export {
+    HandleCatchContext,
+    HandleCatchContextProps,
+    HandleCatchProvider,
+    HandleCatchProviderProps,
+    useHandleCatch,
+    AXIOS_CANCELLED_UNMOUNTED,
+};
+
+import { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader } from "./contexts/Loader";
+export { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader };
+
+import {
+    SnackbarContext,
+    SnackbarContextProps,
+    SnackbarProvider,
+    SnackbarProviderProps,
+    useSnackbar,
+    SnackbarVariant,
+} from "./contexts/Snackbar";
+export { SnackbarContext, SnackbarContextProps, SnackbarProvider, SnackbarProviderProps, useSnackbar, SnackbarVariant };
+
+// < contexts
+
 import Enum, { EnumType } from "./classes/Enum";
 import Button, { ButtonProps } from "./components/Common/Button";
 import ButtonDialog, { ButtonDialogProps, ButtonDialogRenderDialogParams } from "./components/Common/ButtonDialog";
@@ -70,7 +113,9 @@ import ButtonEndpointDialogConfirm, {
 } from "./components/Common/ButtonEndpointDialogConfirm";
 import ButtonLink, { ButtonLinkProps } from "./components/Common/ButtonLink";
 import Dialog, { DialogProps } from "./components/Common/Dialog";
-import ErrorDialog, { ErrorDialogProps } from "./components/Common/ErrorDialog";
+import RequestExecutionErrorDialog, {
+    RequestExecutionErrorDialogProps,
+} from "./components/Common/RequestExecutionErrorDialog";
 import DialogConfirm, { DialogConfirmProps } from "./components/Common/DialogConfirm";
 import DialogForm, { DialogFormProps } from "./components/Common/DialogForm";
 import HighlightTag, { HighlightTagProps } from "./components/Common/HighlightTag";
@@ -297,24 +342,7 @@ import TimeToFilter, { TimeToFilterProps } from "./components/Table/filters/Time
 import Create, { CreateProps } from "./components/Table/toolbar/Create";
 import ExportCsv, { ExportCsvProps, ExportCsvInterface } from "./components/Table/toolbar/ExportCsv";
 import ExportExcel, { ExportExcelProps, ExportExcelInterface } from "./components/Table/toolbar/ExportExcel";
-import { ErrorContext, ErrorContextProps, ErrorProvider, ErrorProviderProps, useError } from "./contexts/Error";
-import {
-    HandleCatchContext,
-    HandleCatchContextProps,
-    HandleCatchProvider,
-    HandleCatchProviderProps,
-    useHandleCatch,
-    AXIOS_CANCELLED_UNMOUNTED,
-} from "./contexts/HandleCatch";
-import { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader } from "./contexts/Loader";
-import {
-    SnackbarContext,
-    SnackbarContextProps,
-    SnackbarProvider,
-    SnackbarProviderProps,
-    useSnackbar,
-    SnackbarVariant,
-} from "./contexts/Snackbar";
+
 import EndpointType from "./definitions/EndpointType";
 import Optional from "./definitions/Optional";
 import TranslateVariablesInterface from "./definitions/TranslateVariablesInterface";
@@ -351,8 +379,8 @@ export {
     ButtonLinkProps,
     Dialog,
     DialogProps,
-    ErrorDialog,
-    ErrorDialogProps,
+    RequestExecutionErrorDialog,
+    RequestExecutionErrorDialogProps,
     DialogConfirm,
     DialogConfirmProps,
     DialogForm,
@@ -625,28 +653,6 @@ export {
     ExportExcel,
     ExportExcelProps,
     ExportExcelInterface,
-    ErrorContext,
-    ErrorContextProps,
-    ErrorProvider,
-    ErrorProviderProps,
-    useError,
-    HandleCatchContext,
-    HandleCatchContextProps,
-    HandleCatchProvider,
-    HandleCatchProviderProps,
-    useHandleCatch,
-    AXIOS_CANCELLED_UNMOUNTED,
-    LoaderContext,
-    LoaderContextProps,
-    LoaderProvider,
-    LoaderProviderProps,
-    useLoader,
-    SnackbarContext,
-    SnackbarContextProps,
-    SnackbarProvider,
-    SnackbarProviderProps,
-    useSnackbar,
-    SnackbarVariant,
     EndpointType,
     TranslateVariablesInterface,
     resolveBooleanOrFunction,

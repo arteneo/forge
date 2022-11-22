@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import {
+    Box,
     Alert,
     Dialog as MuiDialog,
     DialogActions,
@@ -11,18 +12,20 @@ import {
 import { Close } from "@mui/icons-material";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import Optional from "../../definitions/Optional";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import { DetailedErrorInterface, useError } from "../../contexts/Error";
-import { Box } from "@mui/system";
 
-interface ErrorDialogProps {
+interface RequestExecutionErrorDialogProps {
     onClose?: () => void;
     buttonBackProps?: ButtonProps;
+    title?: (message?: string, detailedErrors?: DetailedErrorInterface[]) => string;
+    titleVariables?: (message?: string, detailedErrors?: DetailedErrorInterface[]) => TranslateVariablesInterface;
+    disableTranslateTitle?: boolean;
     renderContent?: (message?: string, detailedErrors?: DetailedErrorInterface[]) => React.ReactNode;
-    renderTitle?: (message?: string, detailedErrors?: DetailedErrorInterface[]) => React.ReactNode | string;
     dialogProps?: Optional<MuiDialogProps, "open">;
 }
 
-const ErrorDialog = ({
+const RequestExecutionErrorDialog = ({
     onClose,
     buttonBackProps = {
         label: "action.close",
@@ -30,30 +33,29 @@ const ErrorDialog = ({
         color: "error",
         startIcon: <Close />,
     },
-    renderTitle,
+    title = (message) => message ?? "error.requestExecutionFailed",
+    titleVariables = () => ({}),
+    disableTranslateTitle = false,
     renderContent,
     dialogProps = {
         fullWidth: true,
         maxWidth: "sm",
     },
-}: ErrorDialogProps) => {
+}: RequestExecutionErrorDialogProps) => {
     const { t } = useTranslation();
-    const { error, message, detailedErrors, clearDetailedErrors } = useError();
+    const { error, message, detailedErrors, clearErrors } = useError();
     const [open, setOpen] = React.useState<boolean>(false);
 
-    React.useEffect(() => openErrorDialog(), [error]);
+    React.useEffect(() => processError(), [error]);
 
-    const openErrorDialog = () => {
-        if (error == 409) {
-            setOpen(true);
-        } else {
-            setOpen(false);
-        }
+    const processError = () => {
+        setOpen(error === 409);
     };
 
     const resolvedOnClose = () => {
         setOpen(false);
-        clearDetailedErrors();
+        clearErrors();
+
         if (onClose) {
             onClose();
         }
@@ -81,7 +83,9 @@ const ErrorDialog = ({
             }}
         >
             <DialogTitle>
-                {renderTitle ? renderTitle(message, detailedErrors) : t(message ? message : "title.error")}
+                {disableTranslateTitle
+                    ? title(message, detailedErrors)
+                    : t(title(message, detailedErrors), titleVariables(message, detailedErrors))}
             </DialogTitle>
             <DialogContent>
                 {renderContent ? renderContent(message, detailedErrors) : defaultRenderContent()}
@@ -93,5 +97,5 @@ const ErrorDialog = ({
     );
 };
 
-export default ErrorDialog;
-export { ErrorDialogProps };
+export default RequestExecutionErrorDialog;
+export { RequestExecutionErrorDialogProps };

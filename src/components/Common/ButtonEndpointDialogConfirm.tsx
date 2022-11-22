@@ -68,7 +68,10 @@ const ButtonEndpointDialogConfirm = ({
 
                 defaultOnSuccess();
             })
-            .catch((error) => handleCatch(error));
+            .catch((error) => {
+                setShowConfirmation(false);
+                handleCatch(error);
+            });
     };
 
     return (
