@@ -113,7 +113,7 @@ import ButtonEndpointDialogConfirm, {
 } from "./components/Common/ButtonEndpointDialogConfirm";
 import ButtonLink, { ButtonLinkProps } from "./components/Common/ButtonLink";
 import Dialog, { DialogProps } from "./components/Common/Dialog";
-import ErrorDialog, { ErrorDialogProps } from "./components/Common/ErrorDialog";
+import Error409Dialog, { Error409DialogProps } from "./components/Common/Error409Dialog";
 import DialogConfirm, { DialogConfirmProps } from "./components/Common/DialogConfirm";
 import DialogForm, { DialogFormProps } from "./components/Common/DialogForm";
 import HighlightTag, { HighlightTagProps } from "./components/Common/HighlightTag";
@@ -377,8 +377,8 @@ export {
     ButtonLinkProps,
     Dialog,
     DialogProps,
-    ErrorDialog,
-    ErrorDialogProps,
+    Error409Dialog,
+    Error409DialogProps,
     DialogConfirm,
     DialogConfirmProps,
     DialogForm,

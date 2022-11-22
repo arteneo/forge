@@ -15,7 +15,7 @@ import Optional from "../../definitions/Optional";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import { DetailedErrorInterface, useError } from "../../contexts/Error";
 
-interface ErrorDialogProps {
+interface Error409DialogProps {
     onClose?: () => void;
     buttonBackProps?: ButtonProps;
     title?: (message?: string, detailedErrors?: DetailedErrorInterface[]) => string;
@@ -25,7 +25,7 @@ interface ErrorDialogProps {
     dialogProps?: Optional<MuiDialogProps, "open">;
 }
 
-const ErrorDialog = ({
+const Error409Dialog = ({
     onClose,
     buttonBackProps = {
         label: "action.close",
@@ -33,7 +33,7 @@ const ErrorDialog = ({
         color: "error",
         startIcon: <Close />,
     },
-    title = () => "errorDialog.title",
+    title = () => "error409Dialog.title",
     titleVariables = () => ({}),
     disableTranslateTitle = false,
     renderContent,
@@ -41,7 +41,7 @@ const ErrorDialog = ({
         fullWidth: true,
         maxWidth: "sm",
     },
-}: ErrorDialogProps) => {
+}: Error409DialogProps) => {
     const { t } = useTranslation();
     const { error, message, detailedErrors, clearErrors } = useError();
     const [open, setOpen] = React.useState<boolean>(false);
@@ -97,5 +97,5 @@ const ErrorDialog = ({
     );
 };
 
-export default ErrorDialog;
-export { ErrorDialogProps };
+export default Error409Dialog;
+export { Error409DialogProps };
