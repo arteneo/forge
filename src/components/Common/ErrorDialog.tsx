@@ -43,7 +43,7 @@ const ErrorDialog = ({
     },
 }: ErrorDialogProps) => {
     const { t } = useTranslation();
-    const { error, message, detailedErrors, clearDetailedErrors } = useError();
+    const { error, message, detailedErrors, clearErrors } = useError();
     const [open, setOpen] = React.useState<boolean>(false);
 
     React.useEffect(() => processError(), [error]);
@@ -54,7 +54,8 @@ const ErrorDialog = ({
 
     const resolvedOnClose = () => {
         setOpen(false);
-        clearDetailedErrors();
+        clearErrors();
+
         if (onClose) {
             onClose();
         }
