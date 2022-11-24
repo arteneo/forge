@@ -151,7 +151,7 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
                 <Snackbar
                     {...{
                         className: "MuiSnackbar-variant" + getVariantClassname(snackbarMessage.variant),
-                        autoHideDuration: snackbarMessage.autoHideDuration,
+                        autoHideDuration: snackbarMessage.autoHideDuration || autoHideDuration,
                         message: snackbarMessage.message,
                         open: true,
                         onClose,
