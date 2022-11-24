@@ -9,7 +9,7 @@ type SnackbarVariant = "success" | "info" | "warning" | "error";
 interface SnackbarMessage {
     variant: SnackbarVariant;
     message: string;
-    autoHideDuration?: null | number;
+    autoHideDuration?: number;
 }
 
 interface SnackbarContextProps {
@@ -17,34 +17,20 @@ interface SnackbarContextProps {
         message: string,
         variant: SnackbarVariant,
         messageVariables?: TranslateVariablesInterface,
-        autoHideDuration?: null | number
+        autoHideDuration?: number
     ) => void;
-    showSuccess: (
-        message: string,
-        messageVariables?: TranslateVariablesInterface,
-        autoHideDuration?: null | number
-    ) => void;
-    showInfo: (
-        message: string,
-        messageVariables?: TranslateVariablesInterface,
-        autoHideDuration?: null | number
-    ) => void;
-    showWarning: (
-        message: string,
-        messageVariables?: TranslateVariablesInterface,
-        autoHideDuration?: null | number
-    ) => void;
-    showError: (
-        message: string,
-        messageVariables?: TranslateVariablesInterface,
-        autoHideDuration?: null | number
-    ) => void;
+    showSuccess: (message: string, messageVariables?: TranslateVariablesInterface, autoHideDuration?: number) => void;
+    showInfo: (message: string, messageVariables?: TranslateVariablesInterface, autoHideDuration?: number) => void;
+    showWarning: (message: string, messageVariables?: TranslateVariablesInterface, autoHideDuration?: number) => void;
+    showError: (message: string, messageVariables?: TranslateVariablesInterface, autoHideDuration?: number) => void;
     close: () => void;
+    autoHideDuration: number;
 }
 
 interface SnackbarProviderProps {
     children: React.ReactNode;
     snackbarProps?: SnackbarProps;
+    autoHideDuration?: number;
 }
 
 const contextInitial = {
@@ -66,11 +52,12 @@ const contextInitial = {
     close: (): void => {
         return;
     },
+    autoHideDuration: 4000,
 };
 
 const SnackbarContext = React.createContext<SnackbarContextProps>(contextInitial);
 
-const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) => {
+const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: SnackbarProviderProps) => {
     const { t } = useTranslation();
     const [snackbarMessage, setSnackbarMessage] = React.useState<undefined | SnackbarMessage>(undefined);
 
@@ -78,7 +65,7 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
         message: string,
         variant: SnackbarVariant,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration: null | number = 4000
+        autoHideDuration?: number
     ): void => {
         setSnackbarMessage({
             message: t(message, messageVariables),
@@ -90,7 +77,7 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
     const showSuccess = (
         message: string,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration: null | number = 4000
+        autoHideDuration?: number
     ): void => {
         show(message, "success", messageVariables, autoHideDuration);
     };
@@ -98,7 +85,7 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
     const showInfo = (
         message: string,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration: null | number = 4000
+        autoHideDuration?: number
     ): void => {
         show(message, "info", messageVariables, autoHideDuration);
     };
@@ -106,7 +93,7 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
     const showWarning = (
         message: string,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration: null | number = 4000
+        autoHideDuration?: number
     ): void => {
         show(message, "warning", messageVariables, autoHideDuration);
     };
@@ -114,7 +101,7 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
     const showError = (
         message: string,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration: null | number = 4000
+        autoHideDuration?: number
     ): void => {
         show(message, "error", messageVariables, autoHideDuration);
     };
@@ -149,6 +136,7 @@ const SnackbarProvider = ({ children, snackbarProps }: SnackbarProviderProps) =>
         <>
             <SnackbarContext.Provider
                 value={{
+                    autoHideDuration: autoHideDuration,
                     show,
                     showSuccess,
                     showInfo,
