@@ -3,6 +3,9 @@
 // > TODO TEST
 import ButtonDialogNew, { ButtonDialogNewProps } from "./components/Common/ButtonDialogNew";
 export { ButtonDialogNew, ButtonDialogNewProps };
+
+import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "./components/Common/ButtonDialogConfirm";
+export { ButtonDialogConfirm, ButtonDialogConfirmProps };
 // < TODO TEST
 
 // > ./component/Form
