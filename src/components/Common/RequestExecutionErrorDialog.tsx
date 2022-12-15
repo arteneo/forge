@@ -25,6 +25,7 @@ interface RequestExecutionErrorDialogProps {
     dialogProps?: Optional<MuiDialogProps, "open">;
 }
 
+// TODO Is it possible to refactor it using current Dialog components
 const RequestExecutionErrorDialog = ({
     onClose,
     buttonBackProps = {

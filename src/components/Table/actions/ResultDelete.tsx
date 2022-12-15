@@ -1,61 +1,58 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { Alert } from "@mui/material";
-import ResultButtonEndpointDialogConfirm, {
-    ResultButtonEndpointDialogConfirmProps,
-    ResultButtonEndpointDialogConfirmRenderDialogParams,
-} from "../../../components/Table/actions/ResultButtonEndpointDialogConfirm";
+import _ from "lodash";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
-import { resolveAnyOrFunction } from "../../../utilities/resolve";
-import DialogConfirm from "../../../components/Common/DialogConfirm";
+import ButtonDialogAlertConfirm, {
+    ButtonDialogAlertConfirmProps,
+} from "../../../components/Common/ButtonDialogAlertConfirm";
+import { mergeEndpointCustomizer } from "../../../utilities/merge";
+import Optional from "../../../definitions/Optional";
 
-type ResultDeleteProps = ResultButtonEndpointDialogConfirmProps;
+type ResultDeleteDialogProps = Optional<ButtonDialogAlertConfirmProps["dialogProps"], "label">;
 
-const ResultDelete = ({ result, endpoint, renderDialog, ...props }: ResultDeleteProps) => {
-    const { t } = useTranslation();
+interface ResultDeleteProps extends Omit<ButtonDialogAlertConfirmProps, "dialogProps"> {
+    result?: ResultInterface;
+    dialogProps: (result: ResultInterface) => ResultDeleteDialogProps;
+}
 
+const ResultDelete = ({ result, dialogProps, ...props }: ResultDeleteProps) => {
     if (typeof result === "undefined") {
         throw new Error("ResultDelete component: Missing required result prop");
     }
 
-    const defaultRenderDialog = (params: ResultButtonEndpointDialogConfirmRenderDialogParams) => (
-        <DialogConfirm
-            {...{
-                title: "resultDelete.dialog.title",
-                buttonConfirmProps: {
-                    label: "action.delete",
-                    color: "error",
-                    variant: "contained",
-                },
-                children: (
-                    <Alert severity="error">
-                        {t("resultDelete.dialog.confirm", { representation: result.representation })}
-                    </Alert>
-                ),
-                ...params,
-            }}
-        />
-    );
+    const internalDialogProps = {
+        title: "resultDelete.dialog.title",
+        label: "resultDelete.dialog.confirm",
+        labelVariables: { representation: result.representation },
+        alertProps: {
+            severity: "error",
+        },
+        confirmProps: {
+            label: "action.delete",
+            color: "error",
+            variant: "contained",
+            snackbarLabel: "resultDelete.snackbar.success",
+            snackbarLabelVariables: {
+                result: result.representation,
+            },
+            endpoint: {
+                method: "delete",
+            },
+        },
+    };
 
     return (
-        <ResultButtonEndpointDialogConfirm
+        <ButtonDialogAlertConfirm
             {...{
-                // eslint-disable-next-line
-                endpoint: (value: any, result: ResultInterface, path?: string) => ({
-                    method: "delete",
-                    // TODO It seems endpoint can be also AxiosRequestConfig which means it will not work here. Test and fix
-                    url: resolveAnyOrFunction(endpoint, value, result, path),
-                }),
-                result,
-                denyKey: "delete",
                 label: "action.delete",
                 color: "error",
                 variant: "contained",
-                snackbarLabel: "resultDelete.snackbar.success",
-                snackbarLabelVariables: {
-                    result: result.representation,
-                },
-                renderDialog: renderDialog ?? defaultRenderDialog,
+                deny: result?.deny,
+                denyKey: "delete",
+                dialogProps: _.mergeWith(
+                    internalDialogProps,
+                    dialogProps(result),
+                    mergeEndpointCustomizer()
+                ) as ButtonDialogAlertConfirmProps["dialogProps"],
                 ...props,
             }}
         />

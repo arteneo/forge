@@ -1,19 +1,16 @@
+// TODO Do not use this. Will be changed
 import React from "react";
 import { AxiosResponse } from "axios";
 import { getIn } from "formik";
-import ButtonEndpointDialogConfirm, {
-    ButtonEndpointDialogConfirmProps,
-    ButtonEndpointDialogConfirmRenderDialogParams,
-} from "../../../components/Common/ButtonEndpointDialogConfirm";
+import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "../../../components/Common/ButtonDialogConfirm";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
 import EndpointType from "../../../definitions/EndpointType";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
-import DialogConfirm from "../../../components/Common/DialogConfirm";
 
-interface ResultButtonEndpointDialogConfirmRenderDialogParams extends ButtonEndpointDialogConfirmRenderDialogParams {
+interface ResultButtonEndpointDialogConfirmRenderDialogParams extends ButtonDialogConfirmProps {
     result: ResultInterface;
 }
 
@@ -31,11 +28,7 @@ interface ResultButtonEndpointDialogConfirmSpecificProps {
     renderDialog?: (params: ResultButtonEndpointDialogConfirmRenderDialogParams) => React.ReactNode;
 }
 
-type ResultButtonEndpointDialogConfirmProps = Omit<
-    ButtonEndpointDialogConfirmProps,
-    "endpoint" | "onSuccess" | "renderDialog"
-> &
-    ColumnActionPathInterface &
+type ResultButtonEndpointDialogConfirmProps = ColumnActionPathInterface &
     ResultButtonEndpointDialogConfirmSpecificProps;
 
 const ResultButtonEndpointDialogConfirm = ({
@@ -44,54 +37,48 @@ const ResultButtonEndpointDialogConfirm = ({
     onSuccess,
     result,
     path,
-    renderDialog = (params) => (
-        <DialogConfirm
-            {...{
-                title: "buttonEndpointDialogConfirm.dialog.title",
-                label: "buttonEndpointDialogConfirm.dialog.confirm",
-                labelVariables: { name: params.result?.representation },
-                ...params,
-            }}
-        />
-    ),
+    renderDialog = () => <>TODO</>,
     ...props
 }: ResultButtonEndpointDialogConfirmProps) => {
     if (typeof result === "undefined") {
         throw new Error("ResultButtonEndpointDialogConfirm component: Missing required result prop");
     }
 
-    const { reload } = useTable();
-    const value = path ? getIn(result, path) : result;
-    const resolvedEndpoint: EndpointType = resolveAnyOrFunction(endpoint, value, result, path);
+    // TODO
+    return null;
 
-    const internalOnSuccess = (defaultOnSuccess: () => void) => {
-        defaultOnSuccess();
+    // const { reload } = useTable();
+    // const value = path ? getIn(result, path) : result;
+    // const resolvedEndpoint: EndpointType = resolveAnyOrFunction(endpoint, value, result, path);
 
-        if (!disableOnSuccessReload) {
-            reload();
-        }
-    };
+    // const internalOnSuccess = (defaultOnSuccess: () => void) => {
+    //     defaultOnSuccess();
 
-    // Lines below are written like that due to formatting issue
-    let resolvedOnSuccess;
-    if (onSuccess) {
-        resolvedOnSuccess = (defaultOnSuccess: () => void, response: AxiosResponse) =>
-            onSuccess(() => internalOnSuccess(defaultOnSuccess), response, value, result, path);
-    } else {
-        resolvedOnSuccess = internalOnSuccess;
-    }
+    //     if (!disableOnSuccessReload) {
+    //         reload();
+    //     }
+    // };
 
-    return (
-        <ButtonEndpointDialogConfirm
-            {...{
-                endpoint: resolvedEndpoint,
-                onSuccess: resolvedOnSuccess,
-                deny: result?.deny,
-                renderDialog: (params) => renderDialog({ ...params, result }),
-                ...props,
-            }}
-        />
-    );
+    // // Lines below are written like that due to formatting issue
+    // let resolvedOnSuccess;
+    // if (onSuccess) {
+    //     resolvedOnSuccess = (defaultOnSuccess: () => void, response: AxiosResponse) =>
+    //         onSuccess(() => internalOnSuccess(defaultOnSuccess), response, value, result, path);
+    // } else {
+    //     resolvedOnSuccess = internalOnSuccess;
+    // }
+
+    // return (
+    //     <ButtonEndpointDialogConfirm
+    //         {...{
+    //             endpoint: resolvedEndpoint,
+    //             onSuccess: resolvedOnSuccess,
+    //             deny: result?.deny,
+    //             renderDialog: (params: any) => renderDialog({ ...params, result }),
+    //             ...props,
+    //         }}
+    //     />
+    // );
 };
 
 export default ResultButtonEndpointDialogConfirm;

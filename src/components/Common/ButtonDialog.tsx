@@ -1,16 +1,12 @@
 import React from "react";
+import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
 import Button, { ButtonProps } from "../../components/Common/Button";
 
-interface ButtonDialogRenderDialogParams {
-    open: boolean;
-    onClose: () => void;
-}
-
 interface ButtonDialogProps extends ButtonProps {
-    renderDialog: (params: ButtonDialogRenderDialogParams) => React.ReactNode;
+    dialogProps: Omit<DialogProps, "open" | "onClose">;
 }
 
-const ButtonDialog = ({ renderDialog, ...buttonProps }: ButtonDialogProps) => {
+const ButtonDialog = ({ dialogProps, ...buttonProps }: ButtonDialogProps) => {
     const [showDialog, setShowDialog] = React.useState(false);
 
     return (
@@ -22,13 +18,10 @@ const ButtonDialog = ({ renderDialog, ...buttonProps }: ButtonDialogProps) => {
                 }}
             />
 
-            {renderDialog({
-                open: showDialog,
-                onClose: () => setShowDialog(false),
-            })}
+            <Dialog {...{ open: showDialog, onClose: () => setShowDialog(false), ...dialogProps }} />
         </>
     );
 };
 
 export default ButtonDialog;
-export { ButtonDialogProps, ButtonDialogRenderDialogParams };
+export { ButtonDialogProps };

@@ -65,6 +65,7 @@
         }
     },
     "buttonEndpointDialogConfirm": {
+        "TODO": "TODO",
         "dialog": {
             "title": "Confirmation required",
             "confirm": "Are you sure you want to proceed?"
@@ -73,7 +74,12 @@
             "success": "Operation successful"
         }
     },
+    "dialogConfirm": {
+        "title": "Confirmation required",
+        "confirm": "Confirm"
+    },
     "resultDelete": {
+        "TODO": "TODO",
         "dialog": {
             "title": "Confirmation required",
             "confirm": "Are you sure you want to delete \"{{ representation }}\"?"

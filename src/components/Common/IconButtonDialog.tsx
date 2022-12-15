@@ -1,16 +1,12 @@
 import React from "react";
+import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
 import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
 
-interface IconButtonDialogRenderDialogParams {
-    open: boolean;
-    onClose: () => void;
-}
-
 interface IconButtonDialogProps extends IconButtonProps {
-    renderDialog: (params: IconButtonDialogRenderDialogParams) => React.ReactNode;
+    dialogProps: Omit<DialogProps, "open" | "onClose">;
 }
 
-const IconButtonDialog = ({ renderDialog, ...iconButtonProps }: IconButtonDialogProps) => {
+const IconButtonDialog = ({ dialogProps, ...iconButtonProps }: IconButtonDialogProps) => {
     const [showDialog, setShowDialog] = React.useState(false);
 
     return (
@@ -22,13 +18,10 @@ const IconButtonDialog = ({ renderDialog, ...iconButtonProps }: IconButtonDialog
                 }}
             />
 
-            {renderDialog({
-                open: showDialog,
-                onClose: () => setShowDialog(false),
-            })}
+            <Dialog {...{ open: showDialog, onClose: () => setShowDialog(false), ...dialogProps }} />
         </>
     );
 };
 
 export default IconButtonDialog;
-export { IconButtonDialogProps, IconButtonDialogRenderDialogParams };
+export { IconButtonDialogProps };

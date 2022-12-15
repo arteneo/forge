@@ -1,22 +1,22 @@
 import React from "react";
 import { Check } from "@mui/icons-material";
 import Optional from "../../definitions/Optional";
-import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
+import DialogAlert, { DialogAlertProps } from "../../components/Dialog/DialogAlert";
 import DialogButtonEndpoint, { DialogButtonEndpointProps } from "../../components/Dialog/DialogButtonEndpoint";
 
-interface DialogConfirmProps extends Optional<DialogProps, "title"> {
+interface DialogAlertConfirmProps extends Optional<DialogAlertProps, "title"> {
     confirmProps: DialogButtonEndpointProps;
 }
 
-const DialogConfirm = ({ confirmProps, ...props }: DialogConfirmProps) => {
+const DialogAlertConfirm = ({ confirmProps, ...props }: DialogAlertConfirmProps) => {
     return (
-        <Dialog
+        <DialogAlert
             {...{
-                title: "dialogConfirm.title",
+                title: "dialogAlertConfirm.title",
                 actions: (
                     <DialogButtonEndpoint
                         {...{
-                            label: "dialogConfirm.confirm",
+                            label: "dialogAlertConfirm.confirm",
                             color: "success",
                             endIcon: <Check />,
                             ...confirmProps,
@@ -29,5 +29,5 @@ const DialogConfirm = ({ confirmProps, ...props }: DialogConfirmProps) => {
     );
 };
 
-export default DialogConfirm;
-export { DialogConfirmProps };
+export default DialogAlertConfirm;
+export { DialogAlertConfirmProps };

@@ -1,10 +1,11 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Button as MuiButton, ButtonProps as MuiButtonProps, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
+import LoadingButton, { LoadingButtonProps } from "../../components/Common/LoadingButton";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import DenyPropInterface from "../../components/Table/definitions/DenyPropInterface";
 
-type InternalMuiButtonProps = Omit<MuiButtonProps, "children">;
+type InternalButtonProps = Omit<LoadingButtonProps, "children">;
 
 interface LabelChildrenProps {
     label?: string;
@@ -12,7 +13,7 @@ interface LabelChildrenProps {
     children?: React.ReactNode;
 }
 
-type ButtonProps = InternalMuiButtonProps & LabelChildrenProps & DenyPropInterface;
+type ButtonProps = InternalButtonProps & LabelChildrenProps & DenyPropInterface;
 
 const Button = ({
     label,
@@ -21,7 +22,7 @@ const Button = ({
     deny,
     denyKey,
     denyBeheviour = "disable",
-    ...muiButtonProps
+    ...props
 }: ButtonProps) => {
     const { t } = useTranslation();
 
@@ -49,11 +50,11 @@ const Button = ({
 
         if (denyBeheviour === "disable") {
             denyMessage = deny[denyKey];
-            muiButtonProps.disabled = true;
+            props.disabled = true;
         }
     }
 
-    let button = <MuiButton {...{ children, ...muiButtonProps }} />;
+    let button = <LoadingButton {...{ children, ...props }} />;
 
     if (typeof denyMessage !== "undefined") {
         button = (

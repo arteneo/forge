@@ -1,7 +1,7 @@
 import React from "react";
 import { AxiosResponse } from "axios";
 import { getIn } from "formik";
-import ButtonEndpoint, { ButtonEndpointProps } from "../../../components/Common/ButtonEndpoint";
+import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "../../../components/Common/ButtonDialogConfirm";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
@@ -9,7 +9,7 @@ import EndpointType from "../../../definitions/EndpointType";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
 
-interface ResultButtonEndpointSpecificProps {
+interface ResultButtonDialogConfirmSpecificProps {
     endpoint: ResultResolveType<EndpointType>;
     disableOnSuccessReload?: boolean;
     onSuccess?: (
@@ -21,22 +21,24 @@ interface ResultButtonEndpointSpecificProps {
         setLoading: React.Dispatch<React.SetStateAction<boolean>>,
         path?: string
     ) => void;
+    dialogProps: (result: ResultInterface) => ButtonDialogConfirmProps["dialogProps"];
 }
 
-type ResultButtonEndpointProps = Omit<ButtonEndpointProps, "endpoint" | "onSuccess"> &
+type ResultButtonDialogConfirmProps = Omit<ButtonDialogConfirmProps, "endpoint" | "onSuccess" | "dialogProps"> &
     ColumnActionPathInterface &
-    ResultButtonEndpointSpecificProps;
+    ResultButtonDialogConfirmSpecificProps;
 
-const ResultButtonEndpoint = ({
+const ResultButtonDialogConfirm = ({
     endpoint,
     disableOnSuccessReload,
     onSuccess,
+    dialogProps,
     result,
     path,
     ...props
-}: ResultButtonEndpointProps) => {
+}: ResultButtonDialogConfirmProps) => {
     if (typeof result === "undefined") {
-        throw new Error("ResultButtonEndpoint component: Missing required result prop");
+        throw new Error("ResultButtonDialogConfirm component: Missing required result prop");
     }
 
     const { reload } = useTable();
@@ -64,16 +66,17 @@ const ResultButtonEndpoint = ({
     }
 
     return (
-        <ButtonEndpoint
+        <ButtonDialogConfirm
             {...{
                 endpoint: resolvedEndpoint,
                 onSuccess: resolvedOnSuccess,
                 deny: result?.deny,
+                dialogProps: dialogProps(value),
                 ...props,
             }}
         />
     );
 };
 
-export default ResultButtonEndpoint;
-export { ResultButtonEndpointProps, ResultButtonEndpointSpecificProps };
+export default ResultButtonDialogConfirm;
+export { ResultButtonDialogConfirmProps, ResultButtonDialogConfirmSpecificProps };
