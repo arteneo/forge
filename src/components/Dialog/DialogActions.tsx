@@ -22,7 +22,7 @@ const DialogActions = ({ actions, onClose, closeButtonProps }: DialogActionsProp
     const internalCloseButtonProps: ButtonProps = {
         label: "action.close",
         color: "warning",
-        variant: "outlined",
+        variant: "contained",
         startIcon: <Close />,
         onClick: () => onClose(),
     };
