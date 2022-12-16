@@ -20,6 +20,9 @@ export { Button, ButtonProps };
 import ButtonDialog, { ButtonDialogProps } from "./components/Common/ButtonDialog";
 export { ButtonDialog, ButtonDialogProps };
 
+import ButtonDialogAlert, { ButtonDialogAlertProps } from "./components/Common/ButtonDialogAlert";
+export { ButtonDialogAlert, ButtonDialogAlertProps };
+
 import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "./components/Common/ButtonDialogConfirm";
 export { ButtonDialogConfirm, ButtonDialogConfirmProps };
 
@@ -43,6 +46,9 @@ export { IconButton, IconButtonProps };
 
 import IconButtonDialog, { IconButtonDialogProps } from "./components/Common/IconButtonDialog";
 export { IconButtonDialog, IconButtonDialogProps };
+
+import IconButtonDialogAlert, { IconButtonDialogAlertProps } from "./components/Common/IconButtonDialogAlert";
+export { IconButtonDialogAlert, IconButtonDialogAlertProps };
 
 import IconButtonDialogAlertConfirm, {
     IconButtonDialogAlertConfirmProps,
@@ -82,6 +88,9 @@ export { DialogAlert, DialogAlertProps };
 
 import DialogAlertConfirm, { DialogAlertConfirmProps } from "./components/Dialog/DialogAlertConfirm";
 export { DialogAlertConfirm, DialogAlertConfirmProps };
+
+import DialogButtonClose, { DialogButtonCloseProps } from "./components/Dialog/DialogButtonClose";
+export { DialogButtonClose, DialogButtonCloseProps };
 
 import DialogButtonEndpoint, { DialogButtonEndpointProps } from "./components/Dialog/DialogButtonEndpoint";
 export { DialogButtonEndpoint, DialogButtonEndpointProps };
