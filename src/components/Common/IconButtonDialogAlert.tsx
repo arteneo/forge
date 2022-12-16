@@ -1,9 +1,9 @@
 import React from "react";
 import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
-import DialogAlertConfirm, { DialogAlertConfirmProps } from "../../components/Dialog/DialogAlertConfirm";
+import DialogAlert, { DialogAlertProps } from "../../components/Dialog/DialogAlert";
 
 interface IconButtonDialogAlertProps extends IconButtonProps {
-    dialogProps: Omit<DialogAlertConfirmProps, "open" | "onClose">;
+    dialogProps: Omit<DialogAlertProps, "open" | "onClose">;
 }
 
 const IconButtonDialogAlert = ({ dialogProps, ...buttonProps }: IconButtonDialogAlertProps) => {
@@ -18,7 +18,7 @@ const IconButtonDialogAlert = ({ dialogProps, ...buttonProps }: IconButtonDialog
                 }}
             />
 
-            <DialogAlertConfirm
+            <DialogAlert
                 {...{
                     open: showDialog,
                     onClose: () => setShowDialog(false),
