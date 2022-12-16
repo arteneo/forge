@@ -1,5 +1,5 @@
 import React from "react";
-import axios, { AxiosResponse, CancelTokenSource } from "axios";
+import axios, { AxiosError, AxiosResponse, CancelTokenSource } from "axios";
 import { useSnackbar } from "../../contexts/Snackbar";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
@@ -16,6 +16,11 @@ interface ButtonEndpointInterface {
         response: AxiosResponse,
         setLoading: React.Dispatch<React.SetStateAction<boolean>>
     ) => void;
+    onCatch?: (
+        defaultOnCatch: () => void,
+        error: AxiosError,
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>
+    ) => void;
     snackbarLabel?: string;
     snackbarLabelVariables?: TranslateVariablesInterface;
 }
@@ -27,6 +32,7 @@ let axiosSource: null | CancelTokenSource = null;
 const ButtonEndpoint = ({
     endpoint,
     onSuccess,
+    onCatch,
     snackbarLabel = "buttonEndpoint.snackbar.success",
     snackbarLabelVariables = {},
     ...props
@@ -67,13 +73,25 @@ const ButtonEndpoint = ({
 
                 defaultOnSuccess();
             })
-            .catch((error) => {
-                handleCatch(error);
-                hideLoader();
+            // According to https://github.com/axios/axios/issues/3612
+            // This should be typed as Error | AxiosError
+            // Leaving this as it is to avoid further changes. Revisit when this will cause problems
+            .catch((error: AxiosError) => {
+                const defaultOnCatch = () => {
+                    handleCatch(error);
+                    hideLoader();
 
-                if (error?.message !== AXIOS_CANCELLED_UNMOUNTED) {
-                    setLoading(false);
+                    if (error?.message !== AXIOS_CANCELLED_UNMOUNTED) {
+                        setLoading(false);
+                    }
+                };
+
+                if (typeof onCatch !== "undefined") {
+                    onCatch(defaultOnCatch, error, setLoading);
+                    return;
                 }
+
+                defaultOnCatch();
             });
     };
 

@@ -23,6 +23,19 @@ const DialogButtonEndpoint = (props: ButtonEndpointProps) => {
 
                     internalDefaultOnSuccess();
                 },
+                onCatch: (defaultOnCatch, error, setLoading) => {
+                    const internalDefaultOnCatch = () => {
+                        defaultOnCatch();
+                        onClose();
+                    };
+
+                    if (typeof props.onCatch !== "undefined") {
+                        props.onCatch(internalDefaultOnCatch, error, setLoading);
+                        return;
+                    }
+
+                    internalDefaultOnCatch();
+                },
             }}
         />
     );
