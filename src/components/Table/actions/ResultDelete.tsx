@@ -6,6 +6,7 @@ import ButtonDialogAlertConfirm, {
 } from "../../../components/Common/ButtonDialogAlertConfirm";
 import { mergeEndpointCustomizer } from "../../../utilities/merge";
 import Optional from "../../../definitions/Optional";
+import { useTable } from "../../../components/Table/contexts/Table";
 
 type ResultDeleteDialogProps = Optional<ButtonDialogAlertConfirmProps["dialogProps"], "label">;
 
@@ -15,6 +16,8 @@ interface ResultDeleteProps extends Omit<ButtonDialogAlertConfirmProps, "dialogP
 }
 
 const ResultDelete = ({ result, dialogProps, ...props }: ResultDeleteProps) => {
+    const { reload } = useTable();
+
     if (typeof result === "undefined") {
         throw new Error("ResultDelete component: Missing required result prop");
     }
@@ -36,6 +39,10 @@ const ResultDelete = ({ result, dialogProps, ...props }: ResultDeleteProps) => {
             },
             endpoint: {
                 method: "delete",
+            },
+            onSuccess: (defaultOnSuccess: () => void) => {
+                defaultOnSuccess();
+                reload();
             },
         },
     };
