@@ -108,6 +108,16 @@ export { RadioFalseTrue, RadioFalseTrueProps };
 // < ./component/Form
 
 // > ./component/Table
+import ResultButtonDialogAlertConfirm, {
+    ResultButtonDialogAlertConfirmSpecificProps,
+    ResultButtonDialogAlertConfirmProps,
+} from "./components/Table/actions/ResultButtonDialogAlertConfirm";
+export {
+    ResultButtonDialogAlertConfirm,
+    ResultButtonDialogAlertConfirmSpecificProps,
+    ResultButtonDialogAlertConfirmProps,
+};
+
 import ResultRedirectTableQuery, {
     ResultRedirectTableQueryProps,
 } from "./components/Table/actions/ResultRedirectTableQuery";
