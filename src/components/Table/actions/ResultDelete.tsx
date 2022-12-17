@@ -15,7 +15,7 @@ const ResultDelete = ({ result, dialogProps, ...props }: ResultDeleteProps) => {
 
     const internalDialogProps = {
         title: "resultDelete.dialog.title",
-        label: "resultDelete.dialog.confirm",
+        label: "resultDelete.dialog.label",
         labelVariables: { representation: result.representation },
         alertProps: {
             severity: "error",

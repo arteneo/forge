@@ -64,33 +64,19 @@
             "success": "Operation successful"
         }
     },
-    "buttonEndpointDialogConfirm": {
-        "TODO": "TODO",
-        "dialog": {
-            "title": "Confirmation required",
-            "confirm": "Are you sure you want to proceed?"
-        },
-        "snackbar": {
-            "success": "Operation successful"
-        }
-    },
     "dialogConfirm": {
-        "title": "Confirmation required",
-        "confirm": "Confirm"
+        "title": "Confirmation required"
+    },
+    "dialogAlertConfirm": {
+        "title": "Confirmation required"
     },
     "resultDelete": {
-        "TODO": "TODO",
         "dialog": {
             "title": "Confirmation required",
-            "confirm": "Are you sure you want to delete \"{{ representation }}\"?"
+            "label": "Are you sure you want to delete \"{{ representation }}\"?"
         },
         "snackbar": {
             "success": "Delete operation successful"
-        }
-    },
-    "dialogForm": {
-        "dialog": {
-            "title": "Form"
         }
     },
     "booleanColumn": {

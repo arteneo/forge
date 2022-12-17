@@ -16,7 +16,7 @@ const DialogConfirm = ({ confirmProps, ...props }: DialogConfirmProps) => {
                 actions: (
                     <DialogButtonEndpoint
                         {...{
-                            label: "dialogConfirm.confirm",
+                            label: "action.confirm",
                             color: "success",
                             endIcon: <Check />,
                             ...confirmProps,
