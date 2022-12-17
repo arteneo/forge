@@ -60,7 +60,7 @@ const ResultButtonDialogConfirm = ({
             {...{
                 deny: result?.deny,
                 // Override confirmProps.onSuccess with internal one to include reload logic in defaultOnSuccess
-                dialogProps: _.mergeWith(resolvedDialogProps, {
+                dialogProps: _.merge(resolvedDialogProps, {
                     confirmProps: {
                         onSuccess,
                     },

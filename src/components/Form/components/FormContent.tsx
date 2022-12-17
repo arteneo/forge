@@ -18,6 +18,7 @@ interface FormContentProps {
         helpers: FormikHelpers<FormikValues>,
         response: AxiosResponse
     ) => void;
+    onSubmitCatch?: (defaultOnSubmitCatch: () => void, helpers: FormikHelpers<FormikValues>, error: AxiosError) => void;
     onSubmit?: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
     endpoint?: FieldEndpointType;
     snackbarLabel?: string;
@@ -30,6 +31,7 @@ const FormContent = ({
     endpoint,
     onSubmit,
     onSubmitSuccess,
+    onSubmitCatch,
     changeSubmitValues,
     snackbarLabel = "form.snackbar.success",
     snackbarLabelVariables,
@@ -69,9 +71,21 @@ const FormContent = ({
 
                 defaultOnSubmitSuccess();
             })
+            // According to https://github.com/axios/axios/issues/3612
+            // This should be typed as Error | AxiosError
+            // Leaving this as it is to avoid further changes. Revisit when this will cause problems
             .catch((error: AxiosError) => {
-                handleCatch(error, helpers);
-                hideLoader();
+                const defaultOnSubmitCatch = () => {
+                    handleCatch(error, helpers);
+                    hideLoader();
+                };
+
+                if (typeof onSubmitCatch !== "undefined") {
+                    onSubmitCatch(defaultOnSubmitCatch, helpers, error);
+                    return;
+                }
+
+                defaultOnSubmitCatch();
             });
     };
 

@@ -14,7 +14,7 @@ const Dialog = ({ children, title, titleVariables, onClose, actions, ...props }:
     return (
         <DialogProvider {...{ onClose, ...props }}>
             <DialogTitle {...{ title, titleVariables }} />
-            <DialogContent>{children}</DialogContent>
+            <DialogContent {...{ children }} />
             <DialogActions {...{ actions }} />
         </DialogProvider>
     );

@@ -1,16 +1,3 @@
-// TODO Fix it
-import ResultButtonEndpointDialogConfirm, {
-    ResultButtonEndpointDialogConfirmProps,
-    ResultButtonEndpointDialogConfirmSpecificProps,
-    ResultButtonEndpointDialogConfirmRenderDialogParams,
-} from "./components/Table/actions/ResultButtonEndpointDialogConfirm";
-export {
-    ResultButtonEndpointDialogConfirm,
-    ResultButtonEndpointDialogConfirmProps,
-    ResultButtonEndpointDialogConfirmSpecificProps,
-    ResultButtonEndpointDialogConfirmRenderDialogParams,
-};
-
 // Keep import/export structure as it is here (easier to read). Adjust older import/exports when time allows
 
 // > ./component/Common
@@ -25,6 +12,12 @@ export { ButtonDialogAlert, ButtonDialogAlertProps };
 
 import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "./components/Common/ButtonDialogConfirm";
 export { ButtonDialogConfirm, ButtonDialogConfirmProps };
+
+import ButtonDialogForm, { ButtonDialogFormProps } from "./components/Common/ButtonDialogForm";
+export { ButtonDialogForm, ButtonDialogFormProps };
+
+import ButtonDialogFormFieldset, { ButtonDialogFormFieldsetProps } from "./components/Common/ButtonDialogFormFieldset";
+export { ButtonDialogFormFieldset, ButtonDialogFormFieldsetProps };
 
 import ButtonDialogAlertConfirm, { ButtonDialogAlertConfirmProps } from "./components/Common/ButtonDialogAlertConfirm";
 export { ButtonDialogAlertConfirm, ButtonDialogAlertConfirmProps };
@@ -104,6 +97,12 @@ export { DialogContent, DialogContentProps };
 import DialogContentLoader from "./components/Dialog/DialogContentLoader";
 export { DialogContentLoader };
 
+import DialogForm, { DialogFormProps } from "./components/Dialog/DialogForm";
+export { DialogForm, DialogFormProps };
+
+import DialogFormFieldset, { DialogFormFieldsetProps } from "./components/Dialog/DialogFormFieldset";
+export { DialogFormFieldset, DialogFormFieldsetProps };
+
 import DialogTitle, { DialogTitleProps } from "./components/Dialog/DialogTitle";
 export { DialogTitle, DialogTitleProps };
 // < ./component/Dialog
@@ -125,6 +124,28 @@ export {
     ResultButtonDialogAlertConfirm,
     ResultButtonDialogAlertConfirmSpecificProps,
     ResultButtonDialogAlertConfirmProps,
+};
+
+import ResultButtonDialogConfirm, {
+    ResultButtonDialogConfirmSpecificProps,
+    ResultButtonDialogConfirmProps,
+} from "./components/Table/actions/ResultButtonDialogConfirm";
+export { ResultButtonDialogConfirm, ResultButtonDialogConfirmSpecificProps, ResultButtonDialogConfirmProps };
+
+import ResultButtonDialogForm, {
+    ResultButtonDialogFormSpecificProps,
+    ResultButtonDialogFormProps,
+} from "./components/Table/actions/ResultButtonDialogForm";
+export { ResultButtonDialogForm, ResultButtonDialogFormSpecificProps, ResultButtonDialogFormProps };
+
+import ResultButtonDialogFormFieldset, {
+    ResultButtonDialogFormFieldsetSpecificProps,
+    ResultButtonDialogFormFieldsetProps,
+} from "./components/Table/actions/ResultButtonDialogFormFieldset";
+export {
+    ResultButtonDialogFormFieldset,
+    ResultButtonDialogFormFieldsetSpecificProps,
+    ResultButtonDialogFormFieldsetProps,
 };
 
 import ResultRedirectTableQuery, {
@@ -325,10 +346,6 @@ import ResultButtonDialog, {
     ResultButtonDialogProps,
     ResultButtonDialogSpecificProps,
 } from "./components/Table/actions/ResultButtonDialog";
-import ResultButtonDialogConfirm, {
-    ResultButtonDialogConfirmProps,
-    ResultButtonDialogConfirmSpecificProps,
-} from "./components/Table/actions/ResultButtonDialogConfirm";
 import ResultButtonDownload, {
     ResultButtonDownloadProps,
     ResultButtonDownloadSpecificProps,
@@ -558,9 +575,6 @@ export {
     ResultButtonDialog,
     ResultButtonDialogProps,
     ResultButtonDialogSpecificProps,
-    ResultButtonDialogConfirm,
-    ResultButtonDialogConfirmProps,
-    ResultButtonDialogConfirmSpecificProps,
     ResultButtonDownload,
     ResultButtonDownloadProps,
     ResultButtonDownloadSpecificProps,
