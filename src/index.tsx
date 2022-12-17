@@ -51,6 +51,14 @@ export { IconButtonDialogAlertConfirm, IconButtonDialogAlertConfirmProps };
 import IconButtonDialogConfirm, { IconButtonDialogConfirmProps } from "./components/Common/IconButtonDialogConfirm";
 export { IconButtonDialogConfirm, IconButtonDialogConfirmProps };
 
+import IconButtonDialogForm, { IconButtonDialogFormProps } from "./components/Common/IconButtonDialogForm";
+export { IconButtonDialogForm, IconButtonDialogFormProps };
+
+import IconButtonDialogFormFieldset, {
+    IconButtonDialogFormFieldsetProps,
+} from "./components/Common/IconButtonDialogFormFieldset";
+export { IconButtonDialogFormFieldset, IconButtonDialogFormFieldsetProps };
+
 import IconButtonDownload, { IconButtonDownloadProps } from "./components/Common/IconButtonDownload";
 export { IconButtonDownload, IconButtonDownloadProps };
 
