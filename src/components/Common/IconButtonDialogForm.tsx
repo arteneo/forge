@@ -1,42 +1,33 @@
 import React from "react";
-import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
-import DialogForm, { DialogFormFormProps } from "../../components/Common/DialogForm";
+import Button, { ButtonProps } from "../../components/Common/Button";
+import DialogForm, { DialogFormProps } from "../../components/Dialog/DialogForm";
 
-interface IconButtonDialogFormRenderDialogParams {
-    open: boolean;
-    onClose: () => void;
-    formProps: DialogFormFormProps;
+interface IconButtonDialogFormProps extends ButtonProps {
+    dialogProps: Omit<DialogFormProps, "open" | "onClose">;
 }
 
-interface IconButtonDialogFormProps extends IconButtonProps {
-    formProps: DialogFormFormProps;
-    renderDialog?: (params: IconButtonDialogFormRenderDialogParams) => React.ReactNode;
-}
-
-const IconButtonDialogForm = ({
-    formProps,
-    renderDialog = (params) => <DialogForm {...params} />,
-    ...iconButtonProps
-}: IconButtonDialogFormProps) => {
+const IconButtonDialogForm = ({ dialogProps, ...buttonProps }: IconButtonDialogFormProps) => {
     const [showDialog, setShowDialog] = React.useState(false);
 
     return (
         <>
-            <IconButton
+            <Button
                 {...{
                     onClick: () => setShowDialog(true),
-                    ...iconButtonProps,
+                    ...buttonProps,
                 }}
             />
 
-            {renderDialog({
-                open: showDialog,
-                onClose: () => setShowDialog(false),
-                formProps,
-            })}
+            <DialogForm
+                {...{
+                    open: showDialog,
+                    onClose: () => setShowDialog(false),
+                    ...dialogProps,
+                }}
+            />
         </>
     );
 };
 
 export default IconButtonDialogForm;
-export { IconButtonDialogFormProps, IconButtonDialogFormRenderDialogParams };
+export { IconButtonDialogFormProps };

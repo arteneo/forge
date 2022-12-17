@@ -1,33 +1,29 @@
 import React from "react";
-import ButtonDialog, {
-    ButtonDialogProps,
-    ButtonDialogRenderDialogParams,
-} from "../../../components/Common/ButtonDialog";
+import { getIn } from "formik";
+import ButtonDialog, { ButtonDialogProps } from "../../../components/Common/ButtonDialog";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 
-interface ResultButtonDialogRenderDialogParams extends ButtonDialogRenderDialogParams {
-    result: ResultInterface;
-}
-
 interface ResultButtonDialogSpecificProps {
-    renderDialog: (params: ResultButtonDialogRenderDialogParams) => React.ReactNode;
+    dialogProps: (result: ResultInterface) => ButtonDialogProps["dialogProps"];
 }
 
-type ResultButtonDialogProps = Omit<ButtonDialogProps, "renderDialog"> &
-    ResultButtonDialogSpecificProps &
+type ResultButtonDialogProps = ResultButtonDialogSpecificProps &
+    Omit<ButtonDialogProps, "dialogProps"> &
     ColumnActionPathInterface;
 
-const ResultButtonDialog = ({ result, renderDialog, ...props }: ResultButtonDialogProps) => {
+const ResultButtonDialog = ({ result, path, dialogProps, ...props }: ResultButtonDialogProps) => {
     if (typeof result === "undefined") {
         throw new Error("ResultButtonDialog component: Missing required result prop");
     }
+
+    const value = path ? getIn(result, path) : result;
 
     return (
         <ButtonDialog
             {...{
                 deny: result?.deny,
-                renderDialog: (params) => renderDialog({ ...params, result }),
+                dialogProps: dialogProps(value),
                 ...props,
             }}
         />
@@ -35,4 +31,4 @@ const ResultButtonDialog = ({ result, renderDialog, ...props }: ResultButtonDial
 };
 
 export default ResultButtonDialog;
-export { ResultButtonDialogProps, ResultButtonDialogSpecificProps, ResultButtonDialogRenderDialogParams };
+export { ResultButtonDialogProps, ResultButtonDialogSpecificProps };

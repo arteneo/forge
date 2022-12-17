@@ -1,33 +1,29 @@
 import React from "react";
-import IconButtonDialog, {
-    IconButtonDialogProps,
-    IconButtonDialogRenderDialogParams,
-} from "../../../components/Common/IconButtonDialog";
+import { getIn } from "formik";
+import IconButtonDialog, { IconButtonDialogProps } from "../../../components/Common/IconButtonDialog";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 
-interface ResultIconButtonDialogRenderDialogParams extends IconButtonDialogRenderDialogParams {
-    result: ResultInterface;
-}
-
 interface ResultIconButtonDialogSpecificProps {
-    renderDialog: (params: ResultIconButtonDialogRenderDialogParams) => React.ReactNode;
+    dialogProps: (result: ResultInterface) => IconButtonDialogProps["dialogProps"];
 }
 
-type ResultIconButtonDialogProps = Omit<IconButtonDialogProps, "renderDialog"> &
+type ResultIconButtonDialogProps = Omit<IconButtonDialogProps, "dialogProps"> &
     ResultIconButtonDialogSpecificProps &
     ColumnActionPathInterface;
 
-const ResultIconButtonDialog = ({ result, renderDialog, ...props }: ResultIconButtonDialogProps) => {
+const ResultIconButtonDialog = ({ result, path, dialogProps, ...props }: ResultIconButtonDialogProps) => {
     if (typeof result === "undefined") {
         throw new Error("ResultIconButtonDialog component: Missing required result prop");
     }
+
+    const value = path ? getIn(result, path) : result;
 
     return (
         <IconButtonDialog
             {...{
                 deny: result?.deny,
-                renderDialog: (params) => renderDialog({ ...params, result }),
+                dialogProps: dialogProps(value),
                 ...props,
             }}
         />
@@ -35,4 +31,4 @@ const ResultIconButtonDialog = ({ result, renderDialog, ...props }: ResultIconBu
 };
 
 export default ResultIconButtonDialog;
-export { ResultIconButtonDialogProps, ResultIconButtonDialogSpecificProps, ResultIconButtonDialogRenderDialogParams };
+export { ResultIconButtonDialogProps, ResultIconButtonDialogSpecificProps };

@@ -1,12 +1,12 @@
 import React from "react";
 import Button, { ButtonProps } from "../../components/Common/Button";
-import DialogForm, { DialogFormProps } from "../../components/Dialog/DialogForm";
+import DialogConfirm, { DialogConfirmProps } from "../../components/Dialog/DialogConfirm";
 
-interface ButtonDialogFormProps extends ButtonProps {
-    dialogProps: Omit<DialogFormProps, "open" | "onClose">;
+interface ButtonDialogConfirmProps extends ButtonProps {
+    dialogProps: Omit<DialogConfirmProps, "open" | "onClose">;
 }
 
-const ButtonDialogForm = ({ dialogProps, ...buttonProps }: ButtonDialogFormProps) => {
+const ButtonDialogConfirm = ({ dialogProps, ...buttonProps }: ButtonDialogConfirmProps) => {
     const [showDialog, setShowDialog] = React.useState(false);
 
     return (
@@ -18,7 +18,7 @@ const ButtonDialogForm = ({ dialogProps, ...buttonProps }: ButtonDialogFormProps
                 }}
             />
 
-            <DialogForm
+            <DialogConfirm
                 {...{
                     open: showDialog,
                     onClose: () => setShowDialog(false),
@@ -29,5 +29,5 @@ const ButtonDialogForm = ({ dialogProps, ...buttonProps }: ButtonDialogFormProps
     );
 };
 
-export default ButtonDialogForm;
-export { ButtonDialogFormProps };
+export default ButtonDialogConfirm;
+export { ButtonDialogConfirmProps };

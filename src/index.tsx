@@ -1,5 +1,123 @@
 // Keep import/export structure as it is here (easier to read). Adjust older import/exports when time allows
 
+// > ./component/Common
+import Button, { ButtonProps } from "./components/Common/Button";
+export { Button, ButtonProps };
+
+import ButtonDialog, { ButtonDialogProps } from "./components/Common/ButtonDialog";
+export { ButtonDialog, ButtonDialogProps };
+
+import ButtonDialogAlert, { ButtonDialogAlertProps } from "./components/Common/ButtonDialogAlert";
+export { ButtonDialogAlert, ButtonDialogAlertProps };
+
+import ButtonDialogAlertConfirm, { ButtonDialogAlertConfirmProps } from "./components/Common/ButtonDialogAlertConfirm";
+export { ButtonDialogAlertConfirm, ButtonDialogAlertConfirmProps };
+
+import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "./components/Common/ButtonDialogConfirm";
+export { ButtonDialogConfirm, ButtonDialogConfirmProps };
+
+import ButtonDialogForm, { ButtonDialogFormProps } from "./components/Common/ButtonDialogForm";
+export { ButtonDialogForm, ButtonDialogFormProps };
+
+import ButtonDialogFormFieldset, { ButtonDialogFormFieldsetProps } from "./components/Common/ButtonDialogFormFieldset";
+export { ButtonDialogFormFieldset, ButtonDialogFormFieldsetProps };
+
+import ButtonDownload, { ButtonDownloadProps } from "./components/Common/ButtonDownload";
+export { ButtonDownload, ButtonDownloadProps };
+
+import ButtonEndpoint, { ButtonEndpointProps } from "./components/Common/ButtonEndpoint";
+export { ButtonEndpoint, ButtonEndpointProps };
+
+import ButtonLink, { ButtonLinkProps } from "./components/Common/ButtonLink";
+export { ButtonLink, ButtonLinkProps };
+
+import HighlightTag, { HighlightTagProps } from "./components/Common/HighlightTag";
+export { HighlightTag, HighlightTagProps };
+
+import IconButton, { IconButtonProps } from "./components/Common/IconButton";
+export { IconButton, IconButtonProps };
+
+import IconButtonDialog, { IconButtonDialogProps } from "./components/Common/IconButtonDialog";
+export { IconButtonDialog, IconButtonDialogProps };
+
+import IconButtonDialogAlert, { IconButtonDialogAlertProps } from "./components/Common/IconButtonDialogAlert";
+export { IconButtonDialogAlert, IconButtonDialogAlertProps };
+
+import IconButtonDialogAlertConfirm, {
+    IconButtonDialogAlertConfirmProps,
+} from "./components/Common/IconButtonDialogAlertConfirm";
+export { IconButtonDialogAlertConfirm, IconButtonDialogAlertConfirmProps };
+
+import IconButtonDialogConfirm, { IconButtonDialogConfirmProps } from "./components/Common/IconButtonDialogConfirm";
+export { IconButtonDialogConfirm, IconButtonDialogConfirmProps };
+
+import IconButtonDialogForm, { IconButtonDialogFormProps } from "./components/Common/IconButtonDialogForm";
+export { IconButtonDialogForm, IconButtonDialogFormProps };
+
+import IconButtonDialogFormFieldset, {
+    IconButtonDialogFormFieldsetProps,
+} from "./components/Common/IconButtonDialogFormFieldset";
+export { IconButtonDialogFormFieldset, IconButtonDialogFormFieldsetProps };
+
+import IconButtonDownload, { IconButtonDownloadProps } from "./components/Common/IconButtonDownload";
+export { IconButtonDownload, IconButtonDownloadProps };
+
+import IconButtonEndpoint, { IconButtonEndpointProps } from "./components/Common/IconButtonEndpoint";
+export { IconButtonEndpoint, IconButtonEndpointProps };
+
+import IconButtonLink, { IconButtonLinkProps } from "./components/Common/IconButtonLink";
+export { IconButtonLink, IconButtonLinkProps };
+
+import LoadingButton, { LoadingButtonProps } from "./components/Common/LoadingButton";
+export { LoadingButton, LoadingButtonProps };
+
+import RequestExecutionErrorDialog, {
+    RequestExecutionErrorDialogProps,
+} from "./components/Common/RequestExecutionErrorDialog";
+export { RequestExecutionErrorDialog, RequestExecutionErrorDialogProps };
+// < ./component/Common
+
+// > ./component/Dialog
+import Dialog, { DialogProps } from "./components/Dialog/Dialog";
+export { Dialog, DialogProps };
+
+import DialogActions, { DialogActionsSpecificProps, DialogActionsProps } from "./components/Dialog/DialogActions";
+export { DialogActions, DialogActionsSpecificProps, DialogActionsProps };
+
+import DialogAlert, { DialogAlertProps } from "./components/Dialog/DialogAlert";
+export { DialogAlert, DialogAlertProps };
+
+import DialogAlertConfirm, { DialogAlertConfirmProps } from "./components/Dialog/DialogAlertConfirm";
+export { DialogAlertConfirm, DialogAlertConfirmProps };
+
+import DialogButtonClose, { DialogButtonCloseProps } from "./components/Dialog/DialogButtonClose";
+export { DialogButtonClose, DialogButtonCloseProps };
+
+import DialogButtonEndpoint, { DialogButtonEndpointProps } from "./components/Dialog/DialogButtonEndpoint";
+export { DialogButtonEndpoint, DialogButtonEndpointProps };
+
+import DialogButtonSubmit, { DialogButtonSubmitProps } from "./components/Dialog/DialogButtonSubmit";
+export { DialogButtonSubmit, DialogButtonSubmitProps };
+
+import DialogConfirm, { DialogConfirmProps } from "./components/Dialog/DialogConfirm";
+export { DialogConfirm, DialogConfirmProps };
+
+import DialogContent, { DialogContentProps } from "./components/Dialog/DialogContent";
+export { DialogContent, DialogContentProps };
+
+import DialogContentLoader from "./components/Dialog/DialogContentLoader";
+export { DialogContentLoader };
+
+import DialogForm, { DialogFormProps } from "./components/Dialog/DialogForm";
+export { DialogForm, DialogFormProps };
+
+import DialogFormFieldset, { DialogFormFieldsetProps } from "./components/Dialog/DialogFormFieldset";
+export { DialogFormFieldset, DialogFormFieldsetProps };
+
+import DialogTitle, { DialogTitleProps } from "./components/Dialog/DialogTitle";
+export { DialogTitle, DialogTitleProps };
+// < ./component/Dialog
+
 // > ./component/Form
 import ColorPicker, { ColorPickerProps } from "./components/Form/fields/ColorPicker";
 export { ColorPicker, ColorPickerProps };
@@ -9,6 +127,77 @@ export { RadioFalseTrue, RadioFalseTrueProps };
 // < ./component/Form
 
 // > ./component/Table
+import ResultButton, { ResultButtonProps } from "./components/Table/actions/ResultButton";
+export { ResultButton, ResultButtonProps };
+
+import ResultButtonDialog, {
+    ResultButtonDialogSpecificProps,
+    ResultButtonDialogProps,
+} from "./components/Table/actions/ResultButtonDialog";
+export { ResultButtonDialog, ResultButtonDialogSpecificProps, ResultButtonDialogProps };
+
+import ResultButtonDialogAlertConfirm, {
+    ResultButtonDialogAlertConfirmSpecificProps,
+    ResultButtonDialogAlertConfirmProps,
+} from "./components/Table/actions/ResultButtonDialogAlertConfirm";
+export {
+    ResultButtonDialogAlertConfirm,
+    ResultButtonDialogAlertConfirmSpecificProps,
+    ResultButtonDialogAlertConfirmProps,
+};
+
+import ResultButtonDialogConfirm, {
+    ResultButtonDialogConfirmSpecificProps,
+    ResultButtonDialogConfirmProps,
+} from "./components/Table/actions/ResultButtonDialogConfirm";
+export { ResultButtonDialogConfirm, ResultButtonDialogConfirmSpecificProps, ResultButtonDialogConfirmProps };
+
+import ResultButtonDialogForm, {
+    ResultButtonDialogFormSpecificProps,
+    ResultButtonDialogFormProps,
+} from "./components/Table/actions/ResultButtonDialogForm";
+export { ResultButtonDialogForm, ResultButtonDialogFormSpecificProps, ResultButtonDialogFormProps };
+
+import ResultButtonDialogFormFieldset, {
+    ResultButtonDialogFormFieldsetSpecificProps,
+    ResultButtonDialogFormFieldsetProps,
+} from "./components/Table/actions/ResultButtonDialogFormFieldset";
+export {
+    ResultButtonDialogFormFieldset,
+    ResultButtonDialogFormFieldsetSpecificProps,
+    ResultButtonDialogFormFieldsetProps,
+};
+
+import ResultButtonDownload, {
+    ResultButtonDownloadSpecificProps,
+    ResultButtonDownloadProps,
+} from "./components/Table/actions/ResultButtonDownload";
+export { ResultButtonDownload, ResultButtonDownloadSpecificProps, ResultButtonDownloadProps };
+
+import ResultButtonEndpoint, {
+    ResultButtonEndpointSpecificProps,
+    ResultButtonEndpointProps,
+} from "./components/Table/actions/ResultButtonEndpoint";
+export { ResultButtonEndpoint, ResultButtonEndpointSpecificProps, ResultButtonEndpointProps };
+
+import ResultButtonLink, {
+    ResultButtonLinkSpecificProps,
+    ResultButtonLinkProps,
+} from "./components/Table/actions/ResultButtonLink";
+export { ResultButtonLink, ResultButtonLinkSpecificProps, ResultButtonLinkProps };
+
+import ResultDelete, { ResultDeleteProps } from "./components/Table/actions/ResultDelete";
+export { ResultDelete, ResultDeleteProps };
+
+import ResultEdit, { ResultEditProps } from "./components/Table/actions/ResultEdit";
+export { ResultEdit, ResultEditProps };
+
+import ResultIconButtonDialog, {
+    ResultIconButtonDialogSpecificProps,
+    ResultIconButtonDialogProps,
+} from "./components/Table/actions/ResultIconButtonDialog";
+export { ResultIconButtonDialog, ResultIconButtonDialogSpecificProps, ResultIconButtonDialogProps };
+
 import ResultRedirectTableQuery, {
     ResultRedirectTableQueryProps,
 } from "./components/Table/actions/ResultRedirectTableQuery";
@@ -53,6 +242,8 @@ export {
     transformInitialValues,
     responseHeaderExtractFilename,
 };
+import { mergeEndpointCustomizer } from "./utilities/merge";
+export { mergeEndpointCustomizer };
 // < ./utilities
 
 // > contexts
@@ -96,45 +287,23 @@ import {
 } from "./contexts/Snackbar";
 export { SnackbarContext, SnackbarContextProps, SnackbarProvider, SnackbarProviderProps, useSnackbar, SnackbarVariant };
 
+import {
+    DialogPayload,
+    DialogContext,
+    DialogContextProps,
+    DialogProvider,
+    DialogProviderProps,
+    useDialog,
+} from "./contexts/Dialog";
+export { DialogPayload, DialogContext, DialogContextProps, DialogProvider, DialogProviderProps, useDialog };
+// < contexts
+
+// > definitions
+import ResolveDialogPayloadType from "./definitions/ResolveDialogPayloadType";
+export { ResolveDialogPayloadType };
 // < contexts
 
 import Enum, { EnumType } from "./classes/Enum";
-import Button, { ButtonProps } from "./components/Common/Button";
-import ButtonDialog, { ButtonDialogProps, ButtonDialogRenderDialogParams } from "./components/Common/ButtonDialog";
-import ButtonDialogForm, {
-    ButtonDialogFormProps,
-    ButtonDialogFormRenderDialogParams,
-} from "./components/Common/ButtonDialogForm";
-import ButtonDownload, { ButtonDownloadProps } from "./components/Common/ButtonDownload";
-import ButtonEndpoint, { ButtonEndpointProps } from "./components/Common/ButtonEndpoint";
-import ButtonEndpointDialogConfirm, {
-    ButtonEndpointDialogConfirmProps,
-    ButtonEndpointDialogConfirmRenderDialogParams,
-} from "./components/Common/ButtonEndpointDialogConfirm";
-import ButtonLink, { ButtonLinkProps } from "./components/Common/ButtonLink";
-import Dialog, { DialogProps } from "./components/Common/Dialog";
-import RequestExecutionErrorDialog, {
-    RequestExecutionErrorDialogProps,
-} from "./components/Common/RequestExecutionErrorDialog";
-import DialogConfirm, { DialogConfirmProps } from "./components/Common/DialogConfirm";
-import DialogForm, { DialogFormProps } from "./components/Common/DialogForm";
-import HighlightTag, { HighlightTagProps } from "./components/Common/HighlightTag";
-import IconButton, { IconButtonProps } from "./components/Common/IconButton";
-import IconButtonDialog, {
-    IconButtonDialogProps,
-    IconButtonDialogRenderDialogParams,
-} from "./components/Common/IconButtonDialog";
-import IconButtonDialogForm, {
-    IconButtonDialogFormProps,
-    IconButtonDialogFormRenderDialogParams,
-} from "./components/Common/IconButtonDialogForm";
-import IconButtonDownload, { IconButtonDownloadProps } from "./components/Common/IconButtonDownload";
-import IconButtonEndpoint, { IconButtonEndpointProps } from "./components/Common/IconButtonEndpoint";
-import IconButtonEndpointDialogConfirm, {
-    IconButtonEndpointDialogConfirmProps,
-    IconButtonEndpointDialogConfirmRenderDialogParams,
-} from "./components/Common/IconButtonEndpointDialogConfirm";
-import IconButtonLink, { IconButtonLinkProps } from "./components/Common/IconButtonLink";
 import Form, { FormProps } from "./components/Form/components/Form";
 import FormContent, { FormContentProps } from "./components/Form/components/FormContent";
 import {
@@ -220,42 +389,6 @@ import TimePicker, {
     TimePickerSpecificProps,
     TimePickerFieldProps,
 } from "./components/Form/fields/TimePicker";
-import DialogFieldset, { DialogFieldsetProps } from "./components/Form/fieldsets/DialogFieldset";
-import DialogFormView, { DialogFormViewProps } from "./components/Form/views/DialogFormView";
-import ResultButton, { ResultButtonProps } from "./components/Table/actions/ResultButton";
-import ResultButtonDialog, {
-    ResultButtonDialogProps,
-    ResultButtonDialogSpecificProps,
-    ResultButtonDialogRenderDialogParams,
-} from "./components/Table/actions/ResultButtonDialog";
-import ResultButtonDialogForm, {
-    ResultButtonDialogFormProps,
-    ResultButtonDialogFormSpecificProps,
-} from "./components/Table/actions/ResultButtonDialogForm";
-import ResultButtonDownload, {
-    ResultButtonDownloadProps,
-    ResultButtonDownloadSpecificProps,
-} from "./components/Table/actions/ResultButtonDownload";
-import ResultButtonEndpoint, {
-    ResultButtonEndpointProps,
-    ResultButtonEndpointSpecificProps,
-} from "./components/Table/actions/ResultButtonEndpoint";
-import ResultButtonEndpointDialogConfirm, {
-    ResultButtonEndpointDialogConfirmProps,
-    ResultButtonEndpointDialogConfirmSpecificProps,
-    ResultButtonEndpointDialogConfirmRenderDialogParams,
-} from "./components/Table/actions/ResultButtonEndpointDialogConfirm";
-import ResultButtonLink, {
-    ResultButtonLinkProps,
-    ResultButtonLinkSpecificProps,
-} from "./components/Table/actions/ResultButtonLink";
-import ResultDelete, { ResultDeleteProps } from "./components/Table/actions/ResultDelete";
-import ResultEdit, { ResultEditProps } from "./components/Table/actions/ResultEdit";
-import ResultIconButtonDialog, {
-    ResultIconButtonDialogProps,
-    ResultIconButtonDialogSpecificProps,
-    ResultIconButtonDialogRenderDialogParams,
-} from "./components/Table/actions/ResultIconButtonDialog";
 import ActionsColumn, { ActionsColumnProps } from "./components/Table/columns/ActionsColumn";
 import BooleanColumn, { BooleanColumnProps } from "./components/Table/columns/BooleanColumn";
 import DateColumn, { DateColumnProps } from "./components/Table/columns/DateColumn";
@@ -355,55 +488,12 @@ import {
     resolveEndpoint,
     resolveFieldEndpoint,
     resolveFieldAutocompleteEndpoint,
+    resolveDialogPayload,
 } from "./utilities/resolve";
 
 export {
     Enum,
     EnumType,
-    Button,
-    ButtonProps,
-    ButtonDialog,
-    ButtonDialogProps,
-    ButtonDialogRenderDialogParams,
-    ButtonDialogForm,
-    ButtonDialogFormProps,
-    ButtonDialogFormRenderDialogParams,
-    ButtonDownload,
-    ButtonDownloadProps,
-    ButtonEndpoint,
-    ButtonEndpointProps,
-    ButtonEndpointDialogConfirm,
-    ButtonEndpointDialogConfirmProps,
-    ButtonEndpointDialogConfirmRenderDialogParams,
-    ButtonLink,
-    ButtonLinkProps,
-    Dialog,
-    DialogProps,
-    RequestExecutionErrorDialog,
-    RequestExecutionErrorDialogProps,
-    DialogConfirm,
-    DialogConfirmProps,
-    DialogForm,
-    DialogFormProps,
-    HighlightTag,
-    HighlightTagProps,
-    IconButton,
-    IconButtonProps,
-    IconButtonDialog,
-    IconButtonDialogProps,
-    IconButtonDialogRenderDialogParams,
-    IconButtonDialogForm,
-    IconButtonDialogFormProps,
-    IconButtonDialogFormRenderDialogParams,
-    IconButtonDownload,
-    IconButtonDownloadProps,
-    IconButtonEndpoint,
-    IconButtonEndpointProps,
-    IconButtonEndpointDialogConfirm,
-    IconButtonEndpointDialogConfirmProps,
-    IconButtonEndpointDialogConfirmRenderDialogParams,
-    IconButtonLink,
-    IconButtonLinkProps,
     Form,
     FormProps,
     FormContent,
@@ -501,40 +591,6 @@ export {
     TimePickerProps,
     TimePickerSpecificProps,
     TimePickerFieldProps,
-    DialogFieldset,
-    DialogFieldsetProps,
-    DialogFormView,
-    DialogFormViewProps,
-    ResultButton,
-    ResultButtonProps,
-    ResultButtonDialog,
-    ResultButtonDialogProps,
-    ResultButtonDialogSpecificProps,
-    ResultButtonDialogRenderDialogParams,
-    ResultButtonDialogForm,
-    ResultButtonDialogFormProps,
-    ResultButtonDialogFormSpecificProps,
-    ResultButtonDownload,
-    ResultButtonDownloadProps,
-    ResultButtonDownloadSpecificProps,
-    ResultButtonEndpoint,
-    ResultButtonEndpointProps,
-    ResultButtonEndpointSpecificProps,
-    ResultButtonEndpointDialogConfirm,
-    ResultButtonEndpointDialogConfirmProps,
-    ResultButtonEndpointDialogConfirmSpecificProps,
-    ResultButtonEndpointDialogConfirmRenderDialogParams,
-    ResultButtonLink,
-    ResultButtonLinkProps,
-    ResultButtonLinkSpecificProps,
-    ResultDelete,
-    ResultDeleteProps,
-    ResultEdit,
-    ResultEditProps,
-    ResultIconButtonDialog,
-    ResultIconButtonDialogProps,
-    ResultIconButtonDialogSpecificProps,
-    ResultIconButtonDialogRenderDialogParams,
     ActionsColumn,
     ActionsColumnProps,
     BooleanColumn,
@@ -663,5 +719,6 @@ export {
     resolveEndpoint,
     resolveFieldEndpoint,
     resolveFieldAutocompleteEndpoint,
+    resolveDialogPayload,
     Optional,
 };

@@ -63,15 +63,11 @@ const RequestExecutionErrorDialog = ({
 
     const defaultRenderContent = () => (
         <Box {...{ sx: { gap: 2, display: "flex", flexDirection: "column" } }}>
-            {detailedErrors ? (
-                <>
-                    {detailedErrors?.map((detailedError, detailedErrorKey) => (
-                        <Alert key={detailedErrorKey} severity="error">
-                            {t(detailedError.message, detailedError.parameters)}
-                        </Alert>
-                    ))}
-                </>
-            ) : null}
+            {detailedErrors?.map((detailedError, detailedErrorKey) => (
+                <Alert key={detailedErrorKey} severity="error">
+                    {t(detailedError.message, detailedError.parameters)}
+                </Alert>
+            ))}
         </Box>
     );
 

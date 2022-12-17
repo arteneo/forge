@@ -4,6 +4,8 @@ import { FormikValues } from "formik";
 import FieldEndpointType from "../components/Form/definitions/FieldEndpointType";
 import FieldAutocompleteEndpointType from "../components/Form/definitions/FieldAutocompleteEndpointType";
 import EndpointType from "../definitions/EndpointType";
+import { DialogPayload } from "../contexts/Dialog";
+import ResolveDialogPayloadType from "../definitions/ResolveDialogPayloadType";
 
 /* eslint-disable */
 const resolveBooleanOrFunction = (parameter: undefined | boolean | Function, ...functionParameters: any[]): boolean => {
@@ -78,6 +80,19 @@ const resolveFieldAutocompleteEndpoint = (
     return resolveEndpoint(resolved);
 };
 
+const resolveDialogPayload = <T,>(
+    parameter: ResolveDialogPayloadType<T>,
+    initialized: boolean,
+    payload: DialogPayload
+): T => {
+    if (typeof parameter === "function") {
+        // Not sure why there is a need to typehint that again
+        return (parameter as Function)(initialized, payload);
+    }
+
+    return parameter;
+};
+
 export {
     resolveBooleanOrFunction,
     resolveStringOrFunction,
@@ -87,4 +102,5 @@ export {
     resolveEndpoint,
     resolveFieldEndpoint,
     resolveFieldAutocompleteEndpoint,
+    resolveDialogPayload,
 };

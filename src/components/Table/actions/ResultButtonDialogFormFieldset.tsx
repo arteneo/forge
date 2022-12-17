@@ -1,31 +1,33 @@
 import React from "react";
 import { getIn } from "formik";
 import _ from "lodash";
-import ButtonDialogForm, { ButtonDialogFormProps } from "../../../components/Common/ButtonDialogForm";
+import ButtonDialogFormFieldset, {
+    ButtonDialogFormFieldsetProps,
+} from "../../../components/Common/ButtonDialogFormFieldset";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
 
-interface ResultButtonDialogFormSpecificProps {
+interface ResultButtonDialogFormFieldsetSpecificProps {
     disableOnSubmitSuccessReload?: boolean;
-    dialogProps: (result: ResultInterface) => ButtonDialogFormProps["dialogProps"];
+    dialogProps: (result: ResultInterface) => ButtonDialogFormFieldsetProps["dialogProps"];
 }
 
-type ResultButtonDialogFormProps = ResultButtonDialogFormSpecificProps &
-    Omit<ButtonDialogFormProps, "dialogProps"> &
+type ResultButtonDialogFormFieldsetProps = ResultButtonDialogFormFieldsetSpecificProps &
+    Omit<ButtonDialogFormFieldsetProps, "dialogProps"> &
     ColumnActionPathInterface;
 
-const ResultButtonDialogForm = ({
+const ResultButtonDialogFormFieldset = ({
     result,
     path,
     disableOnSubmitSuccessReload,
     dialogProps,
     ...props
-}: ResultButtonDialogFormProps) => {
+}: ResultButtonDialogFormFieldsetProps) => {
     const { reload } = useTable();
 
     if (typeof result === "undefined") {
-        throw new Error("ResultButtonDialogForm component: Missing required result prop");
+        throw new Error("ResultButtonDialogFormFieldset component: Missing required result prop");
     }
 
     const value = path ? getIn(result, path) : result;
@@ -34,7 +36,7 @@ const ResultButtonDialogForm = ({
     // We need to reference something else then onSubmitSuccess in resolvedDialogProps to avoid recurrence (onSubmitSuccess will be overridden)
     const resolvedOnSubmitSuccess = resolvedDialogProps?.formProps?.onSubmitSuccess;
 
-    const onSubmitSuccess: ButtonDialogFormProps["dialogProps"]["formProps"]["onSubmitSuccess"] = (
+    const onSubmitSuccess: ButtonDialogFormFieldsetProps["dialogProps"]["formProps"]["onSubmitSuccess"] = (
         defaultOnSubmitSuccess,
         helpers,
         response
@@ -56,7 +58,7 @@ const ResultButtonDialogForm = ({
     };
 
     return (
-        <ButtonDialogForm
+        <ButtonDialogFormFieldset
             {...{
                 deny: result?.deny,
                 // Override formProps.onSubmitSuccess with internal one to include reload logic in defaultOnSubmitSuccess
@@ -64,12 +66,12 @@ const ResultButtonDialogForm = ({
                     formProps: {
                         onSubmitSuccess,
                     },
-                }) as ButtonDialogFormProps["dialogProps"],
+                }) as ButtonDialogFormFieldsetProps["dialogProps"],
                 ...props,
             }}
         />
     );
 };
 
-export default ResultButtonDialogForm;
-export { ResultButtonDialogFormProps, ResultButtonDialogFormSpecificProps };
+export default ResultButtonDialogFormFieldset;
+export { ResultButtonDialogFormFieldsetProps, ResultButtonDialogFormFieldsetSpecificProps };

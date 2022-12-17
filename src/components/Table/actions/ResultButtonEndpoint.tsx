@@ -18,6 +18,7 @@ interface ResultButtonEndpointSpecificProps {
         // eslint-disable-next-line
         value: any,
         result: ResultInterface,
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>,
         path?: string
     ) => void;
 }
@@ -53,8 +54,11 @@ const ResultButtonEndpoint = ({
     // Lines below are written like that due to formatting issue
     let resolvedOnSuccess;
     if (onSuccess) {
-        resolvedOnSuccess = (defaultOnSuccess: () => void, response: AxiosResponse) =>
-            onSuccess(() => internalOnSuccess(defaultOnSuccess), response, value, result, path);
+        resolvedOnSuccess = (
+            defaultOnSuccess: () => void,
+            response: AxiosResponse,
+            setLoading: React.Dispatch<React.SetStateAction<boolean>>
+        ) => onSuccess(() => internalOnSuccess(defaultOnSuccess), response, value, result, setLoading, path);
     } else {
         resolvedOnSuccess = internalOnSuccess;
     }

@@ -1,12 +1,12 @@
 import React from "react";
 import Button, { ButtonProps } from "../../components/Common/Button";
-import DialogForm, { DialogFormProps } from "../../components/Dialog/DialogForm";
+import DialogFormFieldset, { DialogFormFieldsetProps } from "../../components/Dialog/DialogFormFieldset";
 
-interface ButtonDialogFormProps extends ButtonProps {
-    dialogProps: Omit<DialogFormProps, "open" | "onClose">;
+interface IconButtonDialogFormFieldsetProps extends ButtonProps {
+    dialogProps: Omit<DialogFormFieldsetProps, "open" | "onClose">;
 }
 
-const ButtonDialogForm = ({ dialogProps, ...buttonProps }: ButtonDialogFormProps) => {
+const IconButtonDialogFormFieldset = ({ dialogProps, ...buttonProps }: IconButtonDialogFormFieldsetProps) => {
     const [showDialog, setShowDialog] = React.useState(false);
 
     return (
@@ -18,7 +18,7 @@ const ButtonDialogForm = ({ dialogProps, ...buttonProps }: ButtonDialogFormProps
                 }}
             />
 
-            <DialogForm
+            <DialogFormFieldset
                 {...{
                     open: showDialog,
                     onClose: () => setShowDialog(false),
@@ -29,5 +29,5 @@ const ButtonDialogForm = ({ dialogProps, ...buttonProps }: ButtonDialogFormProps
     );
 };
 
-export default ButtonDialogForm;
-export { ButtonDialogFormProps };
+export default IconButtonDialogFormFieldset;
+export { IconButtonDialogFormFieldsetProps };
