@@ -347,8 +347,6 @@ import TimePicker, {
     TimePickerSpecificProps,
     TimePickerFieldProps,
 } from "./components/Form/fields/TimePicker";
-import DialogFieldset, { DialogFieldsetProps } from "./components/Form/fieldsets/DialogFieldset";
-import DialogFormView, { DialogFormViewProps } from "./components/Form/views/DialogFormView";
 import ResultButton, { ResultButtonProps } from "./components/Table/actions/ResultButton";
 import ResultButtonDialog, {
     ResultButtonDialogProps,
@@ -574,10 +572,6 @@ export {
     TimePickerProps,
     TimePickerSpecificProps,
     TimePickerFieldProps,
-    DialogFieldset,
-    DialogFieldsetProps,
-    DialogFormView,
-    DialogFormViewProps,
     ResultButton,
     ResultButtonProps,
     ResultButtonDialog,
