@@ -13,6 +13,12 @@ export { ButtonDialogAlert, ButtonDialogAlertProps };
 import ButtonDialogAlertConfirm, { ButtonDialogAlertConfirmProps } from "./components/Common/ButtonDialogAlertConfirm";
 export { ButtonDialogAlertConfirm, ButtonDialogAlertConfirmProps };
 
+import ButtonDialogBatch, { ButtonDialogBatchProps } from "./components/Common/ButtonDialogBatch";
+export { ButtonDialogBatch, ButtonDialogBatchProps };
+
+import ButtonDialogBatchConfirm, { ButtonDialogBatchConfirmProps } from "./components/Common/ButtonDialogBatchConfirm";
+export { ButtonDialogBatchConfirm, ButtonDialogBatchConfirmProps };
+
 import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "./components/Common/ButtonDialogConfirm";
 export { ButtonDialogConfirm, ButtonDialogConfirmProps };
 
@@ -89,6 +95,21 @@ export { DialogAlert, DialogAlertProps };
 
 import DialogAlertConfirm, { DialogAlertConfirmProps } from "./components/Dialog/DialogAlertConfirm";
 export { DialogAlertConfirm, DialogAlertConfirmProps };
+
+import DialogBatch, { DialogBatchProps } from "./components/Dialog/DialogBatch";
+export { DialogBatch, DialogBatchProps };
+
+import DialogBatchConfirm, { DialogBatchConfirmProps } from "./components/Dialog/DialogBatchConfirm";
+export { DialogBatchConfirm, DialogBatchConfirmProps };
+
+import DialogBatchContent, { DialogBatchContentProps } from "./components/Dialog/DialogBatchContent";
+export { DialogBatchContent, DialogBatchContentProps };
+
+import DialogBatchProgress from "./components/Dialog/DialogBatchProgress";
+export { DialogBatchProgress };
+
+import DialogBatchResults from "./components/Dialog/DialogBatchResults";
+export { DialogBatchResults };
 
 import DialogButtonClose, { DialogButtonCloseProps } from "./components/Dialog/DialogButtonClose";
 export { DialogButtonClose, DialogButtonCloseProps };
@@ -296,6 +317,25 @@ import {
     useDialog,
 } from "./contexts/Dialog";
 export { DialogPayload, DialogContext, DialogContextProps, DialogProvider, DialogProviderProps, useDialog };
+
+import {
+    BatchResultStatusType,
+    BatchResultInterface,
+    DialogBatchContext,
+    DialogBatchContextProps,
+    DialogBatchProvider,
+    DialogBatchProviderProps,
+    useDialogBatch,
+} from "./contexts/DialogBatch";
+export {
+    BatchResultStatusType,
+    BatchResultInterface,
+    DialogBatchContext,
+    DialogBatchContextProps,
+    DialogBatchProvider,
+    DialogBatchProviderProps,
+    useDialogBatch,
+};
 // < contexts
 
 // > definitions
