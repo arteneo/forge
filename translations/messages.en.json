@@ -70,6 +70,14 @@
     "dialogAlertConfirm": {
         "title": "Confirmation required"
     },
+    "dialogBatchProgress": {
+        "tooltip": {
+            "success": "Operation successful",
+            "skipped": "Operation skipped",
+            "error": "Operation failed",
+            "errorMessage": "Operation failed. {{ message }}"
+        }
+    },
     "resultDelete": {
         "dialog": {
             "title": "Confirmation required",

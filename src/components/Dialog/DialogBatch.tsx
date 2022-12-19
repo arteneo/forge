@@ -1,5 +1,4 @@
 import React from "react";
-import Optional from "../../definitions/Optional";
 import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
 import { DialogBatchProvider, DialogBatchProviderProps } from "../../contexts/DialogBatch";
 import DialogTitle, { DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
@@ -9,8 +8,8 @@ import DialogActions, { DialogActionsSpecificProps } from "../../components/Dial
 type DialogBatchProps = DialogTitleSpecificProps &
     DialogBatchContentSpecificProps &
     DialogActionsSpecificProps &
-    DialogBatchProviderProps &
-    Optional<DialogProviderProps, "children">;
+    Omit<DialogBatchProviderProps, "children"> &
+    Omit<DialogProviderProps, "children">;
 
 const DialogBatch = ({
     results,

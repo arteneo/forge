@@ -1,5 +1,4 @@
 import React from "react";
-import { Check } from "@mui/icons-material";
 import Form, { FormProps } from "../../components/Form/components/Form";
 import Optional from "../../definitions/Optional";
 import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
@@ -68,17 +67,7 @@ const DialogForm = ({
                 <DialogContent {...{ children }} />
                 <DialogActions
                     {...{
-                        actions: (
-                            <DialogButtonSubmit
-                                {...{
-                                    label: "action.save",
-                                    variant: "contained",
-                                    color: "success",
-                                    endIcon: <Check />,
-                                    ...submitProps,
-                                }}
-                            />
-                        ),
+                        actions: <DialogButtonSubmit {...submitProps} />,
                     }}
                 />
             </Form>

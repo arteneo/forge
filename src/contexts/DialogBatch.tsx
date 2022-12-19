@@ -18,6 +18,8 @@ interface DialogBatchContextProps {
     endpoint: (result: ResultInterface) => EndpointType;
     processing: boolean;
     setProcessing: React.Dispatch<React.SetStateAction<boolean>>;
+    finished: boolean;
+    setFinished: React.Dispatch<React.SetStateAction<boolean>>;
     batchResults: BatchResultInterface[];
     setBatchResults: React.Dispatch<React.SetStateAction<BatchResultInterface[]>>;
 }
@@ -37,6 +39,10 @@ const contextInitial = {
     setProcessing: () => {
         return;
     },
+    finished: false,
+    setFinished: () => {
+        return;
+    },
     batchResults: [],
     setBatchResults: () => {
         return;
@@ -47,6 +53,7 @@ const DialogBatchContext = React.createContext<DialogBatchContextProps>(contextI
 
 const DialogBatchProvider = ({ children, results, endpoint }: DialogBatchProviderProps) => {
     const [processing, setProcessing] = React.useState(false);
+    const [finished, setFinished] = React.useState(false);
     const [batchResults, setBatchResults] = React.useState<BatchResultInterface[]>([]);
 
     return (
@@ -56,6 +63,8 @@ const DialogBatchProvider = ({ children, results, endpoint }: DialogBatchProvide
                 endpoint,
                 processing,
                 setProcessing,
+                finished,
+                setFinished,
                 batchResults,
                 setBatchResults,
             }}

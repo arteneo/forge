@@ -4,6 +4,9 @@
 import Button, { ButtonProps } from "./components/Common/Button";
 export { Button, ButtonProps };
 
+import ButtonBatchEndpoint, { ButtonBatchEndpointProps } from "./components/Common/ButtonBatchEndpoint";
+export { ButtonBatchEndpoint, ButtonBatchEndpointProps };
+
 import ButtonDialog, { ButtonDialogProps } from "./components/Common/ButtonDialog";
 export { ButtonDialog, ButtonDialogProps };
 
@@ -110,6 +113,11 @@ export { DialogBatchProgress };
 
 import DialogBatchResults from "./components/Dialog/DialogBatchResults";
 export { DialogBatchResults };
+
+import DialogButtonBatchEndpoint, {
+    DialogButtonBatchEndpointProps,
+} from "./components/Dialog/DialogButtonBatchEndpoint";
+export { DialogButtonBatchEndpoint, DialogButtonBatchEndpointProps };
 
 import DialogButtonClose, { DialogButtonCloseProps } from "./components/Dialog/DialogButtonClose";
 export { DialogButtonClose, DialogButtonCloseProps };

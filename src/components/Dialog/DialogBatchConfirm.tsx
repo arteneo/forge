@@ -1,11 +1,12 @@
 import React from "react";
-import { Check } from "@mui/icons-material";
 import Optional from "../../definitions/Optional";
 import DialogBatch, { DialogBatchProps } from "../../components/Dialog/DialogBatch";
-import DialogButtonEndpoint, { DialogButtonEndpointProps } from "../../components/Dialog/DialogButtonEndpoint";
+import DialogButtonBatchEndpoint, {
+    DialogButtonBatchEndpointProps,
+} from "../../components/Dialog/DialogButtonBatchEndpoint";
 
 interface DialogBatchConfirmProps extends Optional<DialogBatchProps, "title"> {
-    confirmProps: DialogButtonEndpointProps;
+    confirmProps?: DialogButtonBatchEndpointProps;
 }
 
 const DialogBatchConfirm = ({ confirmProps, ...props }: DialogBatchConfirmProps) => {
@@ -13,18 +14,7 @@ const DialogBatchConfirm = ({ confirmProps, ...props }: DialogBatchConfirmProps)
         <DialogBatch
             {...{
                 title: "dialogConfirm.title",
-                actions: (
-                    // TODO
-                    // DialogButtonBatchEndpoint -> endpoint: (result) => endpoint, disableCloseOnSuccess, onSuccess, onCatch
-                    <DialogButtonEndpoint
-                        {...{
-                            label: "action.confirm",
-                            color: "success",
-                            endIcon: <Check />,
-                            ...confirmProps,
-                        }}
-                    />
-                ),
+                actions: <DialogButtonBatchEndpoint {...confirmProps} />,
                 ...props,
             }}
         />
