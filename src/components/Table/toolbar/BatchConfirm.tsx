@@ -1,3 +1,17 @@
+import React from "react";
+import ButtonDialogBatchConfirm, {
+    ButtonDialogBatchConfirmProps,
+} from "../../../components/Common/ButtonDialogBatchConfirm";
+
+interface BatchConfirmProps extends ButtonDialogBatchConfirmProps {}
+
+const BatchConfirm = (props: BatchConfirmProps) => {
+    return <ButtonDialogBatchConfirm {...props} />;
+};
+
+export default BatchConfirm;
+export { BatchConfirmProps };
+
 // TODO
 // import React from "react";
 // import axios from "axios";

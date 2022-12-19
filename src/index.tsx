@@ -248,6 +248,9 @@ export { ExportQueryFieldInterface };
 
 import ExportQueryFieldTranslatedInterface from "./components/Table/definitions/ExportQueryFieldTranslatedInterface";
 export { ExportQueryFieldTranslatedInterface };
+
+import BatchConfirm from "./components/Table/toolbar/BatchConfirm";
+export { BatchConfirm };
 // < ./component/Table
 
 // > ./utilities
