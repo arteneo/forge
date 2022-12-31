@@ -1,5 +1,4 @@
 import React from "react";
-import EndpointType from "../definitions/EndpointType";
 import ResultInterface from "../components/Table/definitions/ResultInterface";
 import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
 
@@ -15,7 +14,6 @@ interface BatchResultInterface {
 
 interface DialogBatchContextProps {
     results: ResultInterface[];
-    endpoint: (result: ResultInterface) => EndpointType;
     processing: boolean;
     setProcessing: React.Dispatch<React.SetStateAction<boolean>>;
     finished: boolean;
@@ -27,14 +25,10 @@ interface DialogBatchContextProps {
 interface DialogBatchProviderProps {
     children: React.ReactNode;
     results: ResultInterface[];
-    endpoint: (result: ResultInterface) => EndpointType;
 }
 
 const contextInitial = {
     results: [],
-    endpoint: (): EndpointType => {
-        return;
-    },
     processing: false,
     setProcessing: () => {
         return;
@@ -51,7 +45,7 @@ const contextInitial = {
 
 const DialogBatchContext = React.createContext<DialogBatchContextProps>(contextInitial);
 
-const DialogBatchProvider = ({ children, results, endpoint }: DialogBatchProviderProps) => {
+const DialogBatchProvider = ({ children, results }: DialogBatchProviderProps) => {
     const [processing, setProcessing] = React.useState(false);
     const [finished, setFinished] = React.useState(false);
     const [batchResults, setBatchResults] = React.useState<BatchResultInterface[]>([]);
@@ -60,7 +54,6 @@ const DialogBatchProvider = ({ children, results, endpoint }: DialogBatchProvide
         <DialogBatchContext.Provider
             value={{
                 results,
-                endpoint,
                 processing,
                 setProcessing,
                 finished,

@@ -3,14 +3,15 @@ import { useTranslation } from "react-i18next";
 import { CheckCircle, Error, FastForward } from "@mui/icons-material";
 import { Box, Tooltip } from "@mui/material";
 import { BatchResultInterface, useDialogBatch } from "../../contexts/DialogBatch";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 
-const DialogBatchProgress = () => {
+const DialogBatchResults = () => {
     const { t } = useTranslation();
     const { batchResults } = useDialogBatch();
 
     const getIcon = (batchResult: BatchResultInterface) => {
-        let tooltipLabel = "dialogBatchProgress.tooltip.";
-        let tooltipLabelVariables = {};
+        let tooltipLabel = "dialogBatchResults.tooltip.";
+        const tooltipLabelVariables: TranslateVariablesInterface = {};
         let icon: React.ReactElement;
 
         switch (batchResult.status) {
@@ -25,9 +26,7 @@ const DialogBatchProgress = () => {
             case "error":
                 if (batchResult.message) {
                     tooltipLabel += "errorMessage";
-                    if (batchResult.messageVariables) {
-                        tooltipLabelVariables = batchResult.messageVariables;
-                    }
+                    tooltipLabelVariables["message"] = t(batchResult.message, batchResult.messageVariables);
                 } else {
                     tooltipLabel += "error";
                 }
@@ -51,4 +50,4 @@ const DialogBatchProgress = () => {
     );
 };
 
-export default DialogBatchProgress;
+export default DialogBatchResults;

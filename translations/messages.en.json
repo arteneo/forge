@@ -70,12 +70,13 @@
     "dialogAlertConfirm": {
         "title": "Confirmation required"
     },
-    "dialogBatchProgress": {
+    "dialogBatchResults": {
         "tooltip": {
             "success": "Operation successful",
             "skipped": "Operation skipped",
             "error": "Operation failed",
-            "errorMessage": "Operation failed. {{ message }}"
+            "errorMessage": "Operation failed. {{ message }}",
+            "errorMessageUnexpected": "Unexpected error occured"
         }
     },
     "resultDelete": {

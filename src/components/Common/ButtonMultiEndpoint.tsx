@@ -7,10 +7,14 @@ import EndpointType from "../../definitions/EndpointType";
 import { resolveEndpoint } from "../../utilities/resolve";
 import { AXIOS_CANCELLED_UNMOUNTED } from "../../contexts/HandleCatch";
 
-interface ButtonBatchEndpointInterface {
+interface ButtonMultiEndpointInterface {
     endpoints: EndpointType[];
     onStart?: (defaultOnStart: () => void, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => void;
-    onFinish?: (defaultOnFinish: () => void, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => void;
+    onFinish?: (
+        defaultOnFinish: () => void,
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+        cancelled: boolean
+    ) => void;
     onSuccess?: (
         defaultOnSuccess: () => void,
         key: number,
@@ -21,23 +25,24 @@ interface ButtonBatchEndpointInterface {
         defaultOnCatch: () => void,
         key: number,
         error: AxiosError,
-        setLoading: React.Dispatch<React.SetStateAction<boolean>>
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+        cancelled: boolean
     ) => void;
 }
 
-type ButtonBatchEndpointProps = ButtonBatchEndpointInterface & ButtonProps;
+type ButtonMultiEndpointProps = ButtonMultiEndpointInterface & ButtonProps;
 
 let axiosSource: null | CancelTokenSource = null;
 let cancelled = false;
 
-const ButtonBatchEndpoint = ({
+const ButtonMultiEndpoint = ({
     endpoints,
     onStart,
     onFinish,
     onSuccess,
     onCatch,
     ...props
-}: ButtonBatchEndpointProps) => {
+}: ButtonMultiEndpointProps) => {
     const handleCatch = useHandleCatch();
     const { showLoader, hideLoader } = useLoader();
 
@@ -85,7 +90,7 @@ const ButtonBatchEndpoint = ({
                     };
 
                     if (typeof onCatch !== "undefined") {
-                        onCatch(defaultOnCatch, key, error, setLoading);
+                        onCatch(defaultOnCatch, key, error, setLoading, error?.message === AXIOS_CANCELLED_UNMOUNTED);
                         return;
                     }
 
@@ -117,7 +122,7 @@ const ButtonBatchEndpoint = ({
         };
 
         if (typeof onFinish !== "undefined") {
-            onFinish(defaultOnFinish, setLoading);
+            onFinish(defaultOnFinish, setLoading, cancelled);
         } else {
             defaultOnFinish();
         }
@@ -134,5 +139,5 @@ const ButtonBatchEndpoint = ({
     );
 };
 
-export default ButtonBatchEndpoint;
-export { ButtonBatchEndpointProps };
+export default ButtonMultiEndpoint;
+export { ButtonMultiEndpointProps };

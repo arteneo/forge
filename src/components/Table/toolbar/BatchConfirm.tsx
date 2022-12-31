@@ -3,7 +3,9 @@ import ButtonDialogBatchConfirm, {
     ButtonDialogBatchConfirmProps,
 } from "../../../components/Common/ButtonDialogBatchConfirm";
 
-interface BatchConfirmProps extends ButtonDialogBatchConfirmProps {}
+interface BatchConfirmProps extends ButtonDialogBatchConfirmProps {
+    todo?: boolean;
+}
 
 const BatchConfirm = (props: BatchConfirmProps) => {
     return <ButtonDialogBatchConfirm {...props} />;

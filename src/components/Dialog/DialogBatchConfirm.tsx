@@ -1,12 +1,12 @@
 import React from "react";
 import Optional from "../../definitions/Optional";
 import DialogBatch, { DialogBatchProps } from "../../components/Dialog/DialogBatch";
-import DialogButtonBatchEndpoint, {
-    DialogButtonBatchEndpointProps,
-} from "../../components/Dialog/DialogButtonBatchEndpoint";
+import DialogBatchButtonEndpoint, {
+    DialogBatchButtonEndpointProps,
+} from "../../components/Dialog/DialogBatchButtonEndpoint";
 
 interface DialogBatchConfirmProps extends Optional<DialogBatchProps, "title"> {
-    confirmProps?: DialogButtonBatchEndpointProps;
+    confirmProps: DialogBatchButtonEndpointProps;
 }
 
 const DialogBatchConfirm = ({ confirmProps, ...props }: DialogBatchConfirmProps) => {
@@ -14,7 +14,7 @@ const DialogBatchConfirm = ({ confirmProps, ...props }: DialogBatchConfirmProps)
         <DialogBatch
             {...{
                 title: "dialogConfirm.title",
-                actions: <DialogButtonBatchEndpoint {...confirmProps} />,
+                actions: <DialogBatchButtonEndpoint {...confirmProps} />,
                 ...props,
             }}
         />

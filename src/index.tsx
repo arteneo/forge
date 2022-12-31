@@ -4,9 +4,6 @@
 import Button, { ButtonProps } from "./components/Common/Button";
 export { Button, ButtonProps };
 
-import ButtonBatchEndpoint, { ButtonBatchEndpointProps } from "./components/Common/ButtonBatchEndpoint";
-export { ButtonBatchEndpoint, ButtonBatchEndpointProps };
-
 import ButtonDialog, { ButtonDialogProps } from "./components/Common/ButtonDialog";
 export { ButtonDialog, ButtonDialogProps };
 
@@ -21,6 +18,11 @@ export { ButtonDialogBatch, ButtonDialogBatchProps };
 
 import ButtonDialogBatchConfirm, { ButtonDialogBatchConfirmProps } from "./components/Common/ButtonDialogBatchConfirm";
 export { ButtonDialogBatchConfirm, ButtonDialogBatchConfirmProps };
+
+import ButtonDialogBatchConfirmMulti, {
+    ButtonDialogBatchConfirmMultiProps,
+} from "./components/Common/ButtonDialogBatchConfirmMulti";
+export { ButtonDialogBatchConfirmMulti, ButtonDialogBatchConfirmMultiProps };
 
 import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "./components/Common/ButtonDialogConfirm";
 export { ButtonDialogConfirm, ButtonDialogConfirmProps };
@@ -39,6 +41,9 @@ export { ButtonEndpoint, ButtonEndpointProps };
 
 import ButtonLink, { ButtonLinkProps } from "./components/Common/ButtonLink";
 export { ButtonLink, ButtonLinkProps };
+
+import ButtonMultiEndpoint, { ButtonMultiEndpointProps } from "./components/Common/ButtonMultiEndpoint";
+export { ButtonMultiEndpoint, ButtonMultiEndpointProps };
 
 import HighlightTag, { HighlightTagProps } from "./components/Common/HighlightTag";
 export { HighlightTag, HighlightTagProps };
@@ -102,8 +107,21 @@ export { DialogAlertConfirm, DialogAlertConfirmProps };
 import DialogBatch, { DialogBatchProps } from "./components/Dialog/DialogBatch";
 export { DialogBatch, DialogBatchProps };
 
+import DialogBatchButtonEndpoint, {
+    DialogBatchButtonEndpointProps,
+} from "./components/Dialog/DialogBatchButtonEndpoint";
+export { DialogBatchButtonEndpoint, DialogBatchButtonEndpointProps };
+
+import DialogBatchButtonMultiEndpoint, {
+    DialogBatchButtonMultiEndpointProps,
+} from "./components/Dialog/DialogBatchButtonMultiEndpoint";
+export { DialogBatchButtonMultiEndpoint, DialogBatchButtonMultiEndpointProps };
+
 import DialogBatchConfirm, { DialogBatchConfirmProps } from "./components/Dialog/DialogBatchConfirm";
 export { DialogBatchConfirm, DialogBatchConfirmProps };
+
+import DialogBatchConfirmMulti, { DialogBatchConfirmMultiProps } from "./components/Dialog/DialogBatchConfirmMulti";
+export { DialogBatchConfirmMulti, DialogBatchConfirmMultiProps };
 
 import DialogBatchContent, { DialogBatchContentProps } from "./components/Dialog/DialogBatchContent";
 export { DialogBatchContent, DialogBatchContentProps };
@@ -113,11 +131,6 @@ export { DialogBatchProgress };
 
 import DialogBatchResults from "./components/Dialog/DialogBatchResults";
 export { DialogBatchResults };
-
-import DialogButtonBatchEndpoint, {
-    DialogButtonBatchEndpointProps,
-} from "./components/Dialog/DialogButtonBatchEndpoint";
-export { DialogButtonBatchEndpoint, DialogButtonBatchEndpointProps };
 
 import DialogButtonClose, { DialogButtonCloseProps } from "./components/Dialog/DialogButtonClose";
 export { DialogButtonClose, DialogButtonCloseProps };
