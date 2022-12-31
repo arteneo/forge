@@ -67,9 +67,6 @@
     "dialogConfirm": {
         "title": "Confirmation required"
     },
-    "dialogAlertConfirm": {
-        "title": "Confirmation required"
-    },
     "dialogBatchResults": {
         "tooltip": {
             "success": "Operation successful",

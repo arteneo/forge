@@ -38,6 +38,10 @@ const DialogBatchResults = () => {
         return <Tooltip {...{ title: t(tooltipLabel, tooltipLabelVariables) }}>{icon}</Tooltip>;
     };
 
+    if (batchResults.length === 0) {
+        return null;
+    }
+
     return (
         <Box {...{ sx: { display: "flex", gap: 0.5, mt: 2, flexDirection: "column" } }}>
             {batchResults.map((batchResult) => (
