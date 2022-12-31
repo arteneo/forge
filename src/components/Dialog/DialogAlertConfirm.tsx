@@ -11,7 +11,7 @@ const DialogAlertConfirm = ({ confirmProps, ...props }: DialogAlertConfirmProps)
     return (
         <DialogAlert
             {...{
-                title: "dialogAlertConfirm.title",
+                title: "dialogConfirm.title",
                 actions: <DialogButtonEndpoint {...confirmProps} />,
                 ...props,
             }}

@@ -16,6 +16,19 @@ export { ButtonDialogAlertConfirm, ButtonDialogAlertConfirmProps };
 import ButtonDialogBatch, { ButtonDialogBatchProps } from "./components/Common/ButtonDialogBatch";
 export { ButtonDialogBatch, ButtonDialogBatchProps };
 
+import ButtonDialogBatchAlert, { ButtonDialogBatchAlertProps } from "./components/Common/ButtonDialogBatchAlert";
+export { ButtonDialogBatchAlert, ButtonDialogBatchAlertProps };
+
+import ButtonDialogBatchAlertConfirm, {
+    ButtonDialogBatchAlertConfirmProps,
+} from "./components/Common/ButtonDialogBatchAlertConfirm";
+export { ButtonDialogBatchAlertConfirm, ButtonDialogBatchAlertConfirmProps };
+
+import ButtonDialogBatchAlertConfirmMulti, {
+    ButtonDialogBatchAlertConfirmMultiProps,
+} from "./components/Common/ButtonDialogBatchAlertConfirmMulti";
+export { ButtonDialogBatchAlertConfirmMulti, ButtonDialogBatchAlertConfirmMultiProps };
+
 import ButtonDialogBatchConfirm, { ButtonDialogBatchConfirmProps } from "./components/Common/ButtonDialogBatchConfirm";
 export { ButtonDialogBatchConfirm, ButtonDialogBatchConfirmProps };
 
@@ -106,6 +119,17 @@ export { DialogAlertConfirm, DialogAlertConfirmProps };
 
 import DialogBatch, { DialogBatchProps } from "./components/Dialog/DialogBatch";
 export { DialogBatch, DialogBatchProps };
+
+import DialogBatchAlert, { DialogBatchAlertProps } from "./components/Dialog/DialogBatchAlert";
+export { DialogBatchAlert, DialogBatchAlertProps };
+
+import DialogBatchAlertConfirm, { DialogBatchAlertConfirmProps } from "./components/Dialog/DialogBatchAlertConfirm";
+export { DialogBatchAlertConfirm, DialogBatchAlertConfirmProps };
+
+import DialogBatchAlertConfirmMulti, {
+    DialogBatchAlertConfirmMultiProps,
+} from "./components/Dialog/DialogBatchAlertConfirmMulti";
+export { DialogBatchAlertConfirmMulti, DialogBatchAlertConfirmMultiProps };
 
 import DialogBatchButtonEndpoint, {
     DialogBatchButtonEndpointProps,
