@@ -16,6 +16,10 @@ const DialogBatchConfirm = ({ confirmProps, ...props }: DialogBatchConfirmProps)
                 title: "dialogConfirm.title",
                 actions: <DialogBatchButtonEndpoint {...confirmProps} />,
                 ...props,
+                batchProgressProps: {
+                    variant: "indeterminate",
+                    ...props?.batchProgressProps,
+                },
             }}
         />
     );

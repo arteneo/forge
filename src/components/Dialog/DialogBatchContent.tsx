@@ -2,18 +2,19 @@ import React from "react";
 import { DialogContent as MuiDialogContent, DialogContentProps as MuiDialogContentProps } from "@mui/material";
 import { useDialog } from "../../contexts/Dialog";
 import DialogContentLoader from "../../components/Dialog/DialogContentLoader";
-import DialogBatchProgress from "../../components/Dialog/DialogBatchProgress";
+import DialogBatchProgress, { DialogBatchProgressProps } from "../../components/Dialog/DialogBatchProgress";
 import DialogBatchResults from "../../components/Dialog/DialogBatchResults";
 import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
 import { resolveDialogPayload } from "../../utilities/resolve";
 
 interface DialogBatchContentSpecificProps {
     children: ResolveDialogPayloadType<React.ReactNode>;
+    batchProgressProps?: DialogBatchProgressProps;
 }
 
 type DialogBatchContentProps = DialogBatchContentSpecificProps & Omit<MuiDialogContentProps, "children">;
 
-const DialogBatchContent = ({ children, ...props }: DialogBatchContentProps) => {
+const DialogBatchContent = ({ children, batchProgressProps, ...props }: DialogBatchContentProps) => {
     const { payload, initialized } = useDialog();
 
     const resolvedChildren = resolveDialogPayload<React.ReactNode>(children, payload, initialized);
@@ -23,7 +24,7 @@ const DialogBatchContent = ({ children, ...props }: DialogBatchContentProps) => 
             {initialized ? (
                 <>
                     {resolvedChildren}
-                    <DialogBatchProgress />
+                    <DialogBatchProgress {...batchProgressProps} />
                     <DialogBatchResults />
                 </>
             ) : (

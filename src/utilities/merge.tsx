@@ -8,16 +8,28 @@ export const mergeEndpointCustomizer = (endpointKey = "endpoint") => {
             return undefined;
         }
 
-        if (typeof objValue === "string" && typeof srcValue === "string") {
-            return srcValue;
-        }
-
-        if (typeof objValue === "string" && typeof srcValue === "object") {
-            return _.merge({ url: objValue }, srcValue);
-        }
-
-        if (typeof objValue === "object" && typeof srcValue === "string") {
-            return _.merge(objValue, { url: srcValue });
-        }
+        return mergeEndpoint(objValue, srcValue);
     };
+};
+
+export const mergeEndpoint = (objValue: undefined | string | object, srcValue: undefined | string | object) => {
+    if (typeof srcValue === "undefined") {
+        return objValue;
+    }
+
+    if (typeof objValue === "string" && typeof srcValue === "string") {
+        return srcValue;
+    }
+
+    if (typeof objValue === "string" && typeof srcValue === "object") {
+        return _.merge({ url: objValue }, srcValue);
+    }
+
+    if (typeof objValue === "object" && typeof srcValue === "string") {
+        return _.merge(objValue, { url: srcValue });
+    }
+
+    if (typeof objValue === "object" && typeof srcValue === "object") {
+        return _.merge(objValue, srcValue);
+    }
 };

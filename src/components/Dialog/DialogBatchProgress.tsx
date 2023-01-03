@@ -1,8 +1,8 @@
 import React from "react";
-import { LinearProgress } from "@mui/material";
+import { LinearProgress, LinearProgressProps } from "@mui/material";
 import { useDialogBatch } from "../..//contexts/DialogBatch";
 
-const DialogBatchProgress = () => {
+const DialogBatchProgress = (props: LinearProgressProps) => {
     const { results, processing, batchResults } = useDialogBatch();
 
     if (!processing) {
@@ -11,7 +11,8 @@ const DialogBatchProgress = () => {
 
     const progress = Math.round((batchResults.length * 100) / results.length);
 
-    return <LinearProgress {...{ variant: "determinate", value: progress, sx: { mt: 2 } }} />;
+    return <LinearProgress {...{ variant: "determinate", value: progress, ...props, sx: { mt: 2, ...props?.sx } }} />;
 };
 
 export default DialogBatchProgress;
+export { LinearProgressProps as DialogBatchProgressProps };

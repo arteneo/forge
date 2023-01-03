@@ -150,8 +150,8 @@ export { DialogBatchConfirmMulti, DialogBatchConfirmMultiProps };
 import DialogBatchContent, { DialogBatchContentProps } from "./components/Dialog/DialogBatchContent";
 export { DialogBatchContent, DialogBatchContentProps };
 
-import DialogBatchProgress from "./components/Dialog/DialogBatchProgress";
-export { DialogBatchProgress };
+import DialogBatchProgress, { DialogBatchProgressProps } from "./components/Dialog/DialogBatchProgress";
+export { DialogBatchProgress, DialogBatchProgressProps };
 
 import DialogBatchResults from "./components/Dialog/DialogBatchResults";
 export { DialogBatchResults };
@@ -288,6 +288,12 @@ export { ExportQueryFieldTranslatedInterface };
 
 import BatchConfirm from "./components/Table/toolbar/BatchConfirm";
 export { BatchConfirm };
+
+import BatchAlertConfirm, { BatchAlertConfirmProps } from "./components/Table/toolbar/BatchAlertConfirm";
+export { BatchAlertConfirm, BatchAlertConfirmProps };
+
+import BatchAlertConfirmMulti, { BatchAlertConfirmMultiProps } from "./components/Table/toolbar/BatchAlertConfirmMulti";
+export { BatchAlertConfirmMulti, BatchAlertConfirmMultiProps };
 // < ./component/Table
 
 // > ./utilities
@@ -311,8 +317,8 @@ export {
     transformInitialValues,
     responseHeaderExtractFilename,
 };
-import { mergeEndpointCustomizer } from "./utilities/merge";
-export { mergeEndpointCustomizer };
+import { mergeEndpointCustomizer, mergeEndpoint } from "./utilities/merge";
+export { mergeEndpointCustomizer, mergeEndpoint };
 // < ./utilities
 
 // > contexts

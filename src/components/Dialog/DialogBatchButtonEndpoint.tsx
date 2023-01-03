@@ -4,6 +4,7 @@ import { Check } from "@mui/icons-material";
 import ButtonEndpoint, { ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
 import { useDialogBatch, BatchResultInterface } from "../../contexts/DialogBatch";
 import { useDialog } from "../../contexts/Dialog";
+import { mergeEndpoint } from "../../utilities/merge";
 
 interface DialogBatchButtonEndpointProps extends ButtonEndpointProps {
     processResponse?: (response: AxiosResponse) => BatchResultInterface[];
@@ -15,6 +16,7 @@ const DialogBatchButtonEndpoint = ({
     color = "success",
     variant = "contained",
     endIcon = <Check />,
+    endpoint,
     ...props
 }: DialogBatchButtonEndpointProps) => {
     const { onClose, initialized } = useDialog();
@@ -27,6 +29,7 @@ const DialogBatchButtonEndpoint = ({
                 color,
                 variant,
                 endIcon,
+                endpoint: mergeEndpoint({ method: "post" }, endpoint),
                 ...props,
                 disabled: initialized && !finished ? props.disabled : true,
                 onStart: (defaultOnStart, setLoading) => {

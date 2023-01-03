@@ -11,12 +11,21 @@ type DialogBatchProps = DialogTitleSpecificProps &
     Omit<DialogBatchProviderProps, "children"> &
     Omit<DialogProviderProps, "children">;
 
-const DialogBatch = ({ results, children, title, titleVariables, onClose, actions, ...props }: DialogBatchProps) => {
+const DialogBatch = ({
+    results,
+    children,
+    batchProgressProps,
+    title,
+    titleVariables,
+    onClose,
+    actions,
+    ...props
+}: DialogBatchProps) => {
     return (
         <DialogProvider {...{ onClose, ...props }}>
             <DialogBatchProvider {...{ results }}>
                 <DialogTitle {...{ title, titleVariables }} />
-                <DialogBatchContent {...{ children }} />
+                <DialogBatchContent {...{ children, batchProgressProps }} />
                 <DialogActions {...{ actions }} />
             </DialogBatchProvider>
         </DialogProvider>

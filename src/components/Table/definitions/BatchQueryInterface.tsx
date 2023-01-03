@@ -1,8 +1,9 @@
 import BatchSelectedType from "../../../components/Table/definitions/BatchSelectedType";
-import QueryInterface from "../../../components/Table/definitions/QueryInterface";
+import QuerySortingInterface from "../../../components/Table/definitions/QuerySortingInterface";
 
-interface BatchQueryInterface extends QueryInterface {
-    selected: BatchSelectedType;
+interface BatchQueryInterface {
+    sorting: QuerySortingInterface;
+    ids: BatchSelectedType;
 }
 
 export default BatchQueryInterface;

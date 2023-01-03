@@ -91,7 +91,7 @@ interface TableProviderProps {
         additionalFilters?: FiltersInterface
     ) => QueryInterface;
     getBatchQuery?: (
-        defaultGetBatchQuery: () => QueryInterface,
+        defaultGetBatchQuery: () => BatchQueryInterface,
         getFiltersDefinitions: (filterValues: FilterValuesInterface) => FiltersInterface,
         getQuery: (
             page: number,
@@ -177,11 +177,8 @@ const contextInitial = {
         filters: {},
     },
     batchQuery: {
-        page: 1,
-        rowsPerPage: 10,
         sorting: [],
-        filters: {},
-        selected: [],
+        ids: [],
     },
     enableBatchSelect: false,
     selected: [],
@@ -502,9 +499,18 @@ const TableProvider = ({
         additionalSorting?: SortingInterface,
         additionalFilters?: FiltersInterface
     ): BatchQueryInterface => {
+        const { sorting: querySorting } = getQuery(
+            page,
+            rowsPerPage,
+            sorting,
+            filters,
+            additionalSorting,
+            additionalFilters
+        );
+
         return {
-            ...getQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters),
-            selected,
+            sorting: querySorting,
+            ids: selected,
         };
     };
 

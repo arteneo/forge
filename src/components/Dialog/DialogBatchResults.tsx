@@ -20,7 +20,13 @@ const DialogBatchResults = () => {
                 icon = <CheckCircle {...{ color: "success" }} />;
                 break;
             case "skipped":
-                tooltipLabel += "skipped";
+                if (batchResult.message) {
+                    tooltipLabel += "skippedMessage";
+                    tooltipLabelVariables["message"] = t(batchResult.message, batchResult.messageVariables);
+                } else {
+                    tooltipLabel += "skipped";
+                }
+
                 icon = <FastForward {...{ color: "warning" }} />;
                 break;
             case "error":

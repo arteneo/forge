@@ -9,6 +9,7 @@ import EndpointType from "../../definitions/EndpointType";
 
 interface DialogBatchButtonMultiEndpointProps extends Omit<ButtonMultiEndpointProps, "endpoints"> {
     endpoint: (result: ResultInterface) => EndpointType;
+    resultDenyKey?: string;
     onCatchProcessResponse?: (result: ResultInterface, response: AxiosResponse) => BatchResultInterface;
 }
 
@@ -18,17 +19,41 @@ const DialogBatchButtonMultiEndpoint = ({
     variant = "contained",
     endIcon = <Check />,
     endpoint,
-    onCatchProcessResponse = ({ id, representation }, response) => ({
-        id,
-        representation,
-        ...response.data,
-    }),
+    resultDenyKey,
+    onCatchProcessResponse = ({ id, representation }, response) => {
+        const data = response.data;
+        // Get first error as representative
+        const errorRepresentative = data?.errors?.[0];
+
+        const batchResult: BatchResultInterface = {
+            id,
+            representation,
+            status: "error",
+        };
+
+        if (typeof errorRepresentative?.message !== "undefined") {
+            batchResult["message"] = errorRepresentative.message;
+
+            if (typeof errorRepresentative?.parameters !== "undefined") {
+                batchResult["messageVariables"] = errorRepresentative.parameters;
+            }
+        }
+
+        return batchResult;
+    },
     ...props
 }: DialogBatchButtonMultiEndpointProps) => {
     const { initialized } = useDialog();
     const { results, finished, setFinished, setProcessing, setBatchResults } = useDialogBatch();
 
-    const endpoints = results.map((result) => endpoint(result));
+    const deniedResults = resultDenyKey
+        ? results.filter((result) => typeof result.deny?.[resultDenyKey] !== "undefined")
+        : [];
+    const allowedResults = resultDenyKey
+        ? results.filter((result) => typeof result.deny?.[resultDenyKey] === "undefined")
+        : results;
+
+    const endpoints = allowedResults.map((allowedResult) => endpoint(allowedResult));
 
     return (
         <ButtonMultiEndpoint
@@ -43,7 +68,14 @@ const DialogBatchButtonMultiEndpoint = ({
                         setLoading(true);
                         setProcessing(true);
                         setFinished(false);
-                        setBatchResults([]);
+                        setBatchResults(
+                            deniedResults.map((deniedResult) => ({
+                                id: deniedResult.id,
+                                representation: deniedResult.representation,
+                                status: "skipped",
+                                message: deniedResult.deny?.[resultDenyKey as string],
+                            }))
+                        );
                     };
 
                     if (typeof props.onStart !== "undefined") {
@@ -77,8 +109,8 @@ const DialogBatchButtonMultiEndpoint = ({
                         setBatchResults((batchResults) => [
                             ...batchResults,
                             {
-                                id: results[key].id,
-                                representation: results[key].representation,
+                                id: allowedResults[key].id,
+                                representation: allowedResults[key].representation,
                                 status: "success",
                             },
                         ]);
@@ -102,7 +134,7 @@ const DialogBatchButtonMultiEndpoint = ({
                         if (typeof error?.response !== "undefined" && error?.response?.status === 409) {
                             setBatchResults((batchResults) => [
                                 ...batchResults,
-                                onCatchProcessResponse(results[key], error.response as AxiosResponse),
+                                onCatchProcessResponse(allowedResults[key], error.response as AxiosResponse),
                             ]);
 
                             return;
@@ -111,8 +143,8 @@ const DialogBatchButtonMultiEndpoint = ({
                         setBatchResults((batchResults) => [
                             ...batchResults,
                             {
-                                id: results[key].id,
-                                representation: results[key].representation,
+                                id: allowedResults[key].id,
+                                representation: allowedResults[key].representation,
                                 status: "error",
                                 message: "dialogBatchResults.tooltip.errorMessageUnexpected",
                             },
