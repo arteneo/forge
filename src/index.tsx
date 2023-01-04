@@ -215,6 +215,12 @@ export { DialogTitle, DialogTitleSpecificProps, DialogTitleProps };
 // < ./component/Dialog
 
 // > ./component/Form
+import FormMulti, { FormMultiProps } from "./components/Form/components/FormMulti";
+export { FormMulti, FormMultiProps };
+
+import FormMultiContent, { FormMultiContentProps } from "./components/Form/components/FormMultiContent";
+export { FormMultiContent, FormMultiContentProps };
+
 import ColorPicker, { ColorPickerProps } from "./components/Form/fields/ColorPicker";
 export { ColorPicker, ColorPickerProps };
 
