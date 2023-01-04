@@ -5,7 +5,7 @@ import Button, { ButtonProps } from "../../components/Common/Button";
 import { useDialog } from "../../contexts/Dialog";
 
 const DialogButtonSubmit = ({
-    label = "action.save",
+    label = "action.submit",
     color = "success",
     variant = "contained",
     endIcon = <Check />,

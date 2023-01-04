@@ -7,7 +7,7 @@
         "edit": "Edit",
         "exportCsv": "Export CSV",
         "exportExcel": "Export Excel",
-        "save": "Save"
+        "submit": "Submit"
     },
     "form": {
         "snackbar": {
