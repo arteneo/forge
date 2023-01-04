@@ -10,7 +10,7 @@ interface BatchAlertConfirmMultiProps extends Omit<ButtonDialogBatchAlertConfirm
 }
 
 const BatchAlertConfirmMulti = ({ dialogProps, ...props }: BatchAlertConfirmMultiProps) => {
-    const { results, selected } = useTable();
+    const { results, selected, reload } = useTable();
 
     const selectedResults = results.filter((result) => selected.includes(result.id));
 
@@ -24,6 +24,22 @@ const BatchAlertConfirmMulti = ({ dialogProps, ...props }: BatchAlertConfirmMult
                 dialogProps: {
                     results: selectedResults,
                     ...dialogProps,
+                    confirmProps: {
+                        ...dialogProps.confirmProps,
+                        onFinish: (defaultOnFinish, setLoading, cancelled) => {
+                            const internalDefaultOnFinish = () => {
+                                defaultOnFinish();
+                                reload();
+                            };
+
+                            if (typeof dialogProps?.confirmProps?.onFinish !== "undefined") {
+                                dialogProps.confirmProps.onFinish(internalDefaultOnFinish, setLoading, cancelled);
+                                return;
+                            }
+
+                            internalDefaultOnFinish();
+                        },
+                    },
                 },
                 ...props,
             }}

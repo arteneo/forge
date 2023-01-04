@@ -56,9 +56,6 @@ const ButtonMultiEndpoint = ({
     const requestConfigs = endpoints
         .map((endpoint) => resolveEndpoint(endpoint))
         .filter((requestConfig) => typeof requestConfig !== "undefined") as AxiosRequestConfig[];
-    if (requestConfigs.length === 0) {
-        throw new Error("Resolved requestConfigs are empty");
-    }
 
     const resolveRequestConfigs = async () => {
         for (const [key, requestConfig] of requestConfigs.entries()) {
