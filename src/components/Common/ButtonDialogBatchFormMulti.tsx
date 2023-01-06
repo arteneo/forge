@@ -1,12 +1,12 @@
 import React from "react";
 import Button, { ButtonProps } from "../../components/Common/Button";
-import DialogFormMulti, { DialogFormMultiProps } from "../../components/Dialog/DialogFormMulti";
+import DialogBatchFormMulti, { DialogBatchFormMultiProps } from "../../components/Dialog/DialogBatchFormMulti";
 
-interface ButtonDialogFormMultiProps extends ButtonProps {
-    dialogProps: Omit<DialogFormMultiProps, "open" | "onClose">;
+interface ButtonDialogBatchFormMultiProps extends ButtonProps {
+    dialogProps: Omit<DialogBatchFormMultiProps, "open" | "onClose">;
 }
 
-const ButtonDialogFormMulti = ({ dialogProps, ...buttonProps }: ButtonDialogFormMultiProps) => {
+const ButtonDialogBatchFormMulti = ({ dialogProps, ...buttonProps }: ButtonDialogBatchFormMultiProps) => {
     const [showDialog, setShowDialog] = React.useState(false);
 
     return (
@@ -18,7 +18,7 @@ const ButtonDialogFormMulti = ({ dialogProps, ...buttonProps }: ButtonDialogForm
                 }}
             />
 
-            <DialogFormMulti
+            <DialogBatchFormMulti
                 {...{
                     open: showDialog,
                     onClose: () => setShowDialog(false),
@@ -29,5 +29,5 @@ const ButtonDialogFormMulti = ({ dialogProps, ...buttonProps }: ButtonDialogForm
     );
 };
 
-export default ButtonDialogFormMulti;
-export { ButtonDialogFormMultiProps };
+export default ButtonDialogBatchFormMulti;
+export { ButtonDialogBatchFormMultiProps };

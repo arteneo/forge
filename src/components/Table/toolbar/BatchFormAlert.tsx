@@ -25,6 +25,7 @@ const BatchFormAlert = ({ dialogProps, ...props }: BatchFormAlertProps) => {
                     results: selectedResults,
                     ...dialogProps,
                     formProps: {
+                        ...dialogProps?.formProps,
                         changeSubmitValues: (values) => {
                             const _values = {
                                 ...batchQuery,
@@ -54,7 +55,6 @@ const BatchFormAlert = ({ dialogProps, ...props }: BatchFormAlertProps) => {
 
                             internalDefaultOnSubmitSuccess();
                         },
-                        ...dialogProps?.formProps,
                     },
                 },
                 ...props,

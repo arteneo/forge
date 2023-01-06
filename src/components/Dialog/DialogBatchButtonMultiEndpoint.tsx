@@ -1,5 +1,5 @@
 import React from "react";
-import { AxiosResponse } from "axios";
+import { AxiosError } from "axios";
 import { Check } from "@mui/icons-material";
 import ButtonMultiEndpoint, { ButtonMultiEndpointProps } from "../../components/Common/ButtonMultiEndpoint";
 import { useDialogBatch, BatchResultInterface } from "../../contexts/DialogBatch";
@@ -10,7 +10,7 @@ import EndpointType from "../../definitions/EndpointType";
 interface DialogBatchButtonMultiEndpointProps extends Omit<ButtonMultiEndpointProps, "endpoints"> {
     endpoint: (result: ResultInterface) => EndpointType;
     resultDenyKey?: string;
-    onCatchProcessResponse?: (result: ResultInterface, response: AxiosResponse) => BatchResultInterface;
+    onCatchProcessResponse?: (result: ResultInterface, response: AxiosError) => BatchResultInterface;
 }
 
 const DialogBatchButtonMultiEndpoint = ({
@@ -20,8 +20,17 @@ const DialogBatchButtonMultiEndpoint = ({
     endIcon = <Check />,
     endpoint,
     resultDenyKey,
-    onCatchProcessResponse = ({ id, representation }, response) => {
-        const data = response.data;
+    onCatchProcessResponse = ({ id, representation }, error) => {
+        if (error?.response?.status !== 409) {
+            return {
+                id: id,
+                representation: representation,
+                status: "error",
+                message: "dialogBatchResults.tooltip.errorMessageUnexpected",
+            };
+        }
+
+        const data = error.response.data;
         // Get first error as representative
         const errorRepresentative = data?.errors?.[0];
 
@@ -63,6 +72,8 @@ const DialogBatchButtonMultiEndpoint = ({
                 color,
                 variant,
                 endIcon,
+                ...props,
+                disabled: initialized && !finished ? props.disabled : true,
                 onStart: (defaultOnStart, setLoading) => {
                     const internalDefaultOnStart = () => {
                         setLoading(true);
@@ -102,8 +113,6 @@ const DialogBatchButtonMultiEndpoint = ({
 
                     internalDefaultOnFinish();
                 },
-                ...props,
-                disabled: initialized && !finished ? props.disabled : true,
                 onSuccess: (defaultOnSuccess, key, response, setLoading) => {
                     const internalDefaultOnSuccess = () => {
                         setBatchResults((batchResults) => [
@@ -131,23 +140,9 @@ const DialogBatchButtonMultiEndpoint = ({
                             return;
                         }
 
-                        if (typeof error?.response !== "undefined" && error?.response?.status === 409) {
-                            setBatchResults((batchResults) => [
-                                ...batchResults,
-                                onCatchProcessResponse(allowedResults[key], error.response as AxiosResponse),
-                            ]);
-
-                            return;
-                        }
-
                         setBatchResults((batchResults) => [
                             ...batchResults,
-                            {
-                                id: allowedResults[key].id,
-                                representation: allowedResults[key].representation,
-                                status: "error",
-                                message: "dialogBatchResults.tooltip.errorMessageUnexpected",
-                            },
+                            onCatchProcessResponse(allowedResults[key], error),
                         ]);
                     };
 

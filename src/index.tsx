@@ -50,6 +50,21 @@ import ButtonDialogBatchFormFieldset, {
 } from "./components/Common/ButtonDialogBatchFormFieldset";
 export { ButtonDialogBatchFormFieldset, ButtonDialogBatchFormFieldsetProps };
 
+import ButtonDialogBatchFormMulti, {
+    ButtonDialogBatchFormMultiProps,
+} from "./components/Common/ButtonDialogBatchFormMulti";
+export { ButtonDialogBatchFormMulti, ButtonDialogBatchFormMultiProps };
+
+import ButtonDialogBatchFormMultiAlertFieldset, {
+    ButtonDialogBatchFormMultiAlertFieldsetProps,
+} from "./components/Common/ButtonDialogBatchFormMultiAlertFieldset";
+export { ButtonDialogBatchFormMultiAlertFieldset, ButtonDialogBatchFormMultiAlertFieldsetProps };
+
+import ButtonDialogBatchFormMultiFieldset, {
+    ButtonDialogBatchFormMultiFieldsetProps,
+} from "./components/Common/ButtonDialogBatchFormMultiFieldset";
+export { ButtonDialogBatchFormMultiFieldset, ButtonDialogBatchFormMultiFieldsetProps };
+
 import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "./components/Common/ButtonDialogConfirm";
 export { ButtonDialogConfirm, ButtonDialogConfirmProps };
 
@@ -118,6 +133,15 @@ export { RequestExecutionErrorDialog, RequestExecutionErrorDialogProps };
 // < ./component/Common
 
 // > ./component/Dialog
+import BindDialogBatchForm, { BindDialogBatchFormProps } from "./components/Dialog/BindDialogBatchForm";
+export { BindDialogBatchForm, BindDialogBatchFormProps };
+
+import BindDialogBatchFormMulti, {
+    BatchFormEndpointType,
+    BindDialogBatchFormMultiProps,
+} from "./components/Dialog/BindDialogBatchFormMulti";
+export { BindDialogBatchFormMulti, BatchFormEndpointType, BindDialogBatchFormMultiProps };
+
 import Dialog, { DialogProps } from "./components/Dialog/Dialog";
 export { Dialog, DialogProps };
 
@@ -179,6 +203,19 @@ export { DialogBatchFormAlertFieldset, DialogBatchFormAlertFieldsetProps };
 
 import DialogBatchFormFieldset, { DialogBatchFormFieldsetProps } from "./components/Dialog/DialogBatchFormFieldset";
 export { DialogBatchFormFieldset, DialogBatchFormFieldsetProps };
+
+import DialogBatchFormMulti, { DialogBatchFormMultiProps } from "./components/Dialog/DialogBatchFormMulti";
+export { DialogBatchFormMulti, DialogBatchFormMultiProps };
+
+import DialogBatchFormMultiAlertFieldset, {
+    DialogBatchFormMultiAlertFieldsetProps,
+} from "./components/Dialog/DialogBatchFormMultiAlertFieldset";
+export { DialogBatchFormMultiAlertFieldset, DialogBatchFormMultiAlertFieldsetProps };
+
+import DialogBatchFormMultiFieldset, {
+    DialogBatchFormMultiFieldsetProps,
+} from "./components/Dialog/DialogBatchFormMultiFieldset";
+export { DialogBatchFormMultiFieldset, DialogBatchFormMultiFieldsetProps };
 
 import DialogBatchProgress, { DialogBatchProgressProps } from "./components/Dialog/DialogBatchProgress";
 export { DialogBatchProgress, DialogBatchProgressProps };
@@ -322,20 +359,29 @@ export { ExportQueryFieldInterface };
 import ExportQueryFieldTranslatedInterface from "./components/Table/definitions/ExportQueryFieldTranslatedInterface";
 export { ExportQueryFieldTranslatedInterface };
 
-import BatchConfirm from "./components/Table/toolbar/BatchConfirm";
-export { BatchConfirm };
-
 import BatchAlertConfirm, { BatchAlertConfirmProps } from "./components/Table/toolbar/BatchAlertConfirm";
 export { BatchAlertConfirm, BatchAlertConfirmProps };
 
 import BatchAlertConfirmMulti, { BatchAlertConfirmMultiProps } from "./components/Table/toolbar/BatchAlertConfirmMulti";
 export { BatchAlertConfirmMulti, BatchAlertConfirmMultiProps };
 
+import BatchConfirm, { BatchConfirmProps } from "./components/Table/toolbar/BatchConfirm";
+export { BatchConfirm, BatchConfirmProps };
+
+import BatchConfirmMulti, { BatchConfirmMultiProps } from "./components/Table/toolbar/BatchConfirmMulti";
+export { BatchConfirmMulti, BatchConfirmMultiProps };
+
 import BatchForm, { BatchFormProps } from "./components/Table/toolbar/BatchForm";
 export { BatchForm, BatchFormProps };
 
 import BatchFormAlert, { BatchFormAlertProps } from "./components/Table/toolbar/BatchFormAlert";
 export { BatchFormAlert, BatchFormAlertProps };
+
+import BatchFormMulti, { BatchFormMultiProps } from "./components/Table/toolbar/BatchFormMulti";
+export { BatchFormMulti, BatchFormMultiProps };
+
+import BatchFormMultiAlert, { BatchFormMultiAlertProps } from "./components/Table/toolbar/BatchFormMultiAlert";
+export { BatchFormMultiAlert, BatchFormMultiAlertProps };
 // < ./component/Table
 
 // > ./utilities

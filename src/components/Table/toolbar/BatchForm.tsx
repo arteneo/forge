@@ -25,6 +25,7 @@ const BatchForm = ({ dialogProps, ...props }: BatchFormProps) => {
                     results: selectedResults,
                     ...dialogProps,
                     formProps: {
+                        ...dialogProps?.formProps,
                         changeSubmitValues: (values) => {
                             const _values = {
                                 ...batchQuery,
@@ -54,7 +55,6 @@ const BatchForm = ({ dialogProps, ...props }: BatchFormProps) => {
 
                             internalDefaultOnSubmitSuccess();
                         },
-                        ...dialogProps?.formProps,
                     },
                 },
                 ...props,

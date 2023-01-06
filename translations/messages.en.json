@@ -73,6 +73,7 @@
             "skipped": "Operation skipped",
             "error": "Operation failed",
             "errorMessage": "Operation failed. {{ message }}",
+            "errorMessage400": "Invalid data submitted",
             "errorMessageUnexpected": "Unexpected error occured"
         }
     },
