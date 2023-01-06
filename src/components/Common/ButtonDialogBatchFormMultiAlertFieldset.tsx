@@ -1,36 +1,23 @@
 import React from "react";
-import Button, { ButtonProps } from "../../components/Common/Button";
+import GenericButtonDialog, { GenericButtonDialogProps } from "../..//components/Common/GenericButtonDialog";
 import DialogBatchFormMultiAlertFieldset, {
     DialogBatchFormMultiAlertFieldsetProps,
 } from "../../components/Dialog/DialogBatchFormMultiAlertFieldset";
 
-interface ButtonDialogBatchFormMultiAlertFieldsetProps extends ButtonProps {
-    dialogProps: Omit<DialogBatchFormMultiAlertFieldsetProps, "open" | "onClose">;
-}
+type ButtonDialogBatchFormMultiAlertFieldsetProps = Omit<
+    GenericButtonDialogProps<DialogBatchFormMultiAlertFieldsetProps>,
+    "component"
+>;
 
-const ButtonDialogBatchFormMultiAlertFieldset = ({
-    dialogProps,
-    ...buttonProps
-}: ButtonDialogBatchFormMultiAlertFieldsetProps) => {
-    const [showDialog, setShowDialog] = React.useState(false);
-
+// TODO Verify whether this approach with GenericButtonDialog actually works with TS when using package normally (not through watch-local)
+const ButtonDialogBatchFormMultiAlertFieldset = (props: ButtonDialogBatchFormMultiAlertFieldsetProps) => {
     return (
-        <>
-            <Button
-                {...{
-                    onClick: () => setShowDialog(true),
-                    ...buttonProps,
-                }}
-            />
-
-            <DialogBatchFormMultiAlertFieldset
-                {...{
-                    open: showDialog,
-                    onClose: () => setShowDialog(false),
-                    ...dialogProps,
-                }}
-            />
-        </>
+        <GenericButtonDialog<DialogBatchFormMultiAlertFieldsetProps>
+            {...{
+                component: DialogBatchFormMultiAlertFieldset,
+                ...props,
+            }}
+        />
     );
 };
 
