@@ -40,8 +40,7 @@ const DialogProvider = ({ children, open, onClose, initializeEndpoint, dialogPro
     const handleCatch = useHandleCatch();
 
     const [initialized, setInitialized] = React.useState(false);
-    // eslint-disable-next-line
-    const [payload, setPayload] = React.useState<any>(undefined);
+    const [payload, setPayload] = React.useState<DialogPayload>(undefined);
 
     const requestConfig = resolveEndpoint(initializeEndpoint);
 
