@@ -1,5 +1,4 @@
 import React from "react";
-import { Check } from "@mui/icons-material";
 import Optional from "../../definitions/Optional";
 import DialogAlert, { DialogAlertProps } from "../../components/Dialog/DialogAlert";
 import DialogButtonEndpoint, { DialogButtonEndpointProps } from "../../components/Dialog/DialogButtonEndpoint";
@@ -12,17 +11,8 @@ const DialogAlertConfirm = ({ confirmProps, ...props }: DialogAlertConfirmProps)
     return (
         <DialogAlert
             {...{
-                title: "dialogAlertConfirm.title",
-                actions: (
-                    <DialogButtonEndpoint
-                        {...{
-                            label: "action.confirm",
-                            color: "success",
-                            endIcon: <Check />,
-                            ...confirmProps,
-                        }}
-                    />
-                ),
+                title: "dialogConfirm.title",
+                actions: <DialogButtonEndpoint {...confirmProps} />,
                 ...props,
             }}
         />

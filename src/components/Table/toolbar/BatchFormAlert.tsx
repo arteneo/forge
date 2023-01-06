@@ -1,21 +1,21 @@
 import React from "react";
-import ButtonDialogBatchFormFieldset, {
-    ButtonDialogBatchFormFieldsetProps,
-} from "../../../components/Common/ButtonDialogBatchFormFieldset";
+import ButtonDialogBatchFormAlertFieldset, {
+    ButtonDialogBatchFormAlertFieldsetProps,
+} from "../../../components/Common/ButtonDialogBatchFormAlertFieldset";
 import { useTable } from "../../../components/Table/contexts/Table";
 import Optional from "../../../definitions/Optional";
 
-interface BatchFormProps extends Omit<ButtonDialogBatchFormFieldsetProps, "dialogProps"> {
-    dialogProps: Optional<ButtonDialogBatchFormFieldsetProps["dialogProps"], "results">;
+interface BatchFormAlertProps extends Omit<ButtonDialogBatchFormAlertFieldsetProps, "dialogProps"> {
+    dialogProps: Optional<ButtonDialogBatchFormAlertFieldsetProps["dialogProps"], "results">;
 }
 
-const BatchForm = ({ dialogProps, ...props }: BatchFormProps) => {
+const BatchFormAlert = ({ dialogProps, ...props }: BatchFormAlertProps) => {
     const { results, batchQuery, selected, reload } = useTable();
 
     const selectedResults = results.filter((result) => selected.includes(result.id));
 
     return (
-        <ButtonDialogBatchFormFieldset
+        <ButtonDialogBatchFormAlertFieldset
             {...{
                 disabled: selected.length === 0,
                 labelVariables: {
@@ -63,5 +63,5 @@ const BatchForm = ({ dialogProps, ...props }: BatchFormProps) => {
     );
 };
 
-export default BatchForm;
-export { BatchFormProps };
+export default BatchFormAlert;
+export { BatchFormAlertProps };

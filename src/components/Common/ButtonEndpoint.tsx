@@ -11,6 +11,7 @@ import { AXIOS_CANCELLED_UNMOUNTED } from "../../contexts/HandleCatch";
 
 interface ButtonEndpointInterface {
     endpoint: EndpointType;
+    onStart?: (defaultOnStart: () => void, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => void;
     onSuccess?: (
         defaultOnSuccess: () => void,
         response: AxiosResponse,
@@ -31,6 +32,7 @@ let axiosSource: null | CancelTokenSource = null;
 
 const ButtonEndpoint = ({
     endpoint,
+    onStart,
     onSuccess,
     onCatch,
     snackbarLabel = "buttonEndpoint.snackbar.success",
@@ -51,8 +53,16 @@ const ButtonEndpoint = ({
     }
 
     const onClick = (): void => {
-        showLoader();
-        setLoading(true);
+        const defaultOnStart = () => {
+            showLoader();
+            setLoading(true);
+        };
+
+        if (typeof onStart !== "undefined") {
+            onStart(defaultOnStart, setLoading);
+        } else {
+            defaultOnStart();
+        }
 
         axiosSource = axios.CancelToken.source();
         requestConfig.cancelToken = axiosSource.token;

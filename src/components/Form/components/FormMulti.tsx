@@ -1,38 +1,34 @@
 import React from "react";
-import FormContent, { FormContentProps } from "../../../components/Form/components/FormContent";
+import FormMultiContent, { FormMultiContentProps } from "../../../components/Form/components/FormMultiContent";
 import { FormProvider, FormProviderProps } from "../../../components/Form/contexts/Form";
 
-type FormProps = FormContentProps & Omit<FormProviderProps, "children">;
+type FormMultiProps = FormMultiContentProps & Omit<FormProviderProps, "children">;
 
-const Form = ({
+const FormMulti = ({
     fields,
     initialValues,
     initializeEndpoint,
     processInitialValues,
     children,
-    endpoint,
+    endpoints,
     onSubmitStart,
     onSubmitSuccess,
     onSubmitCatch,
-    onSubmit,
+    onSubmitFinish,
     changeSubmitValues,
-    snackbarLabel,
-    snackbarLabelVariables,
     formikProps,
-}: FormProps) => {
+}: FormMultiProps) => {
     return (
         <FormProvider {...{ fields, initialValues, initializeEndpoint, processInitialValues }}>
-            <FormContent
+            <FormMultiContent
                 {...{
                     children,
-                    endpoint,
+                    endpoints,
                     onSubmitStart,
                     onSubmitSuccess,
                     onSubmitCatch,
-                    onSubmit,
+                    onSubmitFinish,
                     changeSubmitValues,
-                    snackbarLabel,
-                    snackbarLabelVariables,
                     formikProps,
                 }}
             />
@@ -40,5 +36,5 @@ const Form = ({
     );
 };
 
-export default Form;
-export { FormProps };
+export default FormMulti;
+export { FormMultiProps };

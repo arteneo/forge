@@ -1,5 +1,4 @@
 import React from "react";
-import { Check } from "@mui/icons-material";
 import Optional from "../../definitions/Optional";
 import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
 import DialogButtonEndpoint, { DialogButtonEndpointProps } from "../../components/Dialog/DialogButtonEndpoint";
@@ -13,16 +12,7 @@ const DialogConfirm = ({ confirmProps, ...props }: DialogConfirmProps) => {
         <Dialog
             {...{
                 title: "dialogConfirm.title",
-                actions: (
-                    <DialogButtonEndpoint
-                        {...{
-                            label: "action.confirm",
-                            color: "success",
-                            endIcon: <Check />,
-                            ...confirmProps,
-                        }}
-                    />
-                ),
+                actions: <DialogButtonEndpoint {...confirmProps} />,
                 ...props,
             }}
         />

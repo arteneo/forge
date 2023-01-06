@@ -13,6 +13,7 @@ import TranslateVariablesInterface from "../../../definitions/TranslateVariables
 interface FormContentProps {
     children: React.ReactNode;
     changeSubmitValues?: (values: FormikValues) => FormikValues;
+    onSubmitStart?: (defaultOnStart: () => void, helpers: FormikHelpers<FormikValues>) => void;
     onSubmitSuccess?: (
         defaultOnSubmitSuccess: () => void,
         helpers: FormikHelpers<FormikValues>,
@@ -29,9 +30,10 @@ interface FormContentProps {
 const FormContent = ({
     children,
     endpoint,
-    onSubmit,
+    onSubmitStart,
     onSubmitSuccess,
     onSubmitCatch,
+    onSubmit,
     changeSubmitValues,
     snackbarLabel = "form.snackbar.success",
     snackbarLabelVariables,
@@ -49,10 +51,18 @@ const FormContent = ({
             throw new Error("Resolved requestConfig is undefined");
         }
 
+        const defaultOnSubmitStart = () => {
+            showLoader();
+        };
+
+        if (typeof onSubmitStart !== "undefined") {
+            onSubmitStart(defaultOnSubmitStart, helpers);
+        } else {
+            defaultOnSubmitStart();
+        }
+
         requestConfig.method = requestConfig.method ?? "post";
         requestConfig.data = changeSubmitValues ? changeSubmitValues(values) : values;
-
-        showLoader();
 
         axios
             .request(requestConfig)

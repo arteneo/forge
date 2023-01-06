@@ -1,13 +1,24 @@
 import React from "react";
+import { Check } from "@mui/icons-material";
 import ButtonEndpoint, { ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
 import { useDialog } from "../../contexts/Dialog";
 
-const DialogButtonEndpoint = (props: ButtonEndpointProps) => {
+const DialogButtonEndpoint = ({
+    label = "action.confirm",
+    color = "success",
+    variant = "contained",
+    endIcon = <Check />,
+    ...props
+}: ButtonEndpointProps) => {
     const { onClose, initialized } = useDialog();
 
     return (
         <ButtonEndpoint
             {...{
+                label,
+                color,
+                variant,
+                endIcon,
                 ...props,
                 disabled: initialized ? props.disabled : true,
                 onSuccess: (defaultOnSuccess, response, setLoading) => {
