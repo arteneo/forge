@@ -1,25 +1,17 @@
 import React from "react";
+import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
 import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
-import Button, { ButtonProps } from "../../components/Common/Button";
 
-interface ButtonDialogProps extends ButtonProps {
-    dialogProps: Omit<DialogProps, "open" | "onClose">;
-}
+type ButtonDialogProps = ExternalGenericButtonDialogProps<DialogProps>;
 
-const ButtonDialog = ({ dialogProps, ...buttonProps }: ButtonDialogProps) => {
-    const [showDialog, setShowDialog] = React.useState(false);
-
+const ButtonDialog = (props: ButtonDialogProps) => {
     return (
-        <>
-            <Button
-                {...{
-                    onClick: () => setShowDialog(true),
-                    ...buttonProps,
-                }}
-            />
-
-            <Dialog {...{ open: showDialog, onClose: () => setShowDialog(false), ...dialogProps }} />
-        </>
+        <GenericButtonDialog<DialogProps>
+            {...{
+                component: Dialog,
+                ...props,
+            }}
+        />
     );
 };
 

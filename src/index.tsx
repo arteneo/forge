@@ -86,6 +86,12 @@ export { ButtonLink, ButtonLinkProps };
 import ButtonMultiEndpoint, { ButtonMultiEndpointProps } from "./components/Common/ButtonMultiEndpoint";
 export { ButtonMultiEndpoint, ButtonMultiEndpointProps };
 
+import GenericButtonDialog, {
+    ExternalGenericButtonDialogProps,
+    GenericButtonDialogProps,
+} from "./components/Common/GenericButtonDialog";
+export { GenericButtonDialog, ExternalGenericButtonDialogProps, GenericButtonDialogProps };
+
 import HighlightTag, { HighlightTagProps } from "./components/Common/HighlightTag";
 export { HighlightTag, HighlightTagProps };
 
