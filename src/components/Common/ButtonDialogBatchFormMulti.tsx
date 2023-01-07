@@ -1,31 +1,17 @@
 import React from "react";
-import Button, { ButtonProps } from "../../components/Common/Button";
+import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
 import DialogBatchFormMulti, { DialogBatchFormMultiProps } from "../../components/Dialog/DialogBatchFormMulti";
 
-interface ButtonDialogBatchFormMultiProps extends ButtonProps {
-    dialogProps: Omit<DialogBatchFormMultiProps, "open" | "onClose">;
-}
+type ButtonDialogBatchFormMultiProps = ExternalGenericButtonDialogProps<DialogBatchFormMultiProps>;
 
-const ButtonDialogBatchFormMulti = ({ dialogProps, ...buttonProps }: ButtonDialogBatchFormMultiProps) => {
-    const [showDialog, setShowDialog] = React.useState(false);
-
+const ButtonDialogBatchFormMulti = (props: ButtonDialogBatchFormMultiProps) => {
     return (
-        <>
-            <Button
-                {...{
-                    onClick: () => setShowDialog(true),
-                    ...buttonProps,
-                }}
-            />
-
-            <DialogBatchFormMulti
-                {...{
-                    open: showDialog,
-                    onClose: () => setShowDialog(false),
-                    ...dialogProps,
-                }}
-            />
-        </>
+        <GenericButtonDialog<DialogBatchFormMultiProps>
+            {...{
+                component: DialogBatchFormMulti,
+                ...props,
+            }}
+        />
     );
 };
 

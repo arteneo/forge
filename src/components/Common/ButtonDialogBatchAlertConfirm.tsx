@@ -1,31 +1,17 @@
 import React from "react";
-import Button, { ButtonProps } from "../../components/Common/Button";
+import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
 import DialogBatchAlertConfirm, { DialogBatchAlertConfirmProps } from "../../components/Dialog/DialogBatchAlertConfirm";
 
-interface ButtonDialogBatchAlertConfirmProps extends ButtonProps {
-    dialogProps: Omit<DialogBatchAlertConfirmProps, "open" | "onClose">;
-}
+type ButtonDialogBatchAlertConfirmProps = ExternalGenericButtonDialogProps<DialogBatchAlertConfirmProps>;
 
-const ButtonDialogBatchAlertConfirm = ({ dialogProps, ...buttonProps }: ButtonDialogBatchAlertConfirmProps) => {
-    const [showDialog, setShowDialog] = React.useState(false);
-
+const ButtonDialogBatchAlertConfirm = (props: ButtonDialogBatchAlertConfirmProps) => {
     return (
-        <>
-            <Button
-                {...{
-                    onClick: () => setShowDialog(true),
-                    ...buttonProps,
-                }}
-            />
-
-            <DialogBatchAlertConfirm
-                {...{
-                    open: showDialog,
-                    onClose: () => setShowDialog(false),
-                    ...dialogProps,
-                }}
-            />
-        </>
+        <GenericButtonDialog<DialogBatchAlertConfirmProps>
+            {...{
+                component: DialogBatchAlertConfirm,
+                ...props,
+            }}
+        />
     );
 };
 

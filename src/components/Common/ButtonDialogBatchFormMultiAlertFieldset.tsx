@@ -1,15 +1,12 @@
 import React from "react";
-import GenericButtonDialog, { GenericButtonDialogProps } from "../..//components/Common/GenericButtonDialog";
+import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
 import DialogBatchFormMultiAlertFieldset, {
     DialogBatchFormMultiAlertFieldsetProps,
 } from "../../components/Dialog/DialogBatchFormMultiAlertFieldset";
 
-type ButtonDialogBatchFormMultiAlertFieldsetProps = Omit<
-    GenericButtonDialogProps<DialogBatchFormMultiAlertFieldsetProps>,
-    "component"
->;
+type ButtonDialogBatchFormMultiAlertFieldsetProps =
+    ExternalGenericButtonDialogProps<DialogBatchFormMultiAlertFieldsetProps>;
 
-// TODO Verify whether this approach with GenericButtonDialog actually works with TS when using package normally (not through watch-local)
 const ButtonDialogBatchFormMultiAlertFieldset = (props: ButtonDialogBatchFormMultiAlertFieldsetProps) => {
     return (
         <GenericButtonDialog<DialogBatchFormMultiAlertFieldsetProps>

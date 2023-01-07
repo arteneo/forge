@@ -9,6 +9,9 @@ interface GenericButtonDialogProps<T> extends ButtonProps {
     };
 }
 
+// Props typings to be used by ButtonDialogX which by design have component defined
+type ExternalGenericButtonDialogProps<T> = Omit<GenericButtonDialogProps<T>, "component">;
+
 const GenericButtonDialog = <T,>({
     component: Component,
     dialogProps,
@@ -48,4 +51,4 @@ const GenericButtonDialog = <T,>({
 };
 
 export default GenericButtonDialog;
-export { GenericButtonDialogProps };
+export { ExternalGenericButtonDialogProps, GenericButtonDialogProps };

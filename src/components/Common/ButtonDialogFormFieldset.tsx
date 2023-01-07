@@ -1,31 +1,17 @@
 import React from "react";
-import Button, { ButtonProps } from "../../components/Common/Button";
+import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
 import DialogFormFieldset, { DialogFormFieldsetProps } from "../../components/Dialog/DialogFormFieldset";
 
-interface ButtonDialogFormFieldsetProps extends ButtonProps {
-    dialogProps: Omit<DialogFormFieldsetProps, "open" | "onClose">;
-}
+type ButtonDialogFormFieldsetProps = ExternalGenericButtonDialogProps<DialogFormFieldsetProps>;
 
-const ButtonDialogFormFieldset = ({ dialogProps, ...buttonProps }: ButtonDialogFormFieldsetProps) => {
-    const [showDialog, setShowDialog] = React.useState(false);
-
+const ButtonDialogFormFieldset = (props: ButtonDialogFormFieldsetProps) => {
     return (
-        <>
-            <Button
-                {...{
-                    onClick: () => setShowDialog(true),
-                    ...buttonProps,
-                }}
-            />
-
-            <DialogFormFieldset
-                {...{
-                    open: showDialog,
-                    onClose: () => setShowDialog(false),
-                    ...dialogProps,
-                }}
-            />
-        </>
+        <GenericButtonDialog<DialogFormFieldsetProps>
+            {...{
+                component: DialogFormFieldset,
+                ...props,
+            }}
+        />
     );
 };
 
