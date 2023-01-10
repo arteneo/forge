@@ -81,7 +81,8 @@
         "dialog": {
             "title": "Visible columns"
         },
-        "action": "Adjust visible columns"
+        "action": "Adjust visible columns",
+        "snackbar": "Visible columns have been saved"
     },
     "resultDelete": {
         "dialog": {

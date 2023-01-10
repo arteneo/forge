@@ -8,10 +8,7 @@ import Optional from "../../../definitions/Optional";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { resolveEndpoint } from "../../../utilities/resolve";
 
-type VisibleColumnsProps = Optional<
-    ExternalGenericIconButtonDialogProps<DialogVisibleColumnsProps>,
-    "icon" | "dialogProps"
->;
+type VisibleColumnsProps = Optional<ExternalGenericIconButtonDialogProps<DialogVisibleColumnsProps>, "icon">;
 
 const VisibleColumns = (props: VisibleColumnsProps) => {
     const { visibleColumnsKey, visibleColumnsEndpoint } = useTable();
@@ -32,6 +29,7 @@ const VisibleColumns = (props: VisibleColumnsProps) => {
                 component: DialogVisibleColumns,
                 icon: <ViewColumn />,
                 tooltip: "visibleColumns.action",
+                ...props,
                 dialogProps: {
                     initializeEndpoint: Object.assign(
                         {
@@ -40,8 +38,8 @@ const VisibleColumns = (props: VisibleColumnsProps) => {
                         },
                         visibleColumnsRequestConfig
                     ),
+                    ...props.dialogProps,
                 },
-                ...props,
             }}
         />
     );

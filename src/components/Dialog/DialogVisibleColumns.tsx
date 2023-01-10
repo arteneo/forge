@@ -1,20 +1,27 @@
 import React from "react";
 import VisibleColumnsArrange from "../../components/Common/VisibleColumnsArrange";
 import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
+import DialogVisibleColumnsButtonEndpoint, {
+    DialogVisibleColumnsButtonEndpointProps,
+} from "../../components/Dialog/DialogVisibleColumnsButtonEndpoint";
 import { VisibleColumnsProvider } from "../../contexts/VisibleColumns";
 import Optional from "../../definitions/Optional";
 
-type DialogVisibleColumnsProps = Optional<DialogProps, "title" | "children" | "dialogProps">;
+interface DialogVisibleColumnsProps extends Optional<DialogProps, "title" | "children" | "dialogProps"> {
+    confirmProps: DialogVisibleColumnsButtonEndpointProps;
+}
 
 const DialogVisibleColumns = ({
     title = "visibleColumns.dialog.title",
     children = <VisibleColumnsArrange />,
-    actions = <>Submit!</>,
+    confirmProps,
     ...props
 }: DialogVisibleColumnsProps) => {
     return (
         <VisibleColumnsProvider>
-            <Dialog {...{ title, children, actions, ...props }} />
+            <Dialog
+                {...{ title, children, actions: <DialogVisibleColumnsButtonEndpoint {...confirmProps} />, ...props }}
+            />
         </VisibleColumnsProvider>
     );
 };

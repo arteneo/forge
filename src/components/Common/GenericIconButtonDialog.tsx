@@ -1,5 +1,4 @@
 import React from "react";
-import Optional from "../../definitions/Optional";
 import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
 
 interface GenericIconButtonDialogProps<T> extends IconButtonProps {
