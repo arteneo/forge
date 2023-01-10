@@ -255,6 +255,9 @@ export { DialogFormFieldset, DialogFormFieldsetProps };
 
 import DialogTitle, { DialogTitleSpecificProps, DialogTitleProps } from "./components/Dialog/DialogTitle";
 export { DialogTitle, DialogTitleSpecificProps, DialogTitleProps };
+
+import DialogVisibleColumns, { DialogVisibleColumnsProps } from "./components/Dialog/DialogVisibleColumns";
+export { DialogVisibleColumns, DialogVisibleColumnsProps };
 // < ./component/Dialog
 
 // > ./component/Form
@@ -388,6 +391,9 @@ export { BatchFormMulti, BatchFormMultiProps };
 
 import BatchFormMultiAlert, { BatchFormMultiAlertProps } from "./components/Table/toolbar/BatchFormMultiAlert";
 export { BatchFormMultiAlert, BatchFormMultiAlertProps };
+
+import VisibleColumns, { VisibleColumnsProps } from "./components/Table/toolbar/VisibleColumns";
+export { VisibleColumns, VisibleColumnsProps };
 // < ./component/Table
 
 // > ./utilities
@@ -483,6 +489,21 @@ export {
     DialogBatchProvider,
     DialogBatchProviderProps,
     useDialogBatch,
+};
+
+import {
+    VisibleColumnsContext,
+    VisibleColumnsContextProps,
+    VisibleColumnsProvider,
+    VisibleColumnsProviderProps,
+    useVisibleColumns,
+} from "./contexts/VisibleColumns";
+export {
+    VisibleColumnsContext,
+    VisibleColumnsContextProps,
+    VisibleColumnsProvider,
+    VisibleColumnsProviderProps,
+    useVisibleColumns,
 };
 // < contexts
 

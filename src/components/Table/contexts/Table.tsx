@@ -1,5 +1,5 @@
 import React from "react";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
 import { useLocation } from "react-router-dom";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
@@ -60,11 +60,9 @@ interface TableContextProps {
     batchQuery: BatchQueryInterface;
     visibleColumns: ColumnNamesType;
     defaultColumns: ColumnNamesType;
-    tableKey?: string;
-    tableColumnEndpoint?: string;
+    visibleColumnsKey?: string;
+    visibleColumnsEndpoint?: EndpointType;
     setVisibleColumns?: React.Dispatch<React.SetStateAction<ColumnNamesType>>;
-    // eslint-disable-next-line
-    custom?: any;
 }
 
 interface TableProviderProps {
@@ -129,8 +127,12 @@ interface TableProviderProps {
         setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>,
         visibleColumns: ColumnNamesType
     ) => void;
-    // eslint-disable-next-line
-    custom?: any;
+    onVisibleColumnsLoadCatch?: (
+        defaultOnVisibleColumnsLoadCatch: () => void,
+        error: AxiosError,
+        setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>,
+        visibleColumns: ColumnNamesType
+    ) => void;
 }
 
 const contextInitial = {
@@ -230,7 +232,7 @@ const TableProvider = ({
     visibleColumnsKey,
     visibleColumnsEndpoint,
     onVisibleColumnsLoadSuccess,
-    custom,
+    onVisibleColumnsLoadCatch,
 }: TableProviderProps) => {
     const location = useLocation();
     const queryKey = typeof _queryKey !== "undefined" ? _queryKey : location.pathname;
@@ -324,18 +326,25 @@ const TableProvider = ({
         const axiosSource = axios.CancelToken.source();
         // requestConfig needs to be copied to avoid firing useDeepCompareEffectNoCheck
         const axiosRequestConfig = Object.assign({ cancelToken: axiosSource.token }, visibleColumnsRequestConfig);
-        axiosRequestConfig.data = axiosRequestConfig.data ?? { key: visibleColumnsKey };
+        axiosRequestConfig.method = axiosRequestConfig.method ?? "post";
+        axiosRequestConfig.data = axiosRequestConfig.data ?? { tableKey: visibleColumnsKey };
 
         axios
             .request(axiosRequestConfig)
             .then((response) => {
                 const defaultOnVisibleColumnsLoadSuccess = () => {
-                    if (response.status !== 204) {
-                        setVisibleColumns(response.data);
+                    const columns = response.data;
+                    if (columns.length === 0) {
+                        setVisibleColumns(defaultColumns);
                         return;
                     }
 
-                    setVisibleColumns(defaultColumns);
+                    const visibleColumns = columns
+                        // eslint-disable-next-line
+                        .filter((column: any) => (column.visible ? true : false))
+                        // eslint-disable-next-line
+                        .map((column: any) => column.name);
+                    setVisibleColumns(visibleColumns);
                 };
 
                 if (typeof onVisibleColumnsLoadSuccess !== "undefined") {
@@ -350,7 +359,28 @@ const TableProvider = ({
 
                 defaultOnVisibleColumnsLoadSuccess();
             })
-            .catch((error) => handleCatch(error));
+            .catch((error) => {
+                const defaultOnVisibleColumnsLoadCatch = () => {
+                    if (error?.response?.status !== 404) {
+                        setVisibleColumns(defaultColumns);
+                        return;
+                    }
+
+                    handleCatch(error);
+                };
+
+                if (typeof onVisibleColumnsLoadCatch !== "undefined") {
+                    onVisibleColumnsLoadCatch(
+                        defaultOnVisibleColumnsLoadCatch,
+                        error,
+                        setVisibleColumns,
+                        defaultColumns
+                    );
+                    return;
+                }
+
+                defaultOnVisibleColumnsLoadCatch();
+            });
 
         return () => {
             axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
@@ -668,7 +698,8 @@ const TableProvider = ({
                 visibleColumns,
                 setVisibleColumns,
                 defaultColumns,
-                custom,
+                visibleColumnsKey,
+                visibleColumnsEndpoint,
             }}
         >
             {children}
