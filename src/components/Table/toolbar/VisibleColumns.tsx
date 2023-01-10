@@ -1,15 +1,46 @@
 import React from "react";
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../../components/Common/GenericButtonDialog";
+import { ViewColumn } from "@mui/icons-material";
+import GenericIconButtonDialog, {
+    ExternalGenericIconButtonDialogProps,
+} from "../../../components/Common/GenericIconButtonDialog";
 import DialogVisibleColumns, { DialogVisibleColumnsProps } from "../../../components/Dialog/DialogVisibleColumns";
+import Optional from "../../../definitions/Optional";
+import { useTable } from "../../../components/Table/contexts/Table";
+import { resolveEndpoint } from "../../../utilities/resolve";
 
-type VisibleColumnsProps = ExternalGenericButtonDialogProps<DialogVisibleColumnsProps>;
+type VisibleColumnsProps = Optional<
+    ExternalGenericIconButtonDialogProps<DialogVisibleColumnsProps>,
+    "icon" | "dialogProps"
+>;
 
 const VisibleColumns = (props: VisibleColumnsProps) => {
+    const { visibleColumnsKey, visibleColumnsEndpoint } = useTable();
+
+    if (typeof visibleColumnsKey === "undefined") {
+        return null;
+    }
+
+    const visibleColumnsRequestConfig = resolveEndpoint(visibleColumnsEndpoint);
+
+    if (typeof visibleColumnsRequestConfig === "undefined") {
+        return null;
+    }
+
     return (
-        <GenericButtonDialog<DialogVisibleColumnsProps>
+        <GenericIconButtonDialog<DialogVisibleColumnsProps>
             {...{
                 component: DialogVisibleColumns,
-                // TODO Icon
+                icon: <ViewColumn />,
+                tooltip: "visibleColumns.action",
+                dialogProps: {
+                    initializeEndpoint: Object.assign(
+                        {
+                            method: "post",
+                            data: { tableKey: visibleColumnsKey },
+                        },
+                        visibleColumnsRequestConfig
+                    ),
+                },
                 ...props,
             }}
         />

@@ -92,6 +92,12 @@ import GenericButtonDialog, {
 } from "./components/Common/GenericButtonDialog";
 export { GenericButtonDialog, ExternalGenericButtonDialogProps, GenericButtonDialogProps };
 
+import GenericIconButtonDialog, {
+    ExternalGenericIconButtonDialogProps,
+    GenericIconButtonDialogProps,
+} from "./components/Common/GenericIconButtonDialog";
+export { GenericIconButtonDialog, ExternalGenericIconButtonDialogProps, GenericIconButtonDialogProps };
+
 import HighlightTag, { HighlightTagProps } from "./components/Common/HighlightTag";
 export { HighlightTag, HighlightTagProps };
 
@@ -136,6 +142,9 @@ import RequestExecutionErrorDialog, {
     RequestExecutionErrorDialogProps,
 } from "./components/Common/RequestExecutionErrorDialog";
 export { RequestExecutionErrorDialog, RequestExecutionErrorDialogProps };
+
+import VisibleColumnsArrange from "./components/Common/VisibleColumnsArrange";
+export { VisibleColumnsArrange };
 // < ./component/Common
 
 // > ./component/Dialog
@@ -492,6 +501,7 @@ export {
 };
 
 import {
+    VisibleColumnInterface,
     VisibleColumnsContext,
     VisibleColumnsContextProps,
     VisibleColumnsProvider,
@@ -499,6 +509,7 @@ import {
     useVisibleColumns,
 } from "./contexts/VisibleColumns";
 export {
+    VisibleColumnInterface,
     VisibleColumnsContext,
     VisibleColumnsContextProps,
     VisibleColumnsProvider,

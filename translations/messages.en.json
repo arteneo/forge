@@ -77,6 +77,12 @@
             "errorMessageUnexpected": "Unexpected error occured"
         }
     },
+    "visibleColumns": {
+        "dialog": {
+            "title": "Visible columns"
+        },
+        "action": "Adjust visible columns"
+    },
     "resultDelete": {
         "dialog": {
             "title": "Confirmation required",

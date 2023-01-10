@@ -1,14 +1,20 @@
 import React from "react";
+import VisibleColumnsArrange from "../../components/Common/VisibleColumnsArrange";
 import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
 import { VisibleColumnsProvider } from "../../contexts/VisibleColumns";
 import Optional from "../../definitions/Optional";
 
-type DialogVisibleColumnsProps = Optional<DialogProps, "title">;
+type DialogVisibleColumnsProps = Optional<DialogProps, "title" | "children" | "dialogProps">;
 
-const DialogVisibleColumns = ({ title = "dialogVisibleColumns.title", ...props }: DialogVisibleColumnsProps) => {
+const DialogVisibleColumns = ({
+    title = "visibleColumns.dialog.title",
+    children = <VisibleColumnsArrange />,
+    actions = <>Submit!</>,
+    ...props
+}: DialogVisibleColumnsProps) => {
     return (
         <VisibleColumnsProvider>
-            <Dialog {...{ title, ...props }} />
+            <Dialog {...{ title, children, actions, ...props }} />
         </VisibleColumnsProvider>
     );
 };
