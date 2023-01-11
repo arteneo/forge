@@ -143,8 +143,13 @@ import RequestExecutionErrorDialog, {
 } from "./components/Common/RequestExecutionErrorDialog";
 export { RequestExecutionErrorDialog, RequestExecutionErrorDialogProps };
 
-import VisibleColumnsArrange from "./components/Common/VisibleColumnsArrange";
-export { VisibleColumnsArrange };
+import VisibleColumnsArrange, { VisibleColumnsArrangeProps } from "./components/Common/VisibleColumnsArrange";
+export { VisibleColumnsArrange, VisibleColumnsArrangeProps };
+
+import VisibleColumnsArrangeItem, {
+    VisibleColumnsArrangeItemProps,
+} from "./components/Common/VisibleColumnsArrangeItem";
+export { VisibleColumnsArrangeItem, VisibleColumnsArrangeItemProps };
 // < ./component/Common
 
 // > ./component/Dialog
@@ -267,6 +272,16 @@ export { DialogTitle, DialogTitleSpecificProps, DialogTitleProps };
 
 import DialogVisibleColumns, { DialogVisibleColumnsProps } from "./components/Dialog/DialogVisibleColumns";
 export { DialogVisibleColumns, DialogVisibleColumnsProps };
+
+import DialogVisibleColumnsArrange, {
+    DialogVisibleColumnsArrangeProps,
+} from "./components/Dialog/DialogVisibleColumnsArrange";
+export { DialogVisibleColumnsArrange, DialogVisibleColumnsArrangeProps };
+
+import DialogVisibleColumnsButtonEndpoint, {
+    DialogVisibleColumnsButtonEndpointProps,
+} from "./components/Dialog/DialogVisibleColumnsButtonEndpoint";
+export { DialogVisibleColumnsButtonEndpoint, DialogVisibleColumnsButtonEndpointProps };
 // < ./component/Dialog
 
 // > ./component/Form
