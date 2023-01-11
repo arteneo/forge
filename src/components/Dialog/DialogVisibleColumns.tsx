@@ -1,5 +1,4 @@
 import React from "react";
-import VisibleColumnsArrange from "../../components/Common/VisibleColumnsArrange";
 import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
 import DialogVisibleColumnsButtonEndpoint, {
     DialogVisibleColumnsButtonEndpointProps,
