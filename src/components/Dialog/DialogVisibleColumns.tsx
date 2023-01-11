@@ -7,21 +7,18 @@ import DialogVisibleColumnsButtonEndpoint, {
 import { VisibleColumnsProvider } from "../../contexts/VisibleColumns";
 import Optional from "../../definitions/Optional";
 
-interface DialogVisibleColumnsProps extends Optional<DialogProps, "title" | "children" | "dialogProps"> {
+interface DialogVisibleColumnsProps extends Optional<DialogProps, "title" | "dialogProps"> {
     confirmProps: DialogVisibleColumnsButtonEndpointProps;
 }
 
 const DialogVisibleColumns = ({
     title = "visibleColumns.dialog.title",
-    children = <VisibleColumnsArrange />,
     confirmProps,
     ...props
 }: DialogVisibleColumnsProps) => {
     return (
         <VisibleColumnsProvider>
-            <Dialog
-                {...{ title, children, actions: <DialogVisibleColumnsButtonEndpoint {...confirmProps} />, ...props }}
-            />
+            <Dialog {...{ title, actions: <DialogVisibleColumnsButtonEndpoint {...confirmProps} />, ...props }} />
         </VisibleColumnsProvider>
     );
 };

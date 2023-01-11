@@ -38,7 +38,6 @@ const VisibleColumnsArrangeItem = ({ name }: VisibleColumnsArrangeItemProps) => 
             ref={setNodeRef}
             style={style}
             {...attributes}
-            disableGutters
             secondaryAction={
                 <Checkbox
                     {...{
@@ -48,10 +47,19 @@ const VisibleColumnsArrangeItem = ({ name }: VisibleColumnsArrangeItemProps) => 
                     }}
                 />
             }
+            sx={{
+                paddingLeft: 1,
+                backgroundColor: "white",
+                borderWidth: "1px",
+                borderStyle: "solid",
+                borderColor: "grey.300",
+                borderRadius: 1,
+                my: 0.5,
+            }}
         >
             <ListItemIcon {...listeners}>
-                <IconButton {...{ sx: { cursor: "move" }, disableFocusRipple: true }}>
-                    <DragIndicator />
+                <IconButton {...{ sx: { cursor: "move" }, disableFocusRipple: true, size: "small" }}>
+                    <DragIndicator {...{ fontSize: "small" }} />
                 </IconButton>
             </ListItemIcon>
             <ListItemText primary={t("label." + name)} />

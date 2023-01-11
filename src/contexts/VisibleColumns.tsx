@@ -2,7 +2,6 @@ import React from "react";
 
 interface VisibleColumnInterface {
     name: string;
-    position: number;
     visible: boolean;
 }
 

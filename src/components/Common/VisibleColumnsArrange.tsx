@@ -1,5 +1,5 @@
 import React from "react";
-import { List } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import {
     DndContext,
     closestCenter,
@@ -15,14 +15,27 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { List, Alert, AlertProps } from "@mui/material";
 import VisibleColumnsArrangeItem from "../../components/Common/VisibleColumnsArrangeItem";
 import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
 import { useDialog } from "../../contexts/Dialog";
 import { useTable } from "../../components/Table/contexts/Table";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 
-const VisibleColumnsArrange = () => {
+interface VisibleColumnsArrangeProps {
+    label?: string;
+    labelVariables?: TranslateVariablesInterface;
+    alertProps?: AlertProps;
+}
+
+const VisibleColumnsArrange = ({
+    label = "visibleColumns.label",
+    labelVariables,
+    alertProps,
+}: VisibleColumnsArrangeProps) => {
+    const { t } = useTranslation();
     const { initialized, payload: payloadColumns } = useDialog();
-    const { columns: tableColumns } = useTable();
+    const { defaultColumns, columns: tableColumns } = useTable();
     const { columns, setColumns } = useVisibleColumns();
 
     React.useEffect(() => initialize(), [initialized]);
@@ -39,15 +52,18 @@ const VisibleColumnsArrange = () => {
             return;
         }
 
-        const initializedColumns: VisibleColumnInterface[] = payloadColumns;
+        const tableColumnNames = Object.keys(tableColumns);
 
-        Object.keys(tableColumns).forEach((tableColumn) => {
+        // Filter out any columns that are not included in table columns
+        const initializedColumns: VisibleColumnInterface[] = payloadColumns.filter(
+            (payloadColumn: VisibleColumnInterface) => tableColumnNames.includes(payloadColumn.name)
+        );
+        tableColumnNames.forEach((tableColumn) => {
             const index = initializedColumns.findIndex((column) => column.name === tableColumn);
             if (index === -1) {
                 initializedColumns.push({
                     name: tableColumn,
-                    visible: false,
-                    position: initializedColumns.length,
+                    visible: defaultColumns.includes(tableColumn),
                 });
             }
         });
@@ -71,16 +87,20 @@ const VisibleColumnsArrange = () => {
     const columnNames = columns.map((column) => column.name);
 
     return (
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-            <SortableContext items={columnNames} strategy={verticalListSortingStrategy}>
-                <List {...{ dense: true }}>
-                    {columns.map((column) => (
-                        <VisibleColumnsArrangeItem key={column.name + column.visible} {...column} />
-                    ))}
-                </List>
-            </SortableContext>
-        </DndContext>
+        <>
+            <Alert {...{ severity: "info", ...alertProps }}>{t(label, labelVariables)}</Alert>
+            <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <SortableContext items={columnNames} strategy={verticalListSortingStrategy}>
+                    <List {...{ dense: true }}>
+                        {columns.map((column) => (
+                            <VisibleColumnsArrangeItem key={column.name} {...column} />
+                        ))}
+                    </List>
+                </SortableContext>
+            </DndContext>
+        </>
     );
 };
 
 export default VisibleColumnsArrange;
+export { VisibleColumnsArrangeProps };

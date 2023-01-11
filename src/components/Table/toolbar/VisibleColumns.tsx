@@ -3,12 +3,14 @@ import { ViewColumn } from "@mui/icons-material";
 import GenericIconButtonDialog, {
     ExternalGenericIconButtonDialogProps,
 } from "../../../components/Common/GenericIconButtonDialog";
-import DialogVisibleColumns, { DialogVisibleColumnsProps } from "../../../components/Dialog/DialogVisibleColumns";
+import DialogVisibleColumnsArrange, {
+    DialogVisibleColumnsArrangeProps,
+} from "../../../components/Dialog/DialogVisibleColumnsArrange";
 import Optional from "../../../definitions/Optional";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { resolveEndpoint } from "../../../utilities/resolve";
 
-type VisibleColumnsProps = Optional<ExternalGenericIconButtonDialogProps<DialogVisibleColumnsProps>, "icon">;
+type VisibleColumnsProps = Optional<ExternalGenericIconButtonDialogProps<DialogVisibleColumnsArrangeProps>, "icon">;
 
 const VisibleColumns = (props: VisibleColumnsProps) => {
     const { visibleColumnsKey, visibleColumnsEndpoint } = useTable();
@@ -24,11 +26,11 @@ const VisibleColumns = (props: VisibleColumnsProps) => {
     }
 
     return (
-        <GenericIconButtonDialog<DialogVisibleColumnsProps>
+        <GenericIconButtonDialog<DialogVisibleColumnsArrangeProps>
             {...{
-                component: DialogVisibleColumns,
+                component: DialogVisibleColumnsArrange,
                 icon: <ViewColumn />,
-                tooltip: "visibleColumns.action",
+                tooltip: "visibleColumns.tooltip",
                 ...props,
                 dialogProps: {
                     initializeEndpoint: Object.assign(

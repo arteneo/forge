@@ -21,6 +21,7 @@ import BatchQueryInterface from "../../../components/Table/definitions/BatchQuer
 import ColumnNamesType from "../../../components/Table/definitions/ColumnNamesType";
 import EndpointType from "../../../definitions/EndpointType";
 import { resolveEndpoint } from "../../../utilities/resolve";
+import { VisibleColumnInterface } from "../../../contexts/VisibleColumns";
 
 interface TableContextProps {
     columns: ColumnsInterface;
@@ -63,6 +64,7 @@ interface TableContextProps {
     visibleColumnsKey?: string;
     visibleColumnsEndpoint?: EndpointType;
     setVisibleColumns?: React.Dispatch<React.SetStateAction<ColumnNamesType>>;
+    reloadVisibleColumns: () => void;
 }
 
 interface TableProviderProps {
@@ -205,6 +207,9 @@ const contextInitial = {
     },
     visibleColumns: [],
     defaultColumns: [],
+    reloadVisibleColumns: () => {
+        return;
+    },
 };
 
 const TableContext = React.createContext<TableContextProps>(contextInitial);
@@ -333,17 +338,18 @@ const TableProvider = ({
             .request(axiosRequestConfig)
             .then((response) => {
                 const defaultOnVisibleColumnsLoadSuccess = () => {
-                    const columns = response.data;
-                    if (columns.length === 0) {
+                    const visibleColumnsPayload = response.data;
+                    if (visibleColumnsPayload.length === 0) {
                         setVisibleColumns(defaultColumns);
                         return;
                     }
 
-                    const visibleColumns = columns
-                        // eslint-disable-next-line
-                        .filter((column: any) => (column.visible ? true : false))
-                        // eslint-disable-next-line
-                        .map((column: any) => column.name);
+                    const tableColumnNames = Object.keys(columns);
+
+                    const visibleColumns = visibleColumnsPayload
+                        .filter((column: VisibleColumnInterface) => tableColumnNames.includes(column.name))
+                        .filter((column: VisibleColumnInterface) => (column.visible ? true : false))
+                        .map((column: VisibleColumnInterface) => column.name);
                     setVisibleColumns(visibleColumns);
                 };
 
@@ -361,11 +367,6 @@ const TableProvider = ({
             })
             .catch((error) => {
                 const defaultOnVisibleColumnsLoadCatch = () => {
-                    if (error?.response?.status !== 404) {
-                        setVisibleColumns(defaultColumns);
-                        return;
-                    }
-
                     handleCatch(error);
                 };
 
@@ -700,6 +701,7 @@ const TableProvider = ({
                 defaultColumns,
                 visibleColumnsKey,
                 visibleColumnsEndpoint,
+                reloadVisibleColumns: loadVisibleColumns,
             }}
         >
             {children}

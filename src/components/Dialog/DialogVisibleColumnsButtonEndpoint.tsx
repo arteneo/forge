@@ -2,18 +2,38 @@ import React from "react";
 import { Check } from "@mui/icons-material";
 import ButtonEndpoint, { ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
 import { useDialog } from "../../contexts/Dialog";
+import { resolveEndpoint } from "../../utilities/resolve";
+import EndpointType from "../../definitions/EndpointType";
+import { useTable } from "../../components/Table/contexts/Table";
+import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
+
+interface DialogVisibleColumnsButtonEndpointProps extends Omit<ButtonEndpointProps, "endpoint"> {
+    endpoint: EndpointType | ((columns: VisibleColumnInterface[], visibleColumnsKey?: string) => EndpointType);
+}
 
 const DialogVisibleColumnsButtonEndpoint = ({
     label = "action.confirm",
     color = "success",
     variant = "contained",
     endIcon = <Check />,
+    endpoint,
     ...props
-}: ButtonEndpointProps) => {
+}: DialogVisibleColumnsButtonEndpointProps) => {
     const { onClose, initialized } = useDialog();
+    const { reloadVisibleColumns, visibleColumnsKey } = useTable();
+    const { columns } = useVisibleColumns();
 
-    // TODO figure out how to merge endpoint definition. Maybye function (columns, visibleColumnsKey) with a default value?
-    // TODO reload columns
+    const defaultRequestConfig = {
+        method: "post",
+        data: {
+            tableKey: visibleColumnsKey,
+            columns,
+        },
+    };
+
+    const resolvedEndpoint = typeof endpoint === "function" ? endpoint(columns, visibleColumnsKey) : endpoint;
+    const requestConfig = resolveEndpoint(resolvedEndpoint);
+    const resolvedRequestConfig = Object.assign(defaultRequestConfig, requestConfig);
 
     return (
         <ButtonEndpoint
@@ -24,10 +44,12 @@ const DialogVisibleColumnsButtonEndpoint = ({
                 endIcon,
                 snackbarLabel: "visibleColumns.snackbar",
                 ...props,
+                endpoint: resolvedRequestConfig,
                 disabled: initialized ? props.disabled : true,
                 onSuccess: (defaultOnSuccess, response, setLoading) => {
                     const internalDefaultOnSuccess = () => {
                         defaultOnSuccess();
+                        reloadVisibleColumns();
                         onClose();
                     };
 
@@ -57,4 +79,4 @@ const DialogVisibleColumnsButtonEndpoint = ({
 };
 
 export default DialogVisibleColumnsButtonEndpoint;
-export { ButtonEndpointProps as DialogVisibleColumnsButtonEndpointProps };
+export { DialogVisibleColumnsButtonEndpointProps };
