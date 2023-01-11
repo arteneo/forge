@@ -1,6 +1,6 @@
 {
     "name": "@arteneo/forge",
-    "version": "2.1.2",
+    "version": "2.1.5",
     "description": "Forge",
     "license": "MIT",
     "author": "Arteneo",
@@ -26,6 +26,9 @@
     "homepage": "https://github.com/arteneo/forge#readme",
     "peerDependencies": {
         "@date-io/date-fns": "^2.14.0",
+        "@dnd-kit/core": "^6.0.7",
+        "@dnd-kit/sortable": "^7.0.2",
+        "@dnd-kit/utilities": "^3.2.1",
         "@emotion/react": "^11.9.0",
         "@emotion/styled": "^11.9.0",
         "@mui/icons-material": "^5.8.4",
