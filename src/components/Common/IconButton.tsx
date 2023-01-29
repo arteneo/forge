@@ -20,7 +20,7 @@ const IconButton = ({
     tooltipVariables,
     deny,
     denyKey,
-    denyBeheviour = "disable",
+    denyBehavior = "disable",
     ...muiIconButtonProps
 }: IconButtonProps) => {
     const { t } = useTranslation();
@@ -28,11 +28,11 @@ const IconButton = ({
     let denyMessage: undefined | string = undefined;
 
     if (typeof denyKey !== "undefined" && typeof deny?.[denyKey] !== "undefined") {
-        if (denyBeheviour === "hide") {
+        if (denyBehavior === "hide") {
             return null;
         }
 
-        if (denyBeheviour === "disable") {
+        if (denyBehavior === "disable") {
             denyMessage = deny[denyKey];
             muiIconButtonProps.disabled = true;
         }

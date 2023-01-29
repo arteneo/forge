@@ -4,7 +4,7 @@ import DenyBehaviorType from "../../../components/Table/definitions/DenyBehavior
 interface DenyPropInterface {
     deny?: DenyInterface;
     denyKey?: string;
-    denyBeheviour?: DenyBehaviorType;
+    denyBehavior?: DenyBehaviorType;
 }
 
 export default DenyPropInterface;
