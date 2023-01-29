@@ -21,7 +21,7 @@ const Button = ({
     children,
     deny,
     denyKey,
-    denyBeheviour = "disable",
+    denyBehavior = "disable",
     ...props
 }: ButtonProps) => {
     const { t } = useTranslation();
@@ -44,11 +44,11 @@ const Button = ({
     let denyMessage: undefined | string = undefined;
 
     if (typeof denyKey !== "undefined" && typeof deny?.[denyKey] !== "undefined") {
-        if (denyBeheviour === "hide") {
+        if (denyBehavior === "hide") {
             return null;
         }
 
-        if (denyBeheviour === "disable") {
+        if (denyBehavior === "disable") {
             denyMessage = deny[denyKey];
             props.disabled = true;
         }
