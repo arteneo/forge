@@ -128,7 +128,7 @@ const Multiselect = ({
 
     const defaultOnChange = (event: React.SyntheticEvent, value: SelectValueType, reason: AutocompleteChangeReason) => {
         if (reason === "clear") {
-            setFieldValue(path, "");
+            setFieldValue(path, []);
             return;
         }
 
