@@ -71,6 +71,11 @@ export { ButtonDialogConfirm, ButtonDialogConfirmProps };
 import ButtonDialogForm, { ButtonDialogFormProps } from "./components/Common/ButtonDialogForm";
 export { ButtonDialogForm, ButtonDialogFormProps };
 
+import ButtonDialogFormAlertFieldset, {
+    ButtonDialogFormAlertFieldsetProps,
+} from "./components/Common/ButtonDialogFormAlertFieldset";
+export { ButtonDialogFormAlertFieldset, ButtonDialogFormAlertFieldsetProps };
+
 import ButtonDialogFormFieldset, { ButtonDialogFormFieldsetProps } from "./components/Common/ButtonDialogFormFieldset";
 export { ButtonDialogFormFieldset, ButtonDialogFormFieldsetProps };
 
@@ -120,6 +125,11 @@ export { IconButtonDialogConfirm, IconButtonDialogConfirmProps };
 
 import IconButtonDialogForm, { IconButtonDialogFormProps } from "./components/Common/IconButtonDialogForm";
 export { IconButtonDialogForm, IconButtonDialogFormProps };
+
+import IconButtonDialogFormAlertFieldset, {
+    IconButtonDialogFormAlertFieldsetProps,
+} from "./components/Common/IconButtonDialogFormAlertFieldset";
+export { IconButtonDialogFormAlertFieldset, IconButtonDialogFormAlertFieldsetProps };
 
 import IconButtonDialogFormFieldset, {
     IconButtonDialogFormFieldsetProps,
@@ -263,6 +273,9 @@ export { DialogContentLoader };
 
 import DialogForm, { DialogFormProps } from "./components/Dialog/DialogForm";
 export { DialogForm, DialogFormProps };
+
+import DialogFormAlertFieldset, { DialogFormAlertFieldsetProps } from "./components/Dialog/DialogFormAlertFieldset";
+export { DialogFormAlertFieldset, DialogFormAlertFieldsetProps };
 
 import DialogFormFieldset, { DialogFormFieldsetProps } from "./components/Dialog/DialogFormFieldset";
 export { DialogFormFieldset, DialogFormFieldsetProps };
