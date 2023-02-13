@@ -343,6 +343,16 @@ import ResultButtonDialogForm, {
 } from "./components/Table/actions/ResultButtonDialogForm";
 export { ResultButtonDialogForm, ResultButtonDialogFormSpecificProps, ResultButtonDialogFormProps };
 
+import ResultButtonDialogFormAlertFieldset, {
+    ResultButtonDialogFormAlertFieldsetSpecificProps,
+    ResultButtonDialogFormAlertFieldsetProps,
+} from "./components/Table/actions/ResultButtonDialogFormAlertFieldset";
+export {
+    ResultButtonDialogFormAlertFieldset,
+    ResultButtonDialogFormAlertFieldsetSpecificProps,
+    ResultButtonDialogFormAlertFieldsetProps,
+};
+
 import ResultButtonDialogFormFieldset, {
     ResultButtonDialogFormFieldsetSpecificProps,
     ResultButtonDialogFormFieldsetProps,
