@@ -38,7 +38,7 @@ const BatchForm = ({ dialogProps, ...props }: BatchFormProps) => {
 
                             return _values;
                         },
-                        onSubmitSuccess: (defaultOnSubmitSuccess, helpers, response) => {
+                        onSubmitSuccess: (defaultOnSubmitSuccess, values, helpers, response) => {
                             const internalDefaultOnSubmitSuccess = () => {
                                 defaultOnSubmitSuccess();
                                 reload();
@@ -47,6 +47,7 @@ const BatchForm = ({ dialogProps, ...props }: BatchFormProps) => {
                             if (typeof dialogProps?.formProps?.onSubmitSuccess !== "undefined") {
                                 dialogProps.formProps.onSubmitSuccess(
                                     internalDefaultOnSubmitSuccess,
+                                    values,
                                     helpers,
                                     response
                                 );
