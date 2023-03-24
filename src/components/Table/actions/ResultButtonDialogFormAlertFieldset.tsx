@@ -38,8 +38,10 @@ const ResultButtonDialogFormAlertFieldset = ({
 
     const onSubmitSuccess: ButtonDialogFormAlertFieldsetProps["dialogProps"]["formProps"]["onSubmitSuccess"] = (
         defaultOnSubmitSuccess,
+        values,
         helpers,
-        response
+        response,
+        onClose
     ) => {
         const internalDefaultOnSuccess = () => {
             defaultOnSubmitSuccess();
@@ -50,7 +52,7 @@ const ResultButtonDialogFormAlertFieldset = ({
         };
 
         if (typeof resolvedOnSubmitSuccess !== "undefined") {
-            resolvedOnSubmitSuccess(internalDefaultOnSuccess, helpers, response);
+            resolvedOnSubmitSuccess(internalDefaultOnSuccess, values, helpers, response, onClose);
             return;
         }
 

@@ -13,13 +13,19 @@ import TranslateVariablesInterface from "../../../definitions/TranslateVariables
 interface FormContentProps {
     children: React.ReactNode;
     changeSubmitValues?: (values: FormikValues) => FormikValues;
-    onSubmitStart?: (defaultOnStart: () => void, helpers: FormikHelpers<FormikValues>) => void;
+    onSubmitStart?: (defaultOnStart: () => void, values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
     onSubmitSuccess?: (
         defaultOnSubmitSuccess: () => void,
+        values: FormikValues,
         helpers: FormikHelpers<FormikValues>,
         response: AxiosResponse
     ) => void;
-    onSubmitCatch?: (defaultOnSubmitCatch: () => void, helpers: FormikHelpers<FormikValues>, error: AxiosError) => void;
+    onSubmitCatch?: (
+        defaultOnSubmitCatch: () => void,
+        values: FormikValues,
+        helpers: FormikHelpers<FormikValues>,
+        error: AxiosError
+    ) => void;
     onSubmit?: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
     endpoint?: FieldEndpointType;
     snackbarLabel?: string;
@@ -56,7 +62,7 @@ const FormContent = ({
         };
 
         if (typeof onSubmitStart !== "undefined") {
-            onSubmitStart(defaultOnSubmitStart, helpers);
+            onSubmitStart(defaultOnSubmitStart, values, helpers);
         } else {
             defaultOnSubmitStart();
         }
@@ -75,7 +81,7 @@ const FormContent = ({
                 };
 
                 if (onSubmitSuccess) {
-                    onSubmitSuccess(defaultOnSubmitSuccess, helpers, response);
+                    onSubmitSuccess(defaultOnSubmitSuccess, values, helpers, response);
                     return;
                 }
 
@@ -91,7 +97,7 @@ const FormContent = ({
                 };
 
                 if (typeof onSubmitCatch !== "undefined") {
-                    onSubmitCatch(defaultOnSubmitCatch, helpers, error);
+                    onSubmitCatch(defaultOnSubmitCatch, values, helpers, error);
                     return;
                 }
 

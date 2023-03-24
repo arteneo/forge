@@ -38,7 +38,7 @@ const BatchFormAlert = ({ dialogProps, ...props }: BatchFormAlertProps) => {
 
                             return _values;
                         },
-                        onSubmitSuccess: (defaultOnSubmitSuccess, helpers, response) => {
+                        onSubmitSuccess: (defaultOnSubmitSuccess, values, helpers, response) => {
                             const internalDefaultOnSubmitSuccess = () => {
                                 defaultOnSubmitSuccess();
                                 reload();
@@ -47,6 +47,7 @@ const BatchFormAlert = ({ dialogProps, ...props }: BatchFormAlertProps) => {
                             if (typeof dialogProps?.formProps?.onSubmitSuccess !== "undefined") {
                                 dialogProps.formProps.onSubmitSuccess(
                                     internalDefaultOnSubmitSuccess,
+                                    values,
                                     helpers,
                                     response
                                 );

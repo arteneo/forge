@@ -36,8 +36,10 @@ const ResultButtonDialogForm = ({
 
     const onSubmitSuccess: ButtonDialogFormProps["dialogProps"]["formProps"]["onSubmitSuccess"] = (
         defaultOnSubmitSuccess,
+        values,
         helpers,
-        response
+        response,
+        onClose
     ) => {
         const internalDefaultOnSuccess = () => {
             defaultOnSubmitSuccess();
@@ -48,7 +50,7 @@ const ResultButtonDialogForm = ({
         };
 
         if (typeof resolvedOnSubmitSuccess !== "undefined") {
-            resolvedOnSubmitSuccess(internalDefaultOnSuccess, helpers, response);
+            resolvedOnSubmitSuccess(internalDefaultOnSuccess, values, helpers, response, onClose);
             return;
         }
 

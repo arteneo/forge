@@ -1,4 +1,6 @@
 import React from "react";
+import { FormikHelpers, FormikValues } from "formik";
+import { AxiosError, AxiosResponse } from "axios";
 import Form, { FormProps } from "../../components/Form/components/Form";
 import Optional from "../../definitions/Optional";
 import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
@@ -7,7 +9,29 @@ import DialogContent, { DialogContentSpecificProps } from "../../components/Dial
 import DialogActions from "../../components/Dialog/DialogActions";
 import DialogButtonSubmit, { DialogButtonSubmitProps } from "../../components/Dialog/DialogButtonSubmit";
 
-type DialogFormFormProps = Optional<FormProps, "children">;
+interface DialogFormFormProps
+    extends Omit<Optional<FormProps, "children">, "onSubmitStart" | "onSubmitSuccess" | "onSubmitCatch"> {
+    onSubmitStart?: (
+        defaultOnStart: () => void,
+        values: FormikValues,
+        helpers: FormikHelpers<FormikValues>,
+        onClose: () => void
+    ) => void;
+    onSubmitSuccess?: (
+        defaultOnSubmitSuccess: () => void,
+        values: FormikValues,
+        helpers: FormikHelpers<FormikValues>,
+        response: AxiosResponse,
+        onClose: () => void
+    ) => void;
+    onSubmitCatch?: (
+        defaultOnSubmitCatch: () => void,
+        values: FormikValues,
+        helpers: FormikHelpers<FormikValues>,
+        error: AxiosError,
+        onClose: () => void
+    ) => void;
+}
 
 type InternalDialogFormProps = DialogTitleSpecificProps &
     DialogContentSpecificProps &
@@ -32,20 +56,31 @@ const DialogForm = ({
             <Form
                 {...{
                     ...formProps,
-                    onSubmitSuccess: (defaultOnSubmitSuccess, helpers, response) => {
+                    onSubmitStart: (defaultOnSubmitStart, values, helpers) => {
+                        if (typeof formProps.onSubmitStart !== "undefined") {
+                            formProps.onSubmitStart(defaultOnSubmitStart, values, helpers, onClose);
+                        }
+                    },
+                    onSubmitSuccess: (defaultOnSubmitSuccess, values, helpers, response) => {
                         const internalDefaultOnSubmitSuccess = () => {
                             defaultOnSubmitSuccess();
                             onClose();
                         };
 
                         if (typeof formProps.onSubmitSuccess !== "undefined") {
-                            formProps.onSubmitSuccess(internalDefaultOnSubmitSuccess, helpers, response);
+                            formProps.onSubmitSuccess(
+                                internalDefaultOnSubmitSuccess,
+                                values,
+                                helpers,
+                                response,
+                                onClose
+                            );
                             return;
                         }
 
                         internalDefaultOnSubmitSuccess();
                     },
-                    onSubmitCatch: (defaultOnSubmitCatch, helpers, error) => {
+                    onSubmitCatch: (defaultOnSubmitCatch, values, helpers, error) => {
                         const internalDefaultOnSubmitCatch = () => {
                             defaultOnSubmitCatch();
 
@@ -55,7 +90,7 @@ const DialogForm = ({
                         };
 
                         if (typeof formProps.onSubmitCatch !== "undefined") {
-                            formProps.onSubmitCatch(internalDefaultOnSubmitCatch, helpers, error);
+                            formProps.onSubmitCatch(internalDefaultOnSubmitCatch, values, helpers, error, onClose);
                             return;
                         }
 

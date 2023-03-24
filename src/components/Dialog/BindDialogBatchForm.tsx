@@ -16,7 +16,7 @@ const BindDialogBatchForm = ({ processResponse = (response) => response.data, ..
         <Form
             {...{
                 ...props,
-                onSubmitStart: (defaultOnSubmitStart, setLoading) => {
+                onSubmitStart: (defaultOnSubmitStart, values, helpers) => {
                     const internalDefaultOnSubmitStart = () => {
                         setProcessing(true);
                         setFinished(false);
@@ -24,13 +24,13 @@ const BindDialogBatchForm = ({ processResponse = (response) => response.data, ..
                     };
 
                     if (typeof props?.onSubmitStart !== "undefined") {
-                        props.onSubmitStart(internalDefaultOnSubmitStart, setLoading);
+                        props.onSubmitStart(internalDefaultOnSubmitStart, values, helpers);
                         return;
                     }
 
                     internalDefaultOnSubmitStart();
                 },
-                onSubmitSuccess: (defaultOnSubmitSuccess, helpers, response) => {
+                onSubmitSuccess: (defaultOnSubmitSuccess, values, helpers, response) => {
                     const internalDefaultOnSubmitSuccess = () => {
                         helpers.setSubmitting(false);
                         setProcessing(false);
@@ -39,13 +39,13 @@ const BindDialogBatchForm = ({ processResponse = (response) => response.data, ..
                     };
 
                     if (typeof props?.onSubmitSuccess !== "undefined") {
-                        props.onSubmitSuccess(internalDefaultOnSubmitSuccess, helpers, response);
+                        props.onSubmitSuccess(internalDefaultOnSubmitSuccess, values, helpers, response);
                         return;
                     }
 
                     internalDefaultOnSubmitSuccess();
                 },
-                onSubmitCatch: (defaultOnSubmitCatch, helpers, error) => {
+                onSubmitCatch: (defaultOnSubmitCatch, values, helpers, error) => {
                     const internalDefaultOnSubmitCatch = () => {
                         defaultOnSubmitCatch();
 
@@ -55,7 +55,7 @@ const BindDialogBatchForm = ({ processResponse = (response) => response.data, ..
                     };
 
                     if (typeof props.onSubmitCatch !== "undefined") {
-                        props.onSubmitCatch(internalDefaultOnSubmitCatch, helpers, error);
+                        props.onSubmitCatch(internalDefaultOnSubmitCatch, values, helpers, error);
                         return;
                     }
 
