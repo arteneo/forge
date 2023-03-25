@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Tooltip } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import LoadingButton, { LoadingButtonProps } from "../../components/Common/LoadingButton";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import DenyPropInterface from "../../components/Table/definitions/DenyPropInterface";
@@ -60,7 +60,7 @@ const Button = ({
         button = (
             // t(denyResult) ?? "" just to satisfy TypeScript
             <Tooltip title={t(denyMessage) ?? ""}>
-                <span>{button}</span>
+                <Box {...{ component: "span", sx: { display: "inline-flex" } }}>{button}</Box>
             </Tooltip>
         );
     }

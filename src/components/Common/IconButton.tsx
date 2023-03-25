@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { IconButton as MuiIconButton, IconButtonProps as MuiIconButtonProps, Tooltip } from "@mui/material";
+import { Box, IconButton as MuiIconButton, IconButtonProps as MuiIconButtonProps, Tooltip } from "@mui/material";
 import DenyPropInterface from "../../components/Table/definitions/DenyPropInterface";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 
@@ -50,7 +50,7 @@ const IconButton = ({
     if (typeof tooltipTitle !== "undefined") {
         button = (
             <Tooltip title={tooltipTitle}>
-                <span>{button}</span>
+                <Box {...{ component: "span", sx: { display: "inline-flex" } }}>{button}</Box>
             </Tooltip>
         );
     }
