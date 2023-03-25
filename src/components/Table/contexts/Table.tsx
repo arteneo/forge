@@ -291,6 +291,12 @@ const TableProvider = ({
                 }
 
                 const defaultOnLoadSuccess = () => {
+                    if (response.data.results.length === 0 && page > 1) {
+                        // This is enough to reload
+                        setPage(1);
+                        return;
+                    }
+
                     setResults(response.data.results);
                     setRowCount(response.data.rowCount);
                     setSelected([]);
@@ -389,12 +395,6 @@ const TableProvider = ({
     };
 
     const reload = (): void => {
-        if (page !== 1) {
-            // Enough to trigger load
-            setPage(1);
-            return;
-        }
-
         load(page, rowsPerPage, sorting, filters);
     };
 
@@ -558,7 +558,8 @@ const TableProvider = ({
 
     const onSubmitFilters = (values: FormikValues, helpers: FormikHelpers<FormikValues>): void => {
         setFilters(values);
-        load(page, rowsPerPage, sorting, values, () => {
+        setPage(1);
+        load(1, rowsPerPage, sorting, values, () => {
             helpers.setSubmitting(false);
         });
     };
