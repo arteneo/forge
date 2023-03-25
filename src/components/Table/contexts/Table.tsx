@@ -135,6 +135,7 @@ interface TableProviderProps {
         setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>,
         visibleColumns: ColumnNamesType
     ) => void;
+    disableReloadOnLocationKeyChange?: boolean;
 }
 
 const contextInitial = {
@@ -238,6 +239,7 @@ const TableProvider = ({
     visibleColumnsEndpoint,
     onVisibleColumnsLoadSuccess,
     onVisibleColumnsLoadCatch,
+    disableReloadOnLocationKeyChange = false,
 }: TableProviderProps) => {
     const location = useLocation();
     const queryKey = typeof _queryKey !== "undefined" ? _queryKey : location.pathname;
@@ -261,7 +263,13 @@ const TableProvider = ({
 
     useDeepCompareEffectNoCheck(
         () => load(page, rowsPerPage, sorting, filters),
-        [requestConfig, page, rowsPerPage, sorting]
+        [
+            requestConfig,
+            page,
+            rowsPerPage,
+            sorting,
+            disableReloadOnLocationKeyChange ? disableReloadOnLocationKeyChange : location.key,
+        ]
     );
     useDeepCompareEffectNoCheck(() => loadVisibleColumns(), [visibleColumnsKey, visibleColumnsRequestConfig]);
 
