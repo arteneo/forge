@@ -67,7 +67,8 @@ const TextTruncateTooltipColumn = ({
             <Tooltip {...{ title: initialValue, ...tooltipProps }}>
                 <Box
                     {...{
-                        sx: { cursor: "help" },
+                        component: "span",
+                        sx: { cursor: "help", display: "inline-flex" },
                     }}
                 >
                     {shortValue}
