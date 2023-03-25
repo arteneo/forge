@@ -291,6 +291,12 @@ const TableProvider = ({
                 }
 
                 const defaultOnLoadSuccess = () => {
+                    if (response.data.results.length === 0 && page > 1) {
+                        // This is enough to reload
+                        setPage(1);
+                        return;
+                    }
+
                     setResults(response.data.results);
                     setRowCount(response.data.rowCount);
                     setSelected([]);
