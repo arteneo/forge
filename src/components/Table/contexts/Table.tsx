@@ -407,7 +407,7 @@ const TableProvider = ({
     };
 
     const getFilterDefinition = (values: FormikValues, field: string): undefined | FilterDefinition => {
-        if (typeof values[field] === "undefined" || values[field] === "") {
+        if (typeof values[field] === "undefined" || values[field] === "" || values[field] === null) {
             return undefined;
         }
 
