@@ -522,6 +522,7 @@ export { DialogPayload, DialogContext, DialogContextProps, DialogProvider, Dialo
 import {
     BatchResultStatusType,
     BatchResultInterface,
+    BatchResultMessageInterface,
     DialogBatchContext,
     DialogBatchContextProps,
     DialogBatchProvider,
@@ -531,6 +532,7 @@ import {
 export {
     BatchResultStatusType,
     BatchResultInterface,
+    BatchResultMessageInterface,
     DialogBatchContext,
     DialogBatchContextProps,
     DialogBatchProvider,
@@ -559,7 +561,20 @@ export {
 // > definitions
 import ResolveDialogPayloadType from "./definitions/ResolveDialogPayloadType";
 export { ResolveDialogPayloadType };
-// < contexts
+
+import {
+    RequestExecutionSeverity,
+    RequestExecutionExceptionPayload,
+    RequestExecutionExceptionErrorType,
+    RequestExecutionExceptionType,
+} from "./definitions/RequestExecutionException";
+export {
+    RequestExecutionSeverity,
+    RequestExecutionExceptionPayload,
+    RequestExecutionExceptionErrorType,
+    RequestExecutionExceptionType,
+};
+// < definitions
 
 import Enum, { EnumType } from "./classes/Enum";
 import Form, { FormProps } from "./components/Form/components/Form";
