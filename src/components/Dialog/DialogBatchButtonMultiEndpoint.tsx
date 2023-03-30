@@ -2,7 +2,7 @@ import React from "react";
 import { AxiosError } from "axios";
 import { Check } from "@mui/icons-material";
 import ButtonMultiEndpoint, { ButtonMultiEndpointProps } from "../../components/Common/ButtonMultiEndpoint";
-import { useDialogBatch, BatchResultInterface } from "../../contexts/DialogBatch";
+import { useDialogBatch, BatchResultInterface, mapRequestExecutionException } from "../../contexts/DialogBatch";
 import { useDialog } from "../../contexts/Dialog";
 import ResultInterface from "../../components/Table/definitions/ResultInterface";
 import EndpointType from "../../definitions/EndpointType";
@@ -26,29 +26,11 @@ const DialogBatchButtonMultiEndpoint = ({
                 id: id,
                 representation: representation,
                 status: "error",
-                message: "dialogBatchResults.tooltip.errorMessageUnexpected",
+                messages: [{ message: "dialogBatchResults.tooltip.errorMessageUnexpected", severity: "error" }],
             };
         }
 
-        const data = error.response.data;
-        // Get first error as representative
-        const errorRepresentative = data?.errors?.[0];
-
-        const batchResult: BatchResultInterface = {
-            id,
-            representation,
-            status: "error",
-        };
-
-        if (typeof errorRepresentative?.message !== "undefined") {
-            batchResult["message"] = errorRepresentative.message;
-
-            if (typeof errorRepresentative?.parameters !== "undefined") {
-                batchResult["messageVariables"] = errorRepresentative.parameters;
-            }
-        }
-
-        return batchResult;
+        return mapRequestExecutionException(id, representation, error.response.data);
     },
     ...props
 }: DialogBatchButtonMultiEndpointProps) => {

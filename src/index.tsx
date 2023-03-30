@@ -475,9 +475,18 @@ import {
     ErrorProvider,
     ErrorProviderProps,
     useError,
-    DetailedErrorInterface,
+    ErrorSeverityType,
+    ErrorInterface,
 } from "./contexts/Error";
-export { ErrorContext, ErrorContextProps, ErrorProvider, ErrorProviderProps, useError, DetailedErrorInterface };
+export {
+    ErrorContext,
+    ErrorContextProps,
+    ErrorProvider,
+    ErrorProviderProps,
+    useError,
+    ErrorSeverityType,
+    ErrorInterface,
+};
 
 import {
     HandleCatchContext,
@@ -521,6 +530,7 @@ export { DialogPayload, DialogContext, DialogContextProps, DialogProvider, Dialo
 
 import {
     BatchResultStatusType,
+    BatchResultMessageStatusType,
     BatchResultInterface,
     BatchResultMessageInterface,
     DialogBatchContext,
@@ -528,9 +538,11 @@ import {
     DialogBatchProvider,
     DialogBatchProviderProps,
     useDialogBatch,
+    mapRequestExecutionException,
 } from "./contexts/DialogBatch";
 export {
     BatchResultStatusType,
+    BatchResultMessageStatusType,
     BatchResultInterface,
     BatchResultMessageInterface,
     DialogBatchContext,
@@ -538,6 +550,7 @@ export {
     DialogBatchProvider,
     DialogBatchProviderProps,
     useDialogBatch,
+    mapRequestExecutionException,
 };
 
 import {
@@ -563,13 +576,13 @@ import ResolveDialogPayloadType from "./definitions/ResolveDialogPayloadType";
 export { ResolveDialogPayloadType };
 
 import {
-    RequestExecutionSeverity,
+    RequestExecutionExceptionSeverity,
     RequestExecutionExceptionPayload,
     RequestExecutionExceptionErrorType,
     RequestExecutionExceptionType,
 } from "./definitions/RequestExecutionException";
 export {
-    RequestExecutionSeverity,
+    RequestExecutionExceptionSeverity,
     RequestExecutionExceptionPayload,
     RequestExecutionExceptionErrorType,
     RequestExecutionExceptionType,

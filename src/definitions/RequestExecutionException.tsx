@@ -1,6 +1,6 @@
 import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
 
-type RequestExecutionSeverity = "warning" | "error";
+type RequestExecutionExceptionSeverity = "warning" | "error";
 
 // eslint-disable-next-line
 type RequestExecutionExceptionPayload = any;
@@ -8,18 +8,18 @@ type RequestExecutionExceptionPayload = any;
 interface RequestExecutionExceptionErrorType {
     message: string;
     parameters?: TranslateVariablesInterface;
-    executionSeverity: RequestExecutionSeverity;
+    severity: RequestExecutionExceptionSeverity;
 }
 
 interface RequestExecutionExceptionType {
     code: number;
     payload: RequestExecutionExceptionPayload;
-    executionSeverity: RequestExecutionSeverity;
+    severity: RequestExecutionExceptionSeverity;
     errors: RequestExecutionExceptionErrorType[];
 }
 
 export {
-    RequestExecutionSeverity,
+    RequestExecutionExceptionSeverity,
     RequestExecutionExceptionPayload,
     RequestExecutionExceptionErrorType,
     RequestExecutionExceptionType,
