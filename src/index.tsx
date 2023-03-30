@@ -475,9 +475,18 @@ import {
     ErrorProvider,
     ErrorProviderProps,
     useError,
-    DetailedErrorInterface,
+    ErrorSeverityType,
+    ErrorInterface,
 } from "./contexts/Error";
-export { ErrorContext, ErrorContextProps, ErrorProvider, ErrorProviderProps, useError, DetailedErrorInterface };
+export {
+    ErrorContext,
+    ErrorContextProps,
+    ErrorProvider,
+    ErrorProviderProps,
+    useError,
+    ErrorSeverityType,
+    ErrorInterface,
+};
 
 import {
     HandleCatchContext,
@@ -521,21 +530,27 @@ export { DialogPayload, DialogContext, DialogContextProps, DialogProvider, Dialo
 
 import {
     BatchResultStatusType,
+    BatchResultMessageStatusType,
     BatchResultInterface,
+    BatchResultMessageInterface,
     DialogBatchContext,
     DialogBatchContextProps,
     DialogBatchProvider,
     DialogBatchProviderProps,
     useDialogBatch,
+    mapRequestExecutionException,
 } from "./contexts/DialogBatch";
 export {
     BatchResultStatusType,
+    BatchResultMessageStatusType,
     BatchResultInterface,
+    BatchResultMessageInterface,
     DialogBatchContext,
     DialogBatchContextProps,
     DialogBatchProvider,
     DialogBatchProviderProps,
     useDialogBatch,
+    mapRequestExecutionException,
 };
 
 import {
@@ -559,7 +574,20 @@ export {
 // > definitions
 import ResolveDialogPayloadType from "./definitions/ResolveDialogPayloadType";
 export { ResolveDialogPayloadType };
-// < contexts
+
+import {
+    RequestExecutionExceptionSeverity,
+    RequestExecutionExceptionPayload,
+    RequestExecutionExceptionErrorType,
+    RequestExecutionExceptionType,
+} from "./definitions/RequestExecutionException";
+export {
+    RequestExecutionExceptionSeverity,
+    RequestExecutionExceptionPayload,
+    RequestExecutionExceptionErrorType,
+    RequestExecutionExceptionType,
+};
+// < definitions
 
 import Enum, { EnumType } from "./classes/Enum";
 import Form, { FormProps } from "./components/Form/components/Form";

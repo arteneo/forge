@@ -38,7 +38,7 @@ const AXIOS_CANCELLED_UNMOUNTED = "unmounted";
 const HandleCatchContext = React.createContext<HandleCatchContextProps>(contextInitial);
 
 const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
-    const { setError, setMessage, setDetailedErrors } = useError();
+    const { setError, setErrors } = useError();
     const { showError } = useSnackbar();
     const { t } = useTranslation();
 
@@ -78,8 +78,7 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
 
             if (error?.response?.status === 409) {
                 setError(409);
-                setMessage(data?.message);
-                setDetailedErrors(data?.errors);
+                setErrors(data?.errors);
             }
 
             if (error?.response?.status === 400) {
@@ -120,8 +119,7 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
                 break;
             case 409:
                 setError(409);
-                setMessage(data?.message);
-                setDetailedErrors(data?.errors);
+                setErrors(data?.errors);
                 break;
             case 500:
             default:

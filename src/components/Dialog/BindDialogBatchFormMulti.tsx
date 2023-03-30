@@ -2,7 +2,7 @@ import React from "react";
 import { AxiosError } from "axios";
 import FormMulti, { FormMultiProps } from "../../components/Form/components/FormMulti";
 import { FormikValues } from "formik";
-import { BatchResultInterface, useDialogBatch } from "../../contexts/DialogBatch";
+import { BatchResultInterface, mapRequestExecutionException, useDialogBatch } from "../../contexts/DialogBatch";
 import ResultInterface from "../../components/Table/definitions/ResultInterface";
 import EndpointType from "../../definitions/EndpointType";
 
@@ -27,7 +27,7 @@ const BindDialogBatchFormMulti = ({
                 id: id,
                 representation: representation,
                 status: "error",
-                message: "dialogBatchResults.tooltip.errorMessage400",
+                messages: [{ message: "dialogBatchResults.tooltip.errorMessage400", severity: "error" }],
             };
         }
 
@@ -36,29 +36,11 @@ const BindDialogBatchFormMulti = ({
                 id: id,
                 representation: representation,
                 status: "error",
-                message: "dialogBatchResults.tooltip.errorMessageUnexpected",
+                messages: [{ message: "dialogBatchResults.tooltip.errorMessageUnexpected", severity: "error" }],
             };
         }
 
-        const data = error.response.data;
-        // Get first error as representative
-        const errorRepresentative = data?.errors?.[0];
-
-        const batchResult: BatchResultInterface = {
-            id,
-            representation,
-            status: "error",
-        };
-
-        if (typeof errorRepresentative?.message !== "undefined") {
-            batchResult["message"] = errorRepresentative.message;
-
-            if (typeof errorRepresentative?.parameters !== "undefined") {
-                batchResult["messageVariables"] = errorRepresentative.parameters;
-            }
-        }
-
-        return batchResult;
+        return mapRequestExecutionException(id, representation, error.response.data);
     },
     ...props
 }: BindDialogBatchFormMultiProps) => {

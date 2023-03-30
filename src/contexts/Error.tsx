@@ -6,15 +6,18 @@ interface ErrorContextProps {
     setError: (error: undefined | number) => void;
     message?: string;
     setMessage: (message: undefined | string) => void;
-    detailedErrors?: DetailedErrorInterface[];
-    setDetailedErrors: (detailedErrors: undefined | DetailedErrorInterface[]) => void;
+    errors: ErrorInterface[];
+    setErrors: (errors: ErrorInterface[]) => void;
     clearErrors: () => void;
-    addDetailedError: (detailedErrors: DetailedErrorInterface) => void;
+    addError: (error: ErrorInterface) => void;
 }
 
-interface DetailedErrorInterface {
+type ErrorSeverityType = "warning" | "error";
+
+interface ErrorInterface {
     message: string;
     parameters?: TranslateVariablesInterface;
+    severity: ErrorSeverityType;
 }
 
 interface ErrorProviderProps {
@@ -30,14 +33,14 @@ const contextInitial = {
     setMessage: () => {
         return;
     },
-    detailedErrors: undefined,
-    setDetailedErrors: () => {
+    errors: [],
+    setErrors: () => {
         return;
     },
     clearErrors: () => {
         return;
     },
-    addDetailedError: () => {
+    addError: () => {
         return;
     },
 };
@@ -47,19 +50,16 @@ const ErrorContext = React.createContext<ErrorContextProps>(contextInitial);
 const ErrorProvider = ({ children }: ErrorProviderProps) => {
     const [error, setError] = React.useState<undefined | number>(undefined);
     const [message, setMessage] = React.useState<undefined | string>(undefined);
-    const [detailedErrors, setDetailedErrors] = React.useState<undefined | DetailedErrorInterface[]>([]);
+    const [errors, setErrors] = React.useState<ErrorInterface[]>([]);
 
     const clearErrors = () => {
         setError(undefined);
         setMessage(undefined);
-        setDetailedErrors(undefined);
+        setErrors([]);
     };
 
-    const addDetailedError = (detailedError: DetailedErrorInterface) => {
-        setDetailedErrors((_detailedErrors) => {
-            _detailedErrors?.push(detailedError);
-            return _detailedErrors;
-        });
+    const addError = (error: ErrorInterface) => {
+        setErrors((errors) => [...errors, error]);
     };
 
     return (
@@ -69,10 +69,10 @@ const ErrorProvider = ({ children }: ErrorProviderProps) => {
                 setError,
                 message,
                 setMessage,
-                detailedErrors,
-                setDetailedErrors,
+                errors,
+                setErrors,
                 clearErrors,
-                addDetailedError,
+                addError,
             }}
         >
             {children}
@@ -82,4 +82,12 @@ const ErrorProvider = ({ children }: ErrorProviderProps) => {
 
 const useError = (): ErrorContextProps => React.useContext(ErrorContext);
 
-export { ErrorContext, ErrorContextProps, ErrorProvider, ErrorProviderProps, useError, DetailedErrorInterface };
+export {
+    ErrorContext,
+    ErrorContextProps,
+    ErrorProvider,
+    ErrorProviderProps,
+    useError,
+    ErrorSeverityType,
+    ErrorInterface,
+};

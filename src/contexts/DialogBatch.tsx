@@ -1,15 +1,23 @@
 import React from "react";
+import { RequestExecutionExceptionType } from "../definitions/RequestExecutionException";
 import ResultInterface from "../components/Table/definitions/ResultInterface";
 import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
 
-type BatchResultStatusType = "success" | "skipped" | "error";
+type BatchResultStatusType = "success" | "warning" | "skipped" | "error";
+
+type BatchResultMessageStatusType = "warning" | "error";
+
+interface BatchResultMessageInterface {
+    message: string;
+    severity: BatchResultMessageStatusType;
+    parameters?: TranslateVariablesInterface;
+}
 
 interface BatchResultInterface {
     id: number;
     representation: string;
     status: BatchResultStatusType;
-    message?: string;
-    messageVariables?: TranslateVariablesInterface;
+    messages?: BatchResultMessageInterface[];
 }
 
 interface DialogBatchContextProps {
@@ -69,12 +77,26 @@ const DialogBatchProvider = ({ children, results }: DialogBatchProviderProps) =>
 
 const useDialogBatch = (): DialogBatchContextProps => React.useContext(DialogBatchContext);
 
+const mapRequestExecutionException = (
+    id: number,
+    representation: string,
+    requestExecutionException: RequestExecutionExceptionType
+): BatchResultInterface => ({
+    id,
+    representation,
+    status: requestExecutionException.severity,
+    messages: requestExecutionException.errors,
+});
+
 export {
     BatchResultStatusType,
+    BatchResultMessageStatusType,
     BatchResultInterface,
+    BatchResultMessageInterface,
     DialogBatchContext,
     DialogBatchContextProps,
     DialogBatchProvider,
     DialogBatchProviderProps,
     useDialogBatch,
+    mapRequestExecutionException,
 };

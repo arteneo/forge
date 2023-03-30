@@ -13,15 +13,15 @@ import { Close } from "@mui/icons-material";
 import Button, { ButtonProps } from "../../components/Common/Button";
 import Optional from "../../definitions/Optional";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import { DetailedErrorInterface, useError } from "../../contexts/Error";
+import { ErrorInterface, useError } from "../../contexts/Error";
 
 interface RequestExecutionErrorDialogProps {
     onClose?: () => void;
     buttonBackProps?: ButtonProps;
-    title?: (message?: string, detailedErrors?: DetailedErrorInterface[]) => string;
-    titleVariables?: (message?: string, detailedErrors?: DetailedErrorInterface[]) => TranslateVariablesInterface;
+    title?: (errors: ErrorInterface[], message?: string) => string;
+    titleVariables?: (errors: ErrorInterface[], message?: string) => TranslateVariablesInterface;
     disableTranslateTitle?: boolean;
-    renderContent?: (message?: string, detailedErrors?: DetailedErrorInterface[]) => React.ReactNode;
+    renderContent?: (errors: ErrorInterface[], message?: string) => React.ReactNode;
     dialogProps?: Optional<MuiDialogProps, "open">;
 }
 
@@ -33,7 +33,7 @@ const RequestExecutionErrorDialog = ({
         color: "error",
         startIcon: <Close />,
     },
-    title = (message) => message ?? "error.requestExecutionFailed",
+    title = () => "error.requestExecutionFailed",
     titleVariables = () => ({}),
     disableTranslateTitle = false,
     renderContent,
@@ -43,18 +43,20 @@ const RequestExecutionErrorDialog = ({
     },
 }: RequestExecutionErrorDialogProps) => {
     const { t } = useTranslation();
-    const { error, message, detailedErrors, clearErrors } = useError();
+    const { error, message, errors, clearErrors } = useError();
     const [open, setOpen] = React.useState<boolean>(false);
 
     React.useEffect(() => processError(), [error]);
 
     const processError = () => {
-        setOpen(error === 409);
+        if (error === 409) {
+            setOpen(error === 409);
+        }
     };
 
     const resolvedOnClose = () => {
-        setOpen(false);
         clearErrors();
+        setOpen(false);
 
         if (onClose) {
             onClose();
@@ -63,13 +65,18 @@ const RequestExecutionErrorDialog = ({
 
     const defaultRenderContent = () => (
         <Box {...{ sx: { gap: 2, display: "flex", flexDirection: "column" } }}>
-            {detailedErrors?.map((detailedError, detailedErrorKey) => (
-                <Alert key={detailedErrorKey} severity="error">
-                    {t(detailedError.message, detailedError.parameters)}
+            {errors.map((error, errorKey) => (
+                <Alert key={errorKey} severity={error.severity}>
+                    {t(error.message, error.parameters)}
                 </Alert>
             ))}
         </Box>
     );
+
+    // I do not know why i need to add this to avoid dialog with empty errors for a split second before closing
+    if (!open) {
+        return null;
+    }
 
     return (
         <MuiDialog
@@ -80,12 +87,10 @@ const RequestExecutionErrorDialog = ({
         >
             <DialogTitle>
                 {disableTranslateTitle
-                    ? title(message, detailedErrors)
-                    : t(title(message, detailedErrors), titleVariables(message, detailedErrors))}
+                    ? title(errors, message)
+                    : t(title(errors, message), titleVariables(errors, message))}
             </DialogTitle>
-            <DialogContent>
-                {renderContent ? renderContent(message, detailedErrors) : defaultRenderContent()}
-            </DialogContent>
+            <DialogContent>{renderContent ? renderContent(errors, message) : defaultRenderContent()}</DialogContent>
             <DialogActions {...{ sx: { justifyContent: "flex-start" } }}>
                 <Button onClick={() => resolvedOnClose()} {...buttonBackProps} />
             </DialogActions>

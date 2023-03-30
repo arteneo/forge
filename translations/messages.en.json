@@ -70,7 +70,11 @@
     "dialogBatchResults": {
         "tooltip": {
             "success": "Operation successful",
+            "successMessage": "Operation successful. {{ message }}",
+            "warning": "Operation successful",
+            "warningMessage": "Operation successful. {{ message }}",
             "skipped": "Operation skipped",
+            "skippedMessage": "Operation skipped. {{ message }}",
             "error": "Operation failed",
             "errorMessage": "Operation failed. {{ message }}",
             "errorMessage400": "Invalid data submitted",
