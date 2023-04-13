@@ -13,6 +13,7 @@ interface HandleCatchContextProps {
 interface HandleCatchProviderProps {
     children: React.ReactNode;
     mode: "production" | "development";
+    updateValidationErrors?: (children: ErrorsFieldProps, helpers: FormikHelpers<FormikValues>) => void;
 }
 
 interface ErrorsFieldErrorsProps {
@@ -37,7 +38,11 @@ const AXIOS_CANCELLED_UNMOUNTED = "unmounted";
 
 const HandleCatchContext = React.createContext<HandleCatchContextProps>(contextInitial);
 
-const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
+const HandleCatchProvider = ({
+    children,
+    mode,
+    updateValidationErrors: externalUpdateValidationErrors,
+}: HandleCatchProviderProps) => {
     const { setError, setErrors } = useError();
     const { showError } = useSnackbar();
     const { t } = useTranslation();
@@ -47,6 +52,11 @@ const HandleCatchProvider = ({ children, mode }: HandleCatchProviderProps) => {
         helpers: FormikHelpers<FormikValues>,
         prefix = ""
     ): void => {
+        if (typeof externalUpdateValidationErrors !== "undefined") {
+            externalUpdateValidationErrors(children, helpers);
+            return;
+        }
+
         Object.keys(children).forEach((field: string) => {
             const childField = children[field];
             if (childField?.errors) {
