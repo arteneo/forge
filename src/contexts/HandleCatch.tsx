@@ -131,6 +131,9 @@ const HandleCatchProvider = ({
                 setError(409);
                 setErrors(data?.errors);
                 break;
+            case 422:
+                setError(422);
+                break;
             case 500:
             default:
                 setError(500);
