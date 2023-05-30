@@ -5,6 +5,7 @@ import { FormikValues } from "formik";
 import { BatchResultInterface, mapRequestExecutionException, useDialogBatch } from "../../contexts/DialogBatch";
 import ResultInterface from "../../components/Table/definitions/ResultInterface";
 import EndpointType from "../../definitions/EndpointType";
+import { RequestExecutionExceptionType } from "../../definitions/RequestExecutionException";
 
 type BatchFormEndpointType = (result: ResultInterface, values: FormikValues) => EndpointType;
 
@@ -40,7 +41,7 @@ const BindDialogBatchFormMulti = ({
             };
         }
 
-        return mapRequestExecutionException(id, representation, error.response.data);
+        return mapRequestExecutionException(id, representation, error.response.data as RequestExecutionExceptionType);
     },
     ...props
 }: BindDialogBatchFormMultiProps) => {

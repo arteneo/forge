@@ -17,7 +17,7 @@ type ButtonProps = InternalButtonProps & LabelChildrenProps & DenyPropInterface;
 
 const Button = ({
     label,
-    labelVariables,
+    labelVariables = {},
     children,
     deny,
     denyKey,

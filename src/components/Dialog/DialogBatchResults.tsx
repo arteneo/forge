@@ -46,7 +46,7 @@ const DialogBatchResults = () => {
 
         if (!showMessages(batchResult) && firstMessage) {
             tooltipLabel += "Message";
-            tooltipLabelVariables["message"] = t(firstMessage.message, firstMessage.parameters);
+            tooltipLabelVariables["message"] = t(firstMessage.message, firstMessage.parameters ?? {});
         }
 
         return <Tooltip {...{ title: t(tooltipLabel, tooltipLabelVariables) }}>{icon}</Tooltip>;
@@ -64,7 +64,7 @@ const DialogBatchResults = () => {
                 break;
         }
 
-        return <Tooltip {...{ title: t(message.message, message.parameters) }}>{icon}</Tooltip>;
+        return <Tooltip {...{ title: t(message.message, message.parameters ?? {}) }}>{icon}</Tooltip>;
     };
 
     const showMessages = (batchResult: BatchResultInterface): boolean => {

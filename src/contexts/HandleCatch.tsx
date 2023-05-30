@@ -61,7 +61,7 @@ const HandleCatchProvider = ({
             const childField = children[field];
             if (childField?.errors) {
                 childField.errors.forEach((error: ErrorMessage) => {
-                    helpers.setFieldError(prefix + field, t(error.message, error.parameters));
+                    helpers.setFieldError(prefix + field, t(error.message, error.parameters) ?? "");
                     helpers.setFieldTouched(prefix + field, true, false);
                 });
             }
@@ -73,9 +73,10 @@ const HandleCatchProvider = ({
     };
 
     const handleCatch = async (error: AxiosError, helpers?: FormikHelpers<FormikValues>): Promise<void> => {
-        let data = error?.response?.data || {};
+        // eslint-disable-next-line
+        let data = (error?.response?.data || {}) as unknown as any;
         if (data instanceof Blob && data.type === "application/json") {
-            const text = await error?.response?.data?.text();
+            const text = await data.text();
             data = typeof text === "string" ? JSON.parse(text) : text;
         }
 

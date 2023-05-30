@@ -67,7 +67,7 @@ const RequestExecutionErrorDialog = ({
         <Box {...{ sx: { gap: 2, display: "flex", flexDirection: "column" } }}>
             {errors.map((error, errorKey) => (
                 <Alert key={errorKey} severity={error.severity}>
-                    {t(error.message, error.parameters)}
+                    {t(error.message, error.parameters ?? {})}
                 </Alert>
             ))}
         </Box>

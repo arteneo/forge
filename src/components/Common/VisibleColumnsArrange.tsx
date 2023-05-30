@@ -30,7 +30,7 @@ interface VisibleColumnsArrangeProps {
 
 const VisibleColumnsArrange = ({
     label = "visibleColumns.label",
-    labelVariables,
+    labelVariables = {},
     alertProps,
 }: VisibleColumnsArrangeProps) => {
     const { t } = useTranslation();

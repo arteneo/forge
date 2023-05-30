@@ -31,28 +31,28 @@ const TableResultsPaginationActions = () => {
             <IconButton
                 onClick={handleFirstPageButtonClick}
                 disabled={page === 1}
-                aria-label={t("table.pagination.firstPage")}
+                aria-label={t("table.pagination.firstPage") ?? ""}
             >
                 {theme.direction === "rtl" ? <LastPage /> : <FirstPage />}
             </IconButton>
             <IconButton
                 onClick={handleBackButtonClick}
                 disabled={page === 1}
-                aria-label={t("table.pagination.previousPage")}
+                aria-label={t("table.pagination.previousPage") ?? ""}
             >
                 {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             </IconButton>
             <IconButton
                 onClick={handleNextButtonClick}
                 disabled={page >= Math.ceil(rowCount / rowsPerPage)}
-                aria-label={t("table.pagination.nextPage")}
+                aria-label={t("table.pagination.nextPage") ?? ""}
             >
                 {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </IconButton>
             <IconButton
                 onClick={handleLastPageButtonClick}
                 disabled={page >= Math.ceil(rowCount / rowsPerPage)}
-                aria-label={t("table.pagination.lastPage")}
+                aria-label={t("table.pagination.lastPage") ?? ""}
             >
                 {theme.direction === "rtl" ? <FirstPage /> : <LastPage />}
             </IconButton>

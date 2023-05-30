@@ -17,7 +17,7 @@ type IconButtonProps = InternalMuiIconButtonProps & IconProps & DenyPropInterfac
 const IconButton = ({
     icon,
     tooltip,
-    tooltipVariables,
+    tooltipVariables = {},
     deny,
     denyKey,
     denyBehavior = "disable",
@@ -40,14 +40,14 @@ const IconButton = ({
 
     let button = <MuiIconButton {...{ children: icon, ...muiIconButtonProps }} />;
 
-    let tooltipTitle: undefined | string = undefined;
+    let tooltipTitle: null | string = null;
     if (typeof denyMessage !== "undefined") {
         tooltipTitle = t(denyMessage);
     } else if (tooltip) {
         tooltipTitle = t(tooltip, tooltipVariables);
     }
 
-    if (typeof tooltipTitle !== "undefined") {
+    if (tooltipTitle !== null) {
         button = (
             <Tooltip title={tooltipTitle}>
                 <Box {...{ component: "span", sx: { display: "inline-flex" } }}>{button}</Box>

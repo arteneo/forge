@@ -6,6 +6,7 @@ import { useDialogBatch, BatchResultInterface, mapRequestExecutionException } fr
 import { useDialog } from "../../contexts/Dialog";
 import ResultInterface from "../../components/Table/definitions/ResultInterface";
 import EndpointType from "../../definitions/EndpointType";
+import { RequestExecutionExceptionType } from "../../definitions/RequestExecutionException";
 
 interface DialogBatchButtonMultiEndpointProps extends Omit<ButtonMultiEndpointProps, "endpoints"> {
     endpoint: (result: ResultInterface) => EndpointType;
@@ -30,7 +31,7 @@ const DialogBatchButtonMultiEndpoint = ({
             };
         }
 
-        return mapRequestExecutionException(id, representation, error.response.data);
+        return mapRequestExecutionException(id, representation, error.response.data as RequestExecutionExceptionType);
     },
     ...props
 }: DialogBatchButtonMultiEndpointProps) => {

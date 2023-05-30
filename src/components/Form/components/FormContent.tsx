@@ -42,7 +42,7 @@ const FormContent = ({
     onSubmit,
     changeSubmitValues,
     snackbarLabel = "form.snackbar.success",
-    snackbarLabelVariables,
+    snackbarLabelVariables = {},
     formikProps,
 }: FormContentProps) => {
     const { formikInitialValues } = useForm();

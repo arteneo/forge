@@ -216,7 +216,7 @@ const FormProvider = ({
         }
 
         if (typeof validate !== "undefined" && !field.disableValidateTranslate) {
-            validate = t(validate);
+            validate = t(validate) ?? "";
         }
 
         return {
@@ -331,7 +331,7 @@ const FormProvider = ({
                     ? resolveAnyOrFunction(labelVariables, values, touched, errors, name)
                     : undefined;
 
-            return t("label." + resolvedLabel, resolvedLabelVariables);
+            return <>{t("label." + resolvedLabel, resolvedLabelVariables)}</>;
         }
 
         return resolvedLabel;

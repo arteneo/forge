@@ -140,7 +140,7 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
                     action: (
                         <IconButton
                             {...{
-                                "aria-label": t("action.close"),
+                                "aria-label": t("action.close") ?? "",
                                 size: "small",
                                 color: "inherit",
                                 onClick: () => close(),
