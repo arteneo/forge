@@ -10,6 +10,14 @@ Read more in `Unfinished components`
 4. Commit and push changes.
 5. Publish package using `npm publish`.
 
+# Branches
+
+You can use following branches:
+
+1. `main` (default) - branch for current version `3.x`
+2. `v2` - branch for version `2.x`
+3. `v1` - branch for version `1.x`
+
 # Table functionality
 
 ## Toolbar
