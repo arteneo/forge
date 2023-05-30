@@ -4,14 +4,13 @@ import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { DatePicker as MuiDatePicker, DatePickerProps as MuiDatePickerProps } from "@mui/x-date-pickers";
 import { FieldChangeHandlerContext } from "@mui/x-date-pickers/internals";
 import { useUtils } from "@mui/x-date-pickers/internals/hooks/useUtils";
-// TODO
-// import { TextField as MuiTextField, TextFieldProps as MuiTextFieldProps } from "@mui/material";
-import { formatRFC3339, isValid } from "date-fns";
+import { parseISO, formatRFC3339, isValid } from "date-fns";
+import _ from "lodash";
 import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import { useForm } from "../../../components/Form/contexts/Form";
 
-// TODO
-type DatePickerValue = null | string;
+type DatePickerOnChangeValue = string;
+type DatePickerValue = null | Date;
 // eslint-disable-next-line
 type DatePickerError = any;
 
@@ -22,7 +21,7 @@ interface DatePickerSpecificProps {
         path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        value: DatePickerValue,
+        value: DatePickerOnChangeValue,
         onChange: () => void,
         values: FormikValues,
         name: string,
@@ -32,9 +31,6 @@ interface DatePickerSpecificProps {
 }
 
 type DatePickerProps = DatePickerSpecificProps & FieldPlaceholderInterface;
-
-// TODO
-// const DatePickerRenderInput = (props: MuiTextFieldProps) => <MuiTextField {...props} />;
 
 const DatePicker = ({
     onChange,
@@ -61,24 +57,15 @@ const DatePicker = ({
         unregisterField,
     }: FormikProps<FormikValues> = useFormikContext();
     const { resolvePlaceholderField } = useForm();
-    const { name, path, label, disabled, hidden, validate } = resolvePlaceholderField({
-        values,
-        touched,
-        errors,
-        submitCount,
-        validate: fieldValidate,
-        ...field,
-    });
-    // TODO
-    // const { name, path, label, error, hasError, help, required, disabled, hidden, validate, placeholder } =
-    //     resolvePlaceholderField({
-    //         values,
-    //         touched,
-    //         errors,
-    //         submitCount,
-    //         validate: fieldValidate,
-    //         ...field,
-    //     });
+    const { name, path, label, error, hasError, help, required, disabled, hidden, validate, placeholder } =
+        resolvePlaceholderField({
+            values,
+            touched,
+            errors,
+            submitCount,
+            validate: fieldValidate,
+            ...field,
+        });
 
     React.useEffect(() => {
         if (hidden || typeof validate === "undefined") {
@@ -98,76 +85,71 @@ const DatePicker = ({
         return null;
     }
 
-    const defaultOnChange = (value: DatePickerValue) => {
-        if (isValid(value)) {
-            // TODO TS
-            setFieldValue(path, formatRFC3339(value as unknown as number));
-            return;
-        }
-
+    const defaultOnChange = (value: DatePickerOnChangeValue) => {
         setFieldValue(path, value);
     };
 
     const callableOnChange = (value: DatePickerValue, context: FieldChangeHandlerContext<DatePickerError>) => {
+        const onChangeValue = value !== null && isValid(value) ? formatRFC3339(value) : "";
+
         if (onChange) {
             // Parameters are swapped for convenience
-            onChange(path, setFieldValue, value, () => defaultOnChange(value), values, name, context);
+            onChange(path, setFieldValue, onChangeValue, () => defaultOnChange(onChangeValue), values, name, context);
             return;
         }
 
-        defaultOnChange(value);
+        defaultOnChange(onChangeValue);
     };
-
-    // TODO
-    // const renderInput = (props: MuiTextFieldProps) => {
-    //     let helperText: undefined | React.ReactNode = undefined;
-
-    //     if (hasError || help) {
-    //         helperText = (
-    //             <>
-    //                 {error}
-    //                 {hasError && <br />}
-    //                 {help}
-    //             </>
-    //         );
-    //     }
-
-    //     return (
-    //         <DatePickerRenderInput
-    //             {...{
-    //                 label,
-    //                 required,
-    //                 placeholder,
-    //                 helperText,
-    //                 onBlur: () => setFieldTouched(path, true),
-    //                 ...props,
-    //                 error: props.error || hasError,
-    //             }}
-    //         />
-    //     );
-    // };
 
     const format = utils.formats.fullDate;
     const value = getIn(values, path, "");
+    const parsedValue = parseISO(value);
+    const fieldValue = isValid(parsedValue) ? parsedValue : null;
+
+    let helperText: undefined | React.ReactNode = undefined;
+
+    if (hasError || help) {
+        helperText = (
+            <>
+                {error}
+                {hasError && <br />}
+                {help}
+            </>
+        );
+    }
+
     const internalFieldProps: DatePickerFieldProps = {
-        value: value ? value : null,
+        value: fieldValue,
         onChange: callableOnChange,
         // onError is used to revalidate after selecting correct value (from picker) when value has been invalid previosly
         // This is kind of missing part of onBlur (onBlur should also be fired when selecting a value from picker)
         onError: () => setFieldTouched(path, true),
         label,
         disabled,
-        // TODO
-        // renderInput,
         format,
-        // TODO
-        // mask: utils.getFormatHelperText(format).replace(/[a-zA-Z]/g, "_"),
+        slotProps: {
+            textField: {
+                label,
+                required,
+                placeholder,
+                helperText,
+                onBlur: () => setFieldTouched(path, true),
+                error: hasError,
+            },
+        },
     };
 
-    const mergedFieldProps = Object.assign(internalFieldProps, fieldProps);
+    const mergedFieldProps = _.merge(internalFieldProps, fieldProps);
 
     return <MuiDatePicker {...mergedFieldProps} />;
 };
 
 export default DatePicker;
-export { DatePickerProps, DatePickerSpecificProps, DatePickerFieldProps };
+export {
+    DatePickerProps,
+    DatePickerSpecificProps,
+    DatePickerFieldProps,
+    DatePickerOnChangeValue,
+    DatePickerValue,
+    DatePickerError,
+};

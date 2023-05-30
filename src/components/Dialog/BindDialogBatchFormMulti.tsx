@@ -14,7 +14,8 @@ interface BindDialogBatchFormMultiProps extends Omit<FormMultiProps, "endpoints"
     resultDenyKey?: string;
     onSubmitCatchProcessResponse?: (
         result: ResultInterface,
-        response: AxiosError,
+        // eslint-disable-next-line
+        error: AxiosError<any>,
         values: FormikValues
     ) => BatchResultInterface;
 }

@@ -1,11 +1,11 @@
 import React from "react";
+import { AdapterFormats } from "@mui/x-date-pickers";
 import { useUtils } from "@mui/x-date-pickers/internals/hooks/useUtils";
 import { getIn } from "formik";
-import { DateIOFormats } from "@date-io/core/IUtils";
 import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
 
 interface DateFormatColumnProps extends ColumnPathInterface {
-    format: keyof DateIOFormats;
+    format: keyof AdapterFormats;
 }
 
 const DateFormatColumn = ({ format, result, columnName, path }: DateFormatColumnProps) => {

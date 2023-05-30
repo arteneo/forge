@@ -1,6 +1,6 @@
 {
     "name": "@arteneo/forge",
-    "version": "3.0.0-alpha2",
+    "version": "3.0.0",
     "description": "Forge",
     "license": "MIT",
     "author": "Arteneo",
@@ -25,7 +25,6 @@
     },
     "homepage": "https://github.com/arteneo/forge#readme",
     "peerDependencies": {
-        "@date-io/date-fns": "^2.16.0",
         "@dnd-kit/core": "^6.0.7",
         "@dnd-kit/sortable": "^7.0.2",
         "@dnd-kit/utilities": "^3.2.1",
@@ -52,7 +51,6 @@
         "yup": "^1.2.0"
     },
     "devDependencies": {
-        "@date-io/date-fns": "^2.16.0",
         "@emotion/react": "^11.11.0",
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.11.16",
@@ -60,6 +58,7 @@
         "@mui/system": "^5.13.2",
         "@mui/x-date-pickers": "^6.5.0",
         "@types/jest": "^29.5.1",
+        "@types/lodash": "^4.14.195",
         "@types/node": "^20.2.5",
         "@types/react": "^18.2.7",
         "@types/react-beautiful-dnd": "^13.1.4",
