@@ -326,7 +326,10 @@ const TableProvider = ({
 
                 defaultOnLoadSuccess();
             })
-            .catch((error) => handleCatch(error));
+            .catch((error) => {
+                hideLoader();
+                handleCatch(error);
+            });
 
         return () => {
             axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
