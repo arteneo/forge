@@ -118,6 +118,7 @@ const Checkbox = ({
         onBlur: () => setFieldTouched(path, true),
         label: formControlLabel,
         disabled,
+        required: false,
     };
     const mergedFormControlLabelProps = Object.assign(internalFormControlLabelProps, formControlLabelProps);
 
