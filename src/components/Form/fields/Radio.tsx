@@ -175,7 +175,10 @@ const Radio = ({
                             value: String(option.id),
                             // Disabled from <FormControlLabel /> is used by control component
                             disabled: disabled || option.disabled ? true : false,
-                            control: <MuiRadio {...{ required }} />,
+                            // Add required attr to input for HTML5 validation
+                            control: <MuiRadio {...{ inputProps: { required } }} />,
+                            // Add required prop to radio label only when label is empty. We assume label should have the asterix marking that radio group is required
+                            required: label ? false : required,
                             label: disableTranslateOption
                                 ? option.representation // as string is just for TypeScript
                                 : (t(option.representation) as string),
