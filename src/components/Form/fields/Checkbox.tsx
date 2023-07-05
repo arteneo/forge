@@ -99,25 +99,14 @@ const Checkbox = ({
     };
     const mergedFormControlProps = Object.assign(internalFormControlProps, formControlProps);
 
-    let formControlLabel: React.ReactElement = <>{label}</>;
-    if (label && required) {
-        formControlLabel = (
-            <>
-                {label}
-                <span aria-hidden="true" className="MuiInputLabel-asterisk MuiFormLabel-asterisk">
-                    &thinsp;*
-                </span>
-            </>
-        );
-    }
-
     const internalFormControlLabelProps: FormControlLabelProps = {
         checked: Boolean(getIn(values, path, false)),
         control: <MuiCheckbox {...{ required }} />,
         onChange: callableOnChange,
         onBlur: () => setFieldTouched(path, true),
-        label: formControlLabel,
+        label,
         disabled,
+        required,
     };
     const mergedFormControlLabelProps = Object.assign(internalFormControlLabelProps, formControlLabelProps);
 
