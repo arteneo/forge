@@ -15,27 +15,37 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { List, Alert, AlertProps } from "@mui/material";
+import { List, Alert, AlertProps, Box } from "@mui/material";
+import { SettingsBackupRestore } from "@mui/icons-material";
 import VisibleColumnsArrangeItem from "../../components/Common/VisibleColumnsArrangeItem";
 import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
 import { useDialog } from "../../contexts/Dialog";
 import { useTable } from "../../components/Table/contexts/Table";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import ButtonEndpoint, { ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
+import { resolveEndpoint } from "../../utilities/resolve";
+import EndpointType from "../../definitions/EndpointType";
+
+interface DialogResetVisibleColumnsButtonEndpointProps extends Omit<ButtonEndpointProps, "endpoint"> {
+    endpoint: EndpointType | ((visibleColumnsKey?: string) => EndpointType);
+}
 
 interface VisibleColumnsArrangeProps {
     label?: string;
     labelVariables?: TranslateVariablesInterface;
     alertProps?: AlertProps;
+    resetVisibleColumnsProps?: DialogResetVisibleColumnsButtonEndpointProps;
 }
 
 const VisibleColumnsArrange = ({
     label = "visibleColumns.label",
     labelVariables = {},
     alertProps,
+    resetVisibleColumnsProps,
 }: VisibleColumnsArrangeProps) => {
     const { t } = useTranslation();
-    const { initialized, payload: payloadColumns } = useDialog();
-    const { defaultColumns, columns: tableColumns } = useTable();
+    const { onClose, initialized, payload: payloadColumns } = useDialog();
+    const { reloadVisibleColumns, defaultColumns, columns: tableColumns, visibleColumnsKey } = useTable();
     const { columns, setColumns } = useVisibleColumns();
 
     React.useEffect(() => initialize(), [initialized]);
@@ -86,9 +96,79 @@ const VisibleColumnsArrange = ({
 
     const columnNames = columns.map((column) => column.name);
 
+    const getResetVisibleColumnsButton = () => {
+        if (typeof resetVisibleColumnsProps === "undefined") {
+            return null;
+        }
+
+        const { endpoint: resetVisibleColumnsEndpoint, ...resetVisibleColumnsPropsRest } = resetVisibleColumnsProps;
+
+        const defaultRequestConfig = {
+            method: "post",
+            data: {
+                tableKey: visibleColumnsKey,
+                columns: [],
+            },
+        };
+
+        const resolvedEndpoint =
+            typeof resetVisibleColumnsEndpoint === "function"
+                ? resetVisibleColumnsEndpoint(visibleColumnsKey)
+                : resetVisibleColumnsEndpoint;
+        const requestConfig = resolveEndpoint(resolvedEndpoint);
+        const resolvedRequestConfig = Object.assign(defaultRequestConfig, requestConfig);
+
+        return (
+            <ButtonEndpoint
+                {...{
+                    label: "visibleColumns.action.reset",
+                    color: "warning",
+                    variant: "contained",
+                    endIcon: <SettingsBackupRestore />,
+                    snackbarLabel: "visibleColumns.snackbar.reset",
+                    ...resetVisibleColumnsPropsRest,
+                    sx: {
+                        alignSelf: "flex-end",
+                        ...resetVisibleColumnsPropsRest.sx,
+                    },
+                    endpoint: resolvedRequestConfig,
+                    disabled: initialized ? resetVisibleColumnsPropsRest.disabled : true,
+                    onSuccess: (defaultOnSuccess, response, setLoading) => {
+                        const internalDefaultOnSuccess = () => {
+                            defaultOnSuccess();
+                            reloadVisibleColumns();
+                            onClose();
+                        };
+
+                        if (typeof resetVisibleColumnsPropsRest.onSuccess !== "undefined") {
+                            resetVisibleColumnsPropsRest.onSuccess(internalDefaultOnSuccess, response, setLoading);
+                            return;
+                        }
+
+                        internalDefaultOnSuccess();
+                    },
+                    onCatch: (defaultOnCatch, error, setLoading) => {
+                        const internalDefaultOnCatch = () => {
+                            defaultOnCatch();
+                            onClose();
+                        };
+
+                        if (typeof resetVisibleColumnsPropsRest.onCatch !== "undefined") {
+                            resetVisibleColumnsPropsRest.onCatch(internalDefaultOnCatch, error, setLoading);
+                            return;
+                        }
+
+                        internalDefaultOnCatch();
+                    },
+                }}
+            />
+        );
+    };
+
     return (
-        <>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
             <Alert {...{ severity: "info", ...alertProps }}>{t(label, labelVariables)}</Alert>
+            {getResetVisibleColumnsButton()}
             <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                 <SortableContext items={columnNames} strategy={verticalListSortingStrategy}>
                     <List {...{ dense: true }}>
@@ -98,7 +178,7 @@ const VisibleColumnsArrange = ({
                     </List>
                 </SortableContext>
             </DndContext>
-        </>
+        </Box>
     );
 };
 
