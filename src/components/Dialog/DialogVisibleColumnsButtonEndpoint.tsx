@@ -12,7 +12,7 @@ interface DialogVisibleColumnsButtonEndpointProps extends Omit<ButtonEndpointPro
 }
 
 const DialogVisibleColumnsButtonEndpoint = ({
-    label = "action.confirm",
+    label = "visibleColumns.action.confirm",
     color = "success",
     variant = "contained",
     endIcon = <Check />,
@@ -42,7 +42,7 @@ const DialogVisibleColumnsButtonEndpoint = ({
                 color,
                 variant,
                 endIcon,
-                snackbarLabel: "visibleColumns.snackbar",
+                snackbarLabel: "visibleColumns.snackbar.confirm",
                 ...props,
                 endpoint: resolvedRequestConfig,
                 disabled: initialized ? props.disabled : true,

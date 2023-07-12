@@ -87,7 +87,14 @@
         },
         "label": "You can select visible columns using checkboxes. You can also drag & drop columns to change the order.",
         "tooltip": "Adjust visible columns",
-        "snackbar": "Visible columns have been saved"
+        "action": {
+            "reset": "Reset to defaults",
+            "confirm": "Confirm"
+        },
+        "snackbar": {
+            "reset": "Visible columns have been reset to default",
+            "confirm": "Visible columns have been saved"
+        }
     },
     "resultDelete": {
         "dialog": {
