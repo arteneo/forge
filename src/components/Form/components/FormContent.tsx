@@ -68,7 +68,7 @@ const FormContent = ({
         }
 
         requestConfig.method = requestConfig.method ?? "post";
-        requestConfig.data = changeSubmitValues ? changeSubmitValues(values) : values;
+        requestConfig.data = requestConfig.data ?? (changeSubmitValues ? changeSubmitValues(values) : values);
 
         axios
             .request(requestConfig)

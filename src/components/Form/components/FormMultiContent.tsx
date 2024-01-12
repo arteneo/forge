@@ -81,7 +81,7 @@ const FormMultiContent = ({
             axiosSource = axios.CancelToken.source();
             requestConfig.cancelToken = axiosSource.token;
             requestConfig.method = requestConfig.method ?? "post";
-            requestConfig.data = changeSubmitValues ? changeSubmitValues(values) : values;
+            requestConfig.data = requestConfig.data ?? (changeSubmitValues ? changeSubmitValues(values) : values);
 
             await axios
                 .request(requestConfig)
