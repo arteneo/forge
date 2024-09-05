@@ -89,14 +89,15 @@ export const filterInitialValues = (
 
         if (typeof field?.props?.fields !== "undefined") {
             // Collection field
-            const collectionValues: FormikValues[] = getIn(loadedInitialValues, path, getIn(initialValues, path, []));
-            values = setIn(
-                values,
-                path,
-                collectionValues
-                    .map((collectionValue) => filterInitialValues(field?.props?.fields, collectionValue))
-                    .filter((collectionValue) => Object.keys(collectionValue).length > 0)
-            );
+            const collectionValues: FormikValues[] = getIn(loadedInitialValues, path, getIn(initialValues, path, {}));
+            const filtered = {};
+
+            Object.keys(collectionValues).forEach((id) => {
+                const collectionValue = collectionValues[id];
+                filtered[id] = filterInitialValues(field?.props?.fields, collectionValue);
+            });
+
+            values = setIn(values, path, filtered);
             return;
         }
 
@@ -121,13 +122,11 @@ export const transformInitialValues = (fields: FieldsInterface, initialValues: F
             const collectionValues: undefined | FormikValues[] = getIn(initialValues, path, undefined);
 
             if (typeof collectionValues !== "undefined") {
-                values = setIn(
-                    values,
-                    path,
-                    collectionValues.map((collectionValue) =>
-                        transformInitialValues(field?.props?.fields, collectionValue)
-                    )
-                );
+                Object.keys(collectionValues).forEach((key) => {
+                    collectionValues[key] = transformInitialValues(field?.props?.fields, collectionValues[key]);
+                });
+
+                values = setIn(values, path, collectionValues);
             }
             return;
         }

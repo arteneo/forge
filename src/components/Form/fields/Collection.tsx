@@ -141,7 +141,10 @@ const Collection = ({
     };
 
     const defaultAddRow = () => {
-        collectionRows.push(resolveAnyOrFunction(initialValues, values, path, name, touched, errors));
+        // TODO Verify uniqueness. Name of key is not relevant
+        const key = "new_" + Math.random().toString(16).substring(2, 8);
+        collectionRows[key] = resolveAnyOrFunction(initialValues, values, path, name, touched, errors);
+
         setFieldValue(path, collectionRows);
     };
 
@@ -220,34 +223,40 @@ const Collection = ({
                     </TableRow>
                 </TableHead>
 
-                {collectionRows.length > 0 && (
-                    <TableBody>
-                        {collectionRows.map((collectionRow, key) => (
-                            <TableRow key={key}>
-                                {Object.keys(fields).map((field) => (
-                                    <TableCell key={field}>
-                                        <Box sx={{ display: "grid" }}>
-                                            {React.cloneElement(
-                                                fields[field],
-                                                Object.assign(fieldPropsOverride, {
-                                                    name: name + "." + key + "." + field,
-                                                    path: path + "." + key + "." + field,
-                                                })
-                                            )}
-                                        </Box>
-                                    </TableCell>
-                                ))}
-                                {!disableDeleteRow && (
-                                    <TableCell sx={{ width: 40 }}>
-                                        <IconButton onClick={() => deleteRow(key)}>
-                                            <Delete color="error" />
-                                        </IconButton>
-                                    </TableCell>
+                <TableBody>
+                    {Object.keys(collectionRows).map((id) => {
+                        const collectionRow = collectionRows[id];
+
+                        return (
+                            <React.Fragment key={id}>
+                                {collectionRow && (
+                                    <TableRow>
+                                        {Object.keys(fields).map((field) => (
+                                            <TableCell key={field}>
+                                                <Box sx={{ display: "grid" }}>
+                                                    {React.cloneElement(
+                                                        fields[field],
+                                                        Object.assign(fieldPropsOverride, {
+                                                            name: name + "." + id + "." + field,
+                                                            path: path + "." + id + "." + field,
+                                                        })
+                                                    )}
+                                                </Box>
+                                            </TableCell>
+                                        ))}
+                                        {!disableDeleteRow && (
+                                            <TableCell sx={{ width: 40 }}>
+                                                <IconButton onClick={() => deleteRow(id)}>
+                                                    <Delete color="error" />
+                                                </IconButton>
+                                            </TableCell>
+                                        )}
+                                    </TableRow>
                                 )}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                )}
+                            </React.Fragment>
+                        );
+                    })}
+                </TableBody>
                 {!disableAddRow && (
                     <TableFooter>
                         <TableRow>
