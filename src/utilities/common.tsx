@@ -88,12 +88,16 @@ export const filterInitialValues = (
         const path = field?.props?.path ?? fieldName;
 
         if (typeof field?.props?.fields !== "undefined") {
-            // Collection field
-            const collectionValues: FormikValues[] = getIn(loadedInitialValues, path, getIn(initialValues, path, {}));
+            // Collection field. Collection values should be indexed by id
+            const collectionValues: FormikValues[] = getIn(loadedInitialValues, path, getIn(initialValues, path, []));
             const filtered = {};
 
-            Object.keys(collectionValues).forEach((id) => {
-                const collectionValue = collectionValues[id];
+            Object.values(collectionValues).forEach((collectionValue) => {
+                const id = collectionValue?.["id"];
+                if (typeof id === "undefined") {
+                    throw new Error("Collection value does not have an id");
+                }
+
                 filtered[id] = filterInitialValues(field?.props?.fields, collectionValue);
             });
 
