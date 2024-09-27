@@ -48,7 +48,7 @@ interface SelectSpecificProps {
     ) => void;
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
-    renderInput?: (params: SelectRenderInputProps) => React.ReactNode;
+    renderInput?: (params: SelectRenderInputProps, option?: OptionInterface) => React.ReactNode;
     autocompleteProps?: SelectAutocompleteOptionalProps;
     formControlProps?: FormControlProps;
 }
@@ -124,6 +124,11 @@ const Select = ({
         return null;
     }
 
+    const value = getIn(values, path, undefined);
+    const optionSelected = options.find((option) => {
+        return option.id == value;
+    });
+
     const defaultOnChange = (event: React.SyntheticEvent, value: SelectValueType, reason: AutocompleteChangeReason) => {
         if (reason === "clear") {
             setFieldValue(path, "");
@@ -178,7 +183,7 @@ const Select = ({
         };
 
         if (renderInput) {
-            return renderInput(renderInputParams);
+            return renderInput(renderInputParams, optionSelected);
         }
 
         return <SelectRenderInput {...renderInputParams} />;
@@ -204,11 +209,7 @@ const Select = ({
             disableTranslateGroupBy ? groupBy(option) : t(groupBy(option));
     }
 
-    const value = getIn(values, path, undefined);
     if (typeof value !== "undefined") {
-        const optionSelected = options.find((option) => {
-            return option.id == value;
-        });
         internalAutocompleteProps.value = optionSelected ?? null;
     }
 
