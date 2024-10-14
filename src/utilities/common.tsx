@@ -87,21 +87,23 @@ export const filterInitialValues = (
         const field = fields[fieldName];
         const path = field?.props?.path ?? fieldName;
 
+        // Custom filterInitialValues has highest priority
+        if (typeof field?.props?.filterInitialValues !== "undefined") {
+            const value = getIn(loadedInitialValues, path, getIn(initialValues, path, undefined));
+            values = setIn(values, path, field?.props?.filterInitialValues(value, field?.props?.fields));
+            return;
+        }
+
         if (typeof field?.props?.fields !== "undefined") {
-            // Collection field. Collection values should be indexed by id
+            // Collection field
             const collectionValues: FormikValues[] = getIn(loadedInitialValues, path, getIn(initialValues, path, []));
-            const filtered = {};
-
-            Object.values(collectionValues).forEach((collectionValue) => {
-                const id = collectionValue?.["id"];
-                if (typeof id === "undefined") {
-                    throw new Error("Collection value does not have an id");
-                }
-
-                filtered[id] = filterInitialValues(field?.props?.fields, collectionValue);
-            });
-
-            values = setIn(values, path, filtered);
+            values = setIn(
+                values,
+                path,
+                collectionValues
+                    .map((collectionValue) => filterInitialValues(field?.props?.fields, collectionValue))
+                    .filter((collectionValue) => Object.keys(collectionValue).length > 0)
+            );
             return;
         }
 
@@ -121,22 +123,30 @@ export const transformInitialValues = (fields: FieldsInterface, initialValues: F
         const field = fields[fieldName];
         const path = field?.props?.path ?? fieldName;
 
+        // Custom transformInitialValue has highest priority
+        if (typeof field?.props?.transformInitialValue !== "undefined") {
+            values = setIn(
+                values,
+                path,
+                field?.props?.transformInitialValue(getIn(initialValues, path), field?.props?.fields)
+            );
+            return;
+        }
+
         if (typeof field?.props?.fields !== "undefined") {
             // Collection field
             const collectionValues: undefined | FormikValues[] = getIn(initialValues, path, undefined);
 
             if (typeof collectionValues !== "undefined") {
-                Object.keys(collectionValues).forEach((key) => {
-                    collectionValues[key] = transformInitialValues(field?.props?.fields, collectionValues[key]);
-                });
-
-                values = setIn(values, path, collectionValues);
+                values = setIn(
+                    values,
+                    path,
+                    collectionValues.map((collectionValue) =>
+                        transformInitialValues(field?.props?.fields, collectionValue)
+                    )
+                );
             }
             return;
-        }
-
-        if (typeof field?.props?.transformInitialValue !== "undefined") {
-            values = setIn(values, path, field?.props?.transformInitialValue(getIn(initialValues, path)));
         }
     });
 

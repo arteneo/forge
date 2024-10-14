@@ -675,6 +675,12 @@ import OptionInterface from "./components/Form/definitions/OptionInterface";
 import OptionsType from "./components/Form/definitions/OptionsType";
 import Checkbox, { CheckboxProps, CheckboxSpecificProps } from "./components/Form/fields/Checkbox";
 import Collection, { CollectionProps, CollectionSpecificProps } from "./components/Form/fields/Collection";
+import IndexedCollection, {
+    IndexedCollectionRowsInterface,
+    IndexedCollectionRowsKey,
+    IndexedCollectionProps,
+    IndexedCollectionSpecificProps,
+} from "./components/Form/fields/IndexedCollection";
 import Email, { EmailProps } from "./components/Form/fields/Email";
 import Multiselect, {
     MultiselectProps,
@@ -853,6 +859,11 @@ export {
     Collection,
     CollectionProps,
     CollectionSpecificProps,
+    IndexedCollection,
+    IndexedCollectionRowsInterface,
+    IndexedCollectionRowsKey,
+    IndexedCollectionProps,
+    IndexedCollectionSpecificProps,
     Email,
     EmailProps,
     Multiselect,
