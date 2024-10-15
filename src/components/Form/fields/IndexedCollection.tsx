@@ -83,7 +83,7 @@ interface IndexedCollectionSpecificProps {
 type IndexedCollectionProps = IndexedCollectionSpecificProps & FieldInterface;
 
 /**
- * This is a similar compontent to <Collection />, but it assumes that collection values are indexed by ID.
+ * This is a similar component to <Collection />, but it assumes that collection values are indexed by ID.
  *
  * Collection values are indexed by ID while transforming by filterInitialValues and transformInitialValues functions in utilities/common.tsx based on .
  */
