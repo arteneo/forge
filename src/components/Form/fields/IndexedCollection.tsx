@@ -85,7 +85,7 @@ type IndexedCollectionProps = IndexedCollectionSpecificProps & FieldInterface;
 /**
  * This is a similar component to <Collection />, but it assumes that collection values are indexed by ID.
  *
- * Collection values are indexed by ID while transforming by filterInitialValues and transformInitialValues functions in utilities/common.tsx based on .
+ * Collection values are indexed by ID when transformed by filterInitialValues and transformInitialValues functions in default props.
  */
 const IndexedCollection = ({
     fields,
