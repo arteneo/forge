@@ -87,6 +87,13 @@ export const filterInitialValues = (
         const field = fields[fieldName];
         const path = field?.props?.path ?? fieldName;
 
+        // Custom filterInitialValues has highest priority
+        if (typeof field?.props?.filterInitialValues !== "undefined") {
+            const value = getIn(loadedInitialValues, path, getIn(initialValues, path, undefined));
+            values = setIn(values, path, field?.props?.filterInitialValues(value, field?.props?.fields));
+            return;
+        }
+
         if (typeof field?.props?.fields !== "undefined") {
             // Collection field
             const collectionValues: FormikValues[] = getIn(loadedInitialValues, path, getIn(initialValues, path, []));
@@ -116,6 +123,16 @@ export const transformInitialValues = (fields: FieldsInterface, initialValues: F
         const field = fields[fieldName];
         const path = field?.props?.path ?? fieldName;
 
+        // Custom transformInitialValue has highest priority
+        if (typeof field?.props?.transformInitialValue !== "undefined") {
+            values = setIn(
+                values,
+                path,
+                field?.props?.transformInitialValue(getIn(initialValues, path), field?.props?.fields)
+            );
+            return;
+        }
+
         if (typeof field?.props?.fields !== "undefined") {
             // Collection field
             const collectionValues: undefined | FormikValues[] = getIn(initialValues, path, undefined);
@@ -130,10 +147,6 @@ export const transformInitialValues = (fields: FieldsInterface, initialValues: F
                 );
             }
             return;
-        }
-
-        if (typeof field?.props?.transformInitialValue !== "undefined") {
-            values = setIn(values, path, field?.props?.transformInitialValue(getIn(initialValues, path)));
         }
     });
 

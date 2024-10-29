@@ -14,7 +14,8 @@ Read more in `Unfinished components`
 
 You can use following branches:
 
-1. `main` (default) - branch for current version `3.x`
+1. `main` (default) - branch for current version `4.x`
+1. `v3` - branch for version `3.x`
 2. `v2` - branch for version `2.x`
 3. `v1` - branch for version `1.x`
 
