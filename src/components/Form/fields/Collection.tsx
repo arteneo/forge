@@ -49,7 +49,8 @@ interface CollectionSpecificProps {
         defaultAddRow: () => void,
         name: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>
+        errors: FormikErrors<FormikValues>,
+        nextElementKey: number
     ) => void;
     onDeleteRow?: (
         key: number,
@@ -60,7 +61,8 @@ interface CollectionSpecificProps {
         defaultDeleteRow: () => void,
         name: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>
+        errors: FormikErrors<FormikValues>,
+        initialMaxElementKey: number
     ) => void;
     initialValues?:
         | ((
@@ -111,6 +113,16 @@ const Collection = ({
         ...field,
     });
 
+    // Collection values can be an object of elements (or an array of elements)
+    // Object.assign is used to convert the array to an object
+    const collectionRows = Object.assign({}, getIn(values, path, {}));
+    const elementKeys = Object.keys(collectionRows) as unknown as number[];
+    const hasElements = elementKeys.length > 0 ? true : false;
+
+    // Initial max element key = -1 means initially there were no elements in the collection
+    const [initialMaxElementKey, setInitialMaxElementKey] = React.useState(-1);
+    const [lockInitialMaxElementKey, setLockInitialMaxElementKey] = React.useState(false);
+
     React.useEffect(() => {
         if (hidden || typeof validate === "undefined") {
             return;
@@ -129,33 +141,96 @@ const Collection = ({
         return null;
     }
 
-    const collectionRows: FormikValues[] = getIn(values, path, []);
+    /**
+     * Lock initial max element key and return it
+     */
+    const lock = (): number => {
+        if (lockInitialMaxElementKey === true) {
+            return initialMaxElementKey;
+        }
+
+        const lockedInitialMaxElementKey = Object.keys(collectionRows).length - 1;
+        setInitialMaxElementKey(lockedInitialMaxElementKey);
+        setLockInitialMaxElementKey(true);
+
+        return lockedInitialMaxElementKey;
+    };
+
+    /**
+     * Get next element key
+     */
+    const getNextElementKey = (initialMaxElementKey: number): number => {
+        return Math.max(...elementKeys, initialMaxElementKey) + 1;
+    };
 
     const addRow = () => {
+        const initialMaxElementKey = lock();
+        const nextElementKey = getNextElementKey(initialMaxElementKey);
+
         if (onAddRow) {
-            onAddRow(setFieldValue, values, path, () => defaultAddRow(), name, touched, errors);
+            onAddRow(
+                setFieldValue,
+                values,
+                path,
+                () => defaultAddRow(nextElementKey),
+                name,
+                touched,
+                errors,
+                initialMaxElementKey
+            );
             return;
         }
 
-        defaultAddRow();
+        defaultAddRow(nextElementKey);
     };
 
-    const defaultAddRow = () => {
-        collectionRows.push(resolveAnyOrFunction(initialValues, values, path, name, touched, errors));
+    const defaultAddRow = (nextElementKey: number) => {
+        collectionRows[nextElementKey] = resolveAnyOrFunction(initialValues, values, path, name, touched, errors);
         setFieldValue(path, collectionRows);
     };
 
     const deleteRow = (key: number) => {
+        const initialMaxElementKey = lock();
+
         if (onDeleteRow) {
-            onDeleteRow(key, setFieldValue, values, path, () => defaultDeleteRow(key), name, touched, errors);
+            onDeleteRow(
+                key,
+                setFieldValue,
+                values,
+                path,
+                () => defaultDeleteRow(key, initialMaxElementKey),
+                name,
+                touched,
+                errors,
+                initialMaxElementKey
+            );
             return;
         }
 
-        defaultDeleteRow(key);
+        defaultDeleteRow(key, initialMaxElementKey);
     };
 
-    const defaultDeleteRow = (key: number) => {
-        collectionRows.splice(key, 1);
+    const defaultDeleteRow = (key: number, initialMaxElementKey: number) => {
+        if (key <= initialMaxElementKey) {
+            // When deleting element lower or equal then initialMaxElementKey there is no need to re-index anything
+            delete collectionRows[key];
+        } else {
+            // When deleting one of new elements we need to re-index all elements with key higher than deleted element
+            const newKeys = elementKeys.filter((newKey) => newKey > initialMaxElementKey);
+            newKeys.forEach((newKey) => {
+                if (newKey === key) {
+                    delete collectionRows[key];
+                }
+
+                if (newKey > key) {
+                    collectionRows[newKey - 1] = collectionRows[newKey];
+                }
+            });
+
+            const lastKey = newKeys[newKeys.length - 1];
+            delete collectionRows[lastKey];
+        }
+
         setFieldValue(path, collectionRows);
     };
 
@@ -220,9 +295,9 @@ const Collection = ({
                     </TableRow>
                 </TableHead>
 
-                {collectionRows.length > 0 && (
+                {hasElements && (
                     <TableBody>
-                        {collectionRows.map((collectionRow, key) => (
+                        {elementKeys.map((key) => (
                             <TableRow key={key}>
                                 {Object.keys(fields).map((field) => (
                                     <TableCell key={field}>
