@@ -69,11 +69,15 @@ const FormMultiContent = ({
     }, []);
 
     const resolveRequestConfigs = async (values: FormikValues, helpers: FormikHelpers<FormikValues>) => {
-        const requestConfigs = endpoints
-            .map((endpoint) => resolveFieldEndpoint(endpoint, values))
-            .filter((requestConfig) => typeof requestConfig !== "undefined") as AxiosRequestConfig[];
+        // Do not filter out undefined endpoints before for loop to keep keys passed to events in correct order
+        const requestConfigs = endpoints.map((endpoint) => resolveFieldEndpoint(endpoint, values));
 
         for (const [key, requestConfig] of requestConfigs.entries()) {
+            // Skip undefined requestConfig
+            if (typeof requestConfig === "undefined") {
+                continue;
+            }
+
             if (cancelled) {
                 return;
             }
