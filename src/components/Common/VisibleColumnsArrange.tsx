@@ -15,8 +15,8 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { List, Alert, AlertProps, Box } from "@mui/material";
-import { SettingsBackupRestore } from "@mui/icons-material";
+import { List, Alert, AlertProps, Box, InputAdornment, IconButton, TextField } from "@mui/material";
+import { Close, SettingsBackupRestore } from "@mui/icons-material";
 import VisibleColumnsArrangeItem from "../../components/Common/VisibleColumnsArrangeItem";
 import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
 import { useDialog } from "../../contexts/Dialog";
@@ -47,6 +47,7 @@ const VisibleColumnsArrange = ({
     const { onClose, initialized, payload: payloadColumns } = useDialog();
     const { reloadVisibleColumns, defaultColumns, columns: tableColumns, visibleColumnsKey } = useTable();
     const { columns, setColumns } = useVisibleColumns();
+    const [columnName, setColumnName] = React.useState<string>("");
 
     React.useEffect(() => initialize(), [initialized]);
 
@@ -165,17 +166,42 @@ const VisibleColumnsArrange = ({
         );
     };
 
+    const filteredColumns = columns.filter(
+        ({ name }) =>
+            t("label." + name)
+                .toLowerCase()
+                .search(columnName.toLowerCase()) !== -1
+    );
+
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
             <Alert {...{ severity: "info", ...alertProps }}>{t(label, labelVariables)}</Alert>
             {getResetVisibleColumnsButton()}
+            <TextField
+                value={columnName}
+                onChange={(event) => setColumnName(event?.currentTarget?.value)}
+                label={t("visibleColumns.search")}
+                sx={{ flexGrow: 1 }}
+                InputProps={{
+                    endAdornment: columnName ? (
+                        <InputAdornment {...{ position: "start" }}>
+                            <IconButton {...{ onClick: () => setColumnName(""), size: "small" }}>
+                                <Close {...{ fontSize: "small" }} />
+                            </IconButton>
+                        </InputAdornment>
+                    ) : undefined,
+                }}
+            />
             <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
                 <SortableContext items={columnNames} strategy={verticalListSortingStrategy}>
                     <List {...{ dense: true }}>
-                        {columns.map((column) => (
+                        {filteredColumns.map((column) => (
                             <VisibleColumnsArrangeItem key={column.name} {...column} />
                         ))}
                     </List>
+                    {filteredColumns.length === 0 && (
+                        <Alert {...{ severity: "warning" }}>{t("visibleColumns.noResults", { columnName })}</Alert>
+                    )}
                 </SortableContext>
             </DndContext>
         </Box>
