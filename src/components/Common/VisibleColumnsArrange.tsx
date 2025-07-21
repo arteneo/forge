@@ -199,7 +199,7 @@ const VisibleColumnsArrange = ({
                             <VisibleColumnsArrangeItem key={column.name} {...column} />
                         ))}
                     </List>
-                    {filteredColumns.length === 0 && (
+                    {filteredColumns.length === 0 && columns.length > 0 && (
                         <Alert {...{ severity: "warning" }}>{t("visibleColumns.noResults", { columnName })}</Alert>
                     )}
                 </SortableContext>
