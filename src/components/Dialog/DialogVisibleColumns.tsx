@@ -17,7 +17,17 @@ const DialogVisibleColumns = ({
 }: DialogVisibleColumnsProps) => {
     return (
         <VisibleColumnsProvider>
-            <Dialog {...{ title, actions: <DialogVisibleColumnsButtonEndpoint {...confirmProps} />, ...props }} />
+            <Dialog
+                {...{
+                    title,
+                    actions: <DialogVisibleColumnsButtonEndpoint {...confirmProps} />,
+                    ...props,
+                    dialogProps: {
+                        ...props.dialogProps,
+                        PaperProps: { sx: { height: "100%" }, ...props.dialogProps?.PaperProps },
+                    },
+                }}
+            />
         </VisibleColumnsProvider>
     );
 };
