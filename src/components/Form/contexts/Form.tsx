@@ -331,7 +331,7 @@ const FormProvider = ({
                     ? resolveAnyOrFunction(labelVariables, values, touched, errors, name)
                     : undefined;
 
-            return <>{t("label." + resolvedLabel, resolvedLabelVariables)}</>;
+            return <>{t("label." + resolvedLabel, resolvedLabelVariables) as unknown as string}</>;
         }
 
         return resolvedLabel;
