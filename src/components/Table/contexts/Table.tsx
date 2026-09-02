@@ -1,7 +1,7 @@
 import React from "react";
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { useLoader } from "../../../contexts/Loader";
