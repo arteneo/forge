@@ -15,11 +15,11 @@ Read more in `Unfinished components`
 You can use following branches:
 
 1. `main` (default) - Deprecated
-1. `v5` - branch for version `5.x`
-1. `v4` - branch for version `4.x`
-1. `v3` - branch for version `3.x`
-2. `v2` - branch for version `2.x`
-3. `v1` - branch for version `1.x`
+2. `v5` - branch for version `5.x`
+3. `v4` - branch for version `4.x`
+4. `v3` - branch for version `3.x`
+5. `v2` - branch for version `2.x`
+6. `v1` - branch for version `1.x`
 
 # Table functionality
 

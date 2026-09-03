@@ -5,6 +5,9 @@ const ESLintPlugin = require("eslint-webpack-plugin");
 // Remember to add this key:
 // "@mui/x-date-pickers/internals/hooks/useUtils"
 const peerDependencies = {
+    "@dnd-kit/core": "^6.0.7",
+    "@dnd-kit/sortable": "^7.0.2",
+    "@dnd-kit/utilities": "^3.2.1",
     "@date-io/date-fns": "^2.13.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -24,7 +27,7 @@ const peerDependencies = {
     "react-dom": "^17.0.2",
     "react-highlight-words": "^0.17.0",
     "react-i18next": "^11.15.3",
-    "react-router-dom": "^6.2.1",
+    "react-router": "^6.2.1",
     yup: "^0.32.11",
 };
 
