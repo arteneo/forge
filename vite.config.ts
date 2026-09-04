@@ -1,5 +1,6 @@
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
 
 // Remember to add this key:
 // "@mui/x-date-pickers/internals/hooks/useUtils"
@@ -31,6 +32,9 @@ const peerDependencies = {
 };
 
 export default defineConfig({
+    plugins: [
+        dts({ bundleTypes: true }),
+    ],
     build: {
         lib: {
             entry: resolve(import.meta.dirname, "src/index.tsx"),
