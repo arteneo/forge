@@ -1,5 +1,4 @@
-import React from "react";
-import FormMultiContent, { FormMultiContentProps } from "../../../components/Form/components/FormMultiContent";
+import { FormMultiContent, type FormMultiContentProps } from "../../../components/Form/components/FormMultiContent";
 import { FormProvider, FormProviderProps } from "../../../components/Form/contexts/Form";
 
 type FormMultiProps = FormMultiContentProps & Omit<FormProviderProps, "children">;
@@ -36,5 +35,4 @@ const FormMulti = ({
     );
 };
 
-export default FormMulti;
-export { FormMultiProps };
+export { FormMulti, type FormMultiProps };

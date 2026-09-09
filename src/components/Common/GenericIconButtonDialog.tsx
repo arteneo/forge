@@ -1,5 +1,6 @@
 import React from "react";
-import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
+
+import { IconButton, type IconButtonProps } from "../../components/Common/IconButton";
 
 interface GenericIconButtonDialogProps<T> extends IconButtonProps {
     // eslint-disable-next-line
@@ -50,5 +51,4 @@ const GenericIconButtonDialog = <T,>({
     );
 };
 
-export default GenericIconButtonDialog;
-export { ExternalGenericIconButtonDialogProps, GenericIconButtonDialogProps };
+export { GenericIconButtonDialog, type ExternalGenericIconButtonDialogProps, type GenericIconButtonDialogProps };

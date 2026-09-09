@@ -5,4 +5,4 @@ interface ColumnsInterface {
     [key: string]: React.ReactElement<any>;
 }
 
-export default ColumnsInterface;
+export { type ColumnsInterface };

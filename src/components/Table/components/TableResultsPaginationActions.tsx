@@ -1,7 +1,8 @@
-import React from "react";
-import { Box, IconButton, useTheme } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import { FirstPage, LastPage, KeyboardArrowRight, KeyboardArrowLeft } from "@mui/icons-material";
+import { Box, IconButton, useTheme } from "@mui/material";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { useTable } from "../../../components/Table/contexts/Table";
 
 const TableResultsPaginationActions = () => {
@@ -60,4 +61,4 @@ const TableResultsPaginationActions = () => {
     );
 };
 
-export default TableResultsPaginationActions;
+export { TableResultsPaginationActions };

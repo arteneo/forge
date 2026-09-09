@@ -1,9 +1,10 @@
+import { Box, Tooltip } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Box, Tooltip } from "@mui/material";
-import LoadingButton, { LoadingButtonProps } from "../../components/Common/LoadingButton";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import DenyPropInterface from "../../components/Table/definitions/DenyPropInterface";
+
+import { LoadingButton, type LoadingButtonProps } from "../../components/Common/LoadingButton";
+import { type DenyPropInterface } from "../../components/Table/definitions/DenyPropInterface";
+import { type TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 
 type InternalButtonProps = Omit<LoadingButtonProps, "children">;
 
@@ -68,5 +69,4 @@ const Button = ({
     return button;
 };
 
-export default Button;
-export { ButtonProps };
+export { Button, type ButtonProps };

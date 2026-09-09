@@ -1,8 +1,8 @@
-import React from "react";
-import { expect, test } from 'vitest'
-import Text from "../components/Form/fields/Text";
-import SelectApi from "../components/Form/fields/SelectApi";
-import Collection from "../components/Form/fields/Collection";
+import { expect, test } from "vitest";
+
+import { Collection } from "../components/Form/fields/Collection";
+import { SelectApi } from "../components/Form/fields/SelectApi";
+import { Text } from "../components/Form/fields/Text";
 import { transformInitialValues } from "../utilities/common";
 
 // Collection fields
@@ -24,7 +24,7 @@ test("Collection fields | Simple initialValues", () => {
     expect(
         transformInitialValues(collectionFields, {
             names: [{ name: "John", select: { representation: "Option 1", id: 1 } }],
-        })
+        }),
     ).toEqual({
         names: [{ name: "John", select: 1 }],
     });
@@ -34,7 +34,7 @@ test("Collection fields | Simple already transformed initialValues", () => {
     expect(
         transformInitialValues(collectionFields, {
             names: [{ name: "John", select: 1 }],
-        })
+        }),
     ).toEqual({
         names: [{ name: "John", select: 1 }],
     });
@@ -48,7 +48,7 @@ test("Collection fields | Simple mixed with already transformed initialValues", 
                 { name: "Jack", select: 2 },
                 { name: "Jill", select: { representation: "Option 1", id: 1 } },
             ],
-        })
+        }),
     ).toEqual({
         names: [{ name: "John" }, { name: "Jack", select: 2 }, { name: "Jill", select: 1 }],
     });
@@ -68,7 +68,7 @@ test("Collection fields with path | Simple initialValues", () => {
     expect(
         transformInitialValues(collectionPathFields, {
             nested: { names: [{ name: "John", select: { representation: "Option 1", id: 1 } }] },
-        })
+        }),
     ).toEqual({
         nested: { names: [{ name: "John", select: 1 }] },
     });
@@ -78,7 +78,7 @@ test("Collection fields with path | Simple already transformed initialValues", (
     expect(
         transformInitialValues(collectionPathFields, {
             nested: { names: [{ name: "John", select: 1 }] },
-        })
+        }),
     ).toEqual({
         nested: { names: [{ name: "John", select: 1 }] },
     });
@@ -94,7 +94,7 @@ test("Collection fields with path | Simple mixed with already transformed initia
                     { name: "Jill", select: { representation: "Option 1", id: 1 } },
                 ],
             },
-        })
+        }),
     ).toEqual({
         nested: { names: [{ name: "John" }, { name: "Jack", select: 2 }, { name: "Jill", select: 1 }] },
     });
@@ -113,12 +113,18 @@ test("Simple fields | Empty initialValues", () => {
 
 test("Simple fields | Simple initialValues", () => {
     expect(
-        transformInitialValues(simpleFields, { name: "John", select: { representation: "Option 1", id: 1 } })
+        transformInitialValues(simpleFields, {
+            name: "John",
+            select: { representation: "Option 1", id: 1 },
+        }),
     ).toEqual({ name: "John", select: 1 });
 });
 
 test("Simple fields | Simple already transformed initialValues", () => {
-    expect(transformInitialValues(simpleFields, { name: "John", select: 1 })).toEqual({ name: "John", select: 1 });
+    expect(transformInitialValues(simpleFields, { name: "John", select: 1 })).toEqual({
+        name: "John",
+        select: 1,
+    });
 });
 
 // Simple fields with path
@@ -136,7 +142,7 @@ test("Simple fields with path | Simple initialValues", () => {
     expect(
         transformInitialValues(simplePathFields, {
             nested: { name: "John", select: { representation: "Option 1", id: 1 } },
-        })
+        }),
     ).toEqual({ nested: { name: "John", select: 1 } });
 });
 

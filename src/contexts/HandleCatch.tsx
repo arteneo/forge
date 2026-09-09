@@ -1,10 +1,11 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { useError } from "../contexts/Error";
 import { useSnackbar } from "../contexts/Snackbar";
-import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
+import { TranslateVariablesInterface } from "../definitions/TranslateVariablesInterface";
 
 interface HandleCatchContextProps {
     (error: AxiosError, helpers?: FormikHelpers<FormikValues>): void;
@@ -50,7 +51,7 @@ const HandleCatchProvider = ({
     const updateValidationErrors = (
         children: ErrorsFieldProps,
         helpers: FormikHelpers<FormikValues>,
-        prefix = ""
+        prefix = "",
     ): void => {
         if (typeof externalUpdateValidationErrors !== "undefined") {
             externalUpdateValidationErrors(children, helpers);
@@ -153,9 +154,9 @@ const useHandleCatch = (): HandleCatchContextProps => React.useContext(HandleCat
 
 export {
     HandleCatchContext,
-    HandleCatchContextProps,
     HandleCatchProvider,
-    HandleCatchProviderProps,
     useHandleCatch,
     AXIOS_CANCELLED_UNMOUNTED,
+    type HandleCatchContextProps,
+    type HandleCatchProviderProps,
 };

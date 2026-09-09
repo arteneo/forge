@@ -1,11 +1,16 @@
-import React from "react";
 import { Box, CircularProgress } from "@mui/material";
 
 const DialogContentLoader = () => {
     return (
         <Box
             {...{
-                sx: { display: "flex", alignItems: "center", justifyContent: "center", minHeight: 100, width: "100%" },
+                sx: {
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    minHeight: 100,
+                    width: "100%",
+                },
             }}
         >
             <CircularProgress />
@@ -13,4 +18,4 @@ const DialogContentLoader = () => {
     );
 };
 
-export default DialogContentLoader;
+export { DialogContentLoader };

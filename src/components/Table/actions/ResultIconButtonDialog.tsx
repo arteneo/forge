@@ -1,8 +1,8 @@
-import React from "react";
 import { getIn } from "formik";
-import IconButtonDialog, { IconButtonDialogProps } from "../../../components/Common/IconButtonDialog";
-import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
+
+import { IconButtonDialog, type IconButtonDialogProps } from "../../../components/Common/IconButtonDialog";
+import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
 
 interface ResultIconButtonDialogSpecificProps {
     dialogProps: (result: ResultInterface) => IconButtonDialogProps["dialogProps"];
@@ -30,5 +30,4 @@ const ResultIconButtonDialog = ({ result, path, dialogProps, ...props }: ResultI
     );
 };
 
-export default ResultIconButtonDialog;
-export { ResultIconButtonDialogProps, ResultIconButtonDialogSpecificProps };
+export { ResultIconButtonDialog, type ResultIconButtonDialogProps, type ResultIconButtonDialogSpecificProps };

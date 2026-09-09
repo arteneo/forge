@@ -1,8 +1,8 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
-import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
-import Enum from "../../../classes/Enum";
+import { useTranslation } from "react-i18next";
+
+import { Enum } from "../../../classes/Enum";
+import { ColumnPathInterface } from "../../../components/Table/definitions/ColumnPathInterface";
 
 interface EnumColumnProps extends ColumnPathInterface {
     enum: Enum;
@@ -23,5 +23,4 @@ const EnumColumn = ({ enum: enumClass, result, columnName, path }: EnumColumnPro
     return <>{value && t(enumClass.getLabel(value))}</>;
 };
 
-export default EnumColumn;
-export { EnumColumnProps };
+export { EnumColumn, type EnumColumnProps };

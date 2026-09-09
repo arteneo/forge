@@ -1,7 +1,6 @@
-import React from "react";
-import Optional from "../../definitions/Optional";
-import DialogAlert, { DialogAlertProps } from "../../components/Dialog/DialogAlert";
-import DialogButtonEndpoint, { DialogButtonEndpointProps } from "../../components/Dialog/DialogButtonEndpoint";
+import { DialogAlert, type DialogAlertProps } from "../../components/Dialog/DialogAlert";
+import { DialogButtonEndpoint, type DialogButtonEndpointProps } from "../../components/Dialog/DialogButtonEndpoint";
+import { Optional } from "../../definitions/Optional";
 
 interface DialogAlertConfirmProps extends Optional<DialogAlertProps, "title"> {
     confirmProps: DialogButtonEndpointProps;
@@ -19,5 +18,4 @@ const DialogAlertConfirm = ({ confirmProps, ...props }: DialogAlertConfirmProps)
     );
 };
 
-export default DialogAlertConfirm;
-export { DialogAlertConfirmProps };
+export { DialogAlertConfirm, type DialogAlertConfirmProps };

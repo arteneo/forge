@@ -1,6 +1,11 @@
-import React from "react";
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import DialogFormAlertFieldset, { DialogFormAlertFieldsetProps } from "../../components/Dialog/DialogFormAlertFieldset";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
+import {
+    DialogFormAlertFieldset,
+    type DialogFormAlertFieldsetProps,
+} from "../../components/Dialog/DialogFormAlertFieldset";
 
 type ButtonDialogFormAlertFieldsetProps = ExternalGenericButtonDialogProps<DialogFormAlertFieldsetProps>;
 
@@ -15,5 +20,4 @@ const ButtonDialogFormAlertFieldset = (props: ButtonDialogFormAlertFieldsetProps
     );
 };
 
-export default ButtonDialogFormAlertFieldset;
-export { ButtonDialogFormAlertFieldsetProps };
+export { ButtonDialogFormAlertFieldset, type ButtonDialogFormAlertFieldsetProps };

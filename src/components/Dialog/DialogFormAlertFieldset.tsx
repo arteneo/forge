@@ -1,11 +1,11 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { Alert, AlertProps, Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
+import { DialogForm, type DialogFormProps } from "../../components/Dialog/DialogForm";
 import { useDialog } from "../../contexts/Dialog";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import DialogForm, { DialogFormProps } from "../../components/Dialog/DialogForm";
+import { ResolveDialogPayloadType } from "../../definitions/ResolveDialogPayloadType";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 import { renderField } from "../../utilities/common";
-import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
 import { resolveDialogPayload } from "../../utilities/resolve";
 
 interface DialogFormAlertFieldsetProps extends Omit<DialogFormProps, "children"> {
@@ -31,7 +31,7 @@ const DialogFormAlertFieldset = ({
     const resolvedLabelVariables = resolveDialogPayload<TranslateVariablesInterface>(
         labelVariables,
         payload,
-        initialized
+        initialized,
     );
 
     return (
@@ -54,5 +54,4 @@ const DialogFormAlertFieldset = ({
     );
 };
 
-export default DialogFormAlertFieldset;
-export { DialogFormAlertFieldsetProps };
+export { DialogFormAlertFieldset, type DialogFormAlertFieldsetProps };

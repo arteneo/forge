@@ -1,6 +1,5 @@
-import React from "react";
-import RadioEnum, { RadioEnumProps } from "../../../components/Form/fields/RadioEnum";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { RadioEnum, type RadioEnumProps } from "../../../components/Form/fields/RadioEnum";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type RadioEnumFilterProps = FilterFieldInterface & RadioEnumProps;
 
@@ -22,5 +21,4 @@ RadioEnumFilter.defaultProps = {
     filterType: "equal",
 };
 
-export default RadioEnumFilter;
-export { RadioEnumFilterProps };
+export { RadioEnumFilter, type RadioEnumFilterProps };

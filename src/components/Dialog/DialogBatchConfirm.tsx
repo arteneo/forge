@@ -1,9 +1,9 @@
-import React from "react";
-import Optional from "../../definitions/Optional";
-import DialogBatch, { DialogBatchProps } from "../../components/Dialog/DialogBatch";
-import DialogBatchButtonEndpoint, {
-    DialogBatchButtonEndpointProps,
+import { DialogBatch, type DialogBatchProps } from "../../components/Dialog/DialogBatch";
+import {
+    DialogBatchButtonEndpoint,
+    type DialogBatchButtonEndpointProps,
 } from "../../components/Dialog/DialogBatchButtonEndpoint";
+import { Optional } from "../../definitions/Optional";
 
 interface DialogBatchConfirmProps extends Optional<DialogBatchProps, "title"> {
     confirmProps: DialogBatchButtonEndpointProps;
@@ -25,5 +25,4 @@ const DialogBatchConfirm = ({ confirmProps, ...props }: DialogBatchConfirmProps)
     );
 };
 
-export default DialogBatchConfirm;
-export { DialogBatchConfirmProps };
+export { DialogBatchConfirm, type DialogBatchConfirmProps };

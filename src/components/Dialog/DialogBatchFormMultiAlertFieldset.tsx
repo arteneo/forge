@@ -1,11 +1,11 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { Alert, AlertProps, Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
+import { DialogBatchFormMulti, type DialogBatchFormMultiProps } from "../../components/Dialog/DialogBatchFormMulti";
 import { useDialog } from "../../contexts/Dialog";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import DialogBatchFormMulti, { DialogBatchFormMultiProps } from "../../components/Dialog/DialogBatchFormMulti";
+import { ResolveDialogPayloadType } from "../../definitions/ResolveDialogPayloadType";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 import { renderField } from "../../utilities/common";
-import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
 import { resolveDialogPayload } from "../../utilities/resolve";
 
 interface DialogBatchFormMultiAlertFieldsetProps extends Omit<DialogBatchFormMultiProps, "children"> {
@@ -31,7 +31,7 @@ const DialogBatchFormMultiAlertFieldset = ({
     const resolvedLabelVariables = resolveDialogPayload<TranslateVariablesInterface>(
         labelVariables,
         payload,
-        initialized
+        initialized,
     );
 
     return (
@@ -54,5 +54,4 @@ const DialogBatchFormMultiAlertFieldset = ({
     );
 };
 
-export default DialogBatchFormMultiAlertFieldset;
-export { DialogBatchFormMultiAlertFieldsetProps };
+export { DialogBatchFormMultiAlertFieldset, type DialogBatchFormMultiAlertFieldsetProps };

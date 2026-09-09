@@ -1,12 +1,13 @@
-import React from "react";
-import axios, { AxiosError, AxiosResponse, CancelTokenSource } from "axios";
+import axios, { type AxiosError, type AxiosResponse, type CancelTokenSource } from "axios";
 import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
-import { AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
+import React from "react";
+
 import { useForm } from "../../../components/Form/contexts/Form";
+import { FieldEndpointType } from "../../../components/Form/definitions/FieldEndpointType";
+import { AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { useHandleCatch } from "../../../contexts/HandleCatch";
+import { Optional } from "../../../definitions/Optional";
 import { resolveFieldEndpoint } from "../../../utilities/resolve";
-import Optional from "../../../definitions/Optional";
-import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
 
 interface FormMultiContentProps {
     children: React.ReactNode;
@@ -14,14 +15,14 @@ interface FormMultiContentProps {
     onSubmitStart?: (
         defaultOnSubmitStart: () => void,
         values: FormikValues,
-        helpers: FormikHelpers<FormikValues>
+        helpers: FormikHelpers<FormikValues>,
     ) => void;
     onSubmitSuccess?: (
         defaultOnSubmitSuccess: () => void,
         response: AxiosResponse,
         values: FormikValues,
         helpers: FormikHelpers<FormikValues>,
-        key: number
+        key: number,
     ) => void;
     onSubmitCatch?: (
         defaultOnSubmitCatch: () => void,
@@ -29,13 +30,13 @@ interface FormMultiContentProps {
         values: FormikValues,
         helpers: FormikHelpers<FormikValues>,
         key: number,
-        cancelled: boolean
+        cancelled: boolean,
     ) => void;
     onSubmitFinish?: (
         defaultOnSubmitFinish: () => void,
         values: FormikValues,
         helpers: FormikHelpers<FormikValues>,
-        cancelled: boolean
+        cancelled: boolean,
     ) => void;
     endpoints: FieldEndpointType[];
     formikProps?: Optional<Optional<FormikConfig<FormikValues>, "initialValues">, "onSubmit">;
@@ -98,7 +99,7 @@ const FormMultiContent = ({
                         response,
                         values,
                         helpers,
-                        key
+                        key,
                     );
                 })
                 // According to https://github.com/axios/axios/issues/3612
@@ -121,7 +122,7 @@ const FormMultiContent = ({
                             values,
                             helpers,
                             key,
-                            error?.message === AXIOS_CANCELLED_UNMOUNTED
+                            error?.message === AXIOS_CANCELLED_UNMOUNTED,
                         );
                         return;
                     }
@@ -138,7 +139,7 @@ const FormMultiContent = ({
                 return;
             },
             values,
-            helpers
+            helpers,
         );
 
         await resolveRequestConfigs(values, helpers);
@@ -150,7 +151,7 @@ const FormMultiContent = ({
             },
             values,
             helpers,
-            cancelled
+            cancelled,
         );
     };
     return (
@@ -160,5 +161,4 @@ const FormMultiContent = ({
     );
 };
 
-export default FormMultiContent;
-export { FormMultiContentProps };
+export { FormMultiContent, type FormMultiContentProps };

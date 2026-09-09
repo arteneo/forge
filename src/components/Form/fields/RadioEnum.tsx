@@ -1,6 +1,5 @@
-import React from "react";
-import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
-import Enum from "../../../classes/Enum";
+import { Enum } from "../../../classes/Enum";
+import { Radio, type RadioProps } from "../../../components/Form/fields/Radio";
 
 interface RadioEnumSpecificProps {
     enum: Enum;
@@ -19,5 +18,4 @@ const RadioEnum = ({ enum: enumClass, ...radioProps }: RadioEnumProps) => {
     );
 };
 
-export default RadioEnum;
-export { RadioEnumProps, RadioEnumSpecificProps };
+export { RadioEnum, type RadioEnumProps, type RadioEnumSpecificProps };

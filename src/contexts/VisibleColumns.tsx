@@ -41,10 +41,10 @@ const VisibleColumnsProvider = ({ children }: VisibleColumnsProviderProps) => {
 const useVisibleColumns = (): VisibleColumnsContextProps => React.useContext(VisibleColumnsContext);
 
 export {
-    VisibleColumnInterface,
     VisibleColumnsContext,
-    VisibleColumnsContextProps,
     VisibleColumnsProvider,
-    VisibleColumnsProviderProps,
     useVisibleColumns,
+    type VisibleColumnInterface,
+    type VisibleColumnsContextProps,
+    type VisibleColumnsProviderProps,
 };

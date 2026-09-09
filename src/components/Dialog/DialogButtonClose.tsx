@@ -1,7 +1,7 @@
-import React from "react";
 import { Close } from "@mui/icons-material";
+
+import { Button, type ButtonProps } from "../../components/Common/Button";
 import { useDialog } from "../../contexts/Dialog";
-import Button, { ButtonProps } from "../../components/Common/Button";
 
 interface DialogButtonCloseProps extends Omit<ButtonProps, "onClick"> {
     onClick?: (defaultOnClick: () => void) => void;
@@ -38,5 +38,4 @@ const DialogButtonClose = ({
     );
 };
 
-export default DialogButtonClose;
-export { DialogButtonCloseProps };
+export { DialogButtonClose, type DialogButtonCloseProps };

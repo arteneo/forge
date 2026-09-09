@@ -1,5 +1,4 @@
-import React from "react";
-import DialogButtonSubmit, { DialogButtonSubmitProps } from "../../components/Dialog/DialogButtonSubmit";
+import { DialogButtonSubmit, type DialogButtonSubmitProps } from "../../components/Dialog/DialogButtonSubmit";
 import { useDialogBatch } from "../../contexts/DialogBatch";
 
 const DialogBatchButtonSubmit = (props: DialogButtonSubmitProps) => {
@@ -15,5 +14,4 @@ const DialogBatchButtonSubmit = (props: DialogButtonSubmitProps) => {
     );
 };
 
-export default DialogBatchButtonSubmit;
-export { DialogButtonSubmitProps as DialogBatchButtonSubmitProps };
+export { DialogBatchButtonSubmit, type DialogButtonSubmitProps as DialogBatchButtonSubmitProps };

@@ -1,5 +1,5 @@
-import OptionInterface from "../components/Form/definitions/OptionInterface";
-import OptionsType from "../components/Form/definitions/OptionsType";
+import { OptionInterface } from "../components/Form/definitions/OptionInterface";
+import { OptionsType } from "../components/Form/definitions/OptionsType";
 
 type EnumType = string;
 
@@ -50,5 +50,4 @@ class Enum {
     }
 }
 
-export default Enum;
-export { EnumType };
+export { Enum, type EnumType };

@@ -1,5 +1,3 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import {
     DoneOutlineOutlined,
     ErrorOutlineOutlined,
@@ -7,8 +5,11 @@ import {
     WarningAmberOutlined,
 } from "@mui/icons-material";
 import { Box, Divider, List, ListItem, Tooltip } from "@mui/material";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { BatchResultInterface, BatchResultMessageInterface, useDialogBatch } from "../../contexts/DialogBatch";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 
 const DialogBatchResults = () => {
     const { t } = useTranslation();
@@ -118,4 +119,4 @@ const DialogBatchResults = () => {
     );
 };
 
-export default DialogBatchResults;
+export { DialogBatchResults };

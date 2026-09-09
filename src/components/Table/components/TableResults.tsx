@@ -1,8 +1,9 @@
-import React from "react";
 import { Alert, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
+import React from "react";
 import { useTranslation } from "react-i18next";
+
+import { TableResultsPagination } from "../../../components/Table/components/TableResultsPagination";
 import { useTable } from "../../../components/Table/contexts/Table";
-import TableResultsPagination from "../../../components/Table/components/TableResultsPagination";
 
 const TableResults = () => {
     const { t } = useTranslation();
@@ -76,14 +77,21 @@ const TableResults = () => {
                             </TableCell>
                         )}
 
-                        {visibleColumns.map((columnName) => (
-                            <TableCell key={columnName}>
-                                {React.cloneElement(columns[columnName], {
-                                    result,
-                                    columnName: columns[columnName].props?.columnName ?? columnName,
-                                })}
-                            </TableCell>
-                        ))}
+                        {visibleColumns.map((columnName) => {
+                            const column: undefined | React.ReactElement<any> = columns[columnName];
+                            if (typeof column === "undefined") {
+                                return null;
+                            }
+
+                            return (
+                                <TableCell key={columnName}>
+                                    {React.cloneElement(column, {
+                                        result,
+                                        columnName: column.props?.columnName ?? columnName,
+                                    })}
+                                </TableCell>
+                            );
+                        })}
                     </TableRow>
                 ))}
             </TableBody>
@@ -92,4 +100,4 @@ const TableResults = () => {
     );
 };
 
-export default TableResults;
+export { TableResults };

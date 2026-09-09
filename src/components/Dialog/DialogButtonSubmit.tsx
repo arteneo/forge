@@ -1,7 +1,7 @@
-import React from "react";
 import { Check } from "@mui/icons-material";
 import { useFormikContext } from "formik";
-import Button, { ButtonProps } from "../../components/Common/Button";
+
+import { Button, type ButtonProps } from "../../components/Common/Button";
 import { useDialog } from "../../contexts/Dialog";
 
 const DialogButtonSubmit = ({
@@ -31,5 +31,5 @@ const DialogButtonSubmit = ({
     );
 };
 
-export default DialogButtonSubmit;
-export { ButtonProps as DialogButtonSubmitProps };
+export { DialogButtonSubmit };
+export { type ButtonProps as DialogButtonSubmitProps };

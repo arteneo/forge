@@ -1,13 +1,14 @@
-import React from "react";
 import { AxiosResponse } from "axios";
 import { getIn } from "formik";
-import ButtonEndpoint, { ButtonEndpointProps } from "../../../components/Common/ButtonEndpoint";
-import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
-import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
-import { resolveAnyOrFunction } from "../../../utilities/resolve";
-import EndpointType from "../../../definitions/EndpointType";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
+import React from "react";
+
+import { ButtonEndpoint, type ButtonEndpointProps } from "../../../components/Common/ButtonEndpoint";
 import { useTable } from "../../../components/Table/contexts/Table";
+import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
+import { ResultResolveType } from "../../../components/Table/definitions/ResultResolveType";
+import { EndpointType } from "../../../definitions/EndpointType";
+import { resolveAnyOrFunction } from "../../../utilities/resolve";
 
 interface ResultButtonEndpointSpecificProps {
     endpoint: ResultResolveType<EndpointType>;
@@ -19,7 +20,7 @@ interface ResultButtonEndpointSpecificProps {
         value: any,
         result: ResultInterface,
         setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-        path?: string
+        path?: string,
     ) => void;
 }
 
@@ -57,7 +58,7 @@ const ResultButtonEndpoint = ({
         resolvedOnSuccess = (
             defaultOnSuccess: () => void,
             response: AxiosResponse,
-            setLoading: React.Dispatch<React.SetStateAction<boolean>>
+            setLoading: React.Dispatch<React.SetStateAction<boolean>>,
         ) => onSuccess(() => internalOnSuccess(defaultOnSuccess), response, value, result, setLoading, path);
     } else {
         resolvedOnSuccess = internalOnSuccess;
@@ -75,5 +76,4 @@ const ResultButtonEndpoint = ({
     );
 };
 
-export default ResultButtonEndpoint;
-export { ResultButtonEndpointProps, ResultButtonEndpointSpecificProps };
+export { ResultButtonEndpoint, type ResultButtonEndpointProps, type ResultButtonEndpointSpecificProps };

@@ -1,27 +1,28 @@
-import React from "react";
-import axios, { AxiosResponse, AxiosError } from "axios";
+import axios, { type AxiosResponse, type AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
+import React from "react";
 import { useLocation } from "react-router";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
+
+import { FieldsInterface } from "../../../components/Form/definitions/FieldsInterface";
+import { useTableQuery } from "../../../components/Table/contexts/TableQuery";
+import { BatchQueryInterface } from "../../../components/Table/definitions/BatchQueryInterface";
+import { BatchSelectedType } from "../../../components/Table/definitions/BatchSelectedType";
+import { ColumnNamesType } from "../../../components/Table/definitions/ColumnNamesType";
+import { ColumnsInterface } from "../../../components/Table/definitions/ColumnsInterface";
+import { FilterDefinition } from "../../../components/Table/definitions/FilterDefinition";
+import { FiltersInterface } from "../../../components/Table/definitions/FiltersInterface";
+import { FilterValuesInterface } from "../../../components/Table/definitions/FilterValuesInterface";
+import { QueryInterface } from "../../../components/Table/definitions/QueryInterface";
+import { QuerySortingInterface } from "../../../components/Table/definitions/QuerySortingInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
+import { SortingDirection } from "../../../components/Table/definitions/SortingDirection";
+import { SortingInterface } from "../../../components/Table/definitions/SortingInterface";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { useLoader } from "../../../contexts/Loader";
-import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
-import ColumnsInterface from "../../../components/Table/definitions/ColumnsInterface";
-import QueryInterface from "../../../components/Table/definitions/QueryInterface";
-import QuerySortingInterface from "../../../components/Table/definitions/QuerySortingInterface";
-import SortingDirection from "../../../components/Table/definitions/SortingDirection";
-import FilterDefinition from "../../../components/Table/definitions/FilterDefinition";
-import SortingInterface from "../../../components/Table/definitions/SortingInterface";
-import FiltersInterface from "../../../components/Table/definitions/FiltersInterface";
-import FilterValuesInterface from "../../../components/Table/definitions/FilterValuesInterface";
-import { useTableQuery } from "../../../components/Table/contexts/TableQuery";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
-import BatchSelectedType from "../../../components/Table/definitions/BatchSelectedType";
-import BatchQueryInterface from "../../../components/Table/definitions/BatchQueryInterface";
-import ColumnNamesType from "../../../components/Table/definitions/ColumnNamesType";
-import EndpointType from "../../../definitions/EndpointType";
-import { resolveEndpoint } from "../../../utilities/resolve";
 import { VisibleColumnInterface } from "../../../contexts/VisibleColumns";
+import { EndpointType } from "../../../definitions/EndpointType";
+import { resolveEndpoint } from "../../../utilities/resolve";
 
 interface TableContextProps {
     columns: ColumnsInterface;
@@ -78,7 +79,7 @@ interface TableProviderProps {
         setResults: React.Dispatch<React.SetStateAction<ResultInterface[]>>,
         setRowCount: React.Dispatch<React.SetStateAction<number>>,
         setSelected: React.Dispatch<React.SetStateAction<BatchSelectedType>>,
-        setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>
+        setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>,
     ) => void;
     getQuery?: (
         defaultGetQuery: () => QueryInterface,
@@ -88,7 +89,7 @@ interface TableProviderProps {
         sorting: SortingInterface,
         filters: FilterValuesInterface,
         additionalSorting?: SortingInterface,
-        additionalFilters?: FiltersInterface
+        additionalFilters?: FiltersInterface,
     ) => QueryInterface;
     getBatchQuery?: (
         defaultGetBatchQuery: () => BatchQueryInterface,
@@ -99,7 +100,7 @@ interface TableProviderProps {
             sorting: SortingInterface,
             filters: FilterValuesInterface,
             additionalSorting?: SortingInterface,
-            additionalFilters?: FiltersInterface
+            additionalFilters?: FiltersInterface,
         ) => QueryInterface,
         page: number,
         rowsPerPage: number,
@@ -107,7 +108,7 @@ interface TableProviderProps {
         filters: FilterValuesInterface,
         selected: BatchSelectedType,
         additionalSorting?: SortingInterface,
-        additionalFilters?: FiltersInterface
+        additionalFilters?: FiltersInterface,
     ) => BatchQueryInterface;
     rowsPerPage?: number;
     rowsPerPageOptions?: number[];
@@ -127,13 +128,13 @@ interface TableProviderProps {
         defaultOnVisibleColumnsLoadSuccess: () => void,
         response: AxiosResponse,
         setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>,
-        visibleColumns: ColumnNamesType
+        visibleColumns: ColumnNamesType,
     ) => void;
     onVisibleColumnsLoadCatch?: (
         defaultOnVisibleColumnsLoadCatch: () => void,
         error: AxiosError,
         setVisibleColumns: React.Dispatch<React.SetStateAction<ColumnNamesType>>,
-        visibleColumns: ColumnNamesType
+        visibleColumns: ColumnNamesType,
     ) => void;
     disableReloadOnLocationKeyChange?: boolean;
 }
@@ -269,7 +270,7 @@ const TableProvider = ({
             rowsPerPage,
             sorting,
             disableReloadOnLocationKeyChange ? disableReloadOnLocationKeyChange : location.key,
-        ]
+        ],
     );
     useDeepCompareEffectNoCheck(() => loadVisibleColumns(), [visibleColumnsKey, visibleColumnsRequestConfig]);
 
@@ -279,7 +280,7 @@ const TableProvider = ({
         sorting: SortingInterface,
         filters: FilterValuesInterface,
         // eslint-disable-next-line
-        extraOnLoadSuccess?: Function
+        extraOnLoadSuccess?: Function,
     ) => {
         showLoader();
 
@@ -319,7 +320,7 @@ const TableProvider = ({
                         setResults,
                         setRowCount,
                         setSelected,
-                        setVisibleColumns
+                        setVisibleColumns,
                     );
                     return;
                 }
@@ -375,7 +376,7 @@ const TableProvider = ({
                         defaultOnVisibleColumnsLoadSuccess,
                         response,
                         setVisibleColumns,
-                        defaultColumns
+                        defaultColumns,
                     );
                     return;
                 }
@@ -392,7 +393,7 @@ const TableProvider = ({
                         defaultOnVisibleColumnsLoadCatch,
                         error,
                         setVisibleColumns,
-                        defaultColumns
+                        defaultColumns,
                     );
                     return;
                 }
@@ -441,7 +442,7 @@ const TableProvider = ({
         sorting: SortingInterface,
         filters: FilterValuesInterface,
         additionalSorting?: SortingInterface,
-        additionalFilters?: FiltersInterface
+        additionalFilters?: FiltersInterface,
     ): QueryInterface => {
         const callableGetQuery = () =>
             defaultGetQuery(page, rowsPerPage, sorting, filters, additionalSorting, additionalFilters);
@@ -455,7 +456,7 @@ const TableProvider = ({
                 sorting,
                 filters,
                 additionalSorting,
-                additionalFilters
+                additionalFilters,
             );
         }
 
@@ -468,7 +469,7 @@ const TableProvider = ({
         sorting: SortingInterface,
         filters: FilterValuesInterface,
         additionalSorting?: SortingInterface,
-        additionalFilters?: FiltersInterface
+        additionalFilters?: FiltersInterface,
     ): QueryInterface => {
         const joinedSorting: SortingInterface = {
             ...sorting,
@@ -478,7 +479,7 @@ const TableProvider = ({
         const _sorting: QuerySortingInterface = Object.keys(joinedSorting).map((field) => {
             return {
                 field: field,
-                direction: joinedSorting[field],
+                direction: joinedSorting[field] as SortingDirection,
             };
         });
 
@@ -500,7 +501,7 @@ const TableProvider = ({
         filters: FilterValuesInterface,
         selected: BatchSelectedType,
         additionalSorting?: SortingInterface,
-        additionalFilters?: FiltersInterface
+        additionalFilters?: FiltersInterface,
     ): BatchQueryInterface => {
         const callableGetBatchQuery = () => {
             return defaultGetBatchQuery(
@@ -510,7 +511,7 @@ const TableProvider = ({
                 filters,
                 selected,
                 additionalSorting,
-                additionalFilters
+                additionalFilters,
             );
         };
 
@@ -525,7 +526,7 @@ const TableProvider = ({
                 filters,
                 selected,
                 additionalSorting,
-                additionalFilters
+                additionalFilters,
             );
         }
 
@@ -539,7 +540,7 @@ const TableProvider = ({
         filters: FilterValuesInterface,
         selected: BatchSelectedType,
         additionalSorting?: SortingInterface,
-        additionalFilters?: FiltersInterface
+        additionalFilters?: FiltersInterface,
     ): BatchQueryInterface => {
         const { sorting: querySorting } = getQuery(
             page,
@@ -547,7 +548,7 @@ const TableProvider = ({
             sorting,
             filters,
             additionalSorting,
-            additionalFilters
+            additionalFilters,
         );
 
         return {
@@ -556,7 +557,7 @@ const TableProvider = ({
         };
     };
 
-    const onChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number): void => {
+    const onChangePage = (_event: React.MouseEvent<HTMLButtonElement> | null, page: number): void => {
         setPage(page);
     };
 
@@ -677,7 +678,7 @@ const TableProvider = ({
                     filters,
                     selected,
                     additionalSorting,
-                    additionalFilters
+                    additionalFilters,
                 ),
                 results,
                 page,
@@ -723,4 +724,4 @@ const TableProvider = ({
 
 const useTable = (): TableContextProps => React.useContext(TableContext);
 
-export { TableContext, TableContextProps, TableProvider, TableProviderProps, useTable };
+export { TableContext, TableProvider, useTable, type TableContextProps, type TableProviderProps };

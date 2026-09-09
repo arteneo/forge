@@ -1,6 +1,4 @@
-import React from "react";
-import * as Yup from "yup";
-import { FormikValues, FormikTouched, FormikErrors, FormikProps, useFormikContext, getIn } from "formik";
+import { Add, Delete } from "@mui/icons-material";
 import {
     Box,
     FormHelperText,
@@ -13,12 +11,15 @@ import {
     TableHead,
     TableRow,
 } from "@mui/material";
-import { Add, Delete } from "@mui/icons-material";
+import { FormikValues, FormikTouched, FormikErrors, FormikProps, useFormikContext, getIn } from "formik";
+import React from "react";
+import * as Yup from "yup";
+
 import { useForm } from "../../../components/Form/contexts/Form";
-import { resolveAnyOrFunction, resolveBooleanOrFunction } from "../../../utilities/resolve";
-import FieldInterface from "../../../components/Form/definitions/FieldInterface";
-import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import { FieldInterface } from "../../../components/Form/definitions/FieldInterface";
+import { FieldsInterface } from "../../../components/Form/definitions/FieldsInterface";
 import { filterInitialValues, transformInitialValues } from "../../../utilities/common";
+import { resolveAnyOrFunction, resolveBooleanOrFunction } from "../../../utilities/resolve";
 
 type IndexedCollectionRowsKey = string | number;
 
@@ -35,7 +36,7 @@ interface IndexedCollectionSpecificProps {
               path: string,
               touched: FormikTouched<FormikValues>,
               errors: FormikErrors<FormikValues>,
-              name: string
+              name: string,
           ) => boolean)
         | boolean;
     disableDeleteRow?:
@@ -45,7 +46,7 @@ interface IndexedCollectionSpecificProps {
               path: string,
               touched: FormikTouched<FormikValues>,
               errors: FormikErrors<FormikValues>,
-              name: string
+              name: string,
           ) => boolean)
         | boolean;
     onAddRow?: (
@@ -56,7 +57,7 @@ interface IndexedCollectionSpecificProps {
         defaultAddRow: () => void,
         name: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>
+        errors: FormikErrors<FormikValues>,
     ) => void;
     onDeleteRow?: (
         key: IndexedCollectionRowsKey,
@@ -67,7 +68,7 @@ interface IndexedCollectionSpecificProps {
         defaultDeleteRow: () => void,
         name: string,
         touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>
+        errors: FormikErrors<FormikValues>,
     ) => void;
     initialValues?:
         | ((
@@ -75,7 +76,7 @@ interface IndexedCollectionSpecificProps {
               path: string,
               name: string,
               touched: FormikTouched<FormikValues>,
-              errors: FormikErrors<FormikValues>
+              errors: FormikErrors<FormikValues>,
           ) => FormikValues)
         | FormikValues;
 }
@@ -197,7 +198,7 @@ const IndexedCollection = ({
         path,
         touched,
         errors,
-        name
+        name,
     );
     const disableDeleteRow = resolveBooleanOrFunction(
         disableDeleteRowProp,
@@ -206,7 +207,7 @@ const IndexedCollection = ({
         path,
         touched,
         errors,
-        name
+        name,
     );
 
     return (
@@ -233,7 +234,7 @@ const IndexedCollection = ({
                                 fieldName,
                                 fieldLabelVariables,
                                 fieldDisableAutoLabel,
-                                fieldDisableTranslateLabel
+                                fieldDisableTranslateLabel,
                             );
 
                             return <TableCell key={fieldName}>{resolvedFieldLabel}</TableCell>;
@@ -255,11 +256,11 @@ const IndexedCollection = ({
                                             <TableCell key={field}>
                                                 <Box sx={{ display: "grid" }}>
                                                     {React.cloneElement(
-                                                        fields[field],
+                                                        fields[field] as React.ReactElement<any>,
                                                         Object.assign(fieldPropsOverride, {
                                                             name: name + "." + id + "." + field,
                                                             path: path + "." + id + "." + field,
-                                                        })
+                                                        }),
                                                     )}
                                                 </Box>
                                             </TableCell>
@@ -321,7 +322,7 @@ IndexedCollection.defaultProps = {
             const id = value?.["id"];
             if (typeof id === "undefined") {
                 throw new Error(
-                    "IndexedCollection transformInitialValue expects an array of objects with 'id' property"
+                    "IndexedCollection transformInitialValue expects an array of objects with 'id' property",
                 );
             }
 
@@ -332,10 +333,10 @@ IndexedCollection.defaultProps = {
     },
 };
 
-export default IndexedCollection;
 export {
-    IndexedCollectionRowsInterface,
-    IndexedCollectionRowsKey,
-    IndexedCollectionProps,
-    IndexedCollectionSpecificProps,
+    IndexedCollection,
+    type IndexedCollectionRowsInterface,
+    type IndexedCollectionRowsKey,
+    type IndexedCollectionProps,
+    type IndexedCollectionSpecificProps,
 };

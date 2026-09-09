@@ -1,3 +1,3 @@
 type ColumnNamesType = string[];
 
-export default ColumnNamesType;
+export { type ColumnNamesType };

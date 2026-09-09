@@ -1,25 +1,31 @@
-import React from "react";
-import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { debounce } from "lodash";
 import {
     AutocompleteChangeReason,
     AutocompleteChangeDetails,
     AutocompleteRenderOptionState,
     CircularProgress,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import axios, { type AxiosError, type AxiosRequestConfig, type AxiosResponse } from "axios";
+import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import { debounce } from "lodash";
+import React from "react";
 import Highlighter from "react-highlight-words";
-import { resolveFieldAutocompleteEndpoint } from "../../../utilities/resolve";
-import Select, { SelectProps, SelectRenderInput, SelectRenderInputProps } from "../../../components/Form/fields/Select";
+import { useTranslation } from "react-i18next";
+import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
+
+import { HighlightTag } from "../../../components/Common/HighlightTag";
 import { useForm } from "../../../components/Form/contexts/Form";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
-import OptionInterface from "../../../components/Form/definitions/OptionInterface";
-import FieldAutocompleteEndpointType from "../../../components/Form/definitions/FieldAutocompleteEndpointType";
-import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { SelectValueType } from "../../../components/Form/definitions/AutocompleteTypes";
-import HighlightTag from "../../../components/Common/HighlightTag";
+import { FieldAutocompleteEndpointType } from "../../../components/Form/definitions/FieldAutocompleteEndpointType";
+import { OptionInterface } from "../../../components/Form/definitions/OptionInterface";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
+import {
+    Select,
+    type SelectProps,
+    SelectRenderInput,
+    type SelectRenderInputProps,
+} from "../../../components/Form/fields/Select";
+import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
+import { resolveFieldAutocompleteEndpoint } from "../../../utilities/resolve";
 
 interface SelectAutocompleteApiSpecificProps {
     endpoint: FieldAutocompleteEndpointType;
@@ -36,20 +42,20 @@ interface SelectAutocompleteApiSpecificProps {
         event: React.SyntheticEvent,
         reason: AutocompleteChangeReason,
         name: string,
-        details?: AutocompleteChangeDetails<OptionInterface>
+        details?: AutocompleteChangeDetails<OptionInterface>,
     ) => void;
     processResponse?: (response: AxiosResponse) => OptionsType;
     getInitialSelectedOption?: (
         path: string,
         initialValues?: FormikValues,
-        initializedValuesResponse?: AxiosResponse
+        initializedValuesResponse?: AxiosResponse,
     ) => undefined | OptionInterface;
     getOptionRepresentation?: (option: OptionInterface) => string;
     renderOption?: (
         inputValue: string,
         props: React.HTMLAttributes<HTMLLIElement>,
         option: OptionInterface,
-        state: AutocompleteRenderOptionState
+        state: AutocompleteRenderOptionState,
     ) => React.ReactNode;
     renderInput?: (params: SelectAutocompleteApiRenderInputProps) => React.ReactNode;
     noOptionsText?: (inputValue: string, loading: boolean) => string;
@@ -159,7 +165,7 @@ const SelectAutocompleteApi = ({
                     axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
                 };
             }, 250),
-        []
+        [],
     );
 
     const load = () => {
@@ -211,7 +217,7 @@ const SelectAutocompleteApi = ({
         event: React.SyntheticEvent,
         reason: AutocompleteChangeReason,
         name: string,
-        details?: AutocompleteChangeDetails<OptionInterface>
+        details?: AutocompleteChangeDetails<OptionInterface>,
     ) => {
         if (onChange) {
             // Parameters are swapped for convenience
@@ -227,7 +233,7 @@ const SelectAutocompleteApi = ({
                 event,
                 reason,
                 name,
-                details
+                details,
             );
             return;
         }
@@ -238,7 +244,7 @@ const SelectAutocompleteApi = ({
     const defaultRenderOption = (
         inputValue: string,
         props: React.HTMLAttributes<HTMLLIElement>,
-        option: OptionInterface
+        option: OptionInterface,
     ) => (
         <li {...props}>
             <Highlighter
@@ -255,7 +261,7 @@ const SelectAutocompleteApi = ({
     const callableRenderOption = (
         props: React.HTMLAttributes<HTMLLIElement>,
         option: OptionInterface,
-        state: AutocompleteRenderOptionState
+        state: AutocompleteRenderOptionState,
     ) => {
         if (renderOption) {
             return renderOption(inputValue, props, option, state);
@@ -296,7 +302,7 @@ const SelectAutocompleteApi = ({
                 autocompleteProps: {
                     inputValue,
                     filterOptions: (option) => option,
-                    onInputChange: (event, value, reason) => {
+                    onInputChange: (_event, value, reason) => {
                         // Reason "reset" means programmatic change
                         // This prevents clearing input when changing inputValue when there is a selected option
                         // Not sure why this works that way
@@ -304,7 +310,7 @@ const SelectAutocompleteApi = ({
                             setInputValue(value);
                         }
                     },
-                    onClose: (event: React.SyntheticEvent, reason: string) => {
+                    onClose: (_event: React.SyntheticEvent, reason: string) => {
                         if (reason === "selectOption") {
                             return;
                         }
@@ -339,5 +345,9 @@ SelectAutocompleteApi.defaultProps = {
     },
 };
 
-export default SelectAutocompleteApi;
-export { SelectAutocompleteApiProps, SelectAutocompleteApiSpecificProps, SelectAutocompleteApiRenderInputProps };
+export {
+    SelectAutocompleteApi,
+    type SelectAutocompleteApiProps,
+    type SelectAutocompleteApiSpecificProps,
+    type SelectAutocompleteApiRenderInputProps,
+};

@@ -1,5 +1,5 @@
-import React from "react";
 import { Box } from "@mui/material";
+import React from "react";
 
 interface HighlightTagProps {
     children: React.ReactNode;
@@ -20,5 +20,4 @@ const HighlightTag = ({ children }: HighlightTagProps) => {
     );
 };
 
-export default HighlightTag;
-export { HighlightTagProps };
+export { HighlightTag, type HighlightTagProps };

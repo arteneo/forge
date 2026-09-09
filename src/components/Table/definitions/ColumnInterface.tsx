@@ -1,4 +1,4 @@
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
 
 interface ColumnInterface {
     // result should be added to props when rendering
@@ -8,4 +8,4 @@ interface ColumnInterface {
     disableSorting?: boolean;
 }
 
-export default ColumnInterface;
+export { type ColumnInterface };

@@ -1,9 +1,9 @@
-import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Checkbox, IconButton, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { DragIndicator } from "@mui/icons-material";
+import { Checkbox, IconButton, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { useTranslation } from "react-i18next";
+
 import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
 
 type VisibleColumnsArrangeItemProps = Pick<VisibleColumnInterface, "name">;
@@ -22,11 +22,15 @@ const VisibleColumnsArrangeItem = ({ name }: VisibleColumnsArrangeItemProps) => 
 
     const toggleVisible = () => {
         setColumns((columns) => {
-            const newColumns = [...columns];
+            const column = columns[index];
+            if (typeof column === "undefined") {
+                return columns;
+            }
 
+            const newColumns = [...columns];
             newColumns.splice(index, 1, {
-                ...columns[index],
-                visible: !columns[index].visible,
+                ...column,
+                visible: !column.visible,
             });
 
             return newColumns;
@@ -43,7 +47,7 @@ const VisibleColumnsArrangeItem = ({ name }: VisibleColumnsArrangeItemProps) => 
                     {...{
                         edge: "end",
                         onChange: () => toggleVisible(),
-                        checked: columns[index].visible,
+                        checked: columns[index]?.visible,
                     }}
                 />
             }
@@ -67,5 +71,4 @@ const VisibleColumnsArrangeItem = ({ name }: VisibleColumnsArrangeItemProps) => 
     );
 };
 
-export default VisibleColumnsArrangeItem;
-export { VisibleColumnsArrangeItemProps };
+export { VisibleColumnsArrangeItem, type VisibleColumnsArrangeItemProps };

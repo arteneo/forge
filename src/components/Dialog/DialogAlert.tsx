@@ -1,11 +1,11 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { Alert, AlertProps } from "@mui/material";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import Optional from "../../definitions/Optional";
-import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
+import { useTranslation } from "react-i18next";
+
+import { Dialog, type DialogProps } from "../../components/Dialog/Dialog";
 import { useDialog } from "../../contexts/Dialog";
-import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
+import { Optional } from "../../definitions/Optional";
+import { ResolveDialogPayloadType } from "../../definitions/ResolveDialogPayloadType";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 import { resolveDialogPayload } from "../../utilities/resolve";
 
 interface DialogAlertProps extends Optional<DialogProps, "children"> {
@@ -22,7 +22,7 @@ const DialogAlert = ({ label, labelVariables = {}, alertProps, ...props }: Dialo
     const resolvedLabelVariables = resolveDialogPayload<TranslateVariablesInterface>(
         labelVariables,
         payload,
-        initialized
+        initialized,
     );
 
     return (
@@ -37,5 +37,4 @@ const DialogAlert = ({ label, labelVariables = {}, alertProps, ...props }: Dialo
     );
 };
 
-export default DialogAlert;
-export { DialogAlertProps };
+export { DialogAlert, type DialogAlertProps };

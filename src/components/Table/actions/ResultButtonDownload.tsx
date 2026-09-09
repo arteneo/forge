@@ -1,10 +1,10 @@
-import React from "react";
 import { getIn } from "formik";
-import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
-import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
-import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
+
+import { ButtonDownload, type ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
+import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
+import { ResultResolveType } from "../../../components/Table/definitions/ResultResolveType";
+import { EndpointType } from "../../../definitions/EndpointType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
-import EndpointType from "../../../definitions/EndpointType";
 
 interface ResultButtonDownloadSpecificProps {
     endpoint: ResultResolveType<EndpointType>;
@@ -33,5 +33,4 @@ const ResultButtonDownload = ({ endpoint, result, path, ...props }: ResultButton
     );
 };
 
-export default ResultButtonDownload;
-export { ResultButtonDownloadProps, ResultButtonDownloadSpecificProps };
+export { ResultButtonDownload, type ResultButtonDownloadProps, type ResultButtonDownloadSpecificProps };

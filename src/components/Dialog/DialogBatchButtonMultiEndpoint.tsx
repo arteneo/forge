@@ -1,11 +1,11 @@
-import React from "react";
-import { AxiosError } from "axios";
 import { Check } from "@mui/icons-material";
-import ButtonMultiEndpoint, { ButtonMultiEndpointProps } from "../../components/Common/ButtonMultiEndpoint";
-import { useDialogBatch, BatchResultInterface, mapRequestExecutionException } from "../../contexts/DialogBatch";
+import { AxiosError } from "axios";
+
+import { ButtonMultiEndpoint, type ButtonMultiEndpointProps } from "../../components/Common/ButtonMultiEndpoint";
+import { ResultInterface } from "../../components/Table/definitions/ResultInterface";
 import { useDialog } from "../../contexts/Dialog";
-import ResultInterface from "../../components/Table/definitions/ResultInterface";
-import EndpointType from "../../definitions/EndpointType";
+import { useDialogBatch, BatchResultInterface, mapRequestExecutionException } from "../../contexts/DialogBatch";
+import { EndpointType } from "../../definitions/EndpointType";
 import { RequestExecutionExceptionType } from "../../definitions/RequestExecutionException";
 
 interface DialogBatchButtonMultiEndpointProps extends Omit<ButtonMultiEndpointProps, "endpoints"> {
@@ -57,7 +57,7 @@ const DialogBatchButtonMultiEndpoint = ({
                 endIcon,
                 ...props,
                 disabled: initialized && !finished ? props.disabled : true,
-                onStart: (defaultOnStart, setLoading) => {
+                onStart: (_defaultOnStart, setLoading) => {
                     const internalDefaultOnStart = () => {
                         setLoading(true);
                         setProcessing(true);
@@ -68,7 +68,7 @@ const DialogBatchButtonMultiEndpoint = ({
                                 representation: deniedResult.representation,
                                 status: "skipped",
                                 message: deniedResult.deny?.[resultDenyKey as string],
-                            }))
+                            })),
                         );
                     };
 
@@ -96,16 +96,23 @@ const DialogBatchButtonMultiEndpoint = ({
 
                     internalDefaultOnFinish();
                 },
-                onSuccess: (defaultOnSuccess, key, response, setLoading) => {
+                onSuccess: (_defaultOnSuccess, key, response, setLoading) => {
                     const internalDefaultOnSuccess = () => {
-                        setBatchResults((batchResults) => [
-                            ...batchResults,
-                            {
-                                id: allowedResults[key].id,
-                                representation: allowedResults[key].representation,
-                                status: "success",
-                            },
-                        ]);
+                        setBatchResults((batchResults) => {
+                            const allowedResult = allowedResults[key];
+                            if (typeof allowedResult === "undefined") {
+                                return batchResults;
+                            }
+
+                            return [
+                                ...batchResults,
+                                {
+                                    id: allowedResult.id,
+                                    representation: allowedResult.representation,
+                                    status: "success",
+                                },
+                            ];
+                        });
                     };
 
                     if (typeof props.onSuccess !== "undefined") {
@@ -123,10 +130,14 @@ const DialogBatchButtonMultiEndpoint = ({
                             return;
                         }
 
-                        setBatchResults((batchResults) => [
-                            ...batchResults,
-                            onCatchProcessResponse(allowedResults[key], error),
-                        ]);
+                        setBatchResults((batchResults) => {
+                            const allowedResult = allowedResults[key];
+                            if (typeof allowedResult === "undefined") {
+                                return batchResults;
+                            }
+
+                            return [...batchResults, onCatchProcessResponse(allowedResult, error)];
+                        });
                     };
 
                     if (typeof props.onCatch !== "undefined") {
@@ -141,5 +152,4 @@ const DialogBatchButtonMultiEndpoint = ({
     );
 };
 
-export default DialogBatchButtonMultiEndpoint;
-export { DialogBatchButtonMultiEndpointProps };
+export { DialogBatchButtonMultiEndpoint, type DialogBatchButtonMultiEndpointProps };

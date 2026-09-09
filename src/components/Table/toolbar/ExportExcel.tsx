@@ -1,12 +1,12 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { AxiosRequestConfig } from "axios";
-import ExportExcelQueryInterface from "../../../components/Table/definitions/ExportExcelQueryInterface";
-import ExportQueryFieldInterface from "../../../components/Table/definitions/ExportQueryFieldInterface";
-import ExportQueryFieldTranslatedInterface from "../../../components/Table/definitions/ExportQueryFieldTranslatedInterface";
+import { useTranslation } from "react-i18next";
+
+import { ButtonDownload, type ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
 import { useTable } from "../../../components/Table/contexts/Table";
-import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
-import Optional from "../../../definitions/Optional";
+import { ExportExcelQueryInterface } from "../../../components/Table/definitions/ExportExcelQueryInterface";
+import { ExportQueryFieldInterface } from "../../../components/Table/definitions/ExportQueryFieldInterface";
+import { ExportQueryFieldTranslatedInterface } from "../../../components/Table/definitions/ExportQueryFieldTranslatedInterface";
+import { Optional } from "../../../definitions/Optional";
 import { resolveEndpoint } from "../../../utilities/resolve";
 
 interface ExportExcelInterface {
@@ -66,7 +66,7 @@ const ExportExcel = ({
             data: typeof modifyQuery !== "undefined" ? modifyQuery(exportQuery) : exportQuery,
             responseType: "blob",
         },
-        resolvedRequestConfig
+        resolvedRequestConfig,
     );
 
     return (
@@ -82,5 +82,4 @@ const ExportExcel = ({
     );
 };
 
-export default ExportExcel;
-export { ExportExcelProps, ExportExcelInterface };
+export { ExportExcel, type ExportExcelProps, type ExportExcelInterface };

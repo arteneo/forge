@@ -1,11 +1,11 @@
-import React from "react";
-import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
 import axios from "axios";
+
+import { IconButton, type IconButtonProps } from "../../components/Common/IconButton";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
-import EndpointType from "../../definitions/EndpointType";
-import { resolveEndpoint } from "../../utilities/resolve";
+import { EndpointType } from "../../definitions/EndpointType";
 import { responseHeaderExtractFilename } from "../../utilities/common";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface IconButtonDownloadInterface {
     endpoint: EndpointType;
@@ -58,5 +58,4 @@ const IconButtonDownload = ({ endpoint, ...props }: IconButtonDownloadProps) => 
     );
 };
 
-export default IconButtonDownload;
-export { IconButtonDownloadProps };
+export { IconButtonDownload, type IconButtonDownloadProps };

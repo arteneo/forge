@@ -1,6 +1,5 @@
-import React from "react";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
-import RadioTrueFalse, { RadioTrueFalseProps } from "../../../components/Form/fields/RadioTrueFalse";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
+import { RadioTrueFalse, type RadioTrueFalseProps } from "../../../components/Form/fields/RadioTrueFalse";
 
 /**
  * Similar to RadioTrueFalse, but with inverted order of options (first is False, second is True)
@@ -43,5 +42,5 @@ RadioFalseTrue.defaultProps = {
     },
 };
 
-export default RadioFalseTrue;
-export { RadioTrueFalseProps as RadioFalseTrueProps };
+export { RadioFalseTrue };
+export { type RadioTrueFalseProps as RadioFalseTrueProps };

@@ -1,6 +1,8 @@
-import React from "react";
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import DialogBatchAlert, { DialogBatchAlertProps } from "../../components/Dialog/DialogBatchAlert";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
+import { DialogBatchAlert, type DialogBatchAlertProps } from "../../components/Dialog/DialogBatchAlert";
 
 type ButtonDialogBatchAlertProps = ExternalGenericButtonDialogProps<DialogBatchAlertProps>;
 
@@ -15,5 +17,4 @@ const ButtonDialogBatchAlert = (props: ButtonDialogBatchAlertProps) => {
     );
 };
 
-export default ButtonDialogBatchAlert;
-export { ButtonDialogBatchAlertProps };
+export { ButtonDialogBatchAlert, type ButtonDialogBatchAlertProps };

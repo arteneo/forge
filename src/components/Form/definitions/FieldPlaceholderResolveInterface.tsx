@@ -1,5 +1,5 @@
-import FieldResolveInterface from "../../../components/Form/definitions/FieldResolveInterface";
-import FieldPlaceholderType from "../../../components/Form/definitions/FieldPlaceholderType";
+import { FieldPlaceholderType } from "../../../components/Form/definitions/FieldPlaceholderType";
+import { FieldResolveInterface } from "../../../components/Form/definitions/FieldResolveInterface";
 
 interface FieldPlaceholderResolveInterface extends FieldResolveInterface {
     placeholder?: FieldPlaceholderType;
@@ -7,4 +7,4 @@ interface FieldPlaceholderResolveInterface extends FieldResolveInterface {
     disableTranslatePlaceholder?: boolean;
 }
 
-export default FieldPlaceholderResolveInterface;
+export { type FieldPlaceholderResolveInterface };

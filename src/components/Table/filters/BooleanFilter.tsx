@@ -1,6 +1,5 @@
-import React from "react";
-import RadioTrueFalse, { RadioTrueFalseProps } from "../../../components/Form/fields/RadioTrueFalse";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { RadioTrueFalse, type RadioTrueFalseProps } from "../../../components/Form/fields/RadioTrueFalse";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type BooleanFilterProps = FilterFieldInterface & RadioTrueFalseProps;
 
@@ -22,5 +21,4 @@ BooleanFilter.defaultProps = {
     filterType: "boolean",
 };
 
-export default BooleanFilter;
-export { BooleanFilterProps };
+export { BooleanFilter, type BooleanFilterProps };

@@ -1,10 +1,11 @@
-import React from "react";
 import _ from "lodash";
-import ResultButtonDialogAlertConfirm, {
-    ResultButtonDialogAlertConfirmProps,
+
+import {
+    ResultButtonDialogAlertConfirm,
+    type ResultButtonDialogAlertConfirmProps,
 } from "../../../components/Table/actions/ResultButtonDialogAlertConfirm";
+import { Optional } from "../../../definitions/Optional";
 import { mergeEndpointCustomizer } from "../../../utilities/merge";
-import Optional from "../../../definitions/Optional";
 
 type ResultDeleteProps = Optional<ResultButtonDialogAlertConfirmProps, "label">;
 
@@ -51,5 +52,4 @@ const ResultDelete = ({ result, dialogProps, ...props }: ResultDeleteProps) => {
     );
 };
 
-export default ResultDelete;
-export { ResultDeleteProps };
+export { ResultDelete, type ResultDeleteProps };

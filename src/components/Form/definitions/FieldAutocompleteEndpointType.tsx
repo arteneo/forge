@@ -1,6 +1,7 @@
 import { FormikValues } from "formik";
-import EndpointType from "../../../definitions/EndpointType";
+
+import { EndpointType } from "../../../definitions/EndpointType";
 
 type FieldAutocompleteEndpointType = EndpointType | ((inputValue: string, values: FormikValues) => EndpointType);
 
-export default FieldAutocompleteEndpointType;
+export { type FieldAutocompleteEndpointType };

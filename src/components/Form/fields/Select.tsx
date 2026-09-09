@@ -1,5 +1,3 @@
-import React from "react";
-import * as Yup from "yup";
 import {
     TextField as MuiTextField,
     FormControl,
@@ -11,18 +9,21 @@ import {
     AutocompleteProps,
     AutocompleteRenderInputParams,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
+
 import { useForm } from "../../../components/Form/contexts/Form";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
-import OptionInterface from "../../../components/Form/definitions/OptionInterface";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import {
     SelectValueType,
     Multiple,
     DisableClearable,
     FreeSolo,
 } from "../../../components/Form/definitions/AutocompleteTypes";
+import { FieldPlaceholderInterface } from "../../../components/Form/definitions/FieldPlaceholderInterface";
+import { OptionInterface } from "../../../components/Form/definitions/OptionInterface";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
 
 type SelectAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
 type SelectAutocompletePartialProps<T> = {
@@ -44,7 +45,7 @@ interface SelectSpecificProps {
         event: React.SyntheticEvent,
         reason: AutocompleteChangeReason,
         name: string,
-        details?: AutocompleteChangeDetails<OptionInterface>
+        details?: AutocompleteChangeDetails<OptionInterface>,
     ) => void;
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
@@ -129,7 +130,11 @@ const Select = ({
         return option.id == value;
     });
 
-    const defaultOnChange = (event: React.SyntheticEvent, value: SelectValueType, reason: AutocompleteChangeReason) => {
+    const defaultOnChange = (
+        _event: React.SyntheticEvent,
+        value: SelectValueType,
+        reason: AutocompleteChangeReason,
+    ) => {
         if (reason === "clear") {
             setFieldValue(path, "");
             return;
@@ -146,7 +151,7 @@ const Select = ({
         event: React.SyntheticEvent,
         value: SelectValueType,
         reason: AutocompleteChangeReason,
-        details?: AutocompleteChangeDetails<OptionInterface>
+        details?: AutocompleteChangeDetails<OptionInterface>,
     ) => {
         if (onChange) {
             // Parameters are swapped for convenience
@@ -159,7 +164,7 @@ const Select = ({
                 event,
                 reason,
                 name,
-                details
+                details,
             );
             return;
         }
@@ -235,12 +240,12 @@ const Select = ({
     );
 };
 
-export default Select;
 export {
-    SelectProps,
-    SelectSpecificProps,
+    Select,
     SelectRenderInput,
-    SelectRenderInputProps,
-    SelectAutocompleteProps,
-    SelectAutocompleteOptionalProps,
+    type SelectProps,
+    type SelectSpecificProps,
+    type SelectRenderInputProps,
+    type SelectAutocompleteProps,
+    type SelectAutocompleteOptionalProps,
 };

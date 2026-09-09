@@ -1,6 +1,8 @@
-import React from "react";
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
+import { Dialog, type DialogProps } from "../../components/Dialog/Dialog";
 
 type ButtonDialogProps = ExternalGenericButtonDialogProps<DialogProps>;
 
@@ -15,5 +17,4 @@ const ButtonDialog = (props: ButtonDialogProps) => {
     );
 };
 
-export default ButtonDialog;
-export { ButtonDialogProps };
+export { ButtonDialog, type ButtonDialogProps };

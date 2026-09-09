@@ -1,6 +1,5 @@
-import React from "react";
-import TimePicker, { TimePickerProps } from "../../../components/Form/fields/TimePicker";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { TimePicker, type TimePickerProps } from "../../../components/Form/fields/TimePicker";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type TimeToFilterProps = FilterFieldInterface & TimePickerProps;
 
@@ -15,5 +14,4 @@ TimeToFilter.defaultProps = {
     filterType: "timeLessThanOrEqual",
 };
 
-export default TimeToFilter;
-export { TimeToFilterProps };
+export { TimeToFilter, type TimeToFilterProps };

@@ -1,9 +1,9 @@
-import React from "react";
-import Optional from "../../definitions/Optional";
-import DialogBatchAlert, { DialogBatchAlertProps } from "../../components/Dialog/DialogBatchAlert";
-import DialogBatchButtonMultiEndpoint, {
-    DialogBatchButtonMultiEndpointProps,
+import { DialogBatchAlert, type DialogBatchAlertProps } from "../../components/Dialog/DialogBatchAlert";
+import {
+    DialogBatchButtonMultiEndpoint,
+    type DialogBatchButtonMultiEndpointProps,
 } from "../../components/Dialog/DialogBatchButtonMultiEndpoint";
+import { Optional } from "../../definitions/Optional";
 
 interface DialogBatchAlertConfirmMultiProps extends Optional<DialogBatchAlertProps, "title"> {
     confirmProps: DialogBatchButtonMultiEndpointProps;
@@ -21,5 +21,4 @@ const DialogBatchAlertConfirmMulti = ({ confirmProps, ...props }: DialogBatchAle
     );
 };
 
-export default DialogBatchAlertConfirmMulti;
-export { DialogBatchAlertConfirmMultiProps };
+export { DialogBatchAlertConfirmMulti, type DialogBatchAlertConfirmMultiProps };

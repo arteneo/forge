@@ -5,8 +5,8 @@ type FieldHiddenType =
           values: FormikValues,
           touched: FormikTouched<FormikValues>,
           errors: FormikErrors<FormikValues>,
-          name: string
+          name: string,
       ) => boolean)
     | boolean;
 
-export default FieldHiddenType;
+export { type FieldHiddenType };

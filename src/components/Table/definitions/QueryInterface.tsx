@@ -1,5 +1,5 @@
-import FiltersInterface from "../../../components/Table/definitions/FiltersInterface";
-import QuerySortingInterface from "../../../components/Table/definitions/QuerySortingInterface";
+import { FiltersInterface } from "../../../components/Table/definitions/FiltersInterface";
+import { QuerySortingInterface } from "../../../components/Table/definitions/QuerySortingInterface";
 
 interface QueryInterface {
     page: number;
@@ -8,4 +8,4 @@ interface QueryInterface {
     filters: FiltersInterface;
 }
 
-export default QueryInterface;
+export { type QueryInterface };

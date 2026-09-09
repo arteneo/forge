@@ -1,7 +1,7 @@
-import React from "react";
-import { expect, test } from 'vitest'
-import Text from "../components/Form/fields/Text";
-import Collection from "../components/Form/fields/Collection";
+import { expect, test } from "vitest";
+
+import { Collection } from "../components/Form/fields/Collection";
+import { Text } from "../components/Form/fields/Text";
 import { filterInitialValues } from "../utilities/common";
 
 // Collection fields
@@ -31,12 +31,14 @@ test("Collection fields | Undefined initialValues and empty loadedInitialValues"
 });
 
 test("Collection fields | Simple initialValues", () => {
-    expect(filterInitialValues(collectionFields, { names: [{ name: "John" }] })).toEqual({ names: [{ name: "John" }] });
+    expect(filterInitialValues(collectionFields, { names: [{ name: "John" }] })).toEqual({
+        names: [{ name: "John" }],
+    });
 });
 
 test("Collection fields | Simple initialValues and simple loadedInitialValues", () => {
     expect(filterInitialValues(collectionFields, { names: [{ name: "John" }] }, { names: [{ name: "Jack" }] })).toEqual(
-        { names: [{ name: "Jack" }] }
+        { names: [{ name: "Jack" }] },
     );
 });
 
@@ -47,12 +49,14 @@ test("Collection fields | undefined initialValues and simple loadedInitialValues
 });
 
 test("Collection fields | Redundant initialValues", () => {
-    expect(filterInitialValues(collectionFields, { names: [{ notName: "John" }] })).toEqual({ names: [] });
+    expect(filterInitialValues(collectionFields, { names: [{ notName: "John" }] })).toEqual({
+        names: [],
+    });
 });
 
 test("Collection fields | Redundant initialValues and rededundant loadedInitialValues", () => {
     expect(
-        filterInitialValues(collectionFields, { names: [{ notName: "John" }] }, { names: [{ notName: "Jack" }] })
+        filterInitialValues(collectionFields, { names: [{ notName: "John" }] }, { names: [{ notName: "Jack" }] }),
     ).toEqual({ names: [] });
 });
 
@@ -71,13 +75,17 @@ test("Collection fields | Simple and redundant initialValues and simple and redu
         filterInitialValues(
             collectionFields,
             { names: [{ name: "John", notName: "John" }] },
-            { names: [{ name: "Jack", notName: "Jack" }] }
-        )
+            { names: [{ name: "Jack", notName: "Jack" }] },
+        ),
     ).toEqual({ names: [{ name: "Jack" }] });
 });
 
 test("Collection fields | undefined initialValues and simple and redundant loadedInitialValues", () => {
-    expect(filterInitialValues(collectionFields, undefined, { names: [{ name: "Jack", notName: "Jack" }] })).toEqual({
+    expect(
+        filterInitialValues(collectionFields, undefined, {
+            names: [{ name: "Jack", notName: "Jack" }],
+        }),
+    ).toEqual({
         names: [{ name: "Jack" }],
     });
 });
@@ -101,7 +109,9 @@ test("Collection fields with path | Empty initialValues and empty loadedInitialV
 });
 
 test("Collection fields with path | Undefined initialValues and empty loadedInitialValues", () => {
-    expect(filterInitialValues(collectionPathFields, undefined, {})).toEqual({ nested: { names: [] } });
+    expect(filterInitialValues(collectionPathFields, undefined, {})).toEqual({
+        nested: { names: [] },
+    });
 });
 
 test("Collection fields with path | Simple initialValues", () => {
@@ -115,8 +125,8 @@ test("Collection fields with path | Simple initialValues and simple loadedInitia
         filterInitialValues(
             collectionPathFields,
             { nested: { names: [{ name: "John" }] } },
-            { nested: { names: [{ name: "Jack" }] } }
-        )
+            { nested: { names: [{ name: "Jack" }] } },
+        ),
     ).toEqual({ nested: { names: [{ name: "Jack" }] } });
 });
 
@@ -137,20 +147,26 @@ test("Collection fields with path | Redundant initialValues and rededundant load
         filterInitialValues(
             collectionPathFields,
             { nested: { names: [{ notName: "John" }] } },
-            { nested: { names: [{ notName: "Jack" }] } }
-        )
+            { nested: { names: [{ notName: "Jack" }] } },
+        ),
     ).toEqual({ nested: { names: [] } });
 });
 
 test("Collection fields with path | undefined initialValues and rededundant loadedInitialValues", () => {
-    expect(filterInitialValues(collectionPathFields, undefined, { nested: { names: [{ notName: "Jack" }] } })).toEqual({
+    expect(
+        filterInitialValues(collectionPathFields, undefined, {
+            nested: { names: [{ notName: "Jack" }] },
+        }),
+    ).toEqual({
         nested: { names: [] },
     });
 });
 
 test("Collection fields with path | Simple and redundant initialValues", () => {
     expect(
-        filterInitialValues(collectionPathFields, { nested: { names: [{ name: "John", notName: "John" }] } })
+        filterInitialValues(collectionPathFields, {
+            nested: { names: [{ name: "John", notName: "John" }] },
+        }),
     ).toEqual({
         nested: { names: [{ name: "John" }] },
     });
@@ -161,14 +177,16 @@ test("Collection fields with path | Simple and redundant initialValues and simpl
         filterInitialValues(
             collectionPathFields,
             { nested: { names: [{ name: "John", notName: "John" }] } },
-            { nested: { names: [{ name: "Jack", notName: "Jack" }] } }
-        )
+            { nested: { names: [{ name: "Jack", notName: "Jack" }] } },
+        ),
     ).toEqual({ nested: { names: [{ name: "Jack" }] } });
 });
 
 test("Collection fields with path | undefined initialValues and simple and redundant loadedInitialValues", () => {
     expect(
-        filterInitialValues(collectionPathFields, undefined, { nested: { names: [{ name: "Jack", notName: "Jack" }] } })
+        filterInitialValues(collectionPathFields, undefined, {
+            nested: { names: [{ name: "Jack", notName: "Jack" }] },
+        }),
     ).toEqual({
         nested: { names: [{ name: "Jack" }] },
     });
@@ -201,7 +219,9 @@ test("Simple fields | Simple initialValues", () => {
 });
 
 test("Simple fields | Simple initialValues and simple loadedInitialValues", () => {
-    expect(filterInitialValues(simpleFields, { name: "John" }, { name: "Jack" })).toEqual({ name: "Jack" });
+    expect(filterInitialValues(simpleFields, { name: "John" }, { name: "Jack" })).toEqual({
+        name: "Jack",
+    });
 });
 
 test("Simple fields | undefined initialValues and simple loadedInitialValues", () => {
@@ -221,17 +241,21 @@ test("Simple fields | undefined initialValues and rededundant loadedInitialValue
 });
 
 test("Simple fields | Simple and redundant initialValues", () => {
-    expect(filterInitialValues(simpleFields, { name: "John", notName: "John" })).toEqual({ name: "John" });
+    expect(filterInitialValues(simpleFields, { name: "John", notName: "John" })).toEqual({
+        name: "John",
+    });
 });
 
 test("Simple fields | Simple and redundant initialValues and simple and redundant loadedInitialValues", () => {
     expect(
-        filterInitialValues(simpleFields, { name: "John", notName: "John" }, { name: "Jack", notName: "Jack" })
+        filterInitialValues(simpleFields, { name: "John", notName: "John" }, { name: "Jack", notName: "Jack" }),
     ).toEqual({ name: "Jack" });
 });
 
 test("Simple fields | undefined initialValues and simple and redundant loadedInitialValues", () => {
-    expect(filterInitialValues(simpleFields, undefined, { name: "Jack", notName: "Jack" })).toEqual({ name: "Jack" });
+    expect(filterInitialValues(simpleFields, undefined, { name: "Jack", notName: "Jack" })).toEqual({
+        name: "Jack",
+    });
 });
 
 // Simple fields with path
@@ -257,7 +281,9 @@ test("Simple fields with path | Undefined initialValues and empty loadedInitialV
 });
 
 test("Simple fields with path | Simple initialValues", () => {
-    expect(filterInitialValues(simplePathFields, { nested: { name: "John" } })).toEqual({ nested: { name: "John" } });
+    expect(filterInitialValues(simplePathFields, { nested: { name: "John" } })).toEqual({
+        nested: { name: "John" },
+    });
 });
 
 test("Simple fields with path | Simple initialValues and simple loadedInitialValues", () => {
@@ -278,7 +304,7 @@ test("Simple fields with path | Redundant initialValues", () => {
 
 test("Simple fields with path | Redundant initialValues and rededundant loadedInitialValues", () => {
     expect(
-        filterInitialValues(simplePathFields, { nested: { notName: "John" } }, { nested: { notName: "Jack" } })
+        filterInitialValues(simplePathFields, { nested: { notName: "John" } }, { nested: { notName: "Jack" } }),
     ).toEqual({});
 });
 
@@ -297,8 +323,8 @@ test("Simple fields with path | Simple and redundant initialValues and simple an
         filterInitialValues(
             simplePathFields,
             { nested: { name: "John", notName: "John" } },
-            { nested: { name: "Jack", notName: "Jack" } }
-        )
+            { nested: { name: "Jack", notName: "Jack" } },
+        ),
     ).toEqual({ nested: { name: "Jack" } });
 });
 

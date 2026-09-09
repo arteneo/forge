@@ -1,11 +1,11 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { Alert, AlertProps, Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
+
+import { DialogBatchForm, type DialogBatchFormProps } from "../../components/Dialog/DialogBatchForm";
 import { useDialog } from "../../contexts/Dialog";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import DialogBatchForm, { DialogBatchFormProps } from "../../components/Dialog/DialogBatchForm";
+import { ResolveDialogPayloadType } from "../../definitions/ResolveDialogPayloadType";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 import { renderField } from "../../utilities/common";
-import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
 import { resolveDialogPayload } from "../../utilities/resolve";
 
 interface DialogBatchFormAlertFieldsetProps extends Omit<DialogBatchFormProps, "children"> {
@@ -31,7 +31,7 @@ const DialogBatchFormAlertFieldset = ({
     const resolvedLabelVariables = resolveDialogPayload<TranslateVariablesInterface>(
         labelVariables,
         payload,
-        initialized
+        initialized,
     );
 
     return (
@@ -54,5 +54,4 @@ const DialogBatchFormAlertFieldset = ({
     );
 };
 
-export default DialogBatchFormAlertFieldset;
-export { DialogBatchFormAlertFieldsetProps };
+export { DialogBatchFormAlertFieldset, type DialogBatchFormAlertFieldsetProps };

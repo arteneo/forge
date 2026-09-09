@@ -1,5 +1,4 @@
-import React from "react";
-import FormContent, { FormContentProps } from "../../../components/Form/components/FormContent";
+import { FormContent, type FormContentProps } from "../../../components/Form/components/FormContent";
 import { FormProvider, FormProviderProps } from "../../../components/Form/contexts/Form";
 
 type FormProps = FormContentProps & Omit<FormProviderProps, "children">;
@@ -40,5 +39,4 @@ const Form = ({
     );
 };
 
-export default Form;
-export { FormProps };
+export { Form, type FormProps };

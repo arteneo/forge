@@ -1,13 +1,14 @@
+import axios, { type AxiosResponse, type CancelTokenSource } from "axios";
 import React from "react";
-import axios, { AxiosResponse, CancelTokenSource } from "axios";
-import { useSnackbar } from "../../contexts/Snackbar";
+
+import { IconButton, type IconButtonProps } from "../../components/Common/IconButton";
 import { useHandleCatch } from "../../contexts/HandleCatch";
-import { useLoader } from "../../contexts/Loader";
-import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import EndpointType from "../../definitions/EndpointType";
-import { resolveEndpoint } from "../../utilities/resolve";
 import { AXIOS_CANCELLED_UNMOUNTED } from "../../contexts/HandleCatch";
+import { useLoader } from "../../contexts/Loader";
+import { useSnackbar } from "../../contexts/Snackbar";
+import { EndpointType } from "../../definitions/EndpointType";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface IconButtonEndpointInterface {
     endpoint: EndpointType;
@@ -75,5 +76,4 @@ const IconButtonEndpoint = ({
     );
 };
 
-export default IconButtonEndpoint;
-export { IconButtonEndpointProps };
+export { IconButtonEndpoint, type IconButtonEndpointProps };

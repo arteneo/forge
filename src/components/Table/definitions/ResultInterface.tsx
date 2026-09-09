@@ -1,4 +1,4 @@
-import DenyInterface from "../../../components/Table/definitions/DenyInterface";
+import { DenyInterface } from "../../../components/Table/definitions/DenyInterface";
 
 interface ResultInterface {
     id: number;
@@ -8,4 +8,4 @@ interface ResultInterface {
     [key: string]: any;
 }
 
-export default ResultInterface;
+export { type ResultInterface };

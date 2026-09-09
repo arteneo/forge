@@ -102,4 +102,4 @@ LoaderProvider.defaultProps = {
 
 const useLoader = (): LoaderContextProps => React.useContext(LoaderContext);
 
-export { LoaderContext, LoaderContextProps, LoaderProvider, LoaderProviderProps, useLoader };
+export { LoaderContext, LoaderProvider, useLoader, type LoaderContextProps, type LoaderProviderProps };

@@ -1,5 +1,5 @@
-import OptionInterface from "../../../components/Form/definitions/OptionInterface";
+import { OptionInterface } from "../../../components/Form/definitions/OptionInterface";
 
 type OptionsType = OptionInterface[];
 
-export default OptionsType;
+export { type OptionsType };

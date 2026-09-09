@@ -1,6 +1,5 @@
-import React from "react";
-import DatePicker, { DatePickerProps } from "../../../components/Form/fields/DatePicker";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { DatePicker, type DatePickerProps } from "../../../components/Form/fields/DatePicker";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type DateFromFilterProps = FilterFieldInterface & DatePickerProps;
 
@@ -15,5 +14,4 @@ DateFromFilter.defaultProps = {
     filterType: "dateGreaterThanOrEqual",
 };
 
-export default DateFromFilter;
-export { DateFromFilterProps };
+export { DateFromFilter, type DateFromFilterProps };

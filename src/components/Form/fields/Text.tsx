@@ -1,9 +1,10 @@
+import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
+import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import React from "react";
 import * as Yup from "yup";
-import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { TextField as MuiTextField, TextFieldProps } from "@mui/material";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
+
 import { useForm } from "../../../components/Form/contexts/Form";
+import { FieldPlaceholderInterface } from "../../../components/Form/definitions/FieldPlaceholderInterface";
 
 interface TextSpecificProps {
     onChange?: (
@@ -13,7 +14,7 @@ interface TextSpecificProps {
         event: React.ChangeEvent<HTMLInputElement>,
         onChange: () => void,
         values: FormikValues,
-        name: string
+        name: string,
     ) => void;
     fieldProps?: TextFieldProps;
 }
@@ -111,5 +112,4 @@ const Text = ({
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Text;
-export { TextProps, TextSpecificProps };
+export { Text, type TextProps, type TextSpecificProps };

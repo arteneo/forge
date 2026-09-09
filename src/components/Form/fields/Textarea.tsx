@@ -1,5 +1,4 @@
-import React from "react";
-import Text, { TextProps } from "../../../components/Form/fields/Text";
+import { Text, type TextProps } from "../../../components/Form/fields/Text";
 
 interface TextareaSpecificProps {
     resize?: "none" | "vertical" | "horizontal" | "both";
@@ -16,15 +15,15 @@ const Textarea = ({ resize = "vertical", ...textProps }: TextareaProps) => {
                     multiline: true,
                     minRows: 3,
                     maxRows: 6,
-                    ...(textProps?.fieldProps ?? {}),
+                    ...textProps?.fieldProps,
                     InputProps: {
                         sx: {
                             "& textarea": {
                                 resize,
                             },
-                            ...(textProps?.fieldProps?.InputProps?.sx ?? {}),
+                            ...textProps?.fieldProps?.InputProps?.sx,
                         },
-                        ...(textProps?.fieldProps?.InputProps ?? {}),
+                        ...textProps?.fieldProps?.InputProps,
                     },
                 },
             }}
@@ -32,5 +31,4 @@ const Textarea = ({ resize = "vertical", ...textProps }: TextareaProps) => {
     );
 };
 
-export default Textarea;
-export { TextareaProps, TextareaSpecificProps };
+export { Textarea, type TextareaProps, type TextareaSpecificProps };

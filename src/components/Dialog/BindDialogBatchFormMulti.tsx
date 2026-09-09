@@ -1,10 +1,10 @@
-import React from "react";
 import { AxiosError } from "axios";
-import FormMulti, { FormMultiProps } from "../../components/Form/components/FormMulti";
 import { FormikValues } from "formik";
+
+import { FormMulti, type FormMultiProps } from "../../components/Form/components/FormMulti";
+import { ResultInterface } from "../../components/Table/definitions/ResultInterface";
 import { BatchResultInterface, mapRequestExecutionException, useDialogBatch } from "../../contexts/DialogBatch";
-import ResultInterface from "../../components/Table/definitions/ResultInterface";
-import EndpointType from "../../definitions/EndpointType";
+import { EndpointType } from "../../definitions/EndpointType";
 import { RequestExecutionExceptionType } from "../../definitions/RequestExecutionException";
 
 type BatchFormEndpointType = (result: ResultInterface, values: FormikValues) => EndpointType;
@@ -16,7 +16,7 @@ interface BindDialogBatchFormMultiProps extends Omit<FormMultiProps, "endpoints"
         result: ResultInterface,
         // eslint-disable-next-line
         error: AxiosError<any>,
-        values: FormikValues
+        values: FormikValues,
     ) => BatchResultInterface;
 }
 
@@ -62,7 +62,7 @@ const BindDialogBatchFormMulti = ({
             {...{
                 endpoints,
                 ...props,
-                onSubmitStart: (defaultOnSubmitStart, values, helpers) => {
+                onSubmitStart: (_defaultOnSubmitStart, values, helpers) => {
                     const internalDefaultOnSubmitStart = () => {
                         setProcessing(true);
                         setFinished(false);
@@ -72,7 +72,7 @@ const BindDialogBatchFormMulti = ({
                                 representation: deniedResult.representation,
                                 status: "skipped",
                                 message: deniedResult.deny?.[resultDenyKey as string],
-                            }))
+                            })),
                         );
                     };
 
@@ -83,16 +83,23 @@ const BindDialogBatchFormMulti = ({
 
                     internalDefaultOnSubmitStart();
                 },
-                onSubmitSuccess: (defaultOnSubmitSuccess, response, values, helpers, key) => {
+                onSubmitSuccess: (_defaultOnSubmitSuccess, response, values, helpers, key) => {
                     const internalDefaultOnSubmitSuccess = () => {
-                        setBatchResults((batchResults) => [
-                            ...batchResults,
-                            {
-                                id: allowedResults[key].id,
-                                representation: allowedResults[key].representation,
-                                status: "success",
-                            },
-                        ]);
+                        setBatchResults((batchResults) => {
+                            const allowedResult = allowedResults[key];
+                            if (typeof allowedResult === "undefined") {
+                                return batchResults;
+                            }
+
+                            return [
+                                ...batchResults,
+                                {
+                                    id: allowedResult.id,
+                                    representation: allowedResult.representation,
+                                    status: "success",
+                                },
+                            ];
+                        });
                     };
 
                     if (typeof props?.onSubmitSuccess !== "undefined") {
@@ -110,10 +117,14 @@ const BindDialogBatchFormMulti = ({
                             return;
                         }
 
-                        setBatchResults((batchResults) => [
-                            ...batchResults,
-                            onSubmitCatchProcessResponse(allowedResults[key], error, values),
-                        ]);
+                        setBatchResults((batchResults) => {
+                            const allowedResult = allowedResults[key];
+                            if (typeof allowedResult === "undefined") {
+                                return batchResults;
+                            }
+
+                            return [...batchResults, onSubmitCatchProcessResponse(allowedResult, error, values)];
+                        });
                     };
 
                     if (typeof props.onSubmitCatch !== "undefined") {
@@ -145,5 +156,4 @@ const BindDialogBatchFormMulti = ({
     );
 };
 
-export default BindDialogBatchFormMulti;
-export { BatchFormEndpointType, BindDialogBatchFormMultiProps };
+export { BindDialogBatchFormMulti, type BatchFormEndpointType, type BindDialogBatchFormMultiProps };

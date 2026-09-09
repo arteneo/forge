@@ -1,11 +1,12 @@
-import React from "react";
 import { Dialog as MuiDialog, DialogProps as MuiDialogProps } from "@mui/material";
+import axios, { type AxiosError, type AxiosResponse } from "axios";
+import React from "react";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import EndpointType from "../definitions/EndpointType";
-import { resolveEndpoint } from "../utilities/resolve";
+
 import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "../contexts/HandleCatch";
-import Optional from "../definitions/Optional";
+import { EndpointType } from "../definitions/EndpointType";
+import { Optional } from "../definitions/Optional";
+import { resolveEndpoint } from "../utilities/resolve";
 
 // eslint-disable-next-line
 type DialogPayload = any;
@@ -109,4 +110,11 @@ const DialogProvider = ({ children, open, onClose, initializeEndpoint, dialogPro
 
 const useDialog = (): DialogContextProps => React.useContext(DialogContext);
 
-export { DialogPayload, DialogContext, DialogContextProps, DialogProvider, DialogProviderProps, useDialog };
+export {
+    DialogContext,
+    DialogProvider,
+    useDialog,
+    type DialogPayload,
+    type DialogContextProps,
+    type DialogProviderProps,
+};

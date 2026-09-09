@@ -1,5 +1,6 @@
 import { FormikValues, FormikTouched, FormikErrors } from "formik";
-import FieldInterface from "../../../components/Form/definitions/FieldInterface";
+
+import { FieldInterface } from "../../../components/Form/definitions/FieldInterface";
 
 interface FieldResolveInterface extends Omit<FieldInterface, "transformInitialValue"> {
     values: FormikValues;
@@ -8,4 +9,4 @@ interface FieldResolveInterface extends Omit<FieldInterface, "transformInitialVa
     submitCount: number;
 }
 
-export default FieldResolveInterface;
+export { type FieldResolveInterface };

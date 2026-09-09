@@ -5,4 +5,4 @@ interface FieldsInterface {
     [key: string]: React.ReactElement<any>;
 }
 
-export default FieldsInterface;
+export { type FieldsInterface };

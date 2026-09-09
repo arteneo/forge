@@ -1,5 +1,5 @@
-import FieldInterface from "../../../components/Form/definitions/FieldInterface";
-import FieldPlaceholderType from "../../../components/Form/definitions/FieldPlaceholderType";
+import { FieldInterface } from "../../../components/Form/definitions/FieldInterface";
+import { FieldPlaceholderType } from "../../../components/Form/definitions/FieldPlaceholderType";
 
 interface FieldPlaceholderInterface extends FieldInterface {
     placeholder?: FieldPlaceholderType;
@@ -7,4 +7,4 @@ interface FieldPlaceholderInterface extends FieldInterface {
     disableTranslatePlaceholder?: boolean;
 }
 
-export default FieldPlaceholderInterface;
+export { type FieldPlaceholderInterface };

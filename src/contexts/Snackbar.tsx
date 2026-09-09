@@ -1,8 +1,9 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { Close } from "@mui/icons-material";
 import { Snackbar, SnackbarProps, IconButton, Alert } from "@mui/material";
-import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
+import { TranslateVariablesInterface } from "../definitions/TranslateVariablesInterface";
 
 type SnackbarVariant = "success" | "info" | "warning" | "error";
 
@@ -17,7 +18,7 @@ interface SnackbarContextProps {
         message: string,
         variant: SnackbarVariant,
         messageVariables?: TranslateVariablesInterface,
-        autoHideDuration?: number
+        autoHideDuration?: number,
     ) => void;
     showSuccess: (message: string, messageVariables?: TranslateVariablesInterface, autoHideDuration?: number) => void;
     showInfo: (message: string, messageVariables?: TranslateVariablesInterface, autoHideDuration?: number) => void;
@@ -67,7 +68,7 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
         message: string,
         variant: SnackbarVariant,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration?: number
+        autoHideDuration?: number,
     ): void => {
         setSnackbarMessage({
             message: t(message, messageVariables),
@@ -79,7 +80,7 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
     const showSuccess = (
         message: string,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration?: number
+        autoHideDuration?: number,
     ): void => {
         show(message, "success", messageVariables, autoHideDuration);
     };
@@ -87,7 +88,7 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
     const showInfo = (
         message: string,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration?: number
+        autoHideDuration?: number,
     ): void => {
         show(message, "info", messageVariables, autoHideDuration);
     };
@@ -95,7 +96,7 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
     const showWarning = (
         message: string,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration?: number
+        autoHideDuration?: number,
     ): void => {
         show(message, "warning", messageVariables, autoHideDuration);
     };
@@ -103,12 +104,12 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
     const showError = (
         message: string,
         messageVariables: TranslateVariablesInterface = {},
-        autoHideDuration?: number
+        autoHideDuration?: number,
     ): void => {
         show(message, "error", messageVariables, autoHideDuration);
     };
 
-    const onClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    const onClose = (_event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === "clickaway") {
             return;
         }
@@ -181,4 +182,11 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
 
 const useSnackbar = (): SnackbarContextProps => React.useContext(SnackbarContext);
 
-export { SnackbarContext, SnackbarContextProps, SnackbarProvider, SnackbarProviderProps, useSnackbar, SnackbarVariant };
+export {
+    SnackbarContext,
+    SnackbarProvider,
+    useSnackbar,
+    type SnackbarContextProps,
+    type SnackbarProviderProps,
+    type SnackbarVariant,
+};

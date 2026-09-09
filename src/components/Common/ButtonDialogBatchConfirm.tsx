@@ -1,6 +1,8 @@
-import React from "react";
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import DialogBatchConfirm, { DialogBatchConfirmProps } from "../../components/Dialog/DialogBatchConfirm";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
+import { DialogBatchConfirm, type DialogBatchConfirmProps } from "../../components/Dialog/DialogBatchConfirm";
 
 type ButtonDialogBatchConfirmProps = ExternalGenericButtonDialogProps<DialogBatchConfirmProps>;
 
@@ -15,5 +17,4 @@ const ButtonDialogBatchConfirm = (props: ButtonDialogBatchConfirmProps) => {
     );
 };
 
-export default ButtonDialogBatchConfirm;
-export { ButtonDialogBatchConfirmProps };
+export { ButtonDialogBatchConfirm, type ButtonDialogBatchConfirmProps };

@@ -1,5 +1,6 @@
 import React from "react";
-import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
+
+import { TranslateVariablesInterface } from "../definitions/TranslateVariablesInterface";
 
 interface ErrorContextProps {
     error?: number;
@@ -84,10 +85,10 @@ const useError = (): ErrorContextProps => React.useContext(ErrorContext);
 
 export {
     ErrorContext,
-    ErrorContextProps,
     ErrorProvider,
-    ErrorProviderProps,
     useError,
-    ErrorSeverityType,
-    ErrorInterface,
+    type ErrorContextProps,
+    type ErrorProviderProps,
+    type ErrorSeverityType,
+    type ErrorInterface,
 };

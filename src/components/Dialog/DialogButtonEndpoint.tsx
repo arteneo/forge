@@ -1,6 +1,6 @@
-import React from "react";
 import { Check } from "@mui/icons-material";
-import ButtonEndpoint, { ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
+
+import { ButtonEndpoint, type ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
 import { useDialog } from "../../contexts/Dialog";
 
 const DialogButtonEndpoint = ({
@@ -52,5 +52,5 @@ const DialogButtonEndpoint = ({
     );
 };
 
-export default DialogButtonEndpoint;
-export { ButtonEndpointProps as DialogButtonEndpointProps };
+export { DialogButtonEndpoint };
+export { type ButtonEndpointProps as DialogButtonEndpointProps };

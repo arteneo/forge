@@ -1,6 +1,8 @@
-import React from "react";
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import DialogBatchFormMulti, { DialogBatchFormMultiProps } from "../../components/Dialog/DialogBatchFormMulti";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
+import { DialogBatchFormMulti, type DialogBatchFormMultiProps } from "../../components/Dialog/DialogBatchFormMulti";
 
 type ButtonDialogBatchFormMultiProps = ExternalGenericButtonDialogProps<DialogBatchFormMultiProps>;
 
@@ -15,5 +17,4 @@ const ButtonDialogBatchFormMulti = (props: ButtonDialogBatchFormMultiProps) => {
     );
 };
 
-export default ButtonDialogBatchFormMulti;
-export { ButtonDialogBatchFormMultiProps };
+export { ButtonDialogBatchFormMulti, type ButtonDialogBatchFormMultiProps };

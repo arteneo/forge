@@ -1,11 +1,10 @@
-import React from "react";
-import ButtonLink, { ButtonLinkProps } from "../../../components/Common/ButtonLink";
-import ColumnInterface from "../../../components/Table/definitions/ColumnInterface";
-import FilterValuesInterface from "../../../components/Table/definitions/FilterValuesInterface";
-import { resolveAnyOrFunction } from "../../../utilities/resolve";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
-import SortingInterface from "../../../components/Table/definitions/SortingInterface";
+import { ButtonLink, type ButtonLinkProps } from "../../../components/Common/ButtonLink";
 import { useTableQuery } from "../../../components/Table/contexts/TableQuery";
+import { ColumnInterface } from "../../../components/Table/definitions/ColumnInterface";
+import { FilterValuesInterface } from "../../../components/Table/definitions/FilterValuesInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
+import { SortingInterface } from "../../../components/Table/definitions/SortingInterface";
+import { resolveAnyOrFunction } from "../../../utilities/resolve";
 
 type ResultRedirectProps = ButtonLinkProps & ColumnInterface;
 
@@ -79,5 +78,4 @@ const ResultRedirectTableQuery = ({
     );
 };
 
-export default ResultRedirectTableQuery;
-export { ResultRedirectTableQueryProps };
+export { ResultRedirectTableQuery, type ResultRedirectTableQueryProps };

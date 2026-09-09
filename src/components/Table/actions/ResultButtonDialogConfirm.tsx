@@ -1,10 +1,10 @@
-import React from "react";
 import { getIn } from "formik";
 import _ from "lodash";
-import ButtonDialogConfirm, { ButtonDialogConfirmProps } from "../../../components/Common/ButtonDialogConfirm";
-import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
+
+import { ButtonDialogConfirm, type ButtonDialogConfirmProps } from "../../../components/Common/ButtonDialogConfirm";
 import { useTable } from "../../../components/Table/contexts/Table";
+import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
 
 interface ResultButtonDialogConfirmSpecificProps {
     disableOnSuccessReload?: boolean;
@@ -37,7 +37,7 @@ const ResultButtonDialogConfirm = ({
     const onSuccess: ButtonDialogConfirmProps["dialogProps"]["confirmProps"]["onSuccess"] = (
         defaultOnSuccess,
         response,
-        setLoading
+        setLoading,
     ) => {
         const internalDefaultOnSuccess = () => {
             defaultOnSuccess();
@@ -71,5 +71,4 @@ const ResultButtonDialogConfirm = ({
     );
 };
 
-export default ResultButtonDialogConfirm;
-export { ResultButtonDialogConfirmProps, ResultButtonDialogConfirmSpecificProps };
+export { ResultButtonDialogConfirm, type ResultButtonDialogConfirmProps, type ResultButtonDialogConfirmSpecificProps };

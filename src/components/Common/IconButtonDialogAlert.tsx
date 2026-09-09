@@ -1,6 +1,7 @@
 import React from "react";
-import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
-import DialogAlert, { DialogAlertProps } from "../../components/Dialog/DialogAlert";
+
+import { IconButton, type IconButtonProps } from "../../components/Common/IconButton";
+import { DialogAlert, type DialogAlertProps } from "../../components/Dialog/DialogAlert";
 
 interface IconButtonDialogAlertProps extends IconButtonProps {
     dialogProps: Omit<DialogAlertProps, "open" | "onClose">;
@@ -29,5 +30,4 @@ const IconButtonDialogAlert = ({ dialogProps, ...buttonProps }: IconButtonDialog
     );
 };
 
-export default IconButtonDialogAlert;
-export { IconButtonDialogAlertProps };
+export { IconButtonDialogAlert, type IconButtonDialogAlertProps };

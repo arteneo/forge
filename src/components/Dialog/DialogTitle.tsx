@@ -1,9 +1,9 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { DialogTitle as MuiDialogTitle, DialogTitleProps as MuiDialogTitleProps } from "@mui/material";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
+import { useTranslation } from "react-i18next";
+
 import { useDialog } from "../../contexts/Dialog";
+import { ResolveDialogPayloadType } from "../../definitions/ResolveDialogPayloadType";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 import { resolveDialogPayload } from "../../utilities/resolve";
 
 interface DialogTitleSpecificProps {
@@ -21,11 +21,10 @@ const DialogTitle = ({ title, titleVariables = {}, ...props }: DialogTitleProps)
     const resolvedTitleVariables = resolveDialogPayload<TranslateVariablesInterface>(
         titleVariables,
         payload,
-        initialized
+        initialized,
     );
 
     return <MuiDialogTitle {...props}>{t(resolvedTitle, resolvedTitleVariables)}</MuiDialogTitle>;
 };
 
-export default DialogTitle;
-export { DialogTitleSpecificProps, DialogTitleProps };
+export { DialogTitle, type DialogTitleSpecificProps, type DialogTitleProps };

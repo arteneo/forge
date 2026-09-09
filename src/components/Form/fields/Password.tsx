@@ -1,5 +1,4 @@
-import React from "react";
-import Text, { TextProps } from "../../../components/Form/fields/Text";
+import { Text, type TextProps } from "../../../components/Form/fields/Text";
 
 type PasswordProps = TextProps;
 
@@ -8,7 +7,7 @@ const Password = (textProps: PasswordProps) => {
         <Text
             {...{
                 ...textProps,
-                
+
                 fieldProps: {
                     type: "password",
                     ...textProps?.fieldProps,
@@ -18,5 +17,4 @@ const Password = (textProps: PasswordProps) => {
     );
 };
 
-export default Password;
-export { PasswordProps };
+export { Password, type PasswordProps };

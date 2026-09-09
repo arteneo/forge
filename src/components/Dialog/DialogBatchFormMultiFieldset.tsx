@@ -1,6 +1,6 @@
-import React from "react";
 import { Box } from "@mui/material";
-import DialogBatchFormMulti, { DialogBatchFormMultiProps } from "../../components/Dialog/DialogBatchFormMulti";
+
+import { DialogBatchFormMulti, type DialogBatchFormMultiProps } from "../../components/Dialog/DialogBatchFormMulti";
 import { renderField } from "../../utilities/common";
 
 type DialogBatchFormMultiFieldsetProps = Omit<DialogBatchFormMultiProps, "children">;
@@ -24,5 +24,4 @@ const DialogBatchFormMultiFieldset = ({ formProps, ...props }: DialogBatchFormMu
     );
 };
 
-export default DialogBatchFormMultiFieldset;
-export { DialogBatchFormMultiFieldsetProps };
+export { DialogBatchFormMultiFieldset, type DialogBatchFormMultiFieldsetProps };

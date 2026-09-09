@@ -1,6 +1,3 @@
-import React from "react";
-import * as Yup from "yup";
-import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import {
     DateTimePicker as MuiDateTimePicker,
     DateTimePickerProps as MuiDateTimePickerProps,
@@ -8,9 +5,13 @@ import {
 import { FieldChangeHandlerContext } from "@mui/x-date-pickers/internals";
 import { useUtils } from "@mui/x-date-pickers/internals/hooks/useUtils";
 import { parseISO, formatRFC3339, isValid } from "date-fns";
+import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import _ from "lodash";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
+import React from "react";
+import * as Yup from "yup";
+
 import { useForm } from "../../../components/Form/contexts/Form";
+import { FieldPlaceholderInterface } from "../../../components/Form/definitions/FieldPlaceholderInterface";
 
 type DateTimePickerOnChangeValue = string;
 type DateTimePickerValue = null | Date;
@@ -28,7 +29,7 @@ interface DateTimePickerSpecificProps {
         onChange: () => void,
         values: FormikValues,
         name: string,
-        context: FieldChangeHandlerContext<DateTimePickerError>
+        context: FieldChangeHandlerContext<DateTimePickerError>,
     ) => void;
     fieldProps?: Partial<DateTimePickerFieldProps>;
 }
@@ -148,12 +149,12 @@ const DateTimePicker = ({
     return <MuiDateTimePicker {...mergedFieldProps} />;
 };
 
-export default DateTimePicker;
 export {
-    DateTimePickerProps,
-    DateTimePickerSpecificProps,
-    DateTimePickerFieldProps,
-    DateTimePickerOnChangeValue,
-    DateTimePickerValue,
-    DateTimePickerError,
+    DateTimePicker,
+    type DateTimePickerProps,
+    type DateTimePickerSpecificProps,
+    type DateTimePickerFieldProps,
+    type DateTimePickerOnChangeValue,
+    type DateTimePickerValue,
+    type DateTimePickerError,
 };

@@ -1,5 +1,5 @@
-import React from "react";
 import { FormikValues, FormikTouched, FormikErrors } from "formik";
+import React from "react";
 
 type FieldHelpType =
     | boolean
@@ -8,7 +8,7 @@ type FieldHelpType =
           values: FormikValues,
           touched: FormikTouched<FormikValues>,
           errors: FormikErrors<FormikValues>,
-          name: string
+          name: string,
       ) => React.ReactNode);
 
-export default FieldHelpType;
+export { type FieldHelpType };

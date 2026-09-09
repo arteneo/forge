@@ -1,6 +1,3 @@
-import React from "react";
-import * as Yup from "yup";
-import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import {
     FormControl,
     FormControlProps,
@@ -9,8 +6,12 @@ import {
     FormControlLabel,
     FormControlLabelProps,
 } from "@mui/material";
-import FieldInterface from "../../../components/Form/definitions/FieldInterface";
+import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import React from "react";
+import * as Yup from "yup";
+
 import { useForm } from "../../../components/Form/contexts/Form";
+import { FieldInterface } from "../../../components/Form/definitions/FieldInterface";
 
 interface CheckboxSpecificProps {
     onChange?: (
@@ -21,7 +22,7 @@ interface CheckboxSpecificProps {
         checked: boolean,
         onChange: () => void,
         values: FormikValues,
-        name: string
+        name: string,
     ) => void;
     formControlLabelProps?: FormControlLabelProps;
     formControlProps?: FormControlProps;
@@ -81,7 +82,7 @@ const Checkbox = ({
         return null;
     }
 
-    const defaultOnChange = (event: React.SyntheticEvent, checked: boolean) => {
+    const defaultOnChange = (_event: React.SyntheticEvent, checked: boolean) => {
         setFieldValue(path, checked);
     };
 
@@ -130,5 +131,4 @@ const Checkbox = ({
     );
 };
 
-export default Checkbox;
-export { CheckboxProps, CheckboxSpecificProps };
+export { Checkbox, type CheckboxProps, type CheckboxSpecificProps };

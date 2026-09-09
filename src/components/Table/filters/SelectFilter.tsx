@@ -1,6 +1,5 @@
-import React from "react";
-import Select, { SelectProps } from "../../../components/Form/fields/Select";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { Select, type SelectProps } from "../../../components/Form/fields/Select";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type SelectFilterProps = FilterFieldInterface & SelectProps;
 
@@ -15,5 +14,4 @@ SelectFilter.defaultProps = {
     filterType: "equal",
 };
 
-export default SelectFilter;
-export { SelectFilterProps };
+export { SelectFilter, type SelectFilterProps };

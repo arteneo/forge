@@ -1,35 +1,37 @@
-import React from "react";
-import { FormikHelpers, FormikValues } from "formik";
 import { AxiosError, AxiosResponse } from "axios";
-import Form, { FormProps } from "../../components/Form/components/Form";
-import Optional from "../../definitions/Optional";
-import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
-import DialogTitle, { DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
-import DialogContent, { DialogContentSpecificProps } from "../../components/Dialog/DialogContent";
-import DialogActions from "../../components/Dialog/DialogActions";
-import DialogButtonSubmit, { DialogButtonSubmitProps } from "../../components/Dialog/DialogButtonSubmit";
+import { FormikHelpers, FormikValues } from "formik";
 
-interface DialogFormFormProps
-    extends Omit<Optional<FormProps, "children">, "onSubmitStart" | "onSubmitSuccess" | "onSubmitCatch"> {
+import { DialogActions } from "../../components/Dialog/DialogActions";
+import { DialogButtonSubmit, type DialogButtonSubmitProps } from "../../components/Dialog/DialogButtonSubmit";
+import { DialogContent, type DialogContentSpecificProps } from "../../components/Dialog/DialogContent";
+import { DialogTitle, type DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
+import { Form, type FormProps } from "../../components/Form/components/Form";
+import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
+import { Optional } from "../../definitions/Optional";
+
+interface DialogFormFormProps extends Omit<
+    Optional<FormProps, "children">,
+    "onSubmitStart" | "onSubmitSuccess" | "onSubmitCatch"
+> {
     onSubmitStart?: (
         defaultOnStart: () => void,
         values: FormikValues,
         helpers: FormikHelpers<FormikValues>,
-        onClose: () => void
+        onClose: () => void,
     ) => void;
     onSubmitSuccess?: (
         defaultOnSubmitSuccess: () => void,
         values: FormikValues,
         helpers: FormikHelpers<FormikValues>,
         response: AxiosResponse,
-        onClose: () => void
+        onClose: () => void,
     ) => void;
     onSubmitCatch?: (
         defaultOnSubmitCatch: () => void,
         values: FormikValues,
         helpers: FormikHelpers<FormikValues>,
         error: AxiosError,
-        onClose: () => void
+        onClose: () => void,
     ) => void;
 }
 
@@ -73,7 +75,7 @@ const DialogForm = ({
                                 values,
                                 helpers,
                                 response,
-                                onClose
+                                onClose,
                             );
                             return;
                         }
@@ -110,5 +112,4 @@ const DialogForm = ({
     );
 };
 
-export default DialogForm;
-export { DialogFormProps };
+export { DialogForm, type DialogFormProps };

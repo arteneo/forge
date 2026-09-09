@@ -32,4 +32,6 @@ export const mergeEndpoint = (objValue: undefined | string | object, srcValue: u
     if (typeof objValue === "object" && typeof srcValue === "object") {
         return _.merge(objValue, srcValue);
     }
+
+    return srcValue;
 };

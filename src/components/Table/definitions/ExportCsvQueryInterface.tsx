@@ -1,6 +1,6 @@
-import QuerySortingInterface from "../../../components/Table/definitions/QuerySortingInterface";
-import FiltersInterface from "../../../components/Table/definitions/FiltersInterface";
-import ExportQueryFieldTranslatedInterface from "../../../components/Table/definitions/ExportQueryFieldTranslatedInterface";
+import { ExportQueryFieldTranslatedInterface } from "../../../components/Table/definitions/ExportQueryFieldTranslatedInterface";
+import { FiltersInterface } from "../../../components/Table/definitions/FiltersInterface";
+import { QuerySortingInterface } from "../../../components/Table/definitions/QuerySortingInterface";
 
 interface ExportCsvQueryInterface {
     sorting: QuerySortingInterface;
@@ -9,4 +9,4 @@ interface ExportCsvQueryInterface {
     filename: string;
 }
 
-export default ExportCsvQueryInterface;
+export { type ExportCsvQueryInterface };

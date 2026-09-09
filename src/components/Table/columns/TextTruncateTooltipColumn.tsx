@@ -1,8 +1,8 @@
-import React from "react";
+import { Box, SxProps, Tooltip, TooltipProps } from "@mui/material";
 import { getIn, isString } from "formik";
 import { useTranslation } from "react-i18next";
-import { Box, SxProps, Tooltip, TooltipProps } from "@mui/material";
-import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
+
+import { ColumnPathInterface } from "../../../components/Table/definitions/ColumnPathInterface";
 
 interface TextTruncateTooltipColumnProps extends ColumnPathInterface {
     stripTags?: boolean;
@@ -88,5 +88,4 @@ const TextTruncateTooltipColumn = ({
     return null;
 };
 
-export default TextTruncateTooltipColumn;
-export { TextTruncateTooltipColumnProps };
+export { TextTruncateTooltipColumn, type TextTruncateTooltipColumnProps };

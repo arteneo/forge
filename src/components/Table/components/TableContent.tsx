@@ -1,8 +1,8 @@
-import React from "react";
 import { Paper } from "@mui/material";
-import TableFilters from "../../../components/Table/components/TableFilters";
-import TableToolbar from "../../../components/Table/components/TableToolbar";
-import TableResults from "../../../components/Table/components/TableResults";
+
+import { TableFilters } from "../../../components/Table/components/TableFilters";
+import { TableResults } from "../../../components/Table/components/TableResults";
+import { TableToolbar } from "../../../components/Table/components/TableToolbar";
 
 const TableContent = () => {
     return (
@@ -16,4 +16,4 @@ const TableContent = () => {
     );
 };
 
-export default TableContent;
+export { TableContent };

@@ -1,13 +1,14 @@
-import React from "react";
-import * as Yup from "yup";
-import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { TimePicker as MuiTimePicker, TimePickerProps as MuiTimePickerProps } from "@mui/x-date-pickers";
 import { FieldChangeHandlerContext } from "@mui/x-date-pickers/internals";
 import { useUtils } from "@mui/x-date-pickers/internals/hooks/useUtils";
 import { parseISO, formatRFC3339, isValid } from "date-fns";
+import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import _ from "lodash";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
+import React from "react";
+import * as Yup from "yup";
+
 import { useForm } from "../../../components/Form/contexts/Form";
+import { FieldPlaceholderInterface } from "../../../components/Form/definitions/FieldPlaceholderInterface";
 
 type TimePickerOnChangeValue = string;
 type TimePickerValue = null | Date;
@@ -25,7 +26,7 @@ interface TimePickerSpecificProps {
         onChange: () => void,
         values: FormikValues,
         name: string,
-        context: FieldChangeHandlerContext<TimePickerError>
+        context: FieldChangeHandlerContext<TimePickerError>,
     ) => void;
     fieldProps?: Partial<TimePickerFieldProps>;
 }
@@ -145,12 +146,12 @@ const TimePicker = ({
     return <MuiTimePicker {...mergedFieldProps} />;
 };
 
-export default TimePicker;
 export {
-    TimePickerProps,
-    TimePickerSpecificProps,
-    TimePickerFieldProps,
-    TimePickerOnChangeValue,
-    TimePickerValue,
-    TimePickerError,
+    TimePicker,
+    type TimePickerProps,
+    type TimePickerSpecificProps,
+    type TimePickerFieldProps,
+    type TimePickerOnChangeValue,
+    type TimePickerValue,
+    type TimePickerError,
 };

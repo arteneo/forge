@@ -1,8 +1,8 @@
-import React from "react";
 import { Chip, ChipProps } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import { getIn } from "formik";
-import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
+import { useTranslation } from "react-i18next";
+
+import { ColumnPathInterface } from "../../../components/Table/definitions/ColumnPathInterface";
 
 interface BooleanColumnProps extends ColumnPathInterface {
     chipProps?: ChipProps;
@@ -35,9 +35,16 @@ const BooleanColumn = ({ result, columnName, path, chipProps }: BooleanColumnPro
     }
 
     return (
-        <Chip {...{ label: t("booleanColumn.no"), color: "error", size: "small", variant: "outlined", ...chipProps }} />
+        <Chip
+            {...{
+                label: t("booleanColumn.no"),
+                color: "error",
+                size: "small",
+                variant: "outlined",
+                ...chipProps,
+            }}
+        />
     );
 };
 
-export default BooleanColumn;
-export { BooleanColumnProps };
+export { BooleanColumn, type BooleanColumnProps };

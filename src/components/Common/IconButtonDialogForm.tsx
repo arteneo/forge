@@ -1,6 +1,7 @@
 import React from "react";
-import Button, { ButtonProps } from "../../components/Common/Button";
-import DialogForm, { DialogFormProps } from "../../components/Dialog/DialogForm";
+
+import { Button, type ButtonProps } from "../../components/Common/Button";
+import { DialogForm, type DialogFormProps } from "../../components/Dialog/DialogForm";
 
 interface IconButtonDialogFormProps extends ButtonProps {
     dialogProps: Omit<DialogFormProps, "open" | "onClose">;
@@ -29,5 +30,4 @@ const IconButtonDialogForm = ({ dialogProps, ...buttonProps }: IconButtonDialogF
     );
 };
 
-export default IconButtonDialogForm;
-export { IconButtonDialogFormProps };
+export { IconButtonDialogForm, type IconButtonDialogFormProps };

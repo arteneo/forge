@@ -1,11 +1,11 @@
-import React from "react";
 import { Check } from "@mui/icons-material";
-import ButtonEndpoint, { ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
-import { useDialog } from "../../contexts/Dialog";
-import { resolveEndpoint } from "../../utilities/resolve";
-import EndpointType from "../../definitions/EndpointType";
+
+import { ButtonEndpoint, type ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
 import { useTable } from "../../components/Table/contexts/Table";
+import { useDialog } from "../../contexts/Dialog";
 import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
+import { EndpointType } from "../../definitions/EndpointType";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface DialogVisibleColumnsButtonEndpointProps extends Omit<ButtonEndpointProps, "endpoint"> {
     endpoint: EndpointType | ((columns: VisibleColumnInterface[], visibleColumnsKey?: string) => EndpointType);
@@ -78,5 +78,4 @@ const DialogVisibleColumnsButtonEndpoint = ({
     );
 };
 
-export default DialogVisibleColumnsButtonEndpoint;
-export { DialogVisibleColumnsButtonEndpointProps };
+export { DialogVisibleColumnsButtonEndpoint, type DialogVisibleColumnsButtonEndpointProps };

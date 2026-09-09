@@ -1,9 +1,9 @@
-import React from "react";
-import ButtonDialogBatchAlertConfirmMulti, {
-    ButtonDialogBatchAlertConfirmMultiProps,
+import {
+    ButtonDialogBatchAlertConfirmMulti,
+    type ButtonDialogBatchAlertConfirmMultiProps,
 } from "../../../components/Common/ButtonDialogBatchAlertConfirmMulti";
 import { useTable } from "../../../components/Table/contexts/Table";
-import Optional from "../../../definitions/Optional";
+import { Optional } from "../../../definitions/Optional";
 
 interface BatchAlertConfirmMultiProps extends Omit<ButtonDialogBatchAlertConfirmMultiProps, "dialogProps"> {
     dialogProps: Optional<ButtonDialogBatchAlertConfirmMultiProps["dialogProps"], "results">;
@@ -47,5 +47,4 @@ const BatchAlertConfirmMulti = ({ dialogProps, ...props }: BatchAlertConfirmMult
     );
 };
 
-export default BatchAlertConfirmMulti;
-export { BatchAlertConfirmMultiProps };
+export { BatchAlertConfirmMulti, type BatchAlertConfirmMultiProps };

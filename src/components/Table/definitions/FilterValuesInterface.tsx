@@ -3,4 +3,4 @@ interface FilterValuesInterface {
     [key: string]: any;
 }
 
-export default FilterValuesInterface;
+export { type FilterValuesInterface };
