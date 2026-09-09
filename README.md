@@ -29,6 +29,8 @@ You can also run `npm run test` to run tests once. `npm run test:watch` re-runs 
 You can also run `npm run lint:fix` to fix most of the issues reported by `oxlint`.
 You can also run `npm run format:fix` to fix most of the issues reported by `oxfmt`.
 
+Notice! `npm run lint:check` still reports a few errors, they should be fixed as soon as time allows.
+
 # Workflow
 
 1. Create issue on github
