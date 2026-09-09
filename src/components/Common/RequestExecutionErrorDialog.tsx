@@ -11,10 +11,10 @@ import {
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import Button, { ButtonProps } from "../../components/Common/Button";
+import { Button, type ButtonProps } from "../../components/Common/Button";
 import { ErrorInterface, useError } from "../../contexts/Error";
-import Optional from "../../definitions/Optional";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { Optional } from "../../definitions/Optional";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 
 interface RequestExecutionErrorDialogProps {
     onClose?: () => void;
@@ -99,5 +99,4 @@ const RequestExecutionErrorDialog = ({
     );
 };
 
-export default RequestExecutionErrorDialog;
-export { RequestExecutionErrorDialogProps };
+export { RequestExecutionErrorDialog, type RequestExecutionErrorDialogProps };

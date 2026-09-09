@@ -1,4 +1,4 @@
-import FilterType from "../../../components/Table/definitions/FilterType";
+import { FilterType } from "../../../components/Table/definitions/FilterType";
 
 interface FilterDefinition {
     filterBy: string;
@@ -7,4 +7,4 @@ interface FilterDefinition {
     filterValue: any;
 }
 
-export default FilterDefinition;
+export { FilterDefinition };

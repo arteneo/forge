@@ -1,12 +1,12 @@
-import axios, { AxiosError, AxiosResponse, CancelTokenSource } from "axios";
+import axios, { type AxiosError, type AxiosResponse, type CancelTokenSource } from "axios";
 import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
 import React from "react";
 
 import { useForm } from "../../../components/Form/contexts/Form";
-import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
+import { FieldEndpointType } from "../../../components/Form/definitions/FieldEndpointType";
 import { AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { useHandleCatch } from "../../../contexts/HandleCatch";
-import Optional from "../../../definitions/Optional";
+import { Optional } from "../../../definitions/Optional";
 import { resolveFieldEndpoint } from "../../../utilities/resolve";
 
 interface FormMultiContentProps {
@@ -161,5 +161,4 @@ const FormMultiContent = ({
     );
 };
 
-export default FormMultiContent;
-export { FormMultiContentProps };
+export { FormMultiContent, type FormMultiContentProps };

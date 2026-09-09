@@ -1,7 +1,7 @@
 import React from "react";
 
-import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
-import DialogConfirm, { DialogConfirmProps } from "../../components/Dialog/DialogConfirm";
+import { IconButton, type IconButtonProps } from "../../components/Common/IconButton";
+import { DialogConfirm, type DialogConfirmProps } from "../../components/Dialog/DialogConfirm";
 
 interface IconButtonDialogConfirmProps extends IconButtonProps {
     dialogProps: Omit<DialogConfirmProps, "open" | "onClose">;
@@ -30,5 +30,4 @@ const IconButtonDialogConfirm = ({ dialogProps, ...buttonProps }: IconButtonDial
     );
 };
 
-export default IconButtonDialogConfirm;
-export { IconButtonDialogConfirmProps };
+export { IconButtonDialogConfirm, type IconButtonDialogConfirmProps };

@@ -19,8 +19,8 @@ import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
 
 import { useForm } from "../../../components/Form/contexts/Form";
-import FieldInterface from "../../../components/Form/definitions/FieldInterface";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
+import { FieldInterface } from "../../../components/Form/definitions/FieldInterface";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
 
 interface RadioSpecificProps {
     options: OptionsType;
@@ -104,7 +104,7 @@ const Radio = ({
         return null;
     }
 
-    const defaultOnChange = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
+    const defaultOnChange = (_event: React.ChangeEvent<HTMLInputElement>, value: string) => {
         setFieldValue(path, value);
     };
 
@@ -194,5 +194,4 @@ const Radio = ({
     );
 };
 
-export default Radio;
-export { RadioProps, RadioSpecificProps };
+export { Radio, type RadioProps, type RadioSpecificProps };

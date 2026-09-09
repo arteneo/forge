@@ -1,27 +1,27 @@
-import axios, { AxiosResponse, AxiosError } from "axios";
+import axios, { type AxiosResponse, type AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
 import React from "react";
 import { useLocation } from "react-router";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 
-import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import { FieldsInterface } from "../../../components/Form/definitions/FieldsInterface";
 import { useTableQuery } from "../../../components/Table/contexts/TableQuery";
-import BatchQueryInterface from "../../../components/Table/definitions/BatchQueryInterface";
-import BatchSelectedType from "../../../components/Table/definitions/BatchSelectedType";
-import ColumnNamesType from "../../../components/Table/definitions/ColumnNamesType";
-import ColumnsInterface from "../../../components/Table/definitions/ColumnsInterface";
-import FilterDefinition from "../../../components/Table/definitions/FilterDefinition";
-import FiltersInterface from "../../../components/Table/definitions/FiltersInterface";
-import FilterValuesInterface from "../../../components/Table/definitions/FilterValuesInterface";
-import QueryInterface from "../../../components/Table/definitions/QueryInterface";
-import QuerySortingInterface from "../../../components/Table/definitions/QuerySortingInterface";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
-import SortingDirection from "../../../components/Table/definitions/SortingDirection";
-import SortingInterface from "../../../components/Table/definitions/SortingInterface";
+import { BatchQueryInterface } from "../../../components/Table/definitions/BatchQueryInterface";
+import { BatchSelectedType } from "../../../components/Table/definitions/BatchSelectedType";
+import { ColumnNamesType } from "../../../components/Table/definitions/ColumnNamesType";
+import { ColumnsInterface } from "../../../components/Table/definitions/ColumnsInterface";
+import { FilterDefinition } from "../../../components/Table/definitions/FilterDefinition";
+import { FiltersInterface } from "../../../components/Table/definitions/FiltersInterface";
+import { FilterValuesInterface } from "../../../components/Table/definitions/FilterValuesInterface";
+import { QueryInterface } from "../../../components/Table/definitions/QueryInterface";
+import { QuerySortingInterface } from "../../../components/Table/definitions/QuerySortingInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
+import { SortingDirection } from "../../../components/Table/definitions/SortingDirection";
+import { SortingInterface } from "../../../components/Table/definitions/SortingInterface";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { useLoader } from "../../../contexts/Loader";
 import { VisibleColumnInterface } from "../../../contexts/VisibleColumns";
-import EndpointType from "../../../definitions/EndpointType";
+import { EndpointType } from "../../../definitions/EndpointType";
 import { resolveEndpoint } from "../../../utilities/resolve";
 
 interface TableContextProps {
@@ -557,7 +557,7 @@ const TableProvider = ({
         };
     };
 
-    const onChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, page: number): void => {
+    const onChangePage = (_event: React.MouseEvent<HTMLButtonElement> | null, page: number): void => {
         setPage(page);
     };
 
@@ -724,4 +724,6 @@ const TableProvider = ({
 
 const useTable = (): TableContextProps => React.useContext(TableContext);
 
-export { TableContext, TableContextProps, TableProvider, TableProviderProps, useTable };
+export { TableContext,TableProvider,useTable };
+export { type TableContextProps,TableProviderProps };
+export { type TableContextProps,TableProviderProps };

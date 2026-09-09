@@ -3,8 +3,8 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import Form from "../../../components/Form/components/Form";
-import TableFiltersFieldset from "../../../components/Table/components/TableFiltersFieldset";
+import { Form } from "../../../components/Form/components/Form";
+import { TableFiltersFieldset } from "../../../components/Table/components/TableFiltersFieldset";
 import { useTable } from "../../../components/Table/contexts/Table";
 
 const TableFilters = () => {
@@ -61,4 +61,4 @@ const TableFilters = () => {
     );
 };
 
-export default TableFilters;
+export { TableFilters };

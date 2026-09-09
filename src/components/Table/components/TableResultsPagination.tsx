@@ -1,8 +1,7 @@
 import { TableFooter, TableRow, TablePagination } from "@mui/material";
-import React from "react";
 import { useTranslation } from "react-i18next";
 
-import TableResultsPaginationActions from "../../../components/Table/components/TableResultsPaginationActions";
+import { TableResultsPaginationActions } from "../../../components/Table/components/TableResultsPaginationActions";
 import { useTable } from "../../../components/Table/contexts/Table";
 
 const TableResultsPagination = () => {
@@ -36,4 +35,4 @@ const TableResultsPagination = () => {
     );
 };
 
-export default TableResultsPagination;
+export { TableResultsPagination };

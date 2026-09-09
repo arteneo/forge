@@ -11,4 +11,4 @@ interface FieldResolvedInterface {
     validate?: string;
 }
 
-export default FieldResolvedInterface;
+export { type FieldResolvedInterface };

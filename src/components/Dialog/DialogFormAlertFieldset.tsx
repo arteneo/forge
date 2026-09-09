@@ -1,11 +1,10 @@
 import { Alert, AlertProps, Box } from "@mui/material";
-import React from "react";
 import { useTranslation } from "react-i18next";
 
-import DialogForm, { DialogFormProps } from "../../components/Dialog/DialogForm";
+import { DialogForm, type DialogFormProps } from "../../components/Dialog/DialogForm";
 import { useDialog } from "../../contexts/Dialog";
-import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { ResolveDialogPayloadType } from "../../definitions/ResolveDialogPayloadType";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 import { renderField } from "../../utilities/common";
 import { resolveDialogPayload } from "../../utilities/resolve";
 
@@ -55,5 +54,4 @@ const DialogFormAlertFieldset = ({
     );
 };
 
-export default DialogFormAlertFieldset;
-export { DialogFormAlertFieldsetProps };
+export { DialogFormAlertFieldset, type DialogFormAlertFieldsetProps };

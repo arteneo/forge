@@ -3,7 +3,7 @@ import { getIn, isString } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
+import { ColumnPathInterface } from "../../../components/Table/definitions/ColumnPathInterface";
 
 interface TextTruncateColumnProps extends ColumnPathInterface {
     stripTags?: boolean;
@@ -88,5 +88,4 @@ const TextTruncateColumn = ({
     return null;
 };
 
-export default TextTruncateColumn;
-export { TextTruncateColumnProps };
+export { TextTruncateColumn, type TextTruncateColumnProps };

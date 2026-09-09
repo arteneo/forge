@@ -1,5 +1,5 @@
-import DenyBehaviorType from "../../../components/Table/definitions/DenyBehaviorType";
-import DenyInterface from "../../../components/Table/definitions/DenyInterface";
+import { DenyBehaviorType } from "../../../components/Table/definitions/DenyBehaviorType";
+import { DenyInterface } from "../../../components/Table/definitions/DenyInterface";
 
 interface DenyPropInterface {
     deny?: DenyInterface;
@@ -7,4 +7,4 @@ interface DenyPropInterface {
     denyBehavior?: DenyBehaviorType;
 }
 
-export default DenyPropInterface;
+export { type DenyPropInterface };

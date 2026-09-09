@@ -10,4 +10,4 @@ type FieldPlaceholderType =
     | string
     | undefined;
 
-export default FieldPlaceholderType;
+export { FieldPlaceholderType };

@@ -21,9 +21,9 @@ import {
     DisableClearable,
     FreeSolo,
 } from "../../../components/Form/definitions/AutocompleteTypes";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
-import OptionInterface from "../../../components/Form/definitions/OptionInterface";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
+import { FieldPlaceholderInterface } from "../../../components/Form/definitions/FieldPlaceholderInterface";
+import { OptionInterface } from "../../../components/Form/definitions/OptionInterface";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
 
 type SelectAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
 type SelectAutocompletePartialProps<T> = {
@@ -130,7 +130,7 @@ const Select = ({
         return option.id == value;
     });
 
-    const defaultOnChange = (event: React.SyntheticEvent, value: SelectValueType, reason: AutocompleteChangeReason) => {
+    const defaultOnChange = (_event: React.SyntheticEvent, value: SelectValueType, reason: AutocompleteChangeReason) => {
         if (reason === "clear") {
             setFieldValue(path, "");
             return;
@@ -236,12 +236,37 @@ const Select = ({
     );
 };
 
-export default Select;
+export { Select };
 export {
-    SelectProps,
-    SelectSpecificProps,
-    SelectRenderInput,
-    SelectRenderInputProps,
-    SelectAutocompleteProps,
-    SelectAutocompleteOptionalProps,
+SelectRenderInput
+};
+export type {
+SelectProps,
+SelectSpecificProps,SelectRenderInputProps,
+SelectAutocompleteProps,
+SelectAutocompleteOptionalProps
+};
+export type {
+SelectProps,
+SelectSpecificProps,SelectRenderInputProps,
+SelectAutocompleteProps,
+SelectAutocompleteOptionalProps
+};
+export type {
+SelectProps,
+SelectSpecificProps,SelectRenderInputProps,
+SelectAutocompleteProps,
+SelectAutocompleteOptionalProps
+};
+export type {
+SelectProps,
+SelectSpecificProps,SelectRenderInputProps,
+SelectAutocompleteProps,
+SelectAutocompleteOptionalProps
+};
+export type {
+SelectProps,
+SelectSpecificProps,SelectRenderInputProps,
+SelectAutocompleteProps,
+SelectAutocompleteOptionalProps
 };

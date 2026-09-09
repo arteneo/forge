@@ -1,6 +1,5 @@
-import React from "react";
 
-import Text, { TextProps } from "../../../components/Form/fields/Text";
+import { Text, type TextProps } from "../../../components/Form/fields/Text";
 
 interface TextareaSpecificProps {
     resize?: "none" | "vertical" | "horizontal" | "both";
@@ -33,5 +32,4 @@ const Textarea = ({ resize = "vertical", ...textProps }: TextareaProps) => {
     );
 };
 
-export default Textarea;
-export { TextareaProps, TextareaSpecificProps };
+export { Textarea, type TextareaProps, type TextareaSpecificProps };

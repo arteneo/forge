@@ -1,5 +1,4 @@
 import { LinearProgress, LinearProgressProps } from "@mui/material";
-import React from "react";
 
 import { useDialogBatch } from "../..//contexts/DialogBatch";
 
@@ -15,5 +14,5 @@ const DialogBatchProgress = (props: LinearProgressProps) => {
     return <LinearProgress {...{ variant: "determinate", value: progress, ...props, sx: { mt: 2, ...props?.sx } }} />;
 };
 
-export default DialogBatchProgress;
-export { LinearProgressProps as DialogBatchProgressProps };
+export { DialogBatchProgress };
+export { type LinearProgressProps as DialogBatchProgressProps };

@@ -17,7 +17,7 @@ import { ChromePicker, ChromePickerProps, ColorResult } from "react-color";
 import * as Yup from "yup";
 
 import { useForm } from "../../../components/Form/contexts/Form";
-import FieldInterface from "../../../components/Form/definitions/FieldInterface";
+import { FieldInterface } from "../../../components/Form/definitions/FieldInterface";
 
 interface ColorPickerSpecificProps {
     onChange?: (
@@ -192,5 +192,4 @@ const ColorPicker = ({
     );
 };
 
-export default ColorPicker;
-export { ColorPickerProps, ColorPickerSpecificProps };
+export { ColorPicker, type ColorPickerProps, type ColorPickerSpecificProps };

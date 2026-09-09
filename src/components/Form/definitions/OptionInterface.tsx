@@ -6,4 +6,4 @@ interface OptionInterface {
     [key: string]: any;
 }
 
-export default OptionInterface;
+export { type OptionInterface };

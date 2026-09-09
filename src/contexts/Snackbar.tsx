@@ -3,7 +3,7 @@ import { Snackbar, SnackbarProps, IconButton, Alert } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
+import { TranslateVariablesInterface } from "../definitions/TranslateVariablesInterface";
 
 type SnackbarVariant = "success" | "info" | "warning" | "error";
 
@@ -109,7 +109,7 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
         show(message, "error", messageVariables, autoHideDuration);
     };
 
-    const onClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    const onClose = (_event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === "clickaway") {
             return;
         }
@@ -182,4 +182,7 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
 
 const useSnackbar = (): SnackbarContextProps => React.useContext(SnackbarContext);
 
-export { SnackbarContext, SnackbarContextProps, SnackbarProvider, SnackbarProviderProps, useSnackbar, SnackbarVariant };
+export { SnackbarContext,SnackbarProvider,useSnackbar };
+export { type SnackbarContextProps,SnackbarProviderProps,SnackbarVariant };
+export { type SnackbarContextProps,SnackbarProviderProps,SnackbarVariant };
+export { type SnackbarContextProps,SnackbarProviderProps,SnackbarVariant };

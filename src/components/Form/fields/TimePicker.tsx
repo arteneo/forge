@@ -8,7 +8,7 @@ import React from "react";
 import * as Yup from "yup";
 
 import { useForm } from "../../../components/Form/contexts/Form";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
+import { FieldPlaceholderInterface } from "../../../components/Form/definitions/FieldPlaceholderInterface";
 
 type TimePickerOnChangeValue = string;
 type TimePickerValue = null | Date;
@@ -146,12 +146,12 @@ const TimePicker = ({
     return <MuiTimePicker {...mergedFieldProps} />;
 };
 
-export default TimePicker;
 export {
-    TimePickerProps,
-    TimePickerSpecificProps,
-    TimePickerFieldProps,
-    TimePickerOnChangeValue,
-    TimePickerValue,
-    TimePickerError,
+    TimePicker,
+    type TimePickerProps,
+    type TimePickerSpecificProps,
+    type TimePickerFieldProps,
+    type TimePickerOnChangeValue,
+    type TimePickerValue,
+    type TimePickerError,
 };

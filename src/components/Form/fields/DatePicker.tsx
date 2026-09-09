@@ -8,7 +8,7 @@ import React from "react";
 import * as Yup from "yup";
 
 import { useForm } from "../../../components/Form/contexts/Form";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
+import { FieldPlaceholderInterface } from "../../../components/Form/definitions/FieldPlaceholderInterface";
 
 type DatePickerOnChangeValue = string;
 type DatePickerValue = null | Date;
@@ -145,12 +145,12 @@ const DatePicker = ({
     return <MuiDatePicker {...mergedFieldProps} />;
 };
 
-export default DatePicker;
 export {
-    DatePickerProps,
-    DatePickerSpecificProps,
-    DatePickerFieldProps,
-    DatePickerOnChangeValue,
-    DatePickerValue,
-    DatePickerError,
+    DatePicker,
+    type DatePickerProps,
+    type DatePickerSpecificProps,
+    type DatePickerFieldProps,
+    type DatePickerOnChangeValue,
+    type DatePickerValue,
+    type DatePickerError,
 };

@@ -1,9 +1,6 @@
-import React from "react";
 
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import DialogBatchFormMultiFieldset, {
-    DialogBatchFormMultiFieldsetProps,
-} from "../../components/Dialog/DialogBatchFormMultiFieldset";
+import { GenericButtonDialog, type ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
+import { DialogBatchFormMultiFieldset, type DialogBatchFormMultiFieldsetProps } from "../../components/Dialog/DialogBatchFormMultiFieldset";
 
 type ButtonDialogBatchFormMultiFieldsetProps = ExternalGenericButtonDialogProps<DialogBatchFormMultiFieldsetProps>;
 
@@ -18,5 +15,4 @@ const ButtonDialogBatchFormMultiFieldset = (props: ButtonDialogBatchFormMultiFie
     );
 };
 
-export default ButtonDialogBatchFormMultiFieldset;
-export { ButtonDialogBatchFormMultiFieldsetProps };
+export { ButtonDialogBatchFormMultiFieldset, type ButtonDialogBatchFormMultiFieldsetProps };

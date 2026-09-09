@@ -2,12 +2,12 @@ import { AxiosResponse } from "axios";
 import { getIn } from "formik";
 import React from "react";
 
-import ButtonEndpoint, { ButtonEndpointProps } from "../../../components/Common/ButtonEndpoint";
+import { ButtonEndpoint, type ButtonEndpointProps } from "../../../components/Common/ButtonEndpoint";
 import { useTable } from "../../../components/Table/contexts/Table";
-import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
-import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
-import EndpointType from "../../../definitions/EndpointType";
+import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
+import { ResultResolveType } from "../../../components/Table/definitions/ResultResolveType";
+import { EndpointType } from "../../../definitions/EndpointType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
 
 interface ResultButtonEndpointSpecificProps {
@@ -76,5 +76,4 @@ const ResultButtonEndpoint = ({
     );
 };
 
-export default ResultButtonEndpoint;
-export { ResultButtonEndpointProps, ResultButtonEndpointSpecificProps };
+export { ResultButtonEndpoint, type ResultButtonEndpointProps, type ResultButtonEndpointSpecificProps };

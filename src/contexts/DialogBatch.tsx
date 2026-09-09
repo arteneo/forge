@@ -1,8 +1,8 @@
 import React from "react";
 
-import ResultInterface from "../components/Table/definitions/ResultInterface";
+import { ResultInterface } from "../components/Table/definitions/ResultInterface";
 import { RequestExecutionExceptionType } from "../definitions/RequestExecutionException";
-import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
+import { TranslateVariablesInterface } from "../definitions/TranslateVariablesInterface";
 
 type BatchResultStatusType = "success" | "warning" | "skipped" | "error";
 
@@ -90,14 +90,42 @@ const mapRequestExecutionException = (
 });
 
 export {
-    BatchResultStatusType,
-    BatchResultMessageStatusType,
-    BatchResultInterface,
-    BatchResultMessageInterface,
-    DialogBatchContext,
-    DialogBatchContextProps,
-    DialogBatchProvider,
-    DialogBatchProviderProps,
-    useDialogBatch,
-    mapRequestExecutionException,
+DialogBatchContext,DialogBatchProvider,useDialogBatch,
+mapRequestExecutionException
+};
+export type {
+BatchResultStatusType,
+BatchResultMessageStatusType,
+BatchResultInterface,
+BatchResultMessageInterface,DialogBatchContextProps,DialogBatchProviderProps
+};
+export type {
+BatchResultStatusType,
+BatchResultMessageStatusType,
+BatchResultInterface,
+BatchResultMessageInterface,DialogBatchContextProps,DialogBatchProviderProps
+};
+export type {
+BatchResultStatusType,
+BatchResultMessageStatusType,
+BatchResultInterface,
+BatchResultMessageInterface,DialogBatchContextProps,DialogBatchProviderProps
+};
+export type {
+BatchResultStatusType,
+BatchResultMessageStatusType,
+BatchResultInterface,
+BatchResultMessageInterface,DialogBatchContextProps,DialogBatchProviderProps
+};
+export type {
+BatchResultStatusType,
+BatchResultMessageStatusType,
+BatchResultInterface,
+BatchResultMessageInterface,DialogBatchContextProps,DialogBatchProviderProps
+};
+export type {
+BatchResultStatusType,
+BatchResultMessageStatusType,
+BatchResultInterface,
+BatchResultMessageInterface,DialogBatchContextProps,DialogBatchProviderProps
 };

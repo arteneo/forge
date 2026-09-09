@@ -9,4 +9,4 @@ type FieldRequiredType =
       ) => boolean)
     | boolean;
 
-export default FieldRequiredType;
+export { FieldRequiredType };

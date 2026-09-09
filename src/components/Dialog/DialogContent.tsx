@@ -1,9 +1,9 @@
 import { DialogContent as MuiDialogContent, DialogContentProps as MuiDialogContentProps } from "@mui/material";
 import React from "react";
 
-import DialogContentLoader from "../../components/Dialog/DialogContentLoader";
+import { DialogContentLoader } from "../../components/Dialog/DialogContentLoader";
 import { useDialog } from "../../contexts/Dialog";
-import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
+import { ResolveDialogPayloadType } from "../../definitions/ResolveDialogPayloadType";
 import { resolveDialogPayload } from "../../utilities/resolve";
 
 interface DialogContentSpecificProps {
@@ -20,5 +20,4 @@ const DialogContent = ({ children, ...props }: DialogContentProps) => {
     return <MuiDialogContent {...props}>{initialized ? resolvedChildren : <DialogContentLoader />}</MuiDialogContent>;
 };
 
-export default DialogContent;
-export { DialogContentSpecificProps, DialogContentProps };
+export { DialogContent, type DialogContentSpecificProps, type DialogContentProps };

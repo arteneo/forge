@@ -20,4 +20,4 @@ type FilterType =
     | "timeLessThan"
     | "timeLessThanOrEqual";
 
-export default FilterType;
+export { type FilterType };

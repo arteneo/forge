@@ -1,8 +1,7 @@
 import { getIn } from "formik";
-import React from "react";
 
-import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
+import { ColumnPathInterface } from "../../../components/Table/definitions/ColumnPathInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
 
 interface CollectionRepresentationColumnProps extends ColumnPathInterface {
     separator?: string;
@@ -27,5 +26,4 @@ const CollectionRepresentationColumn = ({
     return <>{collectionValues.map((collectionValue) => collectionValue.representation).join(separator)}</>;
 };
 
-export default CollectionRepresentationColumn;
-export { CollectionRepresentationColumnProps };
+export { CollectionRepresentationColumn, type CollectionRepresentationColumnProps };

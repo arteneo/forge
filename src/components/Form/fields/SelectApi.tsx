@@ -1,11 +1,11 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { type AxiosError, type AxiosResponse } from "axios";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import React from "react";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 
-import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
-import Select, { SelectProps } from "../../../components/Form/fields/Select";
+import { FieldEndpointType } from "../../../components/Form/definitions/FieldEndpointType";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
+import { Select, type SelectProps } from "../../../components/Form/fields/Select";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { resolveFieldEndpoint } from "../../../utilities/resolve";
 
@@ -78,5 +78,4 @@ SelectApi.defaultProps = {
     },
 };
 
-export default SelectApi;
-export { SelectApiProps, SelectApiSpecificProps };
+export { SelectApi, type SelectApiProps, type SelectApiSpecificProps };

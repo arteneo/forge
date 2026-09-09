@@ -1,5 +1,4 @@
 import { Button, ButtonProps, CircularProgress } from "@mui/material";
-import React from "react";
 
 interface LoadingButtonProps extends ButtonProps {
     loading?: boolean;
@@ -17,5 +16,4 @@ const LoadingButton = ({ loading = false, ...props }: LoadingButtonProps) => {
     );
 };
 
-export default LoadingButton;
-export { LoadingButtonProps };
+export { LoadingButton, type LoadingButtonProps };

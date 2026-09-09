@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import React from "react";
 
 import { useTable } from "../../../components/Table/contexts/Table";
 
@@ -17,4 +16,4 @@ const TableToolbar = () => {
     );
 };
 
-export default TableToolbar;
+export { TableToolbar };

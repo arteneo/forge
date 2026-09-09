@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
-import React from "react";
 
-import DialogForm, { DialogFormProps } from "../../components/Dialog/DialogForm";
+import { DialogForm, type DialogFormProps } from "../../components/Dialog/DialogForm";
 import { renderField } from "../../utilities/common";
 
 type DialogFormFieldsetProps = Omit<DialogFormProps, "children">;
@@ -25,5 +24,4 @@ const DialogFormFieldset = ({ formProps, ...props }: DialogFormFieldsetProps) =>
     );
 };
 
-export default DialogFormFieldset;
-export { DialogFormFieldsetProps };
+export { DialogFormFieldset, type DialogFormFieldsetProps };

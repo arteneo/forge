@@ -1,8 +1,8 @@
 import { FormikValues, getIn, setIn } from "formik";
 import React from "react";
 
-import FieldsInterface from "../components/Form/definitions/FieldsInterface";
-import ColumnsInterface from "../components/Table/definitions/ColumnsInterface";
+import { FieldsInterface } from "../components/Form/definitions/FieldsInterface";
+import { ColumnsInterface } from "../components/Table/definitions/ColumnsInterface";
 
 export const pickFields = (
     names: undefined | string[],

@@ -10,4 +10,4 @@ type FieldLabelType =
       ) => React.ReactNode)
     | React.ReactNode;
 
-export default FieldLabelType;
+export { FieldLabelType };

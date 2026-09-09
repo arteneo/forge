@@ -1,8 +1,7 @@
 import { Check } from "@mui/icons-material";
 import { AxiosResponse } from "axios";
-import React from "react";
 
-import ButtonEndpoint, { ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
+import { ButtonEndpoint, type ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
 import { useDialog } from "../../contexts/Dialog";
 import { useDialogBatch, BatchResultInterface } from "../../contexts/DialogBatch";
 import { mergeEndpoint } from "../../utilities/merge";
@@ -33,7 +32,7 @@ const DialogBatchButtonEndpoint = ({
                 endpoint: mergeEndpoint({ method: "post" }, endpoint),
                 ...props,
                 disabled: initialized && !finished ? props.disabled : true,
-                onStart: (defaultOnStart, setLoading) => {
+                onStart: (_defaultOnStart, setLoading) => {
                     const internalDefaultOnStart = () => {
                         setLoading(true);
                         setProcessing(true);
@@ -48,7 +47,7 @@ const DialogBatchButtonEndpoint = ({
 
                     internalDefaultOnStart();
                 },
-                onSuccess: (defaultOnSuccess, response, setLoading) => {
+                onSuccess: (_defaultOnSuccess, response, setLoading) => {
                     const internalDefaultOnSuccess = () => {
                         setLoading(false);
                         setProcessing(false);
@@ -83,5 +82,4 @@ const DialogBatchButtonEndpoint = ({
     );
 };
 
-export default DialogBatchButtonEndpoint;
-export { DialogBatchButtonEndpointProps };
+export { DialogBatchButtonEndpoint, type DialogBatchButtonEndpointProps };

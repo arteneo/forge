@@ -1,5 +1,4 @@
 import { Box, CircularProgress } from "@mui/material";
-import React from "react";
 
 const DialogContentLoader = () => {
     return (
@@ -19,4 +18,4 @@ const DialogContentLoader = () => {
     );
 };
 
-export default DialogContentLoader;
+export { DialogContentLoader };

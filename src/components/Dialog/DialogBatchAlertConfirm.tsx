@@ -1,10 +1,7 @@
-import React from "react";
 
-import DialogBatchAlert, { DialogBatchAlertProps } from "../../components/Dialog/DialogBatchAlert";
-import DialogBatchButtonEndpoint, {
-    DialogBatchButtonEndpointProps,
-} from "../../components/Dialog/DialogBatchButtonEndpoint";
-import Optional from "../../definitions/Optional";
+import { DialogBatchAlert, type DialogBatchAlertProps } from "../../components/Dialog/DialogBatchAlert";
+import { DialogBatchButtonEndpoint, type DialogBatchButtonEndpointProps } from "../../components/Dialog/DialogBatchButtonEndpoint";
+import { Optional } from "../../definitions/Optional";
 
 interface DialogBatchAlertConfirmProps extends Optional<DialogBatchAlertProps, "title"> {
     confirmProps: DialogBatchButtonEndpointProps;
@@ -26,5 +23,4 @@ const DialogBatchAlertConfirm = ({ confirmProps, ...props }: DialogBatchAlertCon
     );
 };
 
-export default DialogBatchAlertConfirm;
-export { DialogBatchAlertConfirmProps };
+export { DialogBatchAlertConfirm, type DialogBatchAlertConfirmProps };

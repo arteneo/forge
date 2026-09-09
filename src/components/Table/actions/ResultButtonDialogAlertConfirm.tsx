@@ -1,13 +1,10 @@
 import { getIn } from "formik";
 import _ from "lodash";
-import React from "react";
 
-import ButtonDialogAlertConfirm, {
-    ButtonDialogAlertConfirmProps,
-} from "../../../components/Common/ButtonDialogAlertConfirm";
+import { ButtonDialogAlertConfirm, ButtonDialogAlertConfirmProps } from "../../../components/Common/ButtonDialogAlertConfirm";
 import { useTable } from "../../../components/Table/contexts/Table";
-import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
+import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
 
 interface ResultButtonDialogAlertConfirmSpecificProps {
     disableOnSuccessReload?: boolean;
@@ -74,5 +71,4 @@ const ResultButtonDialogAlertConfirm = ({
     );
 };
 
-export default ResultButtonDialogAlertConfirm;
-export { ResultButtonDialogAlertConfirmProps, ResultButtonDialogAlertConfirmSpecificProps };
+export { ResultButtonDialogAlertConfirm, type ResultButtonDialogAlertConfirmProps, type ResultButtonDialogAlertConfirmSpecificProps };

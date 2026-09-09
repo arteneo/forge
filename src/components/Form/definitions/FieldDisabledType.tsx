@@ -9,4 +9,4 @@ type FieldDisabledType =
       ) => boolean)
     | boolean;
 
-export default FieldDisabledType;
+export { FieldDisabledType };

@@ -20,5 +20,4 @@ const HighlightTag = ({ children }: HighlightTagProps) => {
     );
 };
 
-export default HighlightTag;
-export { HighlightTagProps };
+export { HighlightTag, type HighlightTagProps };

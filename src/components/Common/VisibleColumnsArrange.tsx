@@ -18,13 +18,13 @@ import { List, Alert, AlertProps, Box, InputAdornment, IconButton, TextField } f
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import ButtonEndpoint, { ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
-import VisibleColumnsArrangeItem from "../../components/Common/VisibleColumnsArrangeItem";
+import { ButtonEndpoint, type ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
+import { VisibleColumnsArrangeItem } from "../../components/Common/VisibleColumnsArrangeItem";
 import { useTable } from "../../components/Table/contexts/Table";
 import { useDialog } from "../../contexts/Dialog";
 import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
-import EndpointType from "../../definitions/EndpointType";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { EndpointType } from "../../definitions/EndpointType";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 import { resolveEndpoint } from "../../utilities/resolve";
 
 interface DialogResetVisibleColumnsButtonEndpointProps extends Omit<ButtonEndpointProps, "endpoint"> {
@@ -209,5 +209,4 @@ const VisibleColumnsArrange = ({
     );
 };
 
-export default VisibleColumnsArrange;
-export { VisibleColumnsArrangeProps };
+export { VisibleColumnsArrange, type VisibleColumnsArrangeProps };

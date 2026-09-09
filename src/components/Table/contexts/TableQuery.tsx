@@ -1,9 +1,9 @@
 import React from "react";
 
-import FilterValuesInterface from "../../../components/Table/definitions/FilterValuesInterface";
-import SortingInterface from "../../../components/Table/definitions/SortingInterface";
-import TableQueriesInterface from "../../../components/Table/definitions/TableQueriesInterface";
-import TableQueryInterface from "../../../components/Table/definitions/TableQueryInterface";
+import { FilterValuesInterface } from "../../../components/Table/definitions/FilterValuesInterface";
+import { SortingInterface } from "../../../components/Table/definitions/SortingInterface";
+import { TableQueriesInterface } from "../../../components/Table/definitions/TableQueriesInterface";
+import { TableQueryInterface } from "../../../components/Table/definitions/TableQueryInterface";
 
 interface TableQueryContextProps {
     setQuery: (
@@ -198,4 +198,6 @@ const TableQueryProvider = ({ children }: TableQueryProviderProps) => {
 
 const useTableQuery = (): TableQueryContextProps => React.useContext(TableQueryContext);
 
-export { TableQueryContext, TableQueryContextProps, TableQueryProvider, TableQueryProviderProps, useTableQuery };
+export { TableQueryContext,TableQueryProvider,useTableQuery };
+export { type TableQueryContextProps,TableQueryProviderProps };
+export { type TableQueryContextProps,TableQueryProviderProps };

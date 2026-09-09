@@ -1,9 +1,6 @@
-import React from "react";
 
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import DialogBatchAlertConfirmMulti, {
-    DialogBatchAlertConfirmMultiProps,
-} from "../../components/Dialog/DialogBatchAlertConfirmMulti";
+import { GenericButtonDialog, type ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
+import { DialogBatchAlertConfirmMulti, type DialogBatchAlertConfirmMultiProps } from "../../components/Dialog/DialogBatchAlertConfirmMulti";
 
 type ButtonDialogBatchAlertConfirmMultiProps = ExternalGenericButtonDialogProps<DialogBatchAlertConfirmMultiProps>;
 
@@ -18,5 +15,4 @@ const ButtonDialogBatchAlertConfirmMulti = (props: ButtonDialogBatchAlertConfirm
     );
 };
 
-export default ButtonDialogBatchAlertConfirmMulti;
-export { ButtonDialogBatchAlertConfirmMultiProps };
+export { ButtonDialogBatchAlertConfirmMulti, type ButtonDialogBatchAlertConfirmMultiProps };

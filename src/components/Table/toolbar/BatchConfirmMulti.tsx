@@ -1,10 +1,7 @@
-import React from "react";
 
-import ButtonDialogBatchConfirmMulti, {
-    ButtonDialogBatchConfirmMultiProps,
-} from "../../../components/Common/ButtonDialogBatchConfirmMulti";
+import { ButtonDialogBatchConfirmMulti, type ButtonDialogBatchConfirmMultiProps } from "../../../components/Common/ButtonDialogBatchConfirmMulti";
 import { useTable } from "../../../components/Table/contexts/Table";
-import Optional from "../../../definitions/Optional";
+import { Optional } from "../../../definitions/Optional";
 
 interface BatchConfirmMultiProps extends Omit<ButtonDialogBatchConfirmMultiProps, "dialogProps"> {
     dialogProps: Optional<ButtonDialogBatchConfirmMultiProps["dialogProps"], "results">;
@@ -48,5 +45,4 @@ const BatchConfirmMulti = ({ dialogProps, ...props }: BatchConfirmMultiProps) =>
     );
 };
 
-export default BatchConfirmMulti;
-export { BatchConfirmMultiProps };
+export { BatchConfirmMulti, type BatchConfirmMultiProps };

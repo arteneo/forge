@@ -1,9 +1,8 @@
-import React from "react";
 import { expect, test } from "vitest";
 
-import Collection from "../components/Form/fields/Collection";
-import SelectApi from "../components/Form/fields/SelectApi";
-import Text from "../components/Form/fields/Text";
+import { Collection } from "../components/Form/fields/Collection";
+import { SelectApi } from "../components/Form/fields/SelectApi";
+import { Text } from "../components/Form/fields/Text";
 import { transformInitialValues } from "../utilities/common";
 
 // Collection fields

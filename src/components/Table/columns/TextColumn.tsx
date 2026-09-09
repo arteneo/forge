@@ -1,7 +1,6 @@
 import { getIn } from "formik";
-import React from "react";
 
-import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
+import { ColumnPathInterface } from "../../../components/Table/definitions/ColumnPathInterface";
 
 const TextColumn = ({ result, columnName, path }: ColumnPathInterface) => {
     if (typeof columnName === "undefined") {
@@ -15,5 +14,5 @@ const TextColumn = ({ result, columnName, path }: ColumnPathInterface) => {
     return <>{getIn(result, path ? path : columnName)}</>;
 };
 
-export default TextColumn;
-export { ColumnPathInterface as TextColumnProps };
+export { TextColumn };
+export { type ColumnPathInterface as TextColumnProps };

@@ -3,4 +3,4 @@ interface TranslateVariablesInterface {
     [index: string]: any;
 }
 
-export default TranslateVariablesInterface;
+export { type TranslateVariablesInterface };

@@ -2,7 +2,7 @@ import { Alert, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, Tabl
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import TableResultsPagination from "../../../components/Table/components/TableResultsPagination";
+import { TableResultsPagination } from "../../../components/Table/components/TableResultsPagination";
 import { useTable } from "../../../components/Table/contexts/Table";
 
 const TableResults = () => {
@@ -93,4 +93,4 @@ const TableResults = () => {
     );
 };
 
-export default TableResults;
+export { TableResults };

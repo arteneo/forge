@@ -1,7 +1,6 @@
-import React from "react";
 
-import SelectEnum, { SelectEnumProps } from "../../../components/Form/fields/SelectEnum";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { SelectEnum, type SelectEnumProps } from "../../../components/Form/fields/SelectEnum";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type SelectEnumFilterProps = FilterFieldInterface & SelectEnumProps;
 
@@ -16,5 +15,4 @@ SelectEnumFilter.defaultProps = {
     filterType: "equal",
 };
 
-export default SelectEnumFilter;
-export { SelectEnumFilterProps };
+export { SelectEnumFilter, type SelectEnumFilterProps };

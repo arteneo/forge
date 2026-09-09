@@ -1,7 +1,6 @@
-import React from "react";
 
-import RadioApi, { RadioApiProps } from "../../../components/Form/fields/RadioApi";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { RadioApi, type RadioApiProps } from "../../../components/Form/fields/RadioApi";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type RadioApiFilterProps = FilterFieldInterface & RadioApiProps;
 
@@ -23,5 +22,4 @@ RadioApiFilter.defaultProps = {
     filterType: "equal",
 };
 
-export default RadioApiFilter;
-export { RadioApiFilterProps };
+export { RadioApiFilter, type RadioApiFilterProps };

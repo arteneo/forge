@@ -1,11 +1,8 @@
 import _ from "lodash";
-import React from "react";
 
-import ButtonDialogBatchConfirm, {
-    ButtonDialogBatchConfirmProps,
-} from "../../../components/Common/ButtonDialogBatchConfirm";
+import { ButtonDialogBatchConfirm, type ButtonDialogBatchConfirmProps } from "../../../components/Common/ButtonDialogBatchConfirm";
 import { useTable } from "../../../components/Table/contexts/Table";
-import Optional from "../../../definitions/Optional";
+import { Optional } from "../../../definitions/Optional";
 import { mergeEndpointCustomizer } from "../../../utilities/merge";
 
 interface BatchConfirmProps extends Omit<ButtonDialogBatchConfirmProps, "dialogProps"> {
@@ -59,5 +56,4 @@ const BatchConfirm = ({ dialogProps, ...props }: BatchConfirmProps) => {
     );
 };
 
-export default BatchConfirm;
-export { BatchConfirmProps };
+export { BatchConfirm, type BatchConfirmProps };

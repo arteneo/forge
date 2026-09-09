@@ -1,7 +1,6 @@
-import React from "react";
 
-import DateTimePicker, { DateTimePickerProps } from "../../../components/Form/fields/DateTimePicker";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { DateTimePicker, type DateTimePickerProps } from "../../../components/Form/fields/DateTimePicker";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type DateTimeFromFilterProps = FilterFieldInterface & DateTimePickerProps;
 
@@ -16,5 +15,4 @@ DateTimeFromFilter.defaultProps = {
     filterType: "dateTimeGreaterThanOrEqual",
 };
 
-export default DateTimeFromFilter;
-export { DateTimeFromFilterProps };
+export { DateTimeFromFilter, type DateTimeFromFilterProps };

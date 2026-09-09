@@ -1,11 +1,11 @@
 import { DialogContent as MuiDialogContent, DialogContentProps as MuiDialogContentProps } from "@mui/material";
 import React from "react";
 
-import DialogBatchProgress, { DialogBatchProgressProps } from "../../components/Dialog/DialogBatchProgress";
-import DialogBatchResults from "../../components/Dialog/DialogBatchResults";
-import DialogContentLoader from "../../components/Dialog/DialogContentLoader";
+import { DialogBatchProgress, type DialogBatchProgressProps } from "../../components/Dialog/DialogBatchProgress";
+import { DialogBatchResults } from "../../components/Dialog/DialogBatchResults";
+import { DialogContentLoader } from "../../components/Dialog/DialogContentLoader";
 import { useDialog } from "../../contexts/Dialog";
-import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
+import { ResolveDialogPayloadType } from "../../definitions/ResolveDialogPayloadType";
 import { resolveDialogPayload } from "../../utilities/resolve";
 
 interface DialogBatchContentSpecificProps {
@@ -35,5 +35,4 @@ const DialogBatchContent = ({ children, batchProgressProps, ...props }: DialogBa
     );
 };
 
-export default DialogBatchContent;
-export { DialogBatchContentSpecificProps, DialogBatchContentProps };
+export { DialogBatchContent, type DialogBatchContentSpecificProps, type DialogBatchContentProps };

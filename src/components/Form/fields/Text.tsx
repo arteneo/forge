@@ -4,7 +4,7 @@ import React from "react";
 import * as Yup from "yup";
 
 import { useForm } from "../../../components/Form/contexts/Form";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
+import { FieldPlaceholderInterface } from "../../../components/Form/definitions/FieldPlaceholderInterface";
 
 interface TextSpecificProps {
     onChange?: (
@@ -112,5 +112,4 @@ const Text = ({
     return <MuiTextField {...mergedFieldProps} />;
 };
 
-export default Text;
-export { TextProps, TextSpecificProps };
+export { Text, type TextProps, type TextSpecificProps };

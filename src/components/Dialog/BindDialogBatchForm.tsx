@@ -1,7 +1,6 @@
 import { AxiosResponse } from "axios";
-import React from "react";
 
-import Form, { FormProps } from "../../components/Form/components/Form";
+import { Form, type FormProps } from "../../components/Form/components/Form";
 import { useDialog } from "../../contexts/Dialog";
 import { BatchResultInterface, useDialogBatch } from "../../contexts/DialogBatch";
 
@@ -17,7 +16,7 @@ const BindDialogBatchForm = ({ processResponse = (response) => response.data, ..
         <Form
             {...{
                 ...props,
-                onSubmitStart: (defaultOnSubmitStart, values, helpers) => {
+                onSubmitStart: (_defaultOnSubmitStart, values, helpers) => {
                     const internalDefaultOnSubmitStart = () => {
                         setProcessing(true);
                         setFinished(false);
@@ -31,7 +30,7 @@ const BindDialogBatchForm = ({ processResponse = (response) => response.data, ..
 
                     internalDefaultOnSubmitStart();
                 },
-                onSubmitSuccess: (defaultOnSubmitSuccess, values, helpers, response) => {
+                onSubmitSuccess: (_defaultOnSubmitSuccess, values, helpers, response) => {
                     const internalDefaultOnSubmitSuccess = () => {
                         helpers.setSubmitting(false);
                         setProcessing(false);
@@ -67,5 +66,4 @@ const BindDialogBatchForm = ({ processResponse = (response) => response.data, ..
     );
 };
 
-export default BindDialogBatchForm;
-export { BindDialogBatchFormProps };
+export { BindDialogBatchForm, type BindDialogBatchFormProps };

@@ -1,13 +1,12 @@
 import { getIn } from "formik";
 import _ from "lodash";
-import React from "react";
 
 import ButtonDialogFormFieldset, {
     ButtonDialogFormFieldsetProps,
 } from "../../../components/Common/ButtonDialogFormFieldset";
 import { useTable } from "../../../components/Table/contexts/Table";
-import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
-import ResultInterface from "../../../components/Table/definitions/ResultInterface";
+import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
+import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
 
 interface ResultButtonDialogFormFieldsetSpecificProps {
     disableOnSubmitSuccessReload?: boolean;
@@ -76,5 +75,4 @@ const ResultButtonDialogFormFieldset = ({
     );
 };
 
-export default ResultButtonDialogFormFieldset;
-export { ResultButtonDialogFormFieldsetProps, ResultButtonDialogFormFieldsetSpecificProps };
+export { ResultButtonDialogFormFieldset, type ResultButtonDialogFormFieldsetProps, type ResultButtonDialogFormFieldsetSpecificProps };

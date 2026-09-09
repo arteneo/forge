@@ -1,4 +1,4 @@
-import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
+import { TranslateVariablesInterface } from "../definitions/TranslateVariablesInterface";
 
 type RequestExecutionExceptionSeverity = "warning" | "error";
 
@@ -19,8 +19,8 @@ interface RequestExecutionExceptionType {
 }
 
 export {
-    RequestExecutionExceptionSeverity,
-    RequestExecutionExceptionPayload,
-    RequestExecutionExceptionErrorType,
-    RequestExecutionExceptionType,
+    type RequestExecutionExceptionSeverity,
+    type RequestExecutionExceptionPayload,
+    type RequestExecutionExceptionErrorType,
+    type RequestExecutionExceptionType,
 };

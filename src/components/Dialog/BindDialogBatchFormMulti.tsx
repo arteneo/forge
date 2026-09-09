@@ -1,11 +1,10 @@
 import { AxiosError } from "axios";
 import { FormikValues } from "formik";
-import React from "react";
 
-import FormMulti, { FormMultiProps } from "../../components/Form/components/FormMulti";
-import ResultInterface from "../../components/Table/definitions/ResultInterface";
+import { FormMulti, type FormMultiProps } from "../../components/Form/components/FormMulti";
+import { ResultInterface } from "../../components/Table/definitions/ResultInterface";
 import { BatchResultInterface, mapRequestExecutionException, useDialogBatch } from "../../contexts/DialogBatch";
-import EndpointType from "../../definitions/EndpointType";
+import { EndpointType } from "../../definitions/EndpointType";
 import { RequestExecutionExceptionType } from "../../definitions/RequestExecutionException";
 
 type BatchFormEndpointType = (result: ResultInterface, values: FormikValues) => EndpointType;
@@ -63,7 +62,7 @@ const BindDialogBatchFormMulti = ({
             {...{
                 endpoints,
                 ...props,
-                onSubmitStart: (defaultOnSubmitStart, values, helpers) => {
+                onSubmitStart: (_defaultOnSubmitStart, values, helpers) => {
                     const internalDefaultOnSubmitStart = () => {
                         setProcessing(true);
                         setFinished(false);
@@ -84,7 +83,7 @@ const BindDialogBatchFormMulti = ({
 
                     internalDefaultOnSubmitStart();
                 },
-                onSubmitSuccess: (defaultOnSubmitSuccess, response, values, helpers, key) => {
+                onSubmitSuccess: (_defaultOnSubmitSuccess, response, values, helpers, key) => {
                     const internalDefaultOnSubmitSuccess = () => {
                         setBatchResults((batchResults) => [
                             ...batchResults,
@@ -146,5 +145,4 @@ const BindDialogBatchFormMulti = ({
     );
 };
 
-export default BindDialogBatchFormMulti;
-export { BatchFormEndpointType, BindDialogBatchFormMultiProps };
+export { BindDialogBatchFormMulti, type BatchFormEndpointType, type BindDialogBatchFormMultiProps };

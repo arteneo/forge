@@ -3,4 +3,4 @@ interface ExportQueryFieldTranslatedInterface {
     label: string;
 }
 
-export default ExportQueryFieldTranslatedInterface;
+export { type ExportQueryFieldTranslatedInterface };

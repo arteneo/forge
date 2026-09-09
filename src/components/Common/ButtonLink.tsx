@@ -1,7 +1,6 @@
-import React from "react";
 import { Link, LinkProps } from "react-router";
 
-import Button, { ButtonProps } from "../../components/Common/Button";
+import { Button, type ButtonProps } from "../../components/Common/Button";
 
 type ButtonLinkProps = LinkProps & ButtonProps;
 
@@ -11,5 +10,4 @@ const ButtonLink = (props: ButtonLinkProps) => {
     return <Button component={Link} {...props} />;
 };
 
-export default ButtonLink;
-export { ButtonLinkProps };
+export { ButtonLink, type ButtonLinkProps };

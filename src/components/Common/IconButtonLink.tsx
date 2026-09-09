@@ -1,7 +1,6 @@
-import React from "react";
 import { Link, LinkProps } from "react-router";
 
-import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
+import { IconButton, type IconButtonProps } from "../../components/Common/IconButton";
 
 type IconButtonLinkProps = LinkProps & IconButtonProps;
 
@@ -11,5 +10,4 @@ const IconButtonLink = (props: IconButtonLinkProps) => {
     return <IconButton component={Link} {...props} />;
 };
 
-export default IconButtonLink;
-export { IconButtonLinkProps };
+export { IconButtonLink, type IconButtonLinkProps };

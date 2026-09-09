@@ -1,9 +1,6 @@
-import React from "react";
 
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import DialogBatchFormMultiAlertFieldset, {
-    DialogBatchFormMultiAlertFieldsetProps,
-} from "../../components/Dialog/DialogBatchFormMultiAlertFieldset";
+import { GenericButtonDialog, type ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
+import { DialogBatchFormMultiAlertFieldset, type DialogBatchFormMultiAlertFieldsetProps } from "../../components/Dialog/DialogBatchFormMultiAlertFieldset";
 
 type ButtonDialogBatchFormMultiAlertFieldsetProps =
     ExternalGenericButtonDialogProps<DialogBatchFormMultiAlertFieldsetProps>;
@@ -19,5 +16,4 @@ const ButtonDialogBatchFormMultiAlertFieldset = (props: ButtonDialogBatchFormMul
     );
 };
 
-export default ButtonDialogBatchFormMultiAlertFieldset;
-export { ButtonDialogBatchFormMultiAlertFieldsetProps };
+export { ButtonDialogBatchFormMultiAlertFieldset, type ButtonDialogBatchFormMultiAlertFieldsetProps };

@@ -1,12 +1,11 @@
 import { Check } from "@mui/icons-material";
 import { AxiosError } from "axios";
-import React from "react";
 
-import ButtonMultiEndpoint, { ButtonMultiEndpointProps } from "../../components/Common/ButtonMultiEndpoint";
-import ResultInterface from "../../components/Table/definitions/ResultInterface";
+import { ButtonMultiEndpoint, type ButtonMultiEndpointProps } from "../../components/Common/ButtonMultiEndpoint";
+import { ResultInterface } from "../../components/Table/definitions/ResultInterface";
 import { useDialog } from "../../contexts/Dialog";
 import { useDialogBatch, BatchResultInterface, mapRequestExecutionException } from "../../contexts/DialogBatch";
-import EndpointType from "../../definitions/EndpointType";
+import { EndpointType } from "../../definitions/EndpointType";
 import { RequestExecutionExceptionType } from "../../definitions/RequestExecutionException";
 
 interface DialogBatchButtonMultiEndpointProps extends Omit<ButtonMultiEndpointProps, "endpoints"> {
@@ -58,7 +57,7 @@ const DialogBatchButtonMultiEndpoint = ({
                 endIcon,
                 ...props,
                 disabled: initialized && !finished ? props.disabled : true,
-                onStart: (defaultOnStart, setLoading) => {
+                onStart: (_defaultOnStart, setLoading) => {
                     const internalDefaultOnStart = () => {
                         setLoading(true);
                         setProcessing(true);
@@ -97,7 +96,7 @@ const DialogBatchButtonMultiEndpoint = ({
 
                     internalDefaultOnFinish();
                 },
-                onSuccess: (defaultOnSuccess, key, response, setLoading) => {
+                onSuccess: (_defaultOnSuccess, key, response, setLoading) => {
                     const internalDefaultOnSuccess = () => {
                         setBatchResults((batchResults) => [
                             ...batchResults,
@@ -142,5 +141,4 @@ const DialogBatchButtonMultiEndpoint = ({
     );
 };
 
-export default DialogBatchButtonMultiEndpoint;
-export { DialogBatchButtonMultiEndpointProps };
+export { DialogBatchButtonMultiEndpoint, type DialogBatchButtonMultiEndpointProps };

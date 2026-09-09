@@ -1,14 +1,14 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { type AxiosError, type AxiosResponse } from "axios";
 import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
 import React from "react";
 
 import { useForm } from "../../../components/Form/contexts/Form";
-import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
+import { FieldEndpointType } from "../../../components/Form/definitions/FieldEndpointType";
 import { useHandleCatch } from "../../../contexts/HandleCatch";
 import { useLoader } from "../../../contexts/Loader";
 import { useSnackbar } from "../../../contexts/Snackbar";
-import Optional from "../../../definitions/Optional";
-import TranslateVariablesInterface from "../../../definitions/TranslateVariablesInterface";
+import { Optional } from "../../../definitions/Optional";
+import { TranslateVariablesInterface } from "../../../definitions/TranslateVariablesInterface";
 import { resolveFieldEndpoint } from "../../../utilities/resolve";
 
 interface FormContentProps {
@@ -117,5 +117,4 @@ const FormContent = ({
     );
 };
 
-export default FormContent;
-export { FormContentProps };
+export { FormContent, type FormContentProps };

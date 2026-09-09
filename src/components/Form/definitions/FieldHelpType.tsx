@@ -11,4 +11,4 @@ type FieldHelpType =
           name: string,
       ) => React.ReactNode);
 
-export default FieldHelpType;
+export { FieldHelpType };

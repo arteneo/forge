@@ -1,7 +1,7 @@
 import React from "react";
 
-import Button, { ButtonProps } from "../../components/Common/Button";
-import DialogFormFieldset, { DialogFormFieldsetProps } from "../../components/Dialog/DialogFormFieldset";
+import { Button, type ButtonProps } from "../../components/Common/Button";
+import { DialogFormFieldset, type DialogFormFieldsetProps } from "../../components/Dialog/DialogFormFieldset";
 
 interface IconButtonDialogFormFieldsetProps extends ButtonProps {
     dialogProps: Omit<DialogFormFieldsetProps, "open" | "onClose">;
@@ -30,5 +30,4 @@ const IconButtonDialogFormFieldset = ({ dialogProps, ...buttonProps }: IconButto
     );
 };
 
-export default IconButtonDialogFormFieldset;
-export { IconButtonDialogFormFieldsetProps };
+export { IconButtonDialogFormFieldset, type IconButtonDialogFormFieldsetProps };

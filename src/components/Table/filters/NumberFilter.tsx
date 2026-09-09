@@ -1,7 +1,6 @@
-import React from "react";
 
-import Text, { TextProps } from "../../../components/Form/fields/Text";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { Text, type TextProps } from "../../../components/Form/fields/Text";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type NumberFilterProps = FilterFieldInterface & TextProps;
 
@@ -16,5 +15,4 @@ NumberFilter.defaultProps = {
     filterType: "equal",
 };
 
-export default NumberFilter;
-export { NumberFilterProps };
+export { NumberFilter, type NumberFilterProps };

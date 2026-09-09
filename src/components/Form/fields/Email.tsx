@@ -1,7 +1,6 @@
-import React from "react";
 import * as Yup from "yup";
 
-import Text, { TextProps } from "../../../components/Form/fields/Text";
+import { Text, type TextProps } from "../../../components/Form/fields/Text";
 
 type EmailProps = TextProps;
 
@@ -27,5 +26,4 @@ const Email = (textProps: EmailProps) => {
     );
 };
 
-export default Email;
-export { EmailProps };
+export { Email, type EmailProps };

@@ -1,10 +1,9 @@
-import axios from "axios";
-import React from "react";
+import axios from "axios"
 
-import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
+import { IconButton, type IconButtonProps } from "../../components/Common/IconButton";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
-import EndpointType from "../../definitions/EndpointType";
+import { EndpointType } from "../../definitions/EndpointType";
 import { responseHeaderExtractFilename } from "../../utilities/common";
 import { resolveEndpoint } from "../../utilities/resolve";
 
@@ -59,5 +58,4 @@ const IconButtonDownload = ({ endpoint, ...props }: IconButtonDownloadProps) => 
     );
 };
 
-export default IconButtonDownload;
-export { IconButtonDownloadProps };
+export { IconButtonDownload, type IconButtonDownloadProps };

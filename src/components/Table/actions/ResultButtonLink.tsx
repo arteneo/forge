@@ -1,10 +1,9 @@
 import { getIn } from "formik";
-import React from "react";
 import { To } from "react-router";
 
-import ButtonLink, { ButtonLinkProps } from "../../../components/Common/ButtonLink";
-import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
-import ResultResolveType from "../../../components/Table/definitions/ResultResolveType";
+import { ButtonLink, type ButtonLinkProps } from "../../../components/Common/ButtonLink";
+import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
+import { ResultResolveType } from "../../../components/Table/definitions/ResultResolveType";
 import { resolveAnyOrFunction } from "../../../utilities/resolve";
 
 interface ResultButtonLinkSpecificProps {
@@ -32,5 +31,4 @@ const ResultButtonLink = ({ to, result, path, ...props }: ResultButtonLinkProps)
     );
 };
 
-export default ResultButtonLink;
-export { ResultButtonLinkProps, ResultButtonLinkSpecificProps };
+export { ResultButtonLink, type ResultButtonLinkProps, type ResultButtonLinkSpecificProps };

@@ -11,7 +11,7 @@ import React from "react";
 import * as Yup from "yup";
 
 import { useForm } from "../../../components/Form/contexts/Form";
-import FieldInterface from "../../../components/Form/definitions/FieldInterface";
+import { FieldInterface } from "../../../components/Form/definitions/FieldInterface";
 
 interface CheckboxSpecificProps {
     onChange?: (
@@ -82,7 +82,7 @@ const Checkbox = ({
         return null;
     }
 
-    const defaultOnChange = (event: React.SyntheticEvent, checked: boolean) => {
+    const defaultOnChange = (_event: React.SyntheticEvent, checked: boolean) => {
         setFieldValue(path, checked);
     };
 
@@ -131,5 +131,4 @@ const Checkbox = ({
     );
 };
 
-export default Checkbox;
-export { CheckboxProps, CheckboxSpecificProps };
+export { Checkbox, type CheckboxProps, type CheckboxSpecificProps };

@@ -1,14 +1,13 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
-import React from "react";
 
-import DialogActions from "../../components/Dialog/DialogActions";
-import DialogButtonSubmit, { DialogButtonSubmitProps } from "../../components/Dialog/DialogButtonSubmit";
-import DialogContent, { DialogContentSpecificProps } from "../../components/Dialog/DialogContent";
-import DialogTitle, { DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
-import Form, { FormProps } from "../../components/Form/components/Form";
+import { DialogActions } from "../../components/Dialog/DialogActions";
+import { DialogButtonSubmit, type DialogButtonSubmitProps } from "../../components/Dialog/DialogButtonSubmit";
+import { DialogContent, type DialogContentSpecificProps } from "../../components/Dialog/DialogContent";
+import { DialogTitle, type DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
+import { Form, type FormProps } from "../../components/Form/components/Form";
 import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
-import Optional from "../../definitions/Optional";
+import { Optional } from "../../definitions/Optional";
 
 interface DialogFormFormProps extends Omit<
     Optional<FormProps, "children">,
@@ -113,5 +112,4 @@ const DialogForm = ({
     );
 };
 
-export default DialogForm;
-export { DialogFormProps };
+export { DialogForm, type DialogFormProps };

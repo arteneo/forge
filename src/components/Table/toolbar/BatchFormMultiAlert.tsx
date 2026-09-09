@@ -1,10 +1,7 @@
-import React from "react";
 
-import ButtonDialogBatchFormMultiAlertFieldset, {
-    ButtonDialogBatchFormMultiAlertFieldsetProps,
-} from "../../../components/Common/ButtonDialogBatchFormMultiAlertFieldset";
+import { ButtonDialogBatchFormMultiAlertFieldset, type ButtonDialogBatchFormMultiAlertFieldsetProps } from "../../../components/Common/ButtonDialogBatchFormMultiAlertFieldset";
 import { useTable } from "../../../components/Table/contexts/Table";
-import Optional from "../../../definitions/Optional";
+import { Optional } from "../../../definitions/Optional";
 
 interface BatchFormMultiAlertProps extends Omit<ButtonDialogBatchFormMultiAlertFieldsetProps, "dialogProps"> {
     dialogProps: Optional<ButtonDialogBatchFormMultiAlertFieldsetProps["dialogProps"], "results">;
@@ -53,5 +50,4 @@ const BatchFormMultiAlert = ({ dialogProps, ...props }: BatchFormMultiAlertProps
     );
 };
 
-export default BatchFormMultiAlert;
-export { BatchFormMultiAlertProps };
+export { BatchFormMultiAlert, type BatchFormMultiAlertProps };

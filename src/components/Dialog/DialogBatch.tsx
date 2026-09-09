@@ -1,8 +1,7 @@
-import React from "react";
 
-import DialogActions, { DialogActionsSpecificProps } from "../../components/Dialog/DialogActions";
-import DialogBatchContent, { DialogBatchContentSpecificProps } from "../../components/Dialog/DialogBatchContent";
-import DialogTitle, { DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
+import { DialogActions, type DialogActionsSpecificProps } from "../../components/Dialog/DialogActions";
+import { DialogBatchContent, type DialogBatchContentSpecificProps } from "../../components/Dialog/DialogBatchContent";
+import { DialogTitle, type DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
 import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
 import { DialogBatchProvider, DialogBatchProviderProps } from "../../contexts/DialogBatch";
 
@@ -33,5 +32,4 @@ const DialogBatch = ({
     );
 };
 
-export default DialogBatch;
-export { DialogBatchProps };
+export { DialogBatch, type DialogBatchProps };

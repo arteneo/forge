@@ -23,9 +23,9 @@ import {
     DisableClearable,
     FreeSolo,
 } from "../../../components/Form/definitions/AutocompleteTypes";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
-import OptionInterface from "../../../components/Form/definitions/OptionInterface";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
+import { FieldPlaceholderInterface } from "../../../components/Form/definitions/FieldPlaceholderInterface";
+import { OptionInterface } from "../../../components/Form/definitions/OptionInterface";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
 
 type MultiselectAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
 type MultiselectAutocompletePartialProps<T> = {
@@ -127,7 +127,7 @@ const Multiselect = ({
         return null;
     }
 
-    const defaultOnChange = (event: React.SyntheticEvent, value: SelectValueType, reason: AutocompleteChangeReason) => {
+    const defaultOnChange = (_event: React.SyntheticEvent, value: SelectValueType, reason: AutocompleteChangeReason) => {
         if (reason === "clear") {
             setFieldValue(path, []);
             return;
@@ -262,12 +262,37 @@ const Multiselect = ({
     );
 };
 
-export default Multiselect;
+export { Multiselect };
 export {
-    MultiselectProps,
-    MultiselectSpecificProps,
-    MultiselectRenderInput,
-    MultiselectRenderInputProps,
-    MultiselectAutocompleteProps,
-    MultiselectAutocompleteOptionalProps,
+MultiselectRenderInput
+};
+export type {
+MultiselectProps,
+MultiselectSpecificProps,MultiselectRenderInputProps,
+MultiselectAutocompleteProps,
+MultiselectAutocompleteOptionalProps
+};
+export type {
+MultiselectProps,
+MultiselectSpecificProps,MultiselectRenderInputProps,
+MultiselectAutocompleteProps,
+MultiselectAutocompleteOptionalProps
+};
+export type {
+MultiselectProps,
+MultiselectSpecificProps,MultiselectRenderInputProps,
+MultiselectAutocompleteProps,
+MultiselectAutocompleteOptionalProps
+};
+export type {
+MultiselectProps,
+MultiselectSpecificProps,MultiselectRenderInputProps,
+MultiselectAutocompleteProps,
+MultiselectAutocompleteOptionalProps
+};
+export type {
+MultiselectProps,
+MultiselectSpecificProps,MultiselectRenderInputProps,
+MultiselectAutocompleteProps,
+MultiselectAutocompleteOptionalProps
 };

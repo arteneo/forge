@@ -1,16 +1,13 @@
 import { AxiosResponse } from "axios";
-import React from "react";
 
-import BindDialogBatchFormMulti, {
-    BindDialogBatchFormMultiProps,
-} from "../../components/Dialog/BindDialogBatchFormMulti";
-import DialogActions from "../../components/Dialog/DialogActions";
-import DialogBatchButtonSubmit, { DialogBatchButtonSubmitProps } from "../../components/Dialog/DialogBatchButtonSubmit";
-import DialogBatchContent, { DialogBatchContentSpecificProps } from "../../components/Dialog/DialogBatchContent";
-import DialogTitle, { DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
+import { BindDialogBatchFormMulti, type BindDialogBatchFormMultiProps } from "../../components/Dialog/BindDialogBatchFormMulti";
+import { DialogActions } from "../../components/Dialog/DialogActions";
+import { DialogBatchButtonSubmit, type DialogBatchButtonSubmitProps } from "../../components/Dialog/DialogBatchButtonSubmit";
+import { DialogBatchContent, type DialogBatchContentSpecificProps } from "../../components/Dialog/DialogBatchContent";
+import { DialogTitle, type DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
 import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
 import { BatchResultInterface, DialogBatchProvider, DialogBatchProviderProps } from "../../contexts/DialogBatch";
-import Optional from "../../definitions/Optional";
+import { Optional } from "../../definitions/Optional";
 
 type DialogBatchFormMultiFormProps = Optional<BindDialogBatchFormMultiProps, "children">;
 
@@ -53,5 +50,4 @@ const DialogBatchFormMulti = ({
     );
 };
 
-export default DialogBatchFormMulti;
-export { DialogBatchFormMultiProps };
+export { DialogBatchFormMulti, type DialogBatchFormMultiProps };

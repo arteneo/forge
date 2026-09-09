@@ -1,9 +1,8 @@
 import { Box } from "@mui/material";
 import { useFormikContext } from "formik";
-import React from "react";
 
-import Button from "../../../components/Common/Button";
-import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import { Button } from "../../../components/Common/Button";
+import { FieldsInterface } from "../../../components/Form/definitions/FieldsInterface";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { renderField } from "../../../utilities/common";
 
@@ -61,5 +60,4 @@ const TableFiltersFieldset = ({ fields }: TableFiltersFieldsetProps) => {
     );
 };
 
-export default TableFiltersFieldset;
-export { TableFiltersFieldsetProps };
+export { TableFiltersFieldset, type TableFiltersFieldsetProps };

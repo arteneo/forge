@@ -2,7 +2,6 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { DragIndicator } from "@mui/icons-material";
 import { Checkbox, IconButton, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
@@ -68,5 +67,4 @@ const VisibleColumnsArrangeItem = ({ name }: VisibleColumnsArrangeItemProps) => 
     );
 };
 
-export default VisibleColumnsArrangeItem;
-export { VisibleColumnsArrangeItemProps };
+export { VisibleColumnsArrangeItem, type VisibleColumnsArrangeItemProps };

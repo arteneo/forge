@@ -1,8 +1,7 @@
-import React from "react";
 
-import DialogActions, { DialogActionsSpecificProps } from "../../components/Dialog/DialogActions";
-import DialogContent, { DialogContentSpecificProps } from "../../components/Dialog/DialogContent";
-import DialogTitle, { DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
+import { DialogActions, type DialogActionsSpecificProps } from "../../components/Dialog/DialogActions";
+import { DialogContent, type DialogContentSpecificProps } from "../../components/Dialog/DialogContent";
+import { DialogTitle, type DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
 import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
 
 type DialogProps = DialogTitleSpecificProps &
@@ -20,5 +19,4 @@ const Dialog = ({ children, title, titleVariables, onClose, actions, ...props }:
     );
 };
 
-export default Dialog;
-export { DialogProps };
+export { Dialog, type DialogProps };

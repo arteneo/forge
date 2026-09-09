@@ -1,3 +1,3 @@
 type SortingDirection = "asc" | "desc";
 
-export default SortingDirection;
+export { SortingDirection };

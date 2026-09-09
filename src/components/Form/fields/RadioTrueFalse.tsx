@@ -1,8 +1,8 @@
 import React from "react";
 
-import OptionsType from "../../../components/Form/definitions/OptionsType";
-import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
-import Optional from "../../../definitions/Optional";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
+import { Radio, type RadioProps } from "../../../components/Form/fields/Radio";
+import { Optional } from "../../../definitions/Optional";
 
 type RadioTrueFalseProps = Optional<RadioProps, "options">;
 
@@ -22,7 +22,7 @@ const RadioTrueFalse = (radioProps: RadioTrueFalseProps) => {
         path: string,
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-        event: React.ChangeEvent<HTMLInputElement>,
+        _event: React.ChangeEvent<HTMLInputElement>,
         value: string,
     ) => {
         if (value === "true") {
@@ -61,5 +61,4 @@ RadioTrueFalse.defaultProps = {
     },
 };
 
-export default RadioTrueFalse;
-export { RadioTrueFalseProps };
+export { RadioTrueFalse, type RadioTrueFalseProps };

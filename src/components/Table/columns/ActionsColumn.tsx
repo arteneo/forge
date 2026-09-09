@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 
-import ColumnInterface from "../../../components/Table/definitions/ColumnInterface";
+import { ColumnInterface } from "../../../components/Table/definitions/ColumnInterface";
 
 interface ActionsColumnProps extends ColumnInterface {
     children: React.ReactNode;
@@ -37,5 +37,4 @@ ActionsColumn.defaultProps = {
     disableSorting: true,
 };
 
-export default ActionsColumn;
-export { ActionsColumnProps };
+export { ActionsColumn, type ActionsColumnProps };

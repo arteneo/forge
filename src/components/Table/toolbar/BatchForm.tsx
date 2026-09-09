@@ -1,10 +1,7 @@
-import React from "react";
 
-import ButtonDialogBatchFormFieldset, {
-    ButtonDialogBatchFormFieldsetProps,
-} from "../../../components/Common/ButtonDialogBatchFormFieldset";
+import { ButtonDialogBatchFormFieldset, type ButtonDialogBatchFormFieldsetProps } from "../../../components/Common/ButtonDialogBatchFormFieldset";
 import { useTable } from "../../../components/Table/contexts/Table";
-import Optional from "../../../definitions/Optional";
+import { Optional } from "../../../definitions/Optional";
 
 interface BatchFormProps extends Omit<ButtonDialogBatchFormFieldsetProps, "dialogProps"> {
     dialogProps: Optional<ButtonDialogBatchFormFieldsetProps["dialogProps"], "results">;
@@ -65,5 +62,4 @@ const BatchForm = ({ dialogProps, ...props }: BatchFormProps) => {
     );
 };
 
-export default BatchForm;
-export { BatchFormProps };
+export { BatchForm, type BatchFormProps };

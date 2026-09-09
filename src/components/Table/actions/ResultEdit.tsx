@@ -1,8 +1,7 @@
-import React from "react";
 
-import ResultButtonLink, { ResultButtonLinkProps } from "../../../components/Table/actions/ResultButtonLink";
-import ColumnInterface from "../../../components/Table/definitions/ColumnInterface";
-import Optional from "../../../definitions/Optional";
+import { ResultButtonLink, type ResultButtonLinkProps } from "../../../components/Table/actions/ResultButtonLink";
+import { ColumnInterface } from "../../../components/Table/definitions/ColumnInterface";
+import { Optional } from "../../../definitions/Optional";
 
 type ResultEditProps = Optional<ResultButtonLinkProps, "to"> & ColumnInterface;
 
@@ -26,5 +25,4 @@ const ResultEdit = ({ result, ...props }: ResultEditProps) => {
     );
 };
 
-export default ResultEdit;
-export { ResultEditProps };
+export { ResultEdit, type ResultEditProps };

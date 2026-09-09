@@ -1,7 +1,6 @@
-import React from "react";
 
-import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
-import FilterFieldInterface from "../../../components/Table/definitions/FilterFieldInterface";
+import { Radio, type RadioProps } from "../../../components/Form/fields/Radio";
+import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 
 type RadioFilterProps = FilterFieldInterface & RadioProps;
 
@@ -23,5 +22,4 @@ RadioFilter.defaultProps = {
     filterType: "equal",
 };
 
-export default RadioFilter;
-export { RadioFilterProps };
+export { RadioFilter, type RadioFilterProps };

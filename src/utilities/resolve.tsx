@@ -2,11 +2,11 @@ import { AxiosRequestConfig } from "axios";
 import { FormikValues } from "formik";
 import React from "react";
 
-import FieldAutocompleteEndpointType from "../components/Form/definitions/FieldAutocompleteEndpointType";
-import FieldEndpointType from "../components/Form/definitions/FieldEndpointType";
+import { FieldAutocompleteEndpointType } from "../components/Form/definitions/FieldAutocompleteEndpointType";
+import { FieldEndpointType } from "../components/Form/definitions/FieldEndpointType";
 import { DialogPayload } from "../contexts/Dialog";
-import EndpointType from "../definitions/EndpointType";
-import ResolveDialogPayloadType from "../definitions/ResolveDialogPayloadType";
+import { EndpointType } from "../definitions/EndpointType";
+import { ResolveDialogPayloadType } from "../definitions/ResolveDialogPayloadType";
 
 /* eslint-disable */
 const resolveBooleanOrFunction = (parameter: undefined | boolean | Function, ...functionParameters: any[]): boolean => {

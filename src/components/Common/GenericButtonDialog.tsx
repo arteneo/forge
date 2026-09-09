@@ -1,6 +1,6 @@
 import React from "react";
 
-import Button, { ButtonProps } from "../../components/Common/Button";
+import { Button, type ButtonProps } from "../../components/Common/Button";
 
 interface GenericButtonDialogProps<T> extends ButtonProps {
     // eslint-disable-next-line
@@ -51,5 +51,4 @@ const GenericButtonDialog = <T,>({
     );
 };
 
-export default GenericButtonDialog;
-export { ExternalGenericButtonDialogProps, GenericButtonDialogProps };
+export { GenericButtonDialog, type ExternalGenericButtonDialogProps, type GenericButtonDialogProps };

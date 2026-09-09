@@ -1,11 +1,8 @@
-import React from "react";
 
-import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
-import DialogVisibleColumnsButtonEndpoint, {
-    DialogVisibleColumnsButtonEndpointProps,
-} from "../../components/Dialog/DialogVisibleColumnsButtonEndpoint";
+import { Dialog, type DialogProps } from "../../components/Dialog/Dialog";
+import { DialogVisibleColumnsButtonEndpoint, type DialogVisibleColumnsButtonEndpointProps } from "../../components/Dialog/DialogVisibleColumnsButtonEndpoint";
 import { VisibleColumnsProvider } from "../../contexts/VisibleColumns";
-import Optional from "../../definitions/Optional";
+import { Optional } from "../../definitions/Optional";
 
 interface DialogVisibleColumnsProps extends Optional<DialogProps, "title" | "dialogProps"> {
     confirmProps: DialogVisibleColumnsButtonEndpointProps;
@@ -33,5 +30,4 @@ const DialogVisibleColumns = ({
     );
 };
 
-export default DialogVisibleColumns;
-export { DialogVisibleColumnsProps };
+export { DialogVisibleColumns, type DialogVisibleColumnsProps };

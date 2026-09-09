@@ -1,13 +1,12 @@
 import { AxiosRequestConfig } from "axios";
-import React from "react";
 import { useTranslation } from "react-i18next";
 
-import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
+import { ButtonDownload, type ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
 import { useTable } from "../../../components/Table/contexts/Table";
-import ExportCsvQueryInterface from "../../../components/Table/definitions/ExportCsvQueryInterface";
-import ExportQueryFieldInterface from "../../../components/Table/definitions/ExportQueryFieldInterface";
-import ExportQueryFieldTranslatedInterface from "../../../components/Table/definitions/ExportQueryFieldTranslatedInterface";
-import Optional from "../../../definitions/Optional";
+import { ExportCsvQueryInterface } from "../../../components/Table/definitions/ExportCsvQueryInterface";
+import { ExportQueryFieldInterface } from "../../../components/Table/definitions/ExportQueryFieldInterface";
+import { ExportQueryFieldTranslatedInterface } from "../../../components/Table/definitions/ExportQueryFieldTranslatedInterface";
+import { Optional } from "../../../definitions/Optional";
 import { resolveEndpoint } from "../../../utilities/resolve";
 
 interface ExportCsvInterface {
@@ -80,5 +79,4 @@ const ExportCsv = ({
     );
 };
 
-export default ExportCsv;
-export { ExportCsvProps, ExportCsvInterface };
+export { ExportCsv, type ExportCsvProps, type ExportCsvInterface };

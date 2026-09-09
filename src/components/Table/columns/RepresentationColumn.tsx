@@ -1,7 +1,6 @@
 import { getIn } from "formik";
-import React from "react";
 
-import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
+import { ColumnPathInterface } from "../../../components/Table/definitions/ColumnPathInterface";
 
 const RepresentationColumn = ({ result, columnName, path }: ColumnPathInterface) => {
     if (typeof columnName === "undefined") {
@@ -16,5 +15,5 @@ const RepresentationColumn = ({ result, columnName, path }: ColumnPathInterface)
     return <>{value?.representation}</>;
 };
 
-export default RepresentationColumn;
-export { ColumnPathInterface as RepresentationColumnProps };
+export { RepresentationColumn };
+export { type ColumnPathInterface as RepresentationColumnProps };

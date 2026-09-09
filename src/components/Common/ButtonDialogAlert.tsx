@@ -1,7 +1,6 @@
-import React from "react";
 
-import GenericButtonDialog, { ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import DialogAlert, { DialogAlertProps } from "../../components/Dialog/DialogAlert";
+import { GenericButtonDialog, type ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
+import { DialogAlert, type DialogAlertProps } from "../../components/Dialog/DialogAlert";
 
 type ButtonDialogAlertProps = ExternalGenericButtonDialogProps<DialogAlertProps>;
 
@@ -16,5 +15,4 @@ const ButtonDialogAlert = (props: ButtonDialogAlertProps) => {
     );
 };
 
-export default ButtonDialogAlert;
-export { ButtonDialogAlertProps };
+export { ButtonDialogAlert, type ButtonDialogAlertProps };

@@ -1,9 +1,8 @@
 import { Chip, ChipProps } from "@mui/material";
 import { getIn } from "formik";
-import React from "react";
 import { useTranslation } from "react-i18next";
 
-import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
+import { ColumnPathInterface } from "../../../components/Table/definitions/ColumnPathInterface";
 
 interface BooleanColumnProps extends ColumnPathInterface {
     chipProps?: ChipProps;
@@ -48,5 +47,4 @@ const BooleanColumn = ({ result, columnName, path, chipProps }: BooleanColumnPro
     );
 };
 
-export default BooleanColumn;
-export { BooleanColumnProps };
+export { BooleanColumn, type BooleanColumnProps };

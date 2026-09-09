@@ -61,4 +61,4 @@ const TableResultsPaginationActions = () => {
     );
 };
 
-export default TableResultsPaginationActions;
+export { TableResultsPaginationActions };

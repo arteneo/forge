@@ -9,4 +9,4 @@ type FieldHiddenType =
       ) => boolean)
     | boolean;
 
-export default FieldHiddenType;
+export { FieldHiddenType };

@@ -1,7 +1,6 @@
-import React from "react";
 
-import ButtonLink, { ButtonLinkProps } from "../../../components/Common/ButtonLink";
-import Optional from "../../../definitions/Optional";
+import { ButtonLink, type ButtonLinkProps } from "../../../components/Common/ButtonLink";
+import { Optional } from "../../../definitions/Optional";
 
 type CreateProps = Optional<ButtonLinkProps, "to">;
 
@@ -19,5 +18,4 @@ const Create = (props: CreateProps) => {
     );
 };
 
-export default Create;
-export { CreateProps };
+export { Create, type CreateProps };

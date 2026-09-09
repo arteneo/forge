@@ -6,20 +6,20 @@ import {
     Checkbox as MuiCheckbox,
     CircularProgress,
 } from "@mui/material";
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { type AxiosError, type AxiosRequestConfig, type AxiosResponse } from "axios";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { debounce, cloneDeep } from "lodash";
 import React from "react";
-import Highlighter from "react-highlight-words";
+import { Highlighter } from "react-highlight-words";
 import { useTranslation } from "react-i18next";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 
-import HighlightTag from "../../../components/Common/HighlightTag";
+import { HighlightTag } from "../../../components/Common/HighlightTag";
 import { useForm } from "../../../components/Form/contexts/Form";
 import { SelectValueType } from "../../../components/Form/definitions/AutocompleteTypes";
-import FieldAutocompleteEndpointType from "../../../components/Form/definitions/FieldAutocompleteEndpointType";
-import OptionInterface from "../../../components/Form/definitions/OptionInterface";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
+import { FieldAutocompleteEndpointType } from "../../../components/Form/definitions/FieldAutocompleteEndpointType";
+import { OptionInterface } from "../../../components/Form/definitions/OptionInterface";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
 import Multiselect, {
     MultiselectProps,
     MultiselectRenderInput,
@@ -293,7 +293,7 @@ const MultiselectAutocompleteApi = ({
                             .filter((singleOption) => optionsIds.includes(singleOption.id))
                             .sort((optionA, optionB) => optionsByIds[optionA.id] - optionsByIds[optionB.id]);
                     },
-                    onInputChange: (event, value, reason) => {
+                    onInputChange: (_event, value, reason) => {
                         // Reason "reset" means programmatic change
                         // This prevents clearing input when changing inputValue when there is a selected option
                         // Not sure why this works that way
@@ -330,9 +330,9 @@ MultiselectAutocompleteApi.defaultProps = {
     },
 };
 
-export default MultiselectAutocompleteApi;
 export {
-    MultiselectAutocompleteApiProps,
-    MultiselectAutocompleteApiSpecificProps,
-    MultiselectAutocompleteApiRenderInputProps,
+    MultiselectAutocompleteApi,
+    type MultiselectAutocompleteApiProps,
+    type MultiselectAutocompleteApiSpecificProps,
+    type MultiselectAutocompleteApiRenderInputProps,
 };

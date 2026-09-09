@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { useError } from "../contexts/Error";
 import { useSnackbar } from "../contexts/Snackbar";
-import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
+import { TranslateVariablesInterface } from "../definitions/TranslateVariablesInterface";
 
 interface HandleCatchContextProps {
     (error: AxiosError, helpers?: FormikHelpers<FormikValues>): void;
@@ -153,10 +153,8 @@ const HandleCatchProvider = ({
 const useHandleCatch = (): HandleCatchContextProps => React.useContext(HandleCatchContext);
 
 export {
-    HandleCatchContext,
-    HandleCatchContextProps,
-    HandleCatchProvider,
-    HandleCatchProviderProps,
-    useHandleCatch,
-    AXIOS_CANCELLED_UNMOUNTED,
+HandleCatchContext,HandleCatchProvider,useHandleCatch,
+AXIOS_CANCELLED_UNMOUNTED
 };
+export { type HandleCatchContextProps,HandleCatchProviderProps };
+export { type HandleCatchContextProps,HandleCatchProviderProps };

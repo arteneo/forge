@@ -2,8 +2,8 @@ import { Box, IconButton as MuiIconButton, IconButtonProps as MuiIconButtonProps
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import DenyPropInterface from "../../components/Table/definitions/DenyPropInterface";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { DenyPropInterface } from "../../components/Table/definitions/DenyPropInterface";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 
 type InternalMuiIconButtonProps = Omit<MuiIconButtonProps, "children">;
 
@@ -59,5 +59,4 @@ const IconButton = ({
     return button;
 };
 
-export default IconButton;
-export { IconButtonProps };
+export { IconButton, type IconButtonProps };

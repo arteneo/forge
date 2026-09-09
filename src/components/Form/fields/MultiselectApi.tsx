@@ -1,11 +1,11 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { type AxiosError, type AxiosResponse } from "axios";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
 import React from "react";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 
-import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
-import Multiselect, { MultiselectProps } from "../../../components/Form/fields/Multiselect";
+import { FieldEndpointType } from "../../../components/Form/definitions/FieldEndpointType";
+import { OptionsType } from "../../../components/Form/definitions/OptionsType";
+import { Multiselect, type MultiselectProps } from "../../../components/Form/fields/Multiselect";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { resolveFieldEndpoint } from "../../../utilities/resolve";
 
@@ -84,5 +84,4 @@ MultiselectApi.defaultProps = {
     },
 };
 
-export default MultiselectApi;
-export { MultiselectApiProps, MultiselectApiSpecificProps };
+export { MultiselectApi, type MultiselectApiProps, type MultiselectApiSpecificProps };

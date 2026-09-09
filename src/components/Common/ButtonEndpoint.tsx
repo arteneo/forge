@@ -1,13 +1,13 @@
-import axios, { AxiosError, AxiosResponse, CancelTokenSource } from "axios";
+import axios, { type AxiosError, type AxiosResponse, type CancelTokenSource } from "axios";
 import React from "react";
 
-import Button, { ButtonProps } from "../../components/Common/Button";
+import { Button, type ButtonProps } from "../../components/Common/Button";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { AXIOS_CANCELLED_UNMOUNTED } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
 import { useSnackbar } from "../../contexts/Snackbar";
-import EndpointType from "../../definitions/EndpointType";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { EndpointType } from "../../definitions/EndpointType";
+import { TranslateVariablesInterface } from "../../definitions/TranslateVariablesInterface";
 import { resolveEndpoint } from "../../utilities/resolve";
 
 interface ButtonEndpointInterface {
@@ -117,5 +117,4 @@ const ButtonEndpoint = ({
     );
 };
 
-export default ButtonEndpoint;
-export { ButtonEndpointProps };
+export { ButtonEndpoint, type ButtonEndpointProps };
