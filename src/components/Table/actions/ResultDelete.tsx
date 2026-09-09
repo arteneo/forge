@@ -1,10 +1,11 @@
-import React from "react";
 import _ from "lodash";
+import React from "react";
+
 import ResultButtonDialogAlertConfirm, {
     ResultButtonDialogAlertConfirmProps,
 } from "../../../components/Table/actions/ResultButtonDialogAlertConfirm";
-import { mergeEndpointCustomizer } from "../../../utilities/merge";
 import Optional from "../../../definitions/Optional";
+import { mergeEndpointCustomizer } from "../../../utilities/merge";
 
 type ResultDeleteProps = Optional<ResultButtonDialogAlertConfirmProps, "label">;
 

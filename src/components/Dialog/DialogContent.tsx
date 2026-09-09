@@ -1,7 +1,8 @@
-import React from "react";
 import { DialogContent as MuiDialogContent, DialogContentProps as MuiDialogContentProps } from "@mui/material";
-import { useDialog } from "../../contexts/Dialog";
+import React from "react";
+
 import DialogContentLoader from "../../components/Dialog/DialogContentLoader";
+import { useDialog } from "../../contexts/Dialog";
 import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
 import { resolveDialogPayload } from "../../utilities/resolve";
 

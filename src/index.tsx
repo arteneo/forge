@@ -675,13 +675,13 @@ import OptionInterface from "./components/Form/definitions/OptionInterface";
 import OptionsType from "./components/Form/definitions/OptionsType";
 import Checkbox, { CheckboxProps, CheckboxSpecificProps } from "./components/Form/fields/Checkbox";
 import Collection, { CollectionProps, CollectionSpecificProps } from "./components/Form/fields/Collection";
+import Email, { EmailProps } from "./components/Form/fields/Email";
 import IndexedCollection, {
     IndexedCollectionRowsInterface,
     IndexedCollectionRowsKey,
     IndexedCollectionProps,
     IndexedCollectionSpecificProps,
 } from "./components/Form/fields/IndexedCollection";
-import Email, { EmailProps } from "./components/Form/fields/Email";
 import Multiselect, {
     MultiselectProps,
     MultiselectSpecificProps,
@@ -805,7 +805,6 @@ import TimeToFilter, { TimeToFilterProps } from "./components/Table/filters/Time
 import Create, { CreateProps } from "./components/Table/toolbar/Create";
 import ExportCsv, { ExportCsvProps, ExportCsvInterface } from "./components/Table/toolbar/ExportCsv";
 import ExportExcel, { ExportExcelProps, ExportExcelInterface } from "./components/Table/toolbar/ExportExcel";
-
 import EndpointType from "./definitions/EndpointType";
 import Optional from "./definitions/Optional";
 import TranslateVariablesInterface from "./definitions/TranslateVariablesInterface";

@@ -1,14 +1,15 @@
-import React from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Formik, FormikHelpers, FormikValues, Form, FormikConfig } from "formik";
+import React from "react";
+
 import { useForm } from "../../../components/Form/contexts/Form";
-import { useHandleCatch } from "../../../contexts/HandleCatch";
-import { resolveFieldEndpoint } from "../../../utilities/resolve";
-import { useSnackbar } from "../../../contexts/Snackbar";
-import { useLoader } from "../../../contexts/Loader";
-import Optional from "../../../definitions/Optional";
 import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
+import { useHandleCatch } from "../../../contexts/HandleCatch";
+import { useLoader } from "../../../contexts/Loader";
+import { useSnackbar } from "../../../contexts/Snackbar";
+import Optional from "../../../definitions/Optional";
 import TranslateVariablesInterface from "../../../definitions/TranslateVariablesInterface";
+import { resolveFieldEndpoint } from "../../../utilities/resolve";
 
 interface FormContentProps {
     children: React.ReactNode;
@@ -18,13 +19,13 @@ interface FormContentProps {
         defaultOnSubmitSuccess: () => void,
         values: FormikValues,
         helpers: FormikHelpers<FormikValues>,
-        response: AxiosResponse
+        response: AxiosResponse,
     ) => void;
     onSubmitCatch?: (
         defaultOnSubmitCatch: () => void,
         values: FormikValues,
         helpers: FormikHelpers<FormikValues>,
-        error: AxiosError
+        error: AxiosError,
     ) => void;
     onSubmit?: (values: FormikValues, helpers: FormikHelpers<FormikValues>) => void;
     endpoint?: FieldEndpointType;

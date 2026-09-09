@@ -1,5 +1,3 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import {
     DndContext,
     closestCenter,
@@ -15,16 +13,19 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { List, Alert, AlertProps, Box, InputAdornment, IconButton, TextField } from "@mui/material";
 import { Close, SettingsBackupRestore } from "@mui/icons-material";
-import VisibleColumnsArrangeItem from "../../components/Common/VisibleColumnsArrangeItem";
-import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
-import { useDialog } from "../../contexts/Dialog";
-import { useTable } from "../../components/Table/contexts/Table";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { List, Alert, AlertProps, Box, InputAdornment, IconButton, TextField } from "@mui/material";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import ButtonEndpoint, { ButtonEndpointProps } from "../../components/Common/ButtonEndpoint";
-import { resolveEndpoint } from "../../utilities/resolve";
+import VisibleColumnsArrangeItem from "../../components/Common/VisibleColumnsArrangeItem";
+import { useTable } from "../../components/Table/contexts/Table";
+import { useDialog } from "../../contexts/Dialog";
+import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
 import EndpointType from "../../definitions/EndpointType";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface DialogResetVisibleColumnsButtonEndpointProps extends Omit<ButtonEndpointProps, "endpoint"> {
     endpoint: EndpointType | ((visibleColumnsKey?: string) => EndpointType);
@@ -55,7 +56,7 @@ const VisibleColumnsArrange = ({
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
-        })
+        }),
     );
 
     const initialize = () => {
@@ -67,7 +68,7 @@ const VisibleColumnsArrange = ({
 
         // Filter out any columns that are not included in table columns
         const initializedColumns: VisibleColumnInterface[] = payloadColumns.filter(
-            (payloadColumn: VisibleColumnInterface) => tableColumnNames.includes(payloadColumn.name)
+            (payloadColumn: VisibleColumnInterface) => tableColumnNames.includes(payloadColumn.name),
         );
         tableColumnNames.forEach((tableColumn) => {
             const index = initializedColumns.findIndex((column) => column.name === tableColumn);
@@ -170,7 +171,7 @@ const VisibleColumnsArrange = ({
         ({ name }) =>
             t("label." + name)
                 .toLowerCase()
-                .search(columnName.toLowerCase()) !== -1
+                .search(columnName.toLowerCase()) !== -1,
     );
 
     return (

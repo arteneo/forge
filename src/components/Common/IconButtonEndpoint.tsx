@@ -1,13 +1,14 @@
-import React from "react";
 import axios, { AxiosResponse, CancelTokenSource } from "axios";
-import { useSnackbar } from "../../contexts/Snackbar";
-import { useHandleCatch } from "../../contexts/HandleCatch";
-import { useLoader } from "../../contexts/Loader";
+import React from "react";
+
 import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
-import EndpointType from "../../definitions/EndpointType";
-import { resolveEndpoint } from "../../utilities/resolve";
+import { useHandleCatch } from "../../contexts/HandleCatch";
 import { AXIOS_CANCELLED_UNMOUNTED } from "../../contexts/HandleCatch";
+import { useLoader } from "../../contexts/Loader";
+import { useSnackbar } from "../../contexts/Snackbar";
+import EndpointType from "../../definitions/EndpointType";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface IconButtonEndpointInterface {
     endpoint: EndpointType;

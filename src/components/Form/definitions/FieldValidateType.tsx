@@ -10,7 +10,7 @@ type FieldValidateType =
           name: string,
           path: string,
           touched: FormikTouched<FormikValues>,
-          errors: FormikErrors<FormikValues>
+          errors: FormikErrors<FormikValues>,
       ) => string | undefined)
     | string
     | undefined;

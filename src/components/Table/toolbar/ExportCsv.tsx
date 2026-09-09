@@ -1,11 +1,12 @@
+import { AxiosRequestConfig } from "axios";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { AxiosRequestConfig } from "axios";
+
+import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
+import { useTable } from "../../../components/Table/contexts/Table";
 import ExportCsvQueryInterface from "../../../components/Table/definitions/ExportCsvQueryInterface";
 import ExportQueryFieldInterface from "../../../components/Table/definitions/ExportQueryFieldInterface";
 import ExportQueryFieldTranslatedInterface from "../../../components/Table/definitions/ExportQueryFieldTranslatedInterface";
-import { useTable } from "../../../components/Table/contexts/Table";
-import ButtonDownload, { ButtonDownloadProps } from "../../../components/Common/ButtonDownload";
 import Optional from "../../../definitions/Optional";
 import { resolveEndpoint } from "../../../utilities/resolve";
 
@@ -63,7 +64,7 @@ const ExportCsv = ({
             data: typeof modifyQuery !== "undefined" ? modifyQuery(exportQuery) : exportQuery,
             responseType: "blob",
         },
-        resolvedRequestConfig
+        resolvedRequestConfig,
     );
 
     return (

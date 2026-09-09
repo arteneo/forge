@@ -1,8 +1,9 @@
+import { getIn } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { getIn } from "formik";
-import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
+
 import Enum from "../../../classes/Enum";
+import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
 
 interface EnumColumnProps extends ColumnPathInterface {
     enum: Enum;

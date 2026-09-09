@@ -1,8 +1,9 @@
-import React from "react";
 import { AxiosResponse } from "axios";
+import React from "react";
+
 import Form, { FormProps } from "../../components/Form/components/Form";
-import { BatchResultInterface, useDialogBatch } from "../../contexts/DialogBatch";
 import { useDialog } from "../../contexts/Dialog";
+import { BatchResultInterface, useDialogBatch } from "../../contexts/DialogBatch";
 
 interface BindDialogBatchFormProps extends FormProps {
     processResponse?: (response: AxiosResponse) => BatchResultInterface[];

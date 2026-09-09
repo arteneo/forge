@@ -1,5 +1,6 @@
-import React from "react";
 import { getIn } from "formik";
+import React from "react";
+
 import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
 

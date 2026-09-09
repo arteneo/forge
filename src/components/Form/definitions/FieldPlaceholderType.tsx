@@ -5,7 +5,7 @@ type FieldPlaceholderType =
           values: FormikValues,
           touched: FormikTouched<FormikValues>,
           errors: FormikErrors<FormikValues>,
-          name: string
+          name: string,
       ) => string | undefined)
     | string
     | undefined;

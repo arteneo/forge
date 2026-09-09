@@ -1,8 +1,9 @@
 import React from "react";
-import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
-import DialogTitle, { DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
-import DialogContent, { DialogContentSpecificProps } from "../../components/Dialog/DialogContent";
+
 import DialogActions, { DialogActionsSpecificProps } from "../../components/Dialog/DialogActions";
+import DialogContent, { DialogContentSpecificProps } from "../../components/Dialog/DialogContent";
+import DialogTitle, { DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
+import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";
 
 type DialogProps = DialogTitleSpecificProps &
     DialogContentSpecificProps &

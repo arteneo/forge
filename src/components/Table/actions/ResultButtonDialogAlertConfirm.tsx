@@ -1,12 +1,13 @@
-import React from "react";
 import { getIn } from "formik";
 import _ from "lodash";
+import React from "react";
+
 import ButtonDialogAlertConfirm, {
     ButtonDialogAlertConfirmProps,
 } from "../../../components/Common/ButtonDialogAlertConfirm";
+import { useTable } from "../../../components/Table/contexts/Table";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
-import { useTable } from "../../../components/Table/contexts/Table";
 
 interface ResultButtonDialogAlertConfirmSpecificProps {
     disableOnSuccessReload?: boolean;
@@ -39,7 +40,7 @@ const ResultButtonDialogAlertConfirm = ({
     const onSuccess: ButtonDialogAlertConfirmProps["dialogProps"]["confirmProps"]["onSuccess"] = (
         defaultOnSuccess,
         response,
-        setLoading
+        setLoading,
     ) => {
         const internalDefaultOnSuccess = () => {
             defaultOnSuccess();

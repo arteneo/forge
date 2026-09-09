@@ -1,4 +1,5 @@
 import React from "react";
+
 import ButtonDialogBatchFormAlertFieldset, {
     ButtonDialogBatchFormAlertFieldsetProps,
 } from "../../../components/Common/ButtonDialogBatchFormAlertFieldset";
@@ -49,7 +50,7 @@ const BatchFormAlert = ({ dialogProps, ...props }: BatchFormAlertProps) => {
                                     internalDefaultOnSubmitSuccess,
                                     values,
                                     helpers,
-                                    response
+                                    response,
                                 );
                                 return;
                             }

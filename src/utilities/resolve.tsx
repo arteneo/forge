@@ -1,10 +1,11 @@
-import React from "react";
 import { AxiosRequestConfig } from "axios";
 import { FormikValues } from "formik";
-import FieldEndpointType from "../components/Form/definitions/FieldEndpointType";
+import React from "react";
+
 import FieldAutocompleteEndpointType from "../components/Form/definitions/FieldAutocompleteEndpointType";
-import EndpointType from "../definitions/EndpointType";
+import FieldEndpointType from "../components/Form/definitions/FieldEndpointType";
 import { DialogPayload } from "../contexts/Dialog";
+import EndpointType from "../definitions/EndpointType";
 import ResolveDialogPayloadType from "../definitions/ResolveDialogPayloadType";
 
 /* eslint-disable */
@@ -73,7 +74,7 @@ const resolveFieldEndpoint = (parameter: FieldEndpointType, values: FormikValues
 const resolveFieldAutocompleteEndpoint = (
     parameter: FieldAutocompleteEndpointType,
     inputValue: string,
-    values: FormikValues
+    values: FormikValues,
 ): undefined | AxiosRequestConfig => {
     const resolved = typeof parameter === "function" ? parameter(inputValue, values) : parameter;
 
@@ -83,7 +84,7 @@ const resolveFieldAutocompleteEndpoint = (
 const resolveDialogPayload = <T,>(
     parameter: ResolveDialogPayloadType<T>,
     initialized: boolean,
-    payload: DialogPayload
+    payload: DialogPayload,
 ): T => {
     if (typeof parameter === "function") {
         // Not sure why there is a need to typehint that again

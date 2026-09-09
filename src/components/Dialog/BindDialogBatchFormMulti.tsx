@@ -1,9 +1,10 @@
-import React from "react";
 import { AxiosError } from "axios";
-import FormMulti, { FormMultiProps } from "../../components/Form/components/FormMulti";
 import { FormikValues } from "formik";
-import { BatchResultInterface, mapRequestExecutionException, useDialogBatch } from "../../contexts/DialogBatch";
+import React from "react";
+
+import FormMulti, { FormMultiProps } from "../../components/Form/components/FormMulti";
 import ResultInterface from "../../components/Table/definitions/ResultInterface";
+import { BatchResultInterface, mapRequestExecutionException, useDialogBatch } from "../../contexts/DialogBatch";
 import EndpointType from "../../definitions/EndpointType";
 import { RequestExecutionExceptionType } from "../../definitions/RequestExecutionException";
 
@@ -16,7 +17,7 @@ interface BindDialogBatchFormMultiProps extends Omit<FormMultiProps, "endpoints"
         result: ResultInterface,
         // eslint-disable-next-line
         error: AxiosError<any>,
-        values: FormikValues
+        values: FormikValues,
     ) => BatchResultInterface;
 }
 
@@ -72,7 +73,7 @@ const BindDialogBatchFormMulti = ({
                                 representation: deniedResult.representation,
                                 status: "skipped",
                                 message: deniedResult.deny?.[resultDenyKey as string],
-                            }))
+                            })),
                         );
                     };
 

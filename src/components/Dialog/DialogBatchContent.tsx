@@ -1,9 +1,10 @@
-import React from "react";
 import { DialogContent as MuiDialogContent, DialogContentProps as MuiDialogContentProps } from "@mui/material";
-import { useDialog } from "../../contexts/Dialog";
-import DialogContentLoader from "../../components/Dialog/DialogContentLoader";
+import React from "react";
+
 import DialogBatchProgress, { DialogBatchProgressProps } from "../../components/Dialog/DialogBatchProgress";
 import DialogBatchResults from "../../components/Dialog/DialogBatchResults";
+import DialogContentLoader from "../../components/Dialog/DialogContentLoader";
+import { useDialog } from "../../contexts/Dialog";
 import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
 import { resolveDialogPayload } from "../../utilities/resolve";
 

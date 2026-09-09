@@ -1,5 +1,4 @@
-import React from "react";
-import * as Yup from "yup";
+import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import {
     Checkbox as MuiCheckbox,
     TextField as MuiTextField,
@@ -12,19 +11,21 @@ import {
     AutocompleteProps,
     AutocompleteRenderInputParams,
 } from "@mui/material";
-import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
-import { useTranslation } from "react-i18next";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
+
 import { useForm } from "../../../components/Form/contexts/Form";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
-import OptionInterface from "../../../components/Form/definitions/OptionInterface";
-import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
 import {
     SelectValueType,
     Multiple,
     DisableClearable,
     FreeSolo,
 } from "../../../components/Form/definitions/AutocompleteTypes";
+import FieldPlaceholderInterface from "../../../components/Form/definitions/FieldPlaceholderInterface";
+import OptionInterface from "../../../components/Form/definitions/OptionInterface";
+import OptionsType from "../../../components/Form/definitions/OptionsType";
 
 type MultiselectAutocompleteProps = AutocompleteProps<OptionInterface, Multiple, DisableClearable, FreeSolo>;
 type MultiselectAutocompletePartialProps<T> = {
@@ -46,7 +47,7 @@ interface MultiselectSpecificProps {
         event: React.SyntheticEvent,
         reason: AutocompleteChangeReason,
         name: string,
-        details?: AutocompleteChangeDetails<OptionInterface>
+        details?: AutocompleteChangeDetails<OptionInterface>,
     ) => void;
     groupBy?: (option: OptionInterface) => string;
     disableTranslateGroupBy?: boolean;
@@ -150,7 +151,7 @@ const Multiselect = ({
         event: React.SyntheticEvent,
         value: SelectValueType,
         reason: AutocompleteChangeReason,
-        details?: AutocompleteChangeDetails<OptionInterface>
+        details?: AutocompleteChangeDetails<OptionInterface>,
     ) => {
         if (onChange) {
             // Parameters are swapped for convenience
@@ -163,7 +164,7 @@ const Multiselect = ({
                 event,
                 reason,
                 name,
-                details
+                details,
             );
             return;
         }
@@ -186,10 +187,7 @@ const Multiselect = ({
             error: hasError,
             ...params,
             inputProps: {
-                // Do not know why TypeScript has a problem with passing required directly
-                ...{
-                    required: required ? value.length === 0 : false,
-                },
+                required: required ? value.length === 0 : false,
                 ...params.inputProps,
             },
         };

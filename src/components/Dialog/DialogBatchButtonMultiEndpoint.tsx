@@ -1,10 +1,11 @@
-import React from "react";
-import { AxiosError } from "axios";
 import { Check } from "@mui/icons-material";
+import { AxiosError } from "axios";
+import React from "react";
+
 import ButtonMultiEndpoint, { ButtonMultiEndpointProps } from "../../components/Common/ButtonMultiEndpoint";
-import { useDialogBatch, BatchResultInterface, mapRequestExecutionException } from "../../contexts/DialogBatch";
-import { useDialog } from "../../contexts/Dialog";
 import ResultInterface from "../../components/Table/definitions/ResultInterface";
+import { useDialog } from "../../contexts/Dialog";
+import { useDialogBatch, BatchResultInterface, mapRequestExecutionException } from "../../contexts/DialogBatch";
 import EndpointType from "../../definitions/EndpointType";
 import { RequestExecutionExceptionType } from "../../definitions/RequestExecutionException";
 
@@ -68,7 +69,7 @@ const DialogBatchButtonMultiEndpoint = ({
                                 representation: deniedResult.representation,
                                 status: "skipped",
                                 message: deniedResult.deny?.[resultDenyKey as string],
-                            }))
+                            })),
                         );
                     };
 

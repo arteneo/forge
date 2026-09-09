@@ -1,8 +1,9 @@
 import React from "react";
-import SortingInterface from "../../../components/Table/definitions/SortingInterface";
+
 import FilterValuesInterface from "../../../components/Table/definitions/FilterValuesInterface";
-import TableQueryInterface from "../../../components/Table/definitions/TableQueryInterface";
+import SortingInterface from "../../../components/Table/definitions/SortingInterface";
 import TableQueriesInterface from "../../../components/Table/definitions/TableQueriesInterface";
+import TableQueryInterface from "../../../components/Table/definitions/TableQueryInterface";
 
 interface TableQueryContextProps {
     setQuery: (
@@ -10,7 +11,7 @@ interface TableQueryContextProps {
         page: number,
         rowsPerPage: number,
         sorting: SortingInterface,
-        filters: FilterValuesInterface
+        filters: FilterValuesInterface,
     ) => void;
     getQueryPage: (queryKey: string, defaultPage: number) => number;
     getQueryRowsPerPage: (queryKey: string, defaultRowsPerPage: number) => number;
@@ -58,7 +59,7 @@ const TableQueryProvider = ({ children }: TableQueryProviderProps) => {
         page: number,
         rowsPerPage: number,
         sorting: SortingInterface,
-        filters: FilterValuesInterface
+        filters: FilterValuesInterface,
     ): void => {
         setQueries((queries) => ({
             ...queries,

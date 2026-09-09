@@ -1,9 +1,10 @@
+import { Box, Tooltip } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Box, Tooltip } from "@mui/material";
+
 import LoadingButton, { LoadingButtonProps } from "../../components/Common/LoadingButton";
-import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 import DenyPropInterface from "../../components/Table/definitions/DenyPropInterface";
+import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 
 type InternalButtonProps = Omit<LoadingButtonProps, "children">;
 

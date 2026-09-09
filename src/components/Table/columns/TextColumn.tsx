@@ -1,5 +1,6 @@
-import React from "react";
 import { getIn } from "formik";
+import React from "react";
+
 import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
 
 const TextColumn = ({ result, columnName, path }: ColumnPathInterface) => {

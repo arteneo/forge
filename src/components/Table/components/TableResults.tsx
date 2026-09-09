@@ -1,8 +1,9 @@
-import React from "react";
 import { Alert, Checkbox, Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useTable } from "../../../components/Table/contexts/Table";
+
 import TableResultsPagination from "../../../components/Table/components/TableResultsPagination";
+import { useTable } from "../../../components/Table/contexts/Table";
 
 const TableResults = () => {
     const { t } = useTranslation();

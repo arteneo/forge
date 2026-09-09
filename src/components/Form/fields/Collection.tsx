@@ -1,6 +1,4 @@
-import React from "react";
-import * as Yup from "yup";
-import { FormikValues, FormikTouched, FormikErrors, FormikProps, useFormikContext, getIn } from "formik";
+import { Add, Delete } from "@mui/icons-material";
 import {
     Box,
     FormHelperText,
@@ -13,11 +11,14 @@ import {
     TableHead,
     TableRow,
 } from "@mui/material";
-import { Add, Delete } from "@mui/icons-material";
+import { FormikValues, FormikTouched, FormikErrors, FormikProps, useFormikContext, getIn } from "formik";
+import React from "react";
+import * as Yup from "yup";
+
 import { useForm } from "../../../components/Form/contexts/Form";
-import { resolveAnyOrFunction, resolveBooleanOrFunction } from "../../../utilities/resolve";
 import FieldInterface from "../../../components/Form/definitions/FieldInterface";
 import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import { resolveAnyOrFunction, resolveBooleanOrFunction } from "../../../utilities/resolve";
 
 interface CollectionSpecificProps {
     fields: FieldsInterface;
@@ -28,7 +29,7 @@ interface CollectionSpecificProps {
               path: string,
               touched: FormikTouched<FormikValues>,
               errors: FormikErrors<FormikValues>,
-              name: string
+              name: string,
           ) => boolean)
         | boolean;
     disableDeleteRow?:
@@ -38,7 +39,7 @@ interface CollectionSpecificProps {
               path: string,
               touched: FormikTouched<FormikValues>,
               errors: FormikErrors<FormikValues>,
-              name: string
+              name: string,
           ) => boolean)
         | boolean;
     onAddRow?: (
@@ -50,7 +51,7 @@ interface CollectionSpecificProps {
         name: string,
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>,
-        nextElementKey: number
+        nextElementKey: number,
     ) => void;
     onDeleteRow?: (
         key: number,
@@ -62,7 +63,7 @@ interface CollectionSpecificProps {
         name: string,
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>,
-        initialMaxElementKey: number
+        initialMaxElementKey: number,
     ) => void;
     initialValues?:
         | ((
@@ -70,7 +71,7 @@ interface CollectionSpecificProps {
               path: string,
               name: string,
               touched: FormikTouched<FormikValues>,
-              errors: FormikErrors<FormikValues>
+              errors: FormikErrors<FormikValues>,
           ) => FormikValues)
         | FormikValues;
 }
@@ -176,7 +177,7 @@ const Collection = ({
                 name,
                 touched,
                 errors,
-                initialMaxElementKey
+                initialMaxElementKey,
             );
             return;
         }
@@ -202,7 +203,7 @@ const Collection = ({
                 name,
                 touched,
                 errors,
-                initialMaxElementKey
+                initialMaxElementKey,
             );
             return;
         }
@@ -249,7 +250,7 @@ const Collection = ({
         path,
         touched,
         errors,
-        name
+        name,
     );
     const disableDeleteRow = resolveBooleanOrFunction(
         disableDeleteRowProp,
@@ -258,7 +259,7 @@ const Collection = ({
         path,
         touched,
         errors,
-        name
+        name,
     );
 
     return (
@@ -285,7 +286,7 @@ const Collection = ({
                                 fieldName,
                                 fieldLabelVariables,
                                 fieldDisableAutoLabel,
-                                fieldDisableTranslateLabel
+                                fieldDisableTranslateLabel,
                             );
 
                             return <TableCell key={fieldName}>{resolvedFieldLabel}</TableCell>;
@@ -307,7 +308,7 @@ const Collection = ({
                                                 Object.assign(fieldPropsOverride, {
                                                     name: name + "." + key + "." + field,
                                                     path: path + "." + key + "." + field,
-                                                })
+                                                }),
                                             )}
                                         </Box>
                                     </TableCell>

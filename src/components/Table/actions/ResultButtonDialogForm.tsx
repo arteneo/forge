@@ -1,10 +1,11 @@
-import React from "react";
 import { getIn } from "formik";
 import _ from "lodash";
+import React from "react";
+
 import ButtonDialogForm, { ButtonDialogFormProps } from "../../../components/Common/ButtonDialogForm";
+import { useTable } from "../../../components/Table/contexts/Table";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
-import { useTable } from "../../../components/Table/contexts/Table";
 
 interface ResultButtonDialogFormSpecificProps {
     disableOnSubmitSuccessReload?: boolean;
@@ -39,7 +40,7 @@ const ResultButtonDialogForm = ({
         values,
         helpers,
         response,
-        onClose
+        onClose,
     ) => {
         const internalDefaultOnSuccess = () => {
             defaultOnSubmitSuccess();

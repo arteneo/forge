@@ -1,9 +1,10 @@
-import React from "react";
 import { Box, DialogActions as MuiDialogActions } from "@mui/material";
+import React from "react";
+
+import DialogButtonClose, { DialogButtonCloseProps } from "../../components/Dialog/DialogButtonClose";
 import { useDialog } from "../../contexts/Dialog";
 import ResolveDialogPayloadType from "../../definitions/ResolveDialogPayloadType";
 import { resolveDialogPayload } from "../../utilities/resolve";
-import DialogButtonClose, { DialogButtonCloseProps } from "../../components/Dialog/DialogButtonClose";
 
 interface DialogActionsSpecificProps {
     actions?: ResolveDialogPayloadType<React.ReactNode>;
@@ -22,7 +23,14 @@ const DialogActions = ({ actions, closeProps }: DialogActionsProps) => {
             <DialogButtonClose {...closeProps} />
             <Box
                 {...{
-                    sx: { display: "flex", justifyContent: "flex-end", flexWrap: "wrap", gap: 1, flexGrow: 1, ml: 2 },
+                    sx: {
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        flexWrap: "wrap",
+                        gap: 1,
+                        flexGrow: 1,
+                        ml: 2,
+                    },
                 }}
             >
                 {resolvedActions}

@@ -1,12 +1,13 @@
-import React from "react";
 import { getIn } from "formik";
 import _ from "lodash";
+import React from "react";
+
 import ButtonDialogFormAlertFieldset, {
     ButtonDialogFormAlertFieldsetProps,
 } from "../../../components/Common/ButtonDialogFormAlertFieldset";
+import { useTable } from "../../../components/Table/contexts/Table";
 import ColumnActionPathInterface from "../../../components/Table/definitions/ColumnActionPathInterface";
 import ResultInterface from "../../../components/Table/definitions/ResultInterface";
-import { useTable } from "../../../components/Table/contexts/Table";
 
 interface ResultButtonDialogFormAlertFieldsetSpecificProps {
     disableOnSubmitSuccessReload?: boolean;
@@ -41,7 +42,7 @@ const ResultButtonDialogFormAlertFieldset = ({
         values,
         helpers,
         response,
-        onClose
+        onClose,
     ) => {
         const internalDefaultOnSuccess = () => {
             defaultOnSubmitSuccess();

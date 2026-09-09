@@ -1,6 +1,7 @@
+import { Box, IconButton as MuiIconButton, IconButtonProps as MuiIconButtonProps, Tooltip } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Box, IconButton as MuiIconButton, IconButtonProps as MuiIconButtonProps, Tooltip } from "@mui/material";
+
 import DenyPropInterface from "../../components/Table/definitions/DenyPropInterface";
 import TranslateVariablesInterface from "../../definitions/TranslateVariablesInterface";
 

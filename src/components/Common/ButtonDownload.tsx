@@ -1,11 +1,12 @@
-import React from "react";
 import axios from "axios";
+import React from "react";
+
 import Button, { ButtonProps } from "../../components/Common/Button";
 import { useHandleCatch } from "../../contexts/HandleCatch";
 import { useLoader } from "../../contexts/Loader";
 import EndpointType from "../../definitions/EndpointType";
-import { resolveEndpoint } from "../../utilities/resolve";
 import { responseHeaderExtractFilename } from "../../utilities/common";
+import { resolveEndpoint } from "../../utilities/resolve";
 
 interface ButtonDownloadInterface {
     endpoint: EndpointType;

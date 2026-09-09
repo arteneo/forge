@@ -1,5 +1,4 @@
-import React from "react";
-import * as Yup from "yup";
+import { Close } from "@mui/icons-material";
 import {
     Radio as MuiRadio,
     RadioGroup,
@@ -14,12 +13,14 @@ import {
     IconButton,
     Tooltip,
 } from "@mui/material";
-import { Close } from "@mui/icons-material";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
+
 import { useForm } from "../../../components/Form/contexts/Form";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
 import FieldInterface from "../../../components/Form/definitions/FieldInterface";
+import OptionsType from "../../../components/Form/definitions/OptionsType";
 
 interface RadioSpecificProps {
     options: OptionsType;
@@ -34,7 +35,7 @@ interface RadioSpecificProps {
         value: string,
         onChange: () => void,
         values: FormikValues,
-        name: string
+        name: string,
     ) => void;
     formLabelProps?: FormLabelProps;
     radioGroupProps?: RadioGroupProps;

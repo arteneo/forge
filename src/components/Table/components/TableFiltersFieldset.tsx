@@ -1,9 +1,10 @@
-import React from "react";
 import { Box } from "@mui/material";
 import { useFormikContext } from "formik";
-import { useTable } from "../../../components/Table/contexts/Table";
+import React from "react";
+
 import Button from "../../../components/Common/Button";
 import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import { useTable } from "../../../components/Table/contexts/Table";
 import { renderField } from "../../../utilities/common";
 
 interface TableFiltersFieldsetProps {

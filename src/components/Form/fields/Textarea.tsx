@@ -1,4 +1,5 @@
 import React from "react";
+
 import Text, { TextProps } from "../../../components/Form/fields/Text";
 
 interface TextareaSpecificProps {
@@ -16,15 +17,15 @@ const Textarea = ({ resize = "vertical", ...textProps }: TextareaProps) => {
                     multiline: true,
                     minRows: 3,
                     maxRows: 6,
-                    ...(textProps?.fieldProps ?? {}),
+                    ...textProps?.fieldProps,
                     InputProps: {
                         sx: {
                             "& textarea": {
                                 resize,
                             },
-                            ...(textProps?.fieldProps?.InputProps?.sx ?? {}),
+                            ...textProps?.fieldProps?.InputProps?.sx,
                         },
-                        ...(textProps?.fieldProps?.InputProps ?? {}),
+                        ...textProps?.fieldProps?.InputProps,
                     },
                 },
             }}

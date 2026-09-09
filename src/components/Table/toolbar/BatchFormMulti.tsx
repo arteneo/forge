@@ -1,4 +1,5 @@
 import React from "react";
+
 import ButtonDialogBatchFormMultiFieldset, {
     ButtonDialogBatchFormMultiFieldsetProps,
 } from "../../../components/Common/ButtonDialogBatchFormMultiFieldset";
@@ -37,7 +38,7 @@ const BatchFormMulti = ({ dialogProps, ...props }: BatchFormMultiProps) => {
                                     internalDefaultOnSubmitFinish,
                                     values,
                                     helpers,
-                                    cancelled
+                                    cancelled,
                                 );
                                 return;
                             }

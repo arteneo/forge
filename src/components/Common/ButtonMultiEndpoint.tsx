@@ -1,11 +1,12 @@
-import React from "react";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, CancelTokenSource } from "axios";
-import { useHandleCatch } from "../../contexts/HandleCatch";
-import { useLoader } from "../../contexts/Loader";
+import React from "react";
+
 import Button, { ButtonProps } from "../../components/Common/Button";
+import { useHandleCatch } from "../../contexts/HandleCatch";
+import { AXIOS_CANCELLED_UNMOUNTED } from "../../contexts/HandleCatch";
+import { useLoader } from "../../contexts/Loader";
 import EndpointType from "../../definitions/EndpointType";
 import { resolveEndpoint } from "../../utilities/resolve";
-import { AXIOS_CANCELLED_UNMOUNTED } from "../../contexts/HandleCatch";
 
 interface ButtonMultiEndpointInterface {
     endpoints: EndpointType[];
@@ -13,20 +14,20 @@ interface ButtonMultiEndpointInterface {
     onFinish?: (
         defaultOnFinish: () => void,
         setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-        cancelled: boolean
+        cancelled: boolean,
     ) => void;
     onSuccess?: (
         defaultOnSuccess: () => void,
         key: number,
         response: AxiosResponse,
-        setLoading: React.Dispatch<React.SetStateAction<boolean>>
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     ) => void;
     onCatch?: (
         defaultOnCatch: () => void,
         key: number,
         error: AxiosError,
         setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-        cancelled: boolean
+        cancelled: boolean,
     ) => void;
 }
 

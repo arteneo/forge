@@ -1,9 +1,10 @@
-import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Checkbox, IconButton, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { DragIndicator } from "@mui/icons-material";
+import { Checkbox, IconButton, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import React from "react";
 import { useTranslation } from "react-i18next";
+
 import { useVisibleColumns, VisibleColumnInterface } from "../../contexts/VisibleColumns";
 
 type VisibleColumnsArrangeItemProps = Pick<VisibleColumnInterface, "name">;

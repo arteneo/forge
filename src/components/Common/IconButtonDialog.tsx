@@ -1,6 +1,7 @@
 import React from "react";
-import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
+
 import IconButton, { IconButtonProps } from "../../components/Common/IconButton";
+import Dialog, { DialogProps } from "../../components/Dialog/Dialog";
 
 interface IconButtonDialogProps extends IconButtonProps {
     dialogProps: Omit<DialogProps, "open" | "onClose">;

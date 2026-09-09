@@ -1,4 +1,5 @@
 import React from "react";
+
 import ButtonDialogBatchFormFieldset, {
     ButtonDialogBatchFormFieldsetProps,
 } from "../../../components/Common/ButtonDialogBatchFormFieldset";
@@ -49,7 +50,7 @@ const BatchForm = ({ dialogProps, ...props }: BatchFormProps) => {
                                     internalDefaultOnSubmitSuccess,
                                     values,
                                     helpers,
-                                    response
+                                    response,
                                 );
                                 return;
                             }

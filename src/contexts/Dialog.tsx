@@ -1,11 +1,12 @@
-import React from "react";
 import { Dialog as MuiDialog, DialogProps as MuiDialogProps } from "@mui/material";
-import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import EndpointType from "../definitions/EndpointType";
-import { resolveEndpoint } from "../utilities/resolve";
+import React from "react";
+import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
+
 import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "../contexts/HandleCatch";
+import EndpointType from "../definitions/EndpointType";
 import Optional from "../definitions/Optional";
+import { resolveEndpoint } from "../utilities/resolve";
 
 // eslint-disable-next-line
 type DialogPayload = any;

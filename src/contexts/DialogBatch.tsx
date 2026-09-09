@@ -1,6 +1,7 @@
 import React from "react";
-import { RequestExecutionExceptionType } from "../definitions/RequestExecutionException";
+
 import ResultInterface from "../components/Table/definitions/ResultInterface";
+import { RequestExecutionExceptionType } from "../definitions/RequestExecutionException";
 import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
 
 type BatchResultStatusType = "success" | "warning" | "skipped" | "error";
@@ -80,7 +81,7 @@ const useDialogBatch = (): DialogBatchContextProps => React.useContext(DialogBat
 const mapRequestExecutionException = (
     id: number,
     representation: string,
-    requestExecutionException: RequestExecutionExceptionType
+    requestExecutionException: RequestExecutionExceptionType,
 ): BatchResultInterface => ({
     id,
     representation,

@@ -1,7 +1,8 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
 import { AxiosError } from "axios";
 import { FormikHelpers, FormikValues } from "formik";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { useError } from "../contexts/Error";
 import { useSnackbar } from "../contexts/Snackbar";
 import TranslateVariablesInterface from "../definitions/TranslateVariablesInterface";
@@ -50,7 +51,7 @@ const HandleCatchProvider = ({
     const updateValidationErrors = (
         children: ErrorsFieldProps,
         helpers: FormikHelpers<FormikValues>,
-        prefix = ""
+        prefix = "",
     ): void => {
         if (typeof externalUpdateValidationErrors !== "undefined") {
             externalUpdateValidationErrors(children, helpers);

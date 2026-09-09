@@ -5,7 +5,7 @@ type FieldDisabledType =
           values: FormikValues,
           touched: FormikTouched<FormikValues>,
           errors: FormikErrors<FormikValues>,
-          name: string
+          name: string,
       ) => boolean)
     | boolean;
 

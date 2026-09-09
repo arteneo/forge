@@ -1,4 +1,5 @@
 import { FormikValues, FormikTouched, FormikErrors } from "formik";
+
 import TranslateVariablesInterface from "../../../definitions/TranslateVariablesInterface";
 
 type FieldLabelVariablesType =
@@ -6,7 +7,7 @@ type FieldLabelVariablesType =
           values: FormikValues,
           touched: FormikTouched<FormikValues>,
           errors: FormikErrors<FormikValues>,
-          name: string
+          name: string,
       ) => TranslateVariablesInterface)
     | TranslateVariablesInterface;
 

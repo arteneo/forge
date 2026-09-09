@@ -1,9 +1,9 @@
-import FieldRequiredType from "../../../components/Form/definitions/FieldRequiredType";
+import FieldDisabledType from "../../../components/Form/definitions/FieldDisabledType";
+import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
+import FieldHiddenType from "../../../components/Form/definitions/FieldHiddenType";
 import FieldLabelType from "../../../components/Form/definitions/FieldLabelType";
 import FieldLabelVariablesType from "../../../components/Form/definitions/FieldLabelVariablesType";
-import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
-import FieldDisabledType from "../../../components/Form/definitions/FieldDisabledType";
-import FieldHiddenType from "../../../components/Form/definitions/FieldHiddenType";
+import FieldRequiredType from "../../../components/Form/definitions/FieldRequiredType";
 import FieldValidateType from "../../../components/Form/definitions/FieldValidateType";
 
 interface FieldInterface {

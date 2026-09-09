@@ -1,12 +1,13 @@
-import React from "react";
-import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { FormikValues, FormikProps, useFormikContext } from "formik";
-import { resolveFieldEndpoint } from "../../../utilities/resolve";
-import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
+import React from "react";
+import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
+
 import FieldEndpointType from "../../../components/Form/definitions/FieldEndpointType";
+import OptionsType from "../../../components/Form/definitions/OptionsType";
+import Radio, { RadioProps } from "../../../components/Form/fields/Radio";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
+import { resolveFieldEndpoint } from "../../../utilities/resolve";
 
 interface RadioApiSpecificProps {
     endpoint: FieldEndpointType;

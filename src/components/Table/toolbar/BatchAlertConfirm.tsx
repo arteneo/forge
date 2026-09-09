@@ -1,11 +1,12 @@
-import React from "react";
 import _ from "lodash";
+import React from "react";
+
 import ButtonDialogBatchAlertConfirm, {
     ButtonDialogBatchAlertConfirmProps,
 } from "../../../components/Common/ButtonDialogBatchAlertConfirm";
 import { useTable } from "../../../components/Table/contexts/Table";
-import { mergeEndpointCustomizer } from "../../../utilities/merge";
 import Optional from "../../../definitions/Optional";
+import { mergeEndpointCustomizer } from "../../../utilities/merge";
 
 interface BatchAlertConfirmProps extends Omit<ButtonDialogBatchAlertConfirmProps, "dialogProps"> {
     dialogProps: Optional<ButtonDialogBatchAlertConfirmProps["dialogProps"], "results">;
@@ -50,7 +51,7 @@ const BatchAlertConfirm = ({ dialogProps, ...props }: BatchAlertConfirmProps) =>
                             },
                         },
                     } as BatchAlertConfirmProps["dialogProps"],
-                    mergeEndpointCustomizer()
+                    mergeEndpointCustomizer(),
                 ),
                 ...props,
             }}

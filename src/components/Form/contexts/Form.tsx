@@ -1,18 +1,19 @@
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { FormikValues, FormikTouched, FormikErrors, getIn } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
-import { FormikValues, FormikTouched, FormikErrors, getIn } from "formik";
-import axios, { AxiosError, AxiosResponse } from "axios";
-import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "../../../contexts/HandleCatch";
+
 import FieldHelpType from "../../../components/Form/definitions/FieldHelpType";
 import FieldLabelType from "../../../components/Form/definitions/FieldLabelType";
 import FieldLabelVariablesType from "../../../components/Form/definitions/FieldLabelVariablesType";
-import FieldPlaceholderType from "../../../components/Form/definitions/FieldPlaceholderType";
-import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
-import FieldResolveInterface from "../../../components/Form/definitions/FieldResolveInterface";
-import FieldResolvedInterface from "../../../components/Form/definitions/FieldResolvedInterface";
-import FieldPlaceholderResolveInterface from "../../../components/Form/definitions/FieldPlaceholderResolveInterface";
 import FieldPlaceholderResolvedInterface from "../../../components/Form/definitions/FieldPlaceholderResolvedInterface";
+import FieldPlaceholderResolveInterface from "../../../components/Form/definitions/FieldPlaceholderResolveInterface";
+import FieldPlaceholderType from "../../../components/Form/definitions/FieldPlaceholderType";
+import FieldResolvedInterface from "../../../components/Form/definitions/FieldResolvedInterface";
+import FieldResolveInterface from "../../../components/Form/definitions/FieldResolveInterface";
+import FieldsInterface from "../../../components/Form/definitions/FieldsInterface";
+import { AXIOS_CANCELLED_UNMOUNTED, useHandleCatch } from "../../../contexts/HandleCatch";
 import EndpointType from "../../../definitions/EndpointType";
 import { filterInitialValues, transformInitialValues } from "../../../utilities/common";
 import {
@@ -31,13 +32,13 @@ interface FormContextProps {
         path: string,
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>,
-        submitCount: number
+        submitCount: number,
     ) => boolean;
     getError: (
         path: string,
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>,
-        submitCount: number
+        submitCount: number,
     ) => undefined | string;
     getLabel: (
         label: FieldLabelType,
@@ -47,7 +48,7 @@ interface FormContextProps {
         name: string,
         labelVariables?: FieldLabelVariablesType,
         disableAutoLabel?: boolean,
-        disableTranslateLabel?: boolean
+        disableTranslateLabel?: boolean,
     ) => undefined | React.ReactNode;
     getPlaceholder: (
         placeholder: FieldPlaceholderType,
@@ -56,7 +57,7 @@ interface FormContextProps {
         errors: FormikErrors<FormikValues>,
         name: string,
         enableAutoPlaceholder?: boolean,
-        disableTranslatePlaceholder?: boolean
+        disableTranslatePlaceholder?: boolean,
     ) => string | undefined;
     getHelp: (
         values: FormikValues,
@@ -64,7 +65,7 @@ interface FormContextProps {
         errors: FormikErrors<FormikValues>,
         name: string,
         help?: FieldHelpType,
-        disableTranslateHelp?: boolean
+        disableTranslateHelp?: boolean,
     ) => undefined | React.ReactNode;
     resolveField: (props: FieldResolveInterface) => FieldResolvedInterface;
     resolvePlaceholderField: (props: FieldPlaceholderResolveInterface) => FieldPlaceholderResolvedInterface;
@@ -82,7 +83,7 @@ interface FormProviderProps {
     processInitialValues?: (
         fields: FieldsInterface,
         initialValues?: FormikValues,
-        response?: AxiosResponse
+        response?: AxiosResponse,
     ) => FormikValues;
 }
 
@@ -142,7 +143,7 @@ const FormProvider = ({
     const [initialized, setInitialized] = React.useState(false);
     const [formikInitialValues, setFormikInitialValues] = React.useState({});
     const [initializedValuesResponse, setInitializedValuesResponse] = React.useState<undefined | AxiosResponse>(
-        undefined
+        undefined,
     );
 
     const requestConfig = resolveEndpoint(initializeEndpoint);
@@ -211,7 +212,7 @@ const FormProvider = ({
                 name,
                 path,
                 touched,
-                errors
+                errors,
             );
         }
 
@@ -236,7 +237,7 @@ const FormProvider = ({
                 name,
                 field.labelVariables,
                 field.disableAutoLabel,
-                field.disableTranslateLabel
+                field.disableTranslateLabel,
             ),
             validate,
         };
@@ -261,7 +262,7 @@ const FormProvider = ({
                 field.errors,
                 field.name,
                 enableAutoPlaceholder,
-                disableTranslatePlaceholder
+                disableTranslatePlaceholder,
             ),
         };
     };
@@ -269,7 +270,7 @@ const FormProvider = ({
     const defaultProcessInitialValues = (
         fields: FieldsInterface,
         initialValues?: FormikValues,
-        response?: AxiosResponse
+        response?: AxiosResponse,
     ): FormikValues => {
         return transformInitialValues(fields, filterInitialValues(fields, initialValues, response?.data));
     };
@@ -277,7 +278,7 @@ const FormProvider = ({
     const callableProcessInitialValues = (
         fields: FieldsInterface,
         initialValues?: FormikValues,
-        response?: AxiosResponse
+        response?: AxiosResponse,
     ): FormikValues => {
         if (typeof processInitialValues !== "undefined") {
             return processInitialValues(fields, initialValues, response);
@@ -290,7 +291,7 @@ const FormProvider = ({
         path: string,
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>,
-        submitCount: number
+        submitCount: number,
     ): boolean => {
         const error = getIn(errors, path);
         return (Boolean(getIn(touched, path)) || submitCount > 0) && typeof error === "string" && Boolean(error);
@@ -300,7 +301,7 @@ const FormProvider = ({
         path: string,
         touched: FormikTouched<FormikValues>,
         errors: FormikErrors<FormikValues>,
-        submitCount: number
+        submitCount: number,
     ): undefined | string => {
         if (!hasError(path, touched, errors, submitCount)) {
             return undefined;
@@ -317,7 +318,7 @@ const FormProvider = ({
         name: string,
         labelVariables?: FieldLabelVariablesType,
         disableAutoLabel?: boolean,
-        disableTranslateLabel?: boolean
+        disableTranslateLabel?: boolean,
     ): undefined | React.ReactNode => {
         let resolvedLabel = resolveReactNodeOrFunction(label, values, touched, errors, name);
 
@@ -344,7 +345,7 @@ const FormProvider = ({
         errors: FormikErrors<FormikValues>,
         name: string,
         enableAutoPlaceholder?: boolean,
-        disableTranslatePlaceholder?: boolean
+        disableTranslatePlaceholder?: boolean,
     ) => {
         let resolvedPlaceholder = resolveAnyOrFunction(placeholder, values, touched, errors, name);
 
@@ -369,7 +370,7 @@ const FormProvider = ({
         errors: FormikErrors<FormikValues>,
         name: string,
         help?: FieldHelpType,
-        disableTranslateHelp?: boolean
+        disableTranslateHelp?: boolean,
     ): undefined | React.ReactNode => {
         let resolvedHelp: undefined | React.ReactNode = undefined;
 

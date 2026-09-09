@@ -1,6 +1,7 @@
 import React from "react";
-import Select, { SelectProps } from "../../../components/Form/fields/Select";
+
 import Enum from "../../../classes/Enum";
+import Select, { SelectProps } from "../../../components/Form/fields/Select";
 
 interface SelectEnumSpecificProps {
     enum: Enum;

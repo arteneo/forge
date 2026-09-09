@@ -1,7 +1,8 @@
-import React from "react";
-import { getIn, isString } from "formik";
-import { useTranslation } from "react-i18next";
 import { Box, SxProps, Tooltip, TooltipProps } from "@mui/material";
+import { getIn, isString } from "formik";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import ColumnPathInterface from "../../../components/Table/definitions/ColumnPathInterface";
 
 interface TextTruncateTooltipColumnProps extends ColumnPathInterface {

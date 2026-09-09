@@ -1,12 +1,13 @@
-import React from "react";
 import { FormikValues, getIn, setIn } from "formik";
+import React from "react";
+
 import FieldsInterface from "../components/Form/definitions/FieldsInterface";
 import ColumnsInterface from "../components/Table/definitions/ColumnsInterface";
 
 export const pickFields = (
     names: undefined | string[],
     skipNames: undefined | string[],
-    fields: FieldsInterface
+    fields: FieldsInterface,
 ): FieldsInterface => {
     const _fields: FieldsInterface = {};
     const fieldNames = typeof names === "undefined" ? Object.keys(fields) : names;
@@ -34,7 +35,7 @@ export const getFields = (fields: FieldsInterface) => (names?: string[], skipNam
 export const pickColumns = (
     names: undefined | string[],
     skipNames: undefined | string[],
-    columns: ColumnsInterface
+    columns: ColumnsInterface,
 ): ColumnsInterface => {
     const _columns: ColumnsInterface = {};
     const columnNames = typeof names === "undefined" ? Object.keys(columns) : names;
@@ -71,7 +72,7 @@ export const renderField = (fields: FieldsInterface) => {
             Object.assign(props, {
                 key: field,
                 name: fields[field].props.name || field,
-            })
+            }),
         );
     };
 };
@@ -79,7 +80,7 @@ export const renderField = (fields: FieldsInterface) => {
 export const filterInitialValues = (
     fields: FieldsInterface,
     initialValues?: FormikValues,
-    loadedInitialValues?: FormikValues
+    loadedInitialValues?: FormikValues,
 ): FormikValues => {
     let values: FormikValues = {};
 
@@ -102,7 +103,7 @@ export const filterInitialValues = (
                 path,
                 collectionValues
                     .map((collectionValue) => filterInitialValues(field?.props?.fields, collectionValue))
-                    .filter((collectionValue) => Object.keys(collectionValue).length > 0)
+                    .filter((collectionValue) => Object.keys(collectionValue).length > 0),
             );
             return;
         }
@@ -128,7 +129,7 @@ export const transformInitialValues = (fields: FieldsInterface, initialValues: F
             values = setIn(
                 values,
                 path,
-                field?.props?.transformInitialValue(getIn(initialValues, path), field?.props?.fields)
+                field?.props?.transformInitialValue(getIn(initialValues, path), field?.props?.fields),
             );
             return;
         }
@@ -142,8 +143,8 @@ export const transformInitialValues = (fields: FieldsInterface, initialValues: F
                     values,
                     path,
                     collectionValues.map((collectionValue) =>
-                        transformInitialValues(field?.props?.fields, collectionValue)
-                    )
+                        transformInitialValues(field?.props?.fields, collectionValue),
+                    ),
                 );
             }
             return;

@@ -1,8 +1,4 @@
-import React from "react";
-import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
-import { debounce, cloneDeep } from "lodash";
+import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
 import {
     AutocompleteChangeDetails,
     AutocompleteChangeReason,
@@ -10,22 +6,27 @@ import {
     Checkbox as MuiCheckbox,
     CircularProgress,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import { debounce, cloneDeep } from "lodash";
+import React from "react";
 import Highlighter from "react-highlight-words";
-import { resolveFieldAutocompleteEndpoint } from "../../../utilities/resolve";
+import { useTranslation } from "react-i18next";
+import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
+
+import HighlightTag from "../../../components/Common/HighlightTag";
+import { useForm } from "../../../components/Form/contexts/Form";
+import { SelectValueType } from "../../../components/Form/definitions/AutocompleteTypes";
+import FieldAutocompleteEndpointType from "../../../components/Form/definitions/FieldAutocompleteEndpointType";
+import OptionInterface from "../../../components/Form/definitions/OptionInterface";
+import OptionsType from "../../../components/Form/definitions/OptionsType";
 import Multiselect, {
     MultiselectProps,
     MultiselectRenderInput,
     MultiselectRenderInputProps,
 } from "../../../components/Form/fields/Multiselect";
-import { useForm } from "../../../components/Form/contexts/Form";
-import OptionsType from "../../../components/Form/definitions/OptionsType";
-import OptionInterface from "../../../components/Form/definitions/OptionInterface";
-import FieldAutocompleteEndpointType from "../../../components/Form/definitions/FieldAutocompleteEndpointType";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
-import { SelectValueType } from "../../../components/Form/definitions/AutocompleteTypes";
-import HighlightTag from "../../../components/Common/HighlightTag";
+import { resolveFieldAutocompleteEndpoint } from "../../../utilities/resolve";
 
 interface MultiselectAutocompleteApiSpecificProps {
     endpoint: FieldAutocompleteEndpointType;
@@ -41,13 +42,13 @@ interface MultiselectAutocompleteApiSpecificProps {
         event: React.SyntheticEvent,
         reason: AutocompleteChangeReason,
         name: string,
-        details?: AutocompleteChangeDetails<OptionInterface>
+        details?: AutocompleteChangeDetails<OptionInterface>,
     ) => void;
     processResponse?: (response: AxiosResponse) => OptionsType;
     getInitialSelectedOptions?: (
         path: string,
         initialValues?: FormikValues,
-        initializedValuesResponse?: AxiosResponse
+        initializedValuesResponse?: AxiosResponse,
     ) => undefined | OptionInterface[];
     renderInput?: (params: MultiselectAutocompleteApiRenderInputProps) => React.ReactNode;
     noOptionsText?: (inputValue: string, loading: boolean) => string;
@@ -145,7 +146,7 @@ const MultiselectAutocompleteApi = ({
                     axiosSource.cancel(AXIOS_CANCELLED_UNMOUNTED);
                 };
             }, 250),
-        []
+        [],
     );
 
     const load = () => {
@@ -190,7 +191,7 @@ const MultiselectAutocompleteApi = ({
         event: React.SyntheticEvent,
         reason: AutocompleteChangeReason,
         name: string,
-        details?: AutocompleteChangeDetails<OptionInterface>
+        details?: AutocompleteChangeDetails<OptionInterface>,
     ) => {
         if (onChange) {
             // Parameters are swapped for convenience
@@ -205,7 +206,7 @@ const MultiselectAutocompleteApi = ({
                 event,
                 reason,
                 name,
-                details
+                details,
             );
             return;
         }
@@ -216,7 +217,7 @@ const MultiselectAutocompleteApi = ({
     const renderOption = (
         props: React.HTMLAttributes<HTMLLIElement>,
         option: OptionInterface,
-        { inputValue, selected }: AutocompleteRenderOptionState
+        { inputValue, selected }: AutocompleteRenderOptionState,
     ) => (
         <li {...props}>
             <MuiCheckbox

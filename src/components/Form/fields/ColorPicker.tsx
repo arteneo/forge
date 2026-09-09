@@ -1,5 +1,4 @@
-import React from "react";
-import * as Yup from "yup";
+import { Close } from "@mui/icons-material";
 import {
     Box,
     FormControl,
@@ -12,9 +11,11 @@ import {
     InputAdornment,
     IconButton,
 } from "@mui/material";
-import { Close } from "@mui/icons-material";
-import { ChromePicker, ChromePickerProps, ColorResult } from "react-color";
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
+import React from "react";
+import { ChromePicker, ChromePickerProps, ColorResult } from "react-color";
+import * as Yup from "yup";
+
 import { useForm } from "../../../components/Form/contexts/Form";
 import FieldInterface from "../../../components/Form/definitions/FieldInterface";
 
@@ -27,7 +28,7 @@ interface ColorPickerSpecificProps {
         onChange: () => void,
         values: FormikValues,
         event: React.ChangeEvent<HTMLInputElement>,
-        name: string
+        name: string,
     ) => void;
     selectProps?: SelectProps;
     formControlProps?: FormControlProps;
@@ -126,7 +127,11 @@ const ColorPicker = ({
     if (value) {
         internalSelectProps.startAdornment = (
             <InputAdornment {...{ position: "start", sx: { height: "100%" } }}>
-                <Box {...{ sx: { backgroundColor: value, borderRadius: "50%", width: "1.5em", height: "1.5em" } }} />
+                <Box
+                    {...{
+                        sx: { backgroundColor: value, borderRadius: "50%", width: "1.5em", height: "1.5em" },
+                    }}
+                />
             </InputAdornment>
         );
     }

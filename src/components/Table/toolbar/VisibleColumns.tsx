@@ -1,13 +1,14 @@
-import React from "react";
 import { ViewColumn } from "@mui/icons-material";
+import React from "react";
+
 import GenericIconButtonDialog, {
     ExternalGenericIconButtonDialogProps,
 } from "../../../components/Common/GenericIconButtonDialog";
 import DialogVisibleColumnsArrange, {
     DialogVisibleColumnsArrangeProps,
 } from "../../../components/Dialog/DialogVisibleColumnsArrange";
-import Optional from "../../../definitions/Optional";
 import { useTable } from "../../../components/Table/contexts/Table";
+import Optional from "../../../definitions/Optional";
 import { resolveEndpoint } from "../../../utilities/resolve";
 
 type VisibleColumnsProps = Optional<ExternalGenericIconButtonDialogProps<DialogVisibleColumnsArrangeProps>, "icon">;
@@ -38,7 +39,7 @@ const VisibleColumns = (props: VisibleColumnsProps) => {
                             method: "post",
                             data: { tableKey: visibleColumnsKey },
                         },
-                        visibleColumnsRequestConfig
+                        visibleColumnsRequestConfig,
                     ),
                     ...props.dialogProps,
                 },
