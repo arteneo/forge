@@ -73,7 +73,7 @@ const TableQueryProvider = ({ children }: TableQueryProviderProps) => {
     };
 
     const getQueryPage = (queryKey: string, defaultPage: number): number => {
-        const query: TableQueryInterface = queries?.[queryKey];
+        const query: undefined | TableQueryInterface = queries?.[queryKey];
 
         if (!query || typeof query.page === "undefined") {
             return defaultPage;
@@ -83,7 +83,7 @@ const TableQueryProvider = ({ children }: TableQueryProviderProps) => {
     };
 
     const getQueryRowsPerPage = (queryKey: string, defaultRowsPerPage: number): number => {
-        const query: TableQueryInterface = queries?.[queryKey];
+        const query: undefined | TableQueryInterface = queries?.[queryKey];
 
         if (!query || typeof query.rowsPerPage === "undefined") {
             return defaultRowsPerPage;
@@ -93,7 +93,7 @@ const TableQueryProvider = ({ children }: TableQueryProviderProps) => {
     };
 
     const getQueryFilters = (queryKey: string, defaultFilters: FilterValuesInterface): FilterValuesInterface => {
-        const query: TableQueryInterface = queries?.[queryKey];
+        const query: undefined | TableQueryInterface = queries?.[queryKey];
 
         if (!query || typeof query.filters === "undefined") {
             return defaultFilters;
@@ -103,7 +103,7 @@ const TableQueryProvider = ({ children }: TableQueryProviderProps) => {
     };
 
     const getQuerySorting = (queryKey: string, defaultSorting: SortingInterface): SortingInterface => {
-        const query: TableQueryInterface = queries?.[queryKey];
+        const query: undefined | TableQueryInterface = queries?.[queryKey];
 
         if (!query || typeof query.sorting === "undefined") {
             return defaultSorting;

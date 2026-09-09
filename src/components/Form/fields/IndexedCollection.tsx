@@ -256,7 +256,7 @@ const IndexedCollection = ({
                                             <TableCell key={field}>
                                                 <Box sx={{ display: "grid" }}>
                                                     {React.cloneElement(
-                                                        fields[field],
+                                                        fields[field] as React.ReactElement<any>,
                                                         Object.assign(fieldPropsOverride, {
                                                             name: name + "." + id + "." + field,
                                                             path: path + "." + id + "." + field,

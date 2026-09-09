@@ -98,14 +98,21 @@ const DialogBatchButtonMultiEndpoint = ({
                 },
                 onSuccess: (_defaultOnSuccess, key, response, setLoading) => {
                     const internalDefaultOnSuccess = () => {
-                        setBatchResults((batchResults) => [
-                            ...batchResults,
-                            {
-                                id: allowedResults[key].id,
-                                representation: allowedResults[key].representation,
-                                status: "success",
-                            },
-                        ]);
+                        setBatchResults((batchResults) => {
+                            const allowedResult = allowedResults[key];
+                            if (typeof allowedResult === "undefined") {
+                                return batchResults;
+                            };
+
+                            return [
+                                ...batchResults,
+                                {
+                                    id: allowedResult.id,
+                                    representation: allowedResult.representation,
+                                    status: "success",
+                                },
+                            ]
+                        });
                     };
 
                     if (typeof props.onSuccess !== "undefined") {
@@ -123,10 +130,17 @@ const DialogBatchButtonMultiEndpoint = ({
                             return;
                         }
 
-                        setBatchResults((batchResults) => [
-                            ...batchResults,
-                            onCatchProcessResponse(allowedResults[key], error),
-                        ]);
+                        setBatchResults((batchResults) => {
+                            const allowedResult = allowedResults[key];
+                            if (typeof allowedResult === "undefined") {
+                                return batchResults;
+                            };
+
+                            return [
+                                ...batchResults,
+                                onCatchProcessResponse(allowedResult, error),
+                            ]
+                        });
                     };
 
                     if (typeof props.onCatch !== "undefined") {

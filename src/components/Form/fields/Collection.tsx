@@ -229,7 +229,9 @@ const Collection = ({
             });
 
             const lastKey = newKeys[newKeys.length - 1];
-            delete collectionRows[lastKey];
+            if (typeof lastKey !== "undefined") {
+                delete collectionRows[lastKey];
+            }
         }
 
         setFieldValue(path, collectionRows);
@@ -304,7 +306,7 @@ const Collection = ({
                                     <TableCell key={field}>
                                         <Box sx={{ display: "grid" }}>
                                             {React.cloneElement(
-                                                fields[field],
+                                                fields[field] as React.ReactElement<any>,
                                                 Object.assign(fieldPropsOverride, {
                                                     name: name + "." + key + "." + field,
                                                     path: path + "." + key + "." + field,

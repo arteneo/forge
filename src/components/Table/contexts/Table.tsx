@@ -479,7 +479,7 @@ const TableProvider = ({
         const _sorting: QuerySortingInterface = Object.keys(joinedSorting).map((field) => {
             return {
                 field: field,
-                direction: joinedSorting[field],
+                direction: joinedSorting[field] as SortingDirection,
             };
         });
 

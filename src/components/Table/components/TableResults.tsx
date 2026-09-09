@@ -77,14 +77,21 @@ const TableResults = () => {
                             </TableCell>
                         )}
 
-                        {visibleColumns.map((columnName) => (
-                            <TableCell key={columnName}>
-                                {React.cloneElement(columns[columnName], {
-                                    result,
-                                    columnName: columns[columnName].props?.columnName ?? columnName,
-                                })}
-                            </TableCell>
-                        ))}
+                        {visibleColumns.map((columnName) => {
+                            const column: undefined | React.ReactElement<any> = columns[columnName];
+                            if (typeof column === "undefined") {
+                                return null;
+                            }
+
+                            return (
+                                <TableCell key={columnName}>
+                                    {React.cloneElement(column, {
+                                        result,
+                                        columnName: column.props?.columnName ?? columnName,
+                                    })}
+                                </TableCell>
+                            )
+                        })}
                     </TableRow>
                 ))}
             </TableBody>

@@ -85,14 +85,21 @@ const BindDialogBatchFormMulti = ({
                 },
                 onSubmitSuccess: (_defaultOnSubmitSuccess, response, values, helpers, key) => {
                     const internalDefaultOnSubmitSuccess = () => {
-                        setBatchResults((batchResults) => [
-                            ...batchResults,
-                            {
-                                id: allowedResults[key].id,
-                                representation: allowedResults[key].representation,
-                                status: "success",
-                            },
-                        ]);
+                        setBatchResults((batchResults) => {
+                            const allowedResult = allowedResults[key];
+                            if (typeof allowedResult === "undefined") {
+                                return batchResults;
+                            };
+
+                            return [
+                                ...batchResults,
+                                {
+                                    id: allowedResult.id,
+                                    representation: allowedResult.representation,
+                                    status: "success",
+                                },
+                            ]
+                        });
                     };
 
                     if (typeof props?.onSubmitSuccess !== "undefined") {
@@ -110,10 +117,17 @@ const BindDialogBatchFormMulti = ({
                             return;
                         }
 
-                        setBatchResults((batchResults) => [
-                            ...batchResults,
-                            onSubmitCatchProcessResponse(allowedResults[key], error, values),
-                        ]);
+                        setBatchResults((batchResults) => {
+                            const allowedResult = allowedResults[key];
+                            if (typeof allowedResult === "undefined") {
+                                return batchResults;
+                            };
+
+                            return [
+                                ...batchResults,
+                                onSubmitCatchProcessResponse(allowedResult, error, values),
+                            ]
+                        });
                     };
 
                     if (typeof props.onSubmitCatch !== "undefined") {
