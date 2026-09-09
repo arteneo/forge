@@ -17,14 +17,17 @@ Install dependencies using `npm install`.
 
 Run `npm run dev` to run typechecking using typescript and linting using oxlint (executes once, there is no watch capabilities, use VSC extension `Oxc` instead).
 
+Run `npm run format:check` to run formatter.
+
 In case you would like to run them separately use:
 
 - `npm run tsc` for typechecking using typescript
-- `npm run lint` linting using oxlint
+- `npm run lint:check` linting using oxlint
 
 You can also run `npm run test` to run tests once. `npm run test:watch` re-runs tests as they change.
 
 You can also run `npm run lint:fix` to fix most of the issues reported by `oxlint`.
+You can also run `npm run format:fix` to fix most of the issues reported by `oxfmt`.
 
 # Workflow
 
