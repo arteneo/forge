@@ -18,11 +18,9 @@ export default defineConfig({
             // Ensure to externalize deps that should not be bundled into your library (mainly peer dependencies)
             // Additionally:
             // "react/jsx-runtime" introduced by @vitejs/plugin-react
-            // "@mui/x-date-pickers/internals/hooks/useUtils" as it is used by projects using this library and should be external
             external: [
                 ...Object.keys(peerDependencies),
                 "react/jsx-runtime",
-                "@mui/x-date-pickers/internals/hooks/useUtils",
             ],
         },
     },
