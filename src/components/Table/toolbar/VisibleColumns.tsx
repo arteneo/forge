@@ -1,7 +1,13 @@
 import { ViewColumn } from "@mui/icons-material";
 
-import { GenericIconButtonDialog, type ExternalGenericIconButtonDialogProps } from "../../../components/Common/GenericIconButtonDialog";
-import { DialogVisibleColumnsArrange, type DialogVisibleColumnsArrangeProps } from "../../../components/Dialog/DialogVisibleColumnsArrange";
+import {
+    GenericIconButtonDialog,
+    type ExternalGenericIconButtonDialogProps,
+} from "../../../components/Common/GenericIconButtonDialog";
+import {
+    DialogVisibleColumnsArrange,
+    type DialogVisibleColumnsArrangeProps,
+} from "../../../components/Dialog/DialogVisibleColumnsArrange";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { Optional } from "../../../definitions/Optional";
 import { resolveEndpoint } from "../../../utilities/resolve";

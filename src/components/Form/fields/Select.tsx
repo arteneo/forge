@@ -130,7 +130,11 @@ const Select = ({
         return option.id == value;
     });
 
-    const defaultOnChange = (_event: React.SyntheticEvent, value: SelectValueType, reason: AutocompleteChangeReason) => {
+    const defaultOnChange = (
+        _event: React.SyntheticEvent,
+        value: SelectValueType,
+        reason: AutocompleteChangeReason,
+    ) => {
         if (reason === "clear") {
             setFieldValue(path, "");
             return;
@@ -236,4 +240,12 @@ const Select = ({
     );
 };
 
-export { Select, SelectRenderInput, type SelectProps, type SelectSpecificProps, type SelectRenderInputProps, type SelectAutocompleteProps, type SelectAutocompleteOptionalProps };
+export {
+    Select,
+    SelectRenderInput,
+    type SelectProps,
+    type SelectSpecificProps,
+    type SelectRenderInputProps,
+    type SelectAutocompleteProps,
+    type SelectAutocompleteOptionalProps,
+};

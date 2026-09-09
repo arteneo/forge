@@ -1,7 +1,10 @@
 import React from "react";
 
 import { Button, type ButtonProps } from "../../components/Common/Button";
-import { DialogFormAlertFieldset, type DialogFormAlertFieldsetProps } from "../../components/Dialog/DialogFormAlertFieldset";
+import {
+    DialogFormAlertFieldset,
+    type DialogFormAlertFieldsetProps,
+} from "../../components/Dialog/DialogFormAlertFieldset";
 
 interface IconButtonDialogFormAlertFieldsetProps extends ButtonProps {
     dialogProps: Omit<DialogFormAlertFieldsetProps, "open" | "onClose">;

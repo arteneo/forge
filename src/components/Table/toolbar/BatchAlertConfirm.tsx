@@ -1,6 +1,9 @@
 import _ from "lodash";
 
-import { ButtonDialogBatchAlertConfirm, type ButtonDialogBatchAlertConfirmProps } from "../../../components/Common/ButtonDialogBatchAlertConfirm";
+import {
+    ButtonDialogBatchAlertConfirm,
+    type ButtonDialogBatchAlertConfirmProps,
+} from "../../../components/Common/ButtonDialogBatchAlertConfirm";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { Optional } from "../../../definitions/Optional";
 import { mergeEndpointCustomizer } from "../../../utilities/merge";

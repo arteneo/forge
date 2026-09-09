@@ -198,4 +198,10 @@ const TableQueryProvider = ({ children }: TableQueryProviderProps) => {
 
 const useTableQuery = (): TableQueryContextProps => React.useContext(TableQueryContext);
 
-export { TableQueryContext, TableQueryProvider, useTableQuery, type TableQueryContextProps, type TableQueryProviderProps };
+export {
+    TableQueryContext,
+    TableQueryProvider,
+    useTableQuery,
+    type TableQueryContextProps,
+    type TableQueryProviderProps,
+};

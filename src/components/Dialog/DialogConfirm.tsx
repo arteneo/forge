@@ -1,4 +1,3 @@
-
 import { Dialog, type DialogProps } from "../../components/Dialog/Dialog";
 import { DialogButtonEndpoint, type DialogButtonEndpointProps } from "../../components/Dialog/DialogButtonEndpoint";
 import { Optional } from "../../definitions/Optional";

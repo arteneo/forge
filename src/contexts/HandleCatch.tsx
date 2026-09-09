@@ -153,6 +153,10 @@ const HandleCatchProvider = ({
 const useHandleCatch = (): HandleCatchContextProps => React.useContext(HandleCatchContext);
 
 export {
-    HandleCatchContext, HandleCatchProvider, useHandleCatch,
-    AXIOS_CANCELLED_UNMOUNTED, type HandleCatchContextProps, type HandleCatchProviderProps
+    HandleCatchContext,
+    HandleCatchProvider,
+    useHandleCatch,
+    AXIOS_CANCELLED_UNMOUNTED,
+    type HandleCatchContextProps,
+    type HandleCatchProviderProps,
 };

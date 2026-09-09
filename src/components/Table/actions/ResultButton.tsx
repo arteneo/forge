@@ -1,4 +1,3 @@
-
 import { Button, type ButtonProps } from "../../../components/Common/Button";
 import { ColumnActionInterface } from "../../../components/Table/definitions/ColumnActionInterface";
 

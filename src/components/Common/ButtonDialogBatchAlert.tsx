@@ -1,5 +1,7 @@
-
-import { GenericButtonDialog, type ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
 import { DialogBatchAlert, type DialogBatchAlertProps } from "../../components/Dialog/DialogBatchAlert";
 
 type ButtonDialogBatchAlertProps = ExternalGenericButtonDialogProps<DialogBatchAlertProps>;

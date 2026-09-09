@@ -20,7 +20,12 @@ import { SelectValueType } from "../../../components/Form/definitions/Autocomple
 import { FieldAutocompleteEndpointType } from "../../../components/Form/definitions/FieldAutocompleteEndpointType";
 import { OptionInterface } from "../../../components/Form/definitions/OptionInterface";
 import { OptionsType } from "../../../components/Form/definitions/OptionsType";
-import { Multiselect, type MultiselectProps, MultiselectRenderInput, type MultiselectRenderInputProps } from "../../../components/Form/fields/Multiselect";
+import {
+    Multiselect,
+    type MultiselectProps,
+    MultiselectRenderInput,
+    type MultiselectRenderInputProps,
+} from "../../../components/Form/fields/Multiselect";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { resolveFieldAutocompleteEndpoint } from "../../../utilities/resolve";
 

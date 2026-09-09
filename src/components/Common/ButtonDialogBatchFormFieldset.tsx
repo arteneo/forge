@@ -1,6 +1,11 @@
-
-import { GenericButtonDialog, type ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import { DialogBatchFormFieldset, type DialogBatchFormFieldsetProps } from "../../components/Dialog/DialogBatchFormFieldset";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
+import {
+    DialogBatchFormFieldset,
+    type DialogBatchFormFieldsetProps,
+} from "../../components/Dialog/DialogBatchFormFieldset";
 
 type ButtonDialogBatchFormFieldsetProps = ExternalGenericButtonDialogProps<DialogBatchFormFieldsetProps>;
 

@@ -1,5 +1,7 @@
-
-import { ButtonDialogBatchFormMultiFieldset, type ButtonDialogBatchFormMultiFieldsetProps } from "../../../components/Common/ButtonDialogBatchFormMultiFieldset";
+import {
+    ButtonDialogBatchFormMultiFieldset,
+    type ButtonDialogBatchFormMultiFieldsetProps,
+} from "../../../components/Common/ButtonDialogBatchFormMultiFieldset";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { Optional } from "../../../definitions/Optional";
 

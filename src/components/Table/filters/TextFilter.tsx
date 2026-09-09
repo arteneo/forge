@@ -1,4 +1,3 @@
-
 import { Text, type TextProps } from "../../../components/Form/fields/Text";
 import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 

@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 import { IconButton, type IconButtonProps } from "../../components/Common/IconButton";
 import { useHandleCatch } from "../../contexts/HandleCatch";

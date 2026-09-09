@@ -1,4 +1,3 @@
-
 import { DialogActions, type DialogActionsSpecificProps } from "../../components/Dialog/DialogActions";
 import { DialogContent, type DialogContentSpecificProps } from "../../components/Dialog/DialogContent";
 import { DialogTitle, type DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";

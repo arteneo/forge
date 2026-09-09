@@ -1,5 +1,7 @@
-
-import { ButtonDialogBatchFormMultiAlertFieldset, type ButtonDialogBatchFormMultiAlertFieldsetProps } from "../../../components/Common/ButtonDialogBatchFormMultiAlertFieldset";
+import {
+    ButtonDialogBatchFormMultiAlertFieldset,
+    type ButtonDialogBatchFormMultiAlertFieldsetProps,
+} from "../../../components/Common/ButtonDialogBatchFormMultiAlertFieldset";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { Optional } from "../../../definitions/Optional";
 

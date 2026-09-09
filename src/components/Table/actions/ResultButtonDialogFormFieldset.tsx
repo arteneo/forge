@@ -1,7 +1,10 @@
 import { getIn } from "formik";
 import _ from "lodash";
 
-import { ButtonDialogFormFieldset, type ButtonDialogFormFieldsetProps } from "../../../components/Common/ButtonDialogFormFieldset";
+import {
+    ButtonDialogFormFieldset,
+    type ButtonDialogFormFieldsetProps,
+} from "../../../components/Common/ButtonDialogFormFieldset";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
 import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
@@ -73,4 +76,8 @@ const ResultButtonDialogFormFieldset = ({
     );
 };
 
-export { ResultButtonDialogFormFieldset, type ResultButtonDialogFormFieldsetProps, type ResultButtonDialogFormFieldsetSpecificProps };
+export {
+    ResultButtonDialogFormFieldset,
+    type ResultButtonDialogFormFieldsetProps,
+    type ResultButtonDialogFormFieldsetSpecificProps,
+};

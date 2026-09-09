@@ -1,6 +1,11 @@
-
-import { GenericButtonDialog, type ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import { DialogFormAlertFieldset, type DialogFormAlertFieldsetProps } from "../../components/Dialog/DialogFormAlertFieldset";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
+import {
+    DialogFormAlertFieldset,
+    type DialogFormAlertFieldsetProps,
+} from "../../components/Dialog/DialogFormAlertFieldset";
 
 type ButtonDialogFormAlertFieldsetProps = ExternalGenericButtonDialogProps<DialogFormAlertFieldsetProps>;
 

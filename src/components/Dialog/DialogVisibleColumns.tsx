@@ -1,6 +1,8 @@
-
 import { Dialog, type DialogProps } from "../../components/Dialog/Dialog";
-import { DialogVisibleColumnsButtonEndpoint, type DialogVisibleColumnsButtonEndpointProps } from "../../components/Dialog/DialogVisibleColumnsButtonEndpoint";
+import {
+    DialogVisibleColumnsButtonEndpoint,
+    type DialogVisibleColumnsButtonEndpointProps,
+} from "../../components/Dialog/DialogVisibleColumnsButtonEndpoint";
 import { VisibleColumnsProvider } from "../../contexts/VisibleColumns";
 import { Optional } from "../../definitions/Optional";
 

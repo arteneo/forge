@@ -1,6 +1,11 @@
-
-import { GenericButtonDialog, type ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import { DialogBatchFormMultiAlertFieldset, type DialogBatchFormMultiAlertFieldsetProps } from "../../components/Dialog/DialogBatchFormMultiAlertFieldset";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
+import {
+    DialogBatchFormMultiAlertFieldset,
+    type DialogBatchFormMultiAlertFieldsetProps,
+} from "../../components/Dialog/DialogBatchFormMultiAlertFieldset";
 
 type ButtonDialogBatchFormMultiAlertFieldsetProps =
     ExternalGenericButtonDialogProps<DialogBatchFormMultiAlertFieldsetProps>;

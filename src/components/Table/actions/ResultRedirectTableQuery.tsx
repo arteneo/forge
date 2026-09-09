@@ -1,4 +1,3 @@
-
 import { ButtonLink, type ButtonLinkProps } from "../../../components/Common/ButtonLink";
 import { useTableQuery } from "../../../components/Table/contexts/TableQuery";
 import { ColumnInterface } from "../../../components/Table/definitions/ColumnInterface";

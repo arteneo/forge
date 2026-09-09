@@ -1,5 +1,7 @@
-
-import { ButtonDialogBatchAlertConfirmMulti, type ButtonDialogBatchAlertConfirmMultiProps } from "../../../components/Common/ButtonDialogBatchAlertConfirmMulti";
+import {
+    ButtonDialogBatchAlertConfirmMulti,
+    type ButtonDialogBatchAlertConfirmMultiProps,
+} from "../../../components/Common/ButtonDialogBatchAlertConfirmMulti";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { Optional } from "../../../definitions/Optional";
 

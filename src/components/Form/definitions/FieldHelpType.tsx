@@ -5,10 +5,10 @@ type FieldHelpType =
     | boolean
     | React.ReactNode
     | ((
-        values: FormikValues,
-        touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>,
-        name: string,
-    ) => React.ReactNode);
+          values: FormikValues,
+          touched: FormikTouched<FormikValues>,
+          errors: FormikErrors<FormikValues>,
+          name: string,
+      ) => React.ReactNode);
 
 export { type FieldHelpType };

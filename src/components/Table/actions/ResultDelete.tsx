@@ -1,6 +1,9 @@
 import _ from "lodash";
 
-import { ResultButtonDialogAlertConfirm, type ResultButtonDialogAlertConfirmProps } from "../../../components/Table/actions/ResultButtonDialogAlertConfirm";
+import {
+    ResultButtonDialogAlertConfirm,
+    type ResultButtonDialogAlertConfirmProps,
+} from "../../../components/Table/actions/ResultButtonDialogAlertConfirm";
 import { Optional } from "../../../definitions/Optional";
 import { mergeEndpointCustomizer } from "../../../utilities/merge";
 

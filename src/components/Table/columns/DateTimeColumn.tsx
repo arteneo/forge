@@ -1,4 +1,3 @@
-
 import { DateFormatColumn, type DateFormatColumnProps } from "../../../components/Table/columns/DateFormatColumn";
 import { Optional } from "../../../definitions/Optional";
 

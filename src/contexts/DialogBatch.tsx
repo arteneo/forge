@@ -89,4 +89,15 @@ const mapRequestExecutionException = (
     messages: requestExecutionException.errors,
 });
 
-export { DialogBatchContext, DialogBatchProvider, useDialogBatch, mapRequestExecutionException, type BatchResultStatusType, type BatchResultMessageStatusType, type BatchResultInterface, type BatchResultMessageInterface, type DialogBatchContextProps, type DialogBatchProviderProps };
+export {
+    DialogBatchContext,
+    DialogBatchProvider,
+    useDialogBatch,
+    mapRequestExecutionException,
+    type BatchResultStatusType,
+    type BatchResultMessageStatusType,
+    type BatchResultInterface,
+    type BatchResultMessageInterface,
+    type DialogBatchContextProps,
+    type DialogBatchProviderProps,
+};

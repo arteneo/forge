@@ -18,7 +18,12 @@ import { SelectValueType } from "../../../components/Form/definitions/Autocomple
 import { FieldAutocompleteEndpointType } from "../../../components/Form/definitions/FieldAutocompleteEndpointType";
 import { OptionInterface } from "../../../components/Form/definitions/OptionInterface";
 import { OptionsType } from "../../../components/Form/definitions/OptionsType";
-import { Select, type SelectProps, SelectRenderInput, type SelectRenderInputProps } from "../../../components/Form/fields/Select";
+import {
+    Select,
+    type SelectProps,
+    SelectRenderInput,
+    type SelectRenderInputProps,
+} from "../../../components/Form/fields/Select";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { resolveFieldAutocompleteEndpoint } from "../../../utilities/resolve";
 

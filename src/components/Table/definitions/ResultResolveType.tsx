@@ -3,4 +3,4 @@ import { ResultInterface } from "../../../components/Table/definitions/ResultInt
 // eslint-disable-next-line
 type ResultResolveType<T> = T | ((value: any, result: ResultInterface, path?: string) => T);
 
-export { type  ResultResolveType };
+export { type ResultResolveType };

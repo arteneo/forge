@@ -1,6 +1,11 @@
-
-import { GenericButtonDialog, type ExternalGenericButtonDialogProps } from "../../components/Common/GenericButtonDialog";
-import { DialogBatchAlertConfirmMulti, type DialogBatchAlertConfirmMultiProps } from "../../components/Dialog/DialogBatchAlertConfirmMulti";
+import {
+    GenericButtonDialog,
+    type ExternalGenericButtonDialogProps,
+} from "../../components/Common/GenericButtonDialog";
+import {
+    DialogBatchAlertConfirmMulti,
+    type DialogBatchAlertConfirmMultiProps,
+} from "../../components/Dialog/DialogBatchAlertConfirmMulti";
 
 type ButtonDialogBatchAlertConfirmMultiProps = ExternalGenericButtonDialogProps<DialogBatchAlertConfirmMultiProps>;
 

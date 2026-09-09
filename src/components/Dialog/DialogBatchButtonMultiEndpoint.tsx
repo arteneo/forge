@@ -102,7 +102,7 @@ const DialogBatchButtonMultiEndpoint = ({
                             const allowedResult = allowedResults[key];
                             if (typeof allowedResult === "undefined") {
                                 return batchResults;
-                            };
+                            }
 
                             return [
                                 ...batchResults,
@@ -111,7 +111,7 @@ const DialogBatchButtonMultiEndpoint = ({
                                     representation: allowedResult.representation,
                                     status: "success",
                                 },
-                            ]
+                            ];
                         });
                     };
 
@@ -134,12 +134,9 @@ const DialogBatchButtonMultiEndpoint = ({
                             const allowedResult = allowedResults[key];
                             if (typeof allowedResult === "undefined") {
                                 return batchResults;
-                            };
+                            }
 
-                            return [
-                                ...batchResults,
-                                onCatchProcessResponse(allowedResult, error),
-                            ]
+                            return [...batchResults, onCatchProcessResponse(allowedResult, error)];
                         });
                     };
 

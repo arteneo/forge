@@ -1,7 +1,10 @@
 import { getIn } from "formik";
 import _ from "lodash";
 
-import { ButtonDialogFormAlertFieldset, type ButtonDialogFormAlertFieldsetProps } from "../../../components/Common/ButtonDialogFormAlertFieldset";
+import {
+    ButtonDialogFormAlertFieldset,
+    type ButtonDialogFormAlertFieldsetProps,
+} from "../../../components/Common/ButtonDialogFormAlertFieldset";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
 import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
@@ -73,4 +76,8 @@ const ResultButtonDialogFormAlertFieldset = ({
     );
 };
 
-export { ResultButtonDialogFormAlertFieldset, type ResultButtonDialogFormAlertFieldsetProps, type ResultButtonDialogFormAlertFieldsetSpecificProps };
+export {
+    ResultButtonDialogFormAlertFieldset,
+    type ResultButtonDialogFormAlertFieldsetProps,
+    type ResultButtonDialogFormAlertFieldsetSpecificProps,
+};

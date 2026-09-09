@@ -1,4 +1,3 @@
-
 import { ResultButtonLink, type ResultButtonLinkProps } from "../../../components/Table/actions/ResultButtonLink";
 import { ColumnInterface } from "../../../components/Table/definitions/ColumnInterface";
 import { Optional } from "../../../definitions/Optional";

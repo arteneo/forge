@@ -1,4 +1,3 @@
-
 import { Select, type SelectProps } from "../../../components/Form/fields/Select";
 import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 

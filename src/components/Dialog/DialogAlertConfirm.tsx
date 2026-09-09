@@ -1,4 +1,3 @@
-
 import { DialogAlert, type DialogAlertProps } from "../../components/Dialog/DialogAlert";
 import { DialogButtonEndpoint, type DialogButtonEndpointProps } from "../../components/Dialog/DialogButtonEndpoint";
 import { Optional } from "../../definitions/Optional";

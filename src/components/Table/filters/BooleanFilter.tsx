@@ -1,4 +1,3 @@
-
 import { RadioTrueFalse, type RadioTrueFalseProps } from "../../../components/Form/fields/RadioTrueFalse";
 import { FilterFieldInterface } from "../../../components/Table/definitions/FilterFieldInterface";
 

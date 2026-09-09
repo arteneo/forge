@@ -1,6 +1,8 @@
-
 import { DialogBatch, type DialogBatchProps } from "../../components/Dialog/DialogBatch";
-import { DialogBatchButtonMultiEndpoint, type DialogBatchButtonMultiEndpointProps } from "../../components/Dialog/DialogBatchButtonMultiEndpoint";
+import {
+    DialogBatchButtonMultiEndpoint,
+    type DialogBatchButtonMultiEndpointProps,
+} from "../../components/Dialog/DialogBatchButtonMultiEndpoint";
 import { Optional } from "../../definitions/Optional";
 
 interface DialogBatchConfirmMultiProps extends Optional<DialogBatchProps, "title"> {

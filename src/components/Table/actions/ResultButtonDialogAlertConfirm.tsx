@@ -1,7 +1,10 @@
 import { getIn } from "formik";
 import _ from "lodash";
 
-import { ButtonDialogAlertConfirm, ButtonDialogAlertConfirmProps } from "../../../components/Common/ButtonDialogAlertConfirm";
+import {
+    ButtonDialogAlertConfirm,
+    ButtonDialogAlertConfirmProps,
+} from "../../../components/Common/ButtonDialogAlertConfirm";
 import { useTable } from "../../../components/Table/contexts/Table";
 import { ColumnActionPathInterface } from "../../../components/Table/definitions/ColumnActionPathInterface";
 import { ResultInterface } from "../../../components/Table/definitions/ResultInterface";
@@ -71,4 +74,8 @@ const ResultButtonDialogAlertConfirm = ({
     );
 };
 
-export { ResultButtonDialogAlertConfirm, type ResultButtonDialogAlertConfirmProps, type ResultButtonDialogAlertConfirmSpecificProps };
+export {
+    ResultButtonDialogAlertConfirm,
+    type ResultButtonDialogAlertConfirmProps,
+    type ResultButtonDialogAlertConfirmSpecificProps,
+};

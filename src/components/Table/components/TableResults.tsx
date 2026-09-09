@@ -90,7 +90,7 @@ const TableResults = () => {
                                         columnName: column.props?.columnName ?? columnName,
                                     })}
                                 </TableCell>
-                            )
+                            );
                         })}
                     </TableRow>
                 ))}

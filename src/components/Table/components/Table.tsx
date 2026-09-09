@@ -1,4 +1,3 @@
-
 import { TableContent } from "../../../components/Table/components/TableContent";
 import { TableProvider, TableProviderProps } from "../../../components/Table/contexts/Table";
 import { Optional } from "../../../definitions/Optional";

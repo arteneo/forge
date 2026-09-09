@@ -30,25 +30,25 @@ interface IndexedCollectionRowsInterface {
 interface IndexedCollectionSpecificProps {
     fields: FieldsInterface;
     disableAddRow?:
-    | ((
-        value: FormikValues,
-        values: FormikValues,
-        path: string,
-        touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>,
-        name: string,
-    ) => boolean)
-    | boolean;
+        | ((
+              value: FormikValues,
+              values: FormikValues,
+              path: string,
+              touched: FormikTouched<FormikValues>,
+              errors: FormikErrors<FormikValues>,
+              name: string,
+          ) => boolean)
+        | boolean;
     disableDeleteRow?:
-    | ((
-        value: FormikValues,
-        values: FormikValues,
-        path: string,
-        touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>,
-        name: string,
-    ) => boolean)
-    | boolean;
+        | ((
+              value: FormikValues,
+              values: FormikValues,
+              path: string,
+              touched: FormikTouched<FormikValues>,
+              errors: FormikErrors<FormikValues>,
+              name: string,
+          ) => boolean)
+        | boolean;
     onAddRow?: (
         // eslint-disable-next-line
         setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
@@ -71,14 +71,14 @@ interface IndexedCollectionSpecificProps {
         errors: FormikErrors<FormikValues>,
     ) => void;
     initialValues?:
-    | ((
-        values: FormikValues,
-        path: string,
-        name: string,
-        touched: FormikTouched<FormikValues>,
-        errors: FormikErrors<FormikValues>,
-    ) => FormikValues)
-    | FormikValues;
+        | ((
+              values: FormikValues,
+              path: string,
+              name: string,
+              touched: FormikTouched<FormikValues>,
+              errors: FormikErrors<FormikValues>,
+          ) => FormikValues)
+        | FormikValues;
 }
 
 type IndexedCollectionProps = IndexedCollectionSpecificProps & FieldInterface;

@@ -1,8 +1,14 @@
 import { AxiosResponse } from "axios";
 
-import { BindDialogBatchFormMulti, type BindDialogBatchFormMultiProps } from "../../components/Dialog/BindDialogBatchFormMulti";
+import {
+    BindDialogBatchFormMulti,
+    type BindDialogBatchFormMultiProps,
+} from "../../components/Dialog/BindDialogBatchFormMulti";
 import { DialogActions } from "../../components/Dialog/DialogActions";
-import { DialogBatchButtonSubmit, type DialogBatchButtonSubmitProps } from "../../components/Dialog/DialogBatchButtonSubmit";
+import {
+    DialogBatchButtonSubmit,
+    type DialogBatchButtonSubmitProps,
+} from "../../components/Dialog/DialogBatchButtonSubmit";
 import { DialogBatchContent, type DialogBatchContentSpecificProps } from "../../components/Dialog/DialogBatchContent";
 import { DialogTitle, type DialogTitleSpecificProps } from "../../components/Dialog/DialogTitle";
 import { DialogProvider, DialogProviderProps } from "../../contexts/Dialog";

@@ -89,7 +89,7 @@ const BindDialogBatchFormMulti = ({
                             const allowedResult = allowedResults[key];
                             if (typeof allowedResult === "undefined") {
                                 return batchResults;
-                            };
+                            }
 
                             return [
                                 ...batchResults,
@@ -98,7 +98,7 @@ const BindDialogBatchFormMulti = ({
                                     representation: allowedResult.representation,
                                     status: "success",
                                 },
-                            ]
+                            ];
                         });
                     };
 
@@ -121,12 +121,9 @@ const BindDialogBatchFormMulti = ({
                             const allowedResult = allowedResults[key];
                             if (typeof allowedResult === "undefined") {
                                 return batchResults;
-                            };
+                            }
 
-                            return [
-                                ...batchResults,
-                                onSubmitCatchProcessResponse(allowedResult, error, values),
-                            ]
+                            return [...batchResults, onSubmitCatchProcessResponse(allowedResult, error, values)];
                         });
                     };
 

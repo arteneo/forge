@@ -127,7 +127,11 @@ const Multiselect = ({
         return null;
     }
 
-    const defaultOnChange = (_event: React.SyntheticEvent, value: SelectValueType, reason: AutocompleteChangeReason) => {
+    const defaultOnChange = (
+        _event: React.SyntheticEvent,
+        value: SelectValueType,
+        reason: AutocompleteChangeReason,
+    ) => {
         if (reason === "clear") {
             setFieldValue(path, []);
             return;
@@ -262,4 +266,12 @@ const Multiselect = ({
     );
 };
 
-export { Multiselect, MultiselectRenderInput, type MultiselectProps, type MultiselectSpecificProps, type MultiselectRenderInputProps, type MultiselectAutocompleteProps, type MultiselectAutocompleteOptionalProps };
+export {
+    Multiselect,
+    MultiselectRenderInput,
+    type MultiselectProps,
+    type MultiselectSpecificProps,
+    type MultiselectRenderInputProps,
+    type MultiselectAutocompleteProps,
+    type MultiselectAutocompleteOptionalProps,
+};
