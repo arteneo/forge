@@ -1,11 +1,11 @@
 # Unfinished components
 
--   ResultIconButton
--   ResultIconButtonDialog
--   ResultIconButtonDownload
--   ResultIconButtonEndpoint
--   ResultIconButtonEndpointDialogConfirm
--   ResultIconButtonLink
+- ResultIconButton
+- ResultIconButtonDialog
+- ResultIconButtonDownload
+- ResultIconButtonEndpoint
+- ResultIconButtonEndpointDialogConfirm
+- ResultIconButtonLink
 
 # ResultButtonDialogForm
 

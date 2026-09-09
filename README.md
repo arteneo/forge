@@ -1,15 +1,3 @@
-# Future plans
-
-Read more in `Unfinished components`
-
-# Development
-
-1. Install dependencies using `npm install`.
-2. Build package using `npm run build`.
-3. Update `version` in `package.json`.
-4. Commit and push changes.
-5. Publish package using `npm publish`.
-
 # Branches
 
 You can use following branches:
@@ -21,6 +9,57 @@ You can use following branches:
 5. `v2` - branch for version `2.x`
 6. `v1` - branch for version `1.x`
 
+# Prerequisite
+
+Install dependencies using `npm install`.
+
+# Development
+
+Run `npm run dev` to run typechecking using typescript and linting using oxlint (executes once, there is no watch capabilities, use VSC extension `Oxc` instead).
+
+In case you would like to run them separately use:
+
+- `npm run tsc` for typechecking using typescript
+- `npm run lint` linting using oxlint
+
+You can also run `npm run test` to run tests once. `npm run test:watch` re-runs tests as they change.
+
+You can also run `npm run lint:fix` to fix most of the issues reported by `oxlint`.
+
+# Workflow
+
+1. Create issue on github
+2. Create branch `i-X` where `X` is issue number
+3. Change source code according to needs of created issue
+4. Run `npm run dev`
+5. Run `npm run test`
+6. Commit with prefix `#X` where `X` is issue number and push changes
+7. Create merge request from `i-X` to selected version branch
+8. Code review merge request
+
+# Publishing new version
+
+1. Introduce changes according to `Workflow`
+2. After approval merge changes in merge requests that should be introduced in upcoming version
+3. Checkout to selected version branch and pull newest changes
+4. Update `version` in `package.json`
+5. Build package using `npm run build`
+6. Commit with message `Production release vMAJOR.MINOR.PATCH` and push changes
+7. Publish package using `npm publish`
+
+# Including development build in your project
+
+You can use `npm pack` to easily include development build into your project. This may be helpful to developing or testing new components and updating or introducing new dependencies within the library.
+
+1. Run `npm run build`
+2. Run `npm pack`
+3. File should be created i.e. `arteneo-forge-5.0.2.tgz`
+4. In your project run `npm install arteneo-forge-5.0.2.tgz --no-audit --verbose`. This will include current build into your project. Option `--no-audit` is helpful in making the process quicker. Option `--verbose` simply provides more information
+
+# Future plans
+
+Read more in `Unfinished components`
+
 # Table functionality
 
 ## Toolbar
@@ -31,14 +70,14 @@ You can enable batch select (selectable rows via checkboxes in the table) by pas
 
 There are following components available:
 
--   `BatchAlertConfirm`: Uses `DialogBatchAlertConfirm` which shows an `Alert` and uses `DialogBatchButtonEndpoint` (single endpoint)
--   `BatchAlertConfirmMulti`: Uses `DialogBatchAlertConfirmMulti` which shows an `Alert` and uses `DialogBatchButtonMultiEndpoint` (multiple endpoints one by one)
--   `BatchConfirm`: Uses `DialogBatchConfirm` which needs children and uses `DialogBatchButtonEndpoint` (single endpoint)
--   `BatchConfirmMulti`: Uses `DialogBatchConfirmMulti` which needs children and uses `DialogBatchButtonMultiEndpoint` (multiple endpoints one by one)
--   `BatchForm`: Uses `DialogBatchFormFieldset` which needs fields (single endpoint)
--   `BatchFormAlert`: Uses `DialogBatchFormAlertFieldset` which shows an `Alert` and needs fields (single endpoint)
--   `BatchFormMulti`: Uses `DialogBatchFormMultiFieldset` which needs fields (multiple endpoints based on form values)
--   `BatchFormMultiAlert`: Uses `DialogBatchFormMultiAlertFieldset` which shows an `Alert` and needs fields (multiple endpoints based on form values)
+- `BatchAlertConfirm`: Uses `DialogBatchAlertConfirm` which shows an `Alert` and uses `DialogBatchButtonEndpoint` (single endpoint)
+- `BatchAlertConfirmMulti`: Uses `DialogBatchAlertConfirmMulti` which shows an `Alert` and uses `DialogBatchButtonMultiEndpoint` (multiple endpoints one by one)
+- `BatchConfirm`: Uses `DialogBatchConfirm` which needs children and uses `DialogBatchButtonEndpoint` (single endpoint)
+- `BatchConfirmMulti`: Uses `DialogBatchConfirmMulti` which needs children and uses `DialogBatchButtonMultiEndpoint` (multiple endpoints one by one)
+- `BatchForm`: Uses `DialogBatchFormFieldset` which needs fields (single endpoint)
+- `BatchFormAlert`: Uses `DialogBatchFormAlertFieldset` which shows an `Alert` and needs fields (single endpoint)
+- `BatchFormMulti`: Uses `DialogBatchFormMultiFieldset` which needs fields (multiple endpoints based on form values)
+- `BatchFormMultiAlert`: Uses `DialogBatchFormMultiAlertFieldset` which shows an `Alert` and needs fields (multiple endpoints based on form values)
 
 Example `BatchAlertConfirm` usage.
 

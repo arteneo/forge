@@ -8,9 +8,10 @@ const Password = (textProps: PasswordProps) => {
         <Text
             {...{
                 ...textProps,
+                
                 fieldProps: {
                     type: "password",
-                    ...(textProps?.fieldProps ?? {}),
+                    ...textProps?.fieldProps,
                 },
             }}
         />
