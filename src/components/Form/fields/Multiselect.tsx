@@ -262,37 +262,4 @@ const Multiselect = ({
     );
 };
 
-export { Multiselect };
-export {
-MultiselectRenderInput
-};
-export type {
-MultiselectProps,
-MultiselectSpecificProps,MultiselectRenderInputProps,
-MultiselectAutocompleteProps,
-MultiselectAutocompleteOptionalProps
-};
-export type {
-MultiselectProps,
-MultiselectSpecificProps,MultiselectRenderInputProps,
-MultiselectAutocompleteProps,
-MultiselectAutocompleteOptionalProps
-};
-export type {
-MultiselectProps,
-MultiselectSpecificProps,MultiselectRenderInputProps,
-MultiselectAutocompleteProps,
-MultiselectAutocompleteOptionalProps
-};
-export type {
-MultiselectProps,
-MultiselectSpecificProps,MultiselectRenderInputProps,
-MultiselectAutocompleteProps,
-MultiselectAutocompleteOptionalProps
-};
-export type {
-MultiselectProps,
-MultiselectSpecificProps,MultiselectRenderInputProps,
-MultiselectAutocompleteProps,
-MultiselectAutocompleteOptionalProps
-};
+export { Multiselect, MultiselectRenderInput, type MultiselectProps, type MultiselectSpecificProps, type MultiselectRenderInputProps, type MultiselectAutocompleteProps, type MultiselectAutocompleteOptionalProps };

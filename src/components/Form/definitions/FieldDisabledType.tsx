@@ -2,11 +2,11 @@ import { FormikValues, FormikTouched, FormikErrors } from "formik";
 
 type FieldDisabledType =
     | ((
-          values: FormikValues,
-          touched: FormikTouched<FormikValues>,
-          errors: FormikErrors<FormikValues>,
-          name: string,
-      ) => boolean)
+        values: FormikValues,
+        touched: FormikTouched<FormikValues>,
+        errors: FormikErrors<FormikValues>,
+        name: string,
+    ) => boolean)
     | boolean;
 
-export { FieldDisabledType };
+export { type FieldDisabledType };

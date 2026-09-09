@@ -110,7 +110,4 @@ const DialogProvider = ({ children, open, onClose, initializeEndpoint, dialogPro
 
 const useDialog = (): DialogContextProps => React.useContext(DialogContext);
 
-export { DialogContext,DialogProvider,useDialog };
-export { type DialogPayload,DialogContextProps,DialogProviderProps };
-export { type DialogPayload,DialogContextProps,DialogProviderProps };
-export { type DialogPayload,DialogContextProps,DialogProviderProps };
+export { DialogContext, DialogProvider, useDialog, type DialogPayload, type DialogContextProps, type DialogProviderProps };

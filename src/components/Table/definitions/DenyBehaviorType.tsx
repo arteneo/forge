@@ -1,3 +1,3 @@
 type DenyBehaviorType = "disable" | "hide";
 
-export { DenyBehaviorType };
+export { type DenyBehaviorType };

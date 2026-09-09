@@ -236,37 +236,4 @@ const Select = ({
     );
 };
 
-export { Select };
-export {
-SelectRenderInput
-};
-export type {
-SelectProps,
-SelectSpecificProps,SelectRenderInputProps,
-SelectAutocompleteProps,
-SelectAutocompleteOptionalProps
-};
-export type {
-SelectProps,
-SelectSpecificProps,SelectRenderInputProps,
-SelectAutocompleteProps,
-SelectAutocompleteOptionalProps
-};
-export type {
-SelectProps,
-SelectSpecificProps,SelectRenderInputProps,
-SelectAutocompleteProps,
-SelectAutocompleteOptionalProps
-};
-export type {
-SelectProps,
-SelectSpecificProps,SelectRenderInputProps,
-SelectAutocompleteProps,
-SelectAutocompleteOptionalProps
-};
-export type {
-SelectProps,
-SelectSpecificProps,SelectRenderInputProps,
-SelectAutocompleteProps,
-SelectAutocompleteOptionalProps
-};
+export { Select, SelectRenderInput, type SelectProps, type SelectSpecificProps, type SelectRenderInputProps, type SelectAutocompleteProps, type SelectAutocompleteOptionalProps };

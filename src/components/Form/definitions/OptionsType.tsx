@@ -2,4 +2,4 @@ import { OptionInterface } from "../../../components/Form/definitions/OptionInte
 
 type OptionsType = OptionInterface[];
 
-export { OptionsType };
+export { type OptionsType };

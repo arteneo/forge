@@ -15,4 +15,4 @@ type FieldValidateType =
     | string
     | undefined;
 
-export { FieldValidateType };
+export { type FieldValidateType };

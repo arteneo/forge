@@ -4,4 +4,4 @@ import { EndpointType } from "../../../definitions/EndpointType";
 
 type FieldEndpointType = EndpointType | ((values: FormikValues) => EndpointType);
 
-export { FieldEndpointType };
+export { type FieldEndpointType };

@@ -1,3 +1,3 @@
 type BatchSelectedType = number[];
 
-export { BatchSelectedType };
+export { type BatchSelectedType };

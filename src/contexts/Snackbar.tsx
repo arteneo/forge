@@ -182,7 +182,4 @@ const SnackbarProvider = ({ children, snackbarProps, autoHideDuration = 4000 }: 
 
 const useSnackbar = (): SnackbarContextProps => React.useContext(SnackbarContext);
 
-export { SnackbarContext,SnackbarProvider,useSnackbar };
-export { type SnackbarContextProps,SnackbarProviderProps,SnackbarVariant };
-export { type SnackbarContextProps,SnackbarProviderProps,SnackbarVariant };
-export { type SnackbarContextProps,SnackbarProviderProps,SnackbarVariant };
+export { SnackbarContext, SnackbarProvider, useSnackbar, type SnackbarContextProps, type SnackbarProviderProps, type SnackbarVariant };

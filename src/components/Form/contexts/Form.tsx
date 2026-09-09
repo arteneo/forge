@@ -411,6 +411,4 @@ const FormProvider = ({
 
 const useForm = (): FormContextProps => React.useContext(FormContext);
 
-export { FormContext,FormProvider,useForm };
-export { type FormContextProps,FormProviderProps };
-export { type FormContextProps,FormProviderProps };
+export { FormContext, FormProvider, useForm, type FormContextProps, type FormProviderProps };

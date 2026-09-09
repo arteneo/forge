@@ -10,7 +10,7 @@ import axios, { type AxiosError, type AxiosRequestConfig, type AxiosResponse } f
 import { FormikValues, FormikProps, useFormikContext, getIn } from "formik";
 import { debounce, cloneDeep } from "lodash";
 import React from "react";
-import { Highlighter } from "react-highlight-words";
+import Highlighter from "react-highlight-words";
 import { useTranslation } from "react-i18next";
 import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 
@@ -20,11 +20,7 @@ import { SelectValueType } from "../../../components/Form/definitions/Autocomple
 import { FieldAutocompleteEndpointType } from "../../../components/Form/definitions/FieldAutocompleteEndpointType";
 import { OptionInterface } from "../../../components/Form/definitions/OptionInterface";
 import { OptionsType } from "../../../components/Form/definitions/OptionsType";
-import Multiselect, {
-    MultiselectProps,
-    MultiselectRenderInput,
-    MultiselectRenderInputProps,
-} from "../../../components/Form/fields/Multiselect";
+import { Multiselect, type MultiselectProps, MultiselectRenderInput, type MultiselectRenderInputProps } from "../../../components/Form/fields/Multiselect";
 import { useHandleCatch, AXIOS_CANCELLED_UNMOUNTED } from "../../../contexts/HandleCatch";
 import { resolveFieldAutocompleteEndpoint } from "../../../utilities/resolve";
 

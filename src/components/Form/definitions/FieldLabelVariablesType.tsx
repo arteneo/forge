@@ -4,11 +4,11 @@ import { TranslateVariablesInterface } from "../../../definitions/TranslateVaria
 
 type FieldLabelVariablesType =
     | ((
-          values: FormikValues,
-          touched: FormikTouched<FormikValues>,
-          errors: FormikErrors<FormikValues>,
-          name: string,
-      ) => TranslateVariablesInterface)
+        values: FormikValues,
+        touched: FormikTouched<FormikValues>,
+        errors: FormikErrors<FormikValues>,
+        name: string,
+    ) => TranslateVariablesInterface)
     | TranslateVariablesInterface;
 
-export { FieldLabelVariablesType };
+export { type FieldLabelVariablesType };

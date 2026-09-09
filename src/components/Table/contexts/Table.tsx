@@ -724,6 +724,4 @@ const TableProvider = ({
 
 const useTable = (): TableContextProps => React.useContext(TableContext);
 
-export { TableContext,TableProvider,useTable };
-export { type TableContextProps,TableProviderProps };
-export { type TableContextProps,TableProviderProps };
+export { TableContext, TableProvider, useTable, type TableContextProps, type TableProviderProps };

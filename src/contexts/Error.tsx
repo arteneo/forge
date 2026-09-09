@@ -83,22 +83,4 @@ const ErrorProvider = ({ children }: ErrorProviderProps) => {
 
 const useError = (): ErrorContextProps => React.useContext(ErrorContext);
 
-export {
-ErrorContext,ErrorProvider,useError
-};
-export type {
-ErrorContextProps,ErrorProviderProps,ErrorSeverityType,
-ErrorInterface
-};
-export type {
-ErrorContextProps,ErrorProviderProps,ErrorSeverityType,
-ErrorInterface
-};
-export type {
-ErrorContextProps,ErrorProviderProps,ErrorSeverityType,
-ErrorInterface
-};
-export type {
-ErrorContextProps,ErrorProviderProps,ErrorSeverityType,
-ErrorInterface
-};
+export { ErrorContext, ErrorProvider, useError, type ErrorContextProps, type ErrorProviderProps, type ErrorSeverityType, type ErrorInterface };

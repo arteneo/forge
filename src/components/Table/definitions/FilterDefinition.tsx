@@ -7,4 +7,4 @@ interface FilterDefinition {
     filterValue: any;
 }
 
-export { FilterDefinition };
+export { type FilterDefinition };
